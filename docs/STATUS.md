@@ -27,5 +27,4 @@
 
 ## Needs Dawid
 - **Public real-data demo?** If you want trop.b.solvro.pl to show the real campaigns, decide: (a) keep mock publicly + real on the home PC (current), or (b) real mode behind basic auth on Coolify (needs shipping the corpus/models to the server — a data bundle not in git).
-- (optional) BigQuery ADC (`gcloud auth application-default login`) for Google Ads Transparency — skipped for now.
 - Deadline assumed 22.11 ~11:00.
