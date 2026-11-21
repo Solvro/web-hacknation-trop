@@ -2,48 +2,61 @@
 // Board 1 · Pole: the only zgrai-style screen. One field, sleeping bots around it, plus a few real materials from
 // the database the jury can open straight away.
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import type { CampaignSummary, IncidentSummary } from '@/lib/contracts';
-import { useApi, useHealth } from '@/lib/api';
-import { campaignTitle } from '@/lib/graph';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { apiPost, useApi, useHealth } from '@/lib/api';
 import { JellyRoot } from '@/components/jelly';
 import { CheckField, DEMO_URL } from '@/components/check-field';
 import { IArrow } from '@/components/icons';
 
-function Samples() {
-  const inc = useApi<IncidentSummary[] | { items: IncidentSummary[] }>('/incidents?limit=200').data;
-  const camps = useApi<CampaignSummary[]>('/campaigns').data;
-  const picks = useMemo(() => {
-    const list = Array.isArray(inc) ? inc : inc?.items ?? [];
-    const seen = new Set<string>();
-    const out: IncidentSummary[] = [];
-    for (const i of list) {
-      if (!i.campaign_id || seen.has(i.campaign_id) || !(i.title || i.domain)) continue;
-      seen.add(i.campaign_id);
-      out.push(i);
-      if (out.length === 3) break;
+interface Sample { id: string; title: string; description?: string; expected?: string; size?: number }
+
+const expectedLabel = (e?: string) => {
+  if (!e) return '';
+  if (e.startsWith('assign:')) return `oczekiwany wynik: dołącza do ${e.slice(7)}`;
+  if (e === 'new') return 'oczekiwany wynik: nowa kampania (kandydat)';
+  if (e === 'insufficient') return 'oczekiwany wynik: za mało materiału';
+  if (e === 'ambiguous') return 'oczekiwany wynik: niepewne, do decyzji';
+  return `oczekiwany wynik: ${e}`;
+};
+
+/** Bundled materials (GET /samples): one click runs the full analysis, no files needed. */
+function Samples({ onWake }: { onWake: () => void }) {
+  const router = useRouter();
+  const { data } = useApi<Sample[]>('/samples');
+  const [busy, setBusy] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  if (!data?.length) return null;
+  async function run(s: Sample) {
+    setBusy(s.id); setErr(null); onWake();
+    try {
+      const r = await apiPost<{ job_id: string; incident_id?: string | null }>(`/samples/${encodeURIComponent(s.id)}/analyze`, {});
+      const q = new URLSearchParams({ in: s.title });
+      if (r.incident_id) q.set('inc', r.incident_id);
+      router.push(`/analiza/${encodeURIComponent(r.job_id)}?${q}`);
+    } catch (e) {
+      setErr(`Nie udało się uruchomić przykładu: ${(e as Error).message}`); setBusy(null);
     }
-    return out;
-  }, [inc]);
-  if (!picks.length) return null;
-  const name = (id?: string | null) => campaignTitle(camps?.find((c) => c.id === id)) || id;
+  }
   return (
     <section aria-labelledby="pr-h" className="w-full flex flex-col gap-2 text-left">
-      <h2 id="pr-h" className="text-[13px] font-medium text-tx3 text-center">Nie masz materiału? Otwórz raport jednego z przeanalizowanych:</h2>
-      <ul className="m-0 p-0 list-none flex flex-col gap-2">
-        {picks.map((i) => (
-          <li key={i.id}>
-            <Link href={`/analiza/${encodeURIComponent(i.id)}`} className="flex items-center gap-3 px-4 py-3 rounded-2xl border border-line1 bg-bg1/90 hover:border-line3 shadow-soft">
+      <h2 id="pr-h" className="text-[13px] font-medium text-tx3 text-center">Nie masz materiału? Sprawdź jeden z przygotowanych:</h2>
+      <ul className="m-0 p-0 list-none grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {data.slice(0, 6).map((s) => (
+          <li key={s.id}>
+            <button type="button" onClick={() => run(s)} disabled={!!busy} title={s.description}
+              className="w-full h-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-line1 bg-bg1/90 hover:border-line3 shadow-soft text-left disabled:opacity-60">
               <span className="flex-1 min-w-0">
-                <span className="block text-[12px] text-tx3">Przykład · {i.id}{i.domain ? ` · ${i.domain}` : ''}</span>
-                <span className="block text-[14px] font-semibold truncate">{i.title || i.domain}</span>
-                <span className="block text-[12.5px] text-tx3 truncate">{i.campaign_id} {name(i.campaign_id)}</span>
+                <span className="block text-[14px] font-semibold leading-snug line-clamp-2">{s.title}</span>
+                <span className="block text-[12.5px] text-tx3 truncate">{expectedLabel(s.expected)}</span>
               </span>
-              <IArrow className="text-tx3 flex-none" />
-            </Link>
+              {busy === s.id ? <span className="spin" role="img" aria-label="uruchamiam" /> : <IArrow className="text-tx3 flex-none" />}
+            </button>
           </li>
         ))}
       </ul>
+      {err && <p role="alert" className="text-[13px] text-state-red text-center">{err}</p>}
+      <p className="text-[12.5px] text-tx3 text-center">albo wrzuć własny folder jako ZIP</p>
     </section>
   );
 }
@@ -63,7 +76,7 @@ export default function SprawdzPage() {
           </div>
           {/* the demo URL only makes sense against the fictional universe */}
           <CheckField key={demo ? 'demo' : 'real'} initial={demo ? DEMO_URL : ''} onWake={() => setWake((w) => w + 1)} />
-          {health && !demo && <Samples />}
+          {health && !demo && <Samples onWake={() => setWake((w) => w + 1)} />}
           {demo && (
             <p className="text-[13px] text-tx3">
               Bez sieci? <Link className="underline decoration-line2 underline-offset-4 hover:text-tx1" href="/analiza/demo?replay=demo">Odtwórz nagraną analizę</Link>

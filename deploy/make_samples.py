@@ -22,7 +22,7 @@ ITEMS = [
     ("dane-1", DANE / "1", "Fałszywa Gazeta.pl — „Wiem, kto strzelał”", "Zrzut reklamy, HAR i zapisana strona z fałszywym artykułem o zamachu na znaną osobę. Znana kampania.", "assign:KMP-001"),
     ("dane-3", DANE / "3", "Olejnik kontra NBP — fałszywy artykuł", "Reklama i strona z wywiadem, który nigdy się nie odbył; ta sama sieć lejków co kampania A. Znana kampania.", "assign:KMP-003"),
     ("dane-36", DANE / "36", "„Poland Invest Summit 2026”", "Przynęta „wydarzenie inwestycyjne” z przeciekiem tokenu w adresie. Nowy wzorzec: system nie dopasowuje go do znanej kampanii.", "new"),
-    ("dane-5", DANE / "5", "Ból pleców — samo nagranie reklamy", "Materiał z samym filmem, bez strony docelowej. Za mało śladów, by przypisać do kampanii — system uczciwie odpowiada „za mało materiału”.", "insufficient"),
+    ("dane-5", DANE / "5", "Ból pleców — samo nagranie reklamy", "Materiał z samym filmem, bez strony docelowej: transkrypcja i analiza nagrania dają dowody (warstwa media), ale nie pasują do znanej kampanii — nowy wzorzec.", "new"),
     ("dane-48", DANE / "48", "Reklama „37 minut po emisji…”", "Ta sama historia na Facebooku i w Google Ads, ten sam operator co kampania A (wspólna operacja).", "new"),
     ("p13", SAMPLE / "p13", "Grzybica paznokci — „Dr Merritz”", "Materiał, który system już zna (zbiór wzorcowy): pokazuje, jak wygląda wykrycie duplikatu (L0).", "assign:KMP-008"),
     ("p14", SAMPLE / "p14", "Divine Script — oferta po angielsku", "Niepowiązana kampania referencyjna (afiliacja z Brazylii); znany materiał.", "assign:KMP-009"),

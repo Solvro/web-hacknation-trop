@@ -1,0 +1,186 @@
+{
+ "id": "INV-114",
+ "seed": "incident",
+ "campaign_id": null,
+ "status": "done",
+ "budget": {
+  "steps": 20.0,
+  "used": 8.0,
+  "usd": 1.0,
+  "usd_used": 0.0
+ },
+ "model": "gemini-pro-latest",
+ "tools": [
+  "db_search",
+  "incident_neighborhood",
+  "crtsh",
+  "rdap",
+  "dns_ns",
+  "urlscan_search",
+  "certpl_check",
+  "wayback",
+  "adlib_search",
+  "capture",
+  "oracle_lookup"
+ ],
+ "started_at": "2026-11-21T22:19:32+00:00",
+ "nodes": [
+  {
+   "id": "d-incident",
+   "kind": "domain",
+   "label": "incident",
+   "meta": {
+    "seed": true,
+    "known_in_db": false,
+    "ns": [],
+    "nxdomain": false,
+    "certpl": false,
+    "on_certpl": false
+   },
+   "status": "new",
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-certpl",
+   "kind": "list_status",
+   "label": "CERT PL: 1 z 1 poza listą",
+   "meta": {
+    "not_listed": 1,
+    "listed": 0,
+    "unknown": 0,
+    "total": 1
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "certpl"
+  },
+  {
+   "id": "n-ads-946d9ef1",
+   "kind": "ad",
+   "label": "Ad Library: 0 reklam, 0 stron",
+   "meta": {
+    "terms": "incident",
+    "ads": 0,
+    "pages": 0,
+    "advertisers": [],
+    "library_ids": []
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "adlib"
+  }
+ ],
+ "edges": [
+  {
+   "a": "d-incident",
+   "b": "n-certpl",
+   "label": "lista CERT PL"
+  },
+  {
+   "a": "d-incident",
+   "b": "n-ads-946d9ef1",
+   "label": "reklamy"
+  }
+ ],
+ "steps": [
+  {
+   "n": 1,
+   "tool": "db_search",
+   "query": "incident",
+   "result_summary": "Ślad „incident”: 0 dopasowań w bazie.",
+   "why": "Zaczynam od tego, co już wiemy o domenie.",
+   "produced": [],
+   "at": "2026-11-21T22:19:32.539+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 2,
+   "tool": "crtsh",
+   "query": "incident",
+   "result_summary": "crt.sh: brak certyfikatów dla incident.",
+   "why": "Certyfikaty z tej samej partii zwykle należą do tego samego operatora.",
+   "produced": [],
+   "at": "2026-11-21T22:19:32.542+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 3,
+   "tool": "dns_ns",
+   "query": "incident",
+   "result_summary": "DNS incident: NS brak; A brak.",
+   "why": "Para NS wskazuje konto Cloudflare operatora.",
+   "produced": [
+    "d-incident"
+   ],
+   "at": "2026-11-21T22:19:32.546+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 4,
+   "tool": "urlscan_search",
+   "query": "domain:incident",
+   "result_summary": "urlscan „domain:incident”: błąd (offline mode: no cached entry).",
+   "why": "Historia skanów domeny w urlscan.",
+   "produced": [],
+   "at": "2026-11-21T22:19:32.550+00:00",
+   "bot": "tropiciel",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 5,
+   "tool": "rdap",
+   "query": "incident",
+   "result_summary": "RDAP incident: offline.",
+   "why": "Data rejestracji i rejestrator.",
+   "produced": [
+    "d-incident"
+   ],
+   "at": "2026-11-21T22:19:32.554+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 6,
+   "tool": "certpl_check",
+   "query": "wszyscy kandydaci",
+   "result_summary": "CERT PL: 1 z 1 domen nie ma na liście ostrzeżeń.",
+   "why": "Domeny spoza listy to kandydaci do zgłoszenia.",
+   "produced": [
+    "n-certpl"
+   ],
+   "at": "2026-11-21T22:19:32.638+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 7,
+   "tool": "adlib_search",
+   "query": "incident",
+   "result_summary": "Ad Library „incident”: 0 reklam na 0 stronach.",
+   "why": "Czy domeny są promowane reklamami.",
+   "produced": [
+    "n-ads-946d9ef1"
+   ],
+   "at": "2026-11-21T22:19:32.648+00:00",
+   "bot": "zwiadowca",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 8,
+   "tool": "finish",
+   "query": "",
+   "result_summary": "Sędzia zamyka śledztwo.",
+   "why": "Podsumowanie.",
+   "produced": [],
+   "at": "2026-11-21T22:19:32.651+00:00",
+   "bot": "sedzia",
+   "cost_usd": 0.0
+  }
+ ],
+ "conclusions": [],
+ "pending_decision": null
+}

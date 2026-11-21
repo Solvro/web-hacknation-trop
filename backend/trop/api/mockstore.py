@@ -441,6 +441,9 @@ class MockStore:
         return [r for r in rows if not status or r.status == status]
 
     def create_investigation(self, body: InvestigationCreate) -> dict:
+        if body.seed.startswith("incident:"):
+            s = self._summary(body.seed.split(":", 1)[1])
+            body = body.model_copy(update={"seed": s.domain or body.seed, "campaign_id": body.campaign_id or s.campaign_id})
         iid = f"INV-{self.inv_seq}"
         self.inv_seq += 1
         seq = S.investigation_sequence(iid)

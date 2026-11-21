@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import importlib
 import os
+from pathlib import Path
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -140,6 +141,18 @@ class ServiceAdapter:
                 emit(typ, data)
 
         src = material.name if material.kind == "url" else (material.paths[0] if len(material.paths) == 1 else str(_common_dir(material.paths)))
+        if material.kind != "url" and src.lower().endswith(".zip"):
+            # unpack ourselves so the item is classified by its content (a zip is otherwise a generic "upload": video-only items lose their video layer)
+            import tempfile
+            from trop.ingest.adapters import descend, safe_unzip
+            root = safe_unzip(src, Path(tempfile.mkdtemp(prefix="trop-up-")) / "x")
+            while True:        # a zip of ONE item folder: go into it (ingest's own descend() stops one level too early for video-only items)
+                kids = [k for k in root.iterdir() if not k.name.startswith(".") and k.name != "__MACOSX"]
+                if len(kids) == 1 and kids[0].is_dir():
+                    root = kids[0]
+                else:
+                    break
+            src = str(descend(root))
         skip_capture_run = False
         if material.kind == "url":
             from trop.engine.progress import Steps

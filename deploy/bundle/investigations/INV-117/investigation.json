@@ -1,0 +1,83 @@
+{
+ "id": "INV-117",
+ "seed": "treekollo",
+ "campaign_id": null,
+ "status": "done",
+ "budget": {
+  "steps": 3.0,
+  "used": 3.0,
+  "usd": 1.0,
+  "usd_used": 0.0
+ },
+ "model": "gemini-pro-latest",
+ "tools": [
+  "db_search",
+  "incident_neighborhood",
+  "crtsh",
+  "rdap",
+  "dns_ns",
+  "urlscan_search",
+  "certpl_check",
+  "wayback",
+  "adlib_search",
+  "capture",
+  "oracle_lookup"
+ ],
+ "started_at": "2026-11-21T22:23:05+00:00",
+ "nodes": [
+  {
+   "id": "d-treekollo",
+   "kind": "domain",
+   "label": "treekollo",
+   "meta": {
+    "seed": true,
+    "known_in_db": false,
+    "ns": [],
+    "nxdomain": false
+   },
+   "status": "new",
+   "is_new": null,
+   "branch": "db"
+  }
+ ],
+ "edges": [],
+ "steps": [
+  {
+   "n": 1,
+   "tool": "db_search",
+   "query": "treekollo",
+   "result_summary": "Ślad „treekollo”: 0 dopasowań w bazie.",
+   "why": "Zaczynam od tego, co już wiemy o domenie.",
+   "produced": [],
+   "at": "2026-11-21T22:23:05.417+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 2,
+   "tool": "crtsh",
+   "query": "treekollo",
+   "result_summary": "crt.sh: brak certyfikatów dla treekollo.",
+   "why": "Certyfikaty z tej samej partii zwykle należą do tego samego operatora.",
+   "produced": [],
+   "at": "2026-11-21T22:23:05.421+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 3,
+   "tool": "dns_ns",
+   "query": "treekollo",
+   "result_summary": "DNS treekollo: NS brak; A brak.",
+   "why": "Para NS wskazuje konto Cloudflare operatora.",
+   "produced": [
+    "d-treekollo"
+   ],
+   "at": "2026-11-21T22:23:05.426+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  }
+ ],
+ "conclusions": [],
+ "pending_decision": null
+}

@@ -104,7 +104,7 @@ export default function KampaniaPage() {
               {!domains.length && <Empty>Brak domen.</Empty>}
             </Card>
             <Card title="Zgłoszenia" action={<Link href={`/kampanie/${c.id}/zgloszenie`} className="text-[13px] underline decoration-line2 underline-offset-4 text-tx2">Nowe zgłoszenie</Link>}>
-              {(pk ?? []).filter((p) => p.campaign_id === id).map((p) => (
+              {(pk ?? []).filter((p) => p.campaign_id === id).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at))).slice(0, 2).map((p) => (
                 <div key={p.id} className="pb-3">
                   <span className="block text-[12.5px] text-tx3 pb-1.5 border-b border-bg4">{p.status === 'sent' || p.status === 'exported' ? 'Przygotowane' : 'Szkic'} {fmtDate(p.sent_at ?? p.created_at)} · cała kampania</span>
                   {(p.recipients ?? []).map((r, i) => {

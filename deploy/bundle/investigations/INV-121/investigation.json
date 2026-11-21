@@ -1,0 +1,1538 @@
+{
+ "id": "INV-121",
+ "seed": "dorquesio.click",
+ "campaign_id": "KMP-001",
+ "status": "done",
+ "budget": {
+  "steps": 20.0,
+  "used": 10.0,
+  "usd": 1.0,
+  "usd_used": 0.0
+ },
+ "model": "gemini-pro-latest",
+ "tools": [
+  "db_search",
+  "incident_neighborhood",
+  "crtsh",
+  "rdap",
+  "dns_ns",
+  "urlscan_search",
+  "certpl_check",
+  "wayback",
+  "adlib_search",
+  "capture",
+  "oracle_lookup"
+ ],
+ "started_at": "2026-11-21T22:24:31+00:00",
+ "nodes": [
+  {
+   "id": "d-dorquesio.click",
+   "kind": "domain",
+   "label": "dorquesio.click",
+   "meta": {
+    "seed": true,
+    "known_in_db": true,
+    "incidents": [
+     "INC-1",
+     "INC-2",
+     "INC-1920",
+     "INC-1839",
+     "INC-1840",
+     "INC-1864",
+     "INC-1866",
+     "INC-1868",
+     "INC-1873",
+     "INC-1889"
+    ],
+    "campaigns": [
+     "KMP-001"
+    ],
+    "first_cert": "2026-10-07T18:53:02",
+    "cert_issuers": [
+     "C=US, O=Let's Encrypt, CN=YE1"
+    ],
+    "certs_tonight": 0,
+    "ns": [
+     "cartman.ns.cloudflare.com",
+     "fish.ns.cloudflare.com"
+    ],
+    "nxdomain": false,
+    "registrar": "Dynadot, LLC",
+    "created": "2026-10-07T18:22:47.358Z",
+    "certpl": false,
+    "on_certpl": false
+   },
+   "status": "in_campaign",
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-fb_pixel-1a94494f",
+   "kind": "query_result",
+   "label": "fb_pixel: 4567646436826205 → 3 domen",
+   "meta": {
+    "type": "fb_pixel",
+    "value": "4567646436826205",
+    "level": "operator",
+    "df": 4,
+    "domains": 3
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-falmurek.live",
+   "kind": "domain",
+   "label": "falmurek.live",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "KMP-001"
+    ],
+    "evidence": [
+     {
+      "type": "fb_pixel",
+      "value": "4567646436826205",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "ns_set",
+      "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "52e605852c72cc2df1473df1fb7f26a3a0be58e31835bc8f33f29b1918c82cbd",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "in_campaign",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-grentavo.click",
+   "kind": "domain",
+   "label": "grentavo.click",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "KMP-001"
+    ],
+    "evidence": [
+     {
+      "type": "fb_pixel",
+      "value": "4567646436826205",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "ns_set",
+      "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "domain_pattern",
+      "value": "wM.click",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "in_campaign",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-wernulio.live",
+   "kind": "domain",
+   "label": "wernulio.live",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "KMP-001"
+    ],
+    "evidence": [
+     {
+      "type": "fb_pixel",
+      "value": "4567646436826205",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "ns_set",
+      "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "cert_batch",
+      "value": "ye1|2026-10-07T18",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "dynadot|2026-10-07T18",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "clickbait_template",
+      "value": "Wydarzenie, które wstrząsnęło całą Polską",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "a8c3663b9c190c321e2945b33ce23c15202b6226e47bb8c1847aeca4eb7898f6",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "00225bd1c540c66a9313b1270f0a398f21bf1efd3291cb98f1bfc2008baf3dfe",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "headline_template",
+      "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "lander_id",
+      "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "in_campaign",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-ns_set-f27d4f14",
+   "kind": "query_result",
+   "label": "ns_set: cartman.ns.cloudflare.co… → 4 domen",
+   "meta": {
+    "type": "ns_set",
+    "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+    "level": "operator",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-acrosscommunities.live",
+   "kind": "domain",
+   "label": "acrosscommunities.live",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "LAB-A"
+    ],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "a8c3663b9c190c321e2945b33ce23c15202b6226e47bb8c1847aeca4eb7898f6",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "00225bd1c540c66a9313b1270f0a398f21bf1efd3291cb98f1bfc2008baf3dfe",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "headline_template",
+      "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "lander_id",
+      "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "751feecde175d0154c81fffb04f9ba69769b089d65a5da9cd32015032da22074",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-kit_tenant-b59b3927",
+   "kind": "query_result",
+   "label": "kit_tenant: f141c307-7ca2-41d9-b311-… → 6 domen",
+   "meta": {
+    "type": "kit_tenant",
+    "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+    "level": "operator",
+    "df": 7,
+    "domains": 6
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-civicdaybook.live",
+   "kind": "domain",
+   "label": "civicdaybook.live",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "LAB-A"
+    ],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "a8c3663b9c190c321e2945b33ce23c15202b6226e47bb8c1847aeca4eb7898f6",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "00225bd1c540c66a9313b1270f0a398f21bf1efd3291cb98f1bfc2008baf3dfe",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "headline_template",
+      "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "lander_id",
+      "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": true,
+    "on_certpl": true,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-lundevra.live",
+   "kind": "domain",
+   "label": "lundevra.live",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "KMP-001"
+    ],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "dynadot|2026-10-07T18",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "clickbait_template",
+      "value": "Wydarzenie, które wstrząsnęło całą Polską",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "a8c3663b9c190c321e2945b33ce23c15202b6226e47bb8c1847aeca4eb7898f6",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "00225bd1c540c66a9313b1270f0a398f21bf1efd3291cb98f1bfc2008baf3dfe",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "headline_template",
+      "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "lander_id",
+      "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "favicon_mmh3",
+      "value": "1690003632",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": true,
+    "on_certpl": true,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "in_campaign",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-cert_batch-586aafc6",
+   "kind": "query_result",
+   "label": "cert_batch: ye1|2026-10-07T18 → 1 domen",
+   "meta": {
+    "type": "cert_batch",
+    "value": "ye1|2026-10-07T18",
+    "level": "campaign",
+    "df": 2,
+    "domains": 1
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-domain_pattern-9f896e38",
+   "kind": "query_result",
+   "label": "domain_pattern: wM.click → 2 domen",
+   "meta": {
+    "type": "domain_pattern",
+    "value": "wM.click",
+    "level": "campaign",
+    "df": 3,
+    "domains": 2
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-golatest.click",
+   "kind": "domain",
+   "label": "golatest.click",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "domain_pattern",
+      "value": "wM.click",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-registration_batch-aad7f4dc",
+   "kind": "query_result",
+   "label": "registration_batch: dynadot|2026-10-07T18 → 2 domen",
+   "meta": {
+    "type": "registration_batch",
+    "value": "dynadot|2026-10-07T18",
+    "level": "campaign",
+    "df": 3,
+    "domains": 2
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-clickbait_template-462e506c",
+   "kind": "query_result",
+   "label": "clickbait_template: Wydarzenie, które wstrzą… → 2 domen",
+   "meta": {
+    "type": "clickbait_template",
+    "value": "Wydarzenie, które wstrząsnęło całą Polską",
+    "level": "campaign",
+    "df": 3,
+    "domains": 2
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-fd766f74",
+   "kind": "query_result",
+   "label": "asset_sha256: 31a24ebea13afd53ea739e28… → 4 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-ef038156",
+   "kind": "query_result",
+   "label": "asset_sha256: a8c3663b9c190c321e2945b3… → 4 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "a8c3663b9c190c321e2945b33ce23c15202b6226e47bb8c1847aeca4eb7898f6",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-8cd86cd5",
+   "kind": "query_result",
+   "label": "asset_sha256: 00225bd1c540c66a9313b127… → 4 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "00225bd1c540c66a9313b1270f0a398f21bf1efd3291cb98f1bfc2008baf3dfe",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-headline_template-79583319",
+   "kind": "query_result",
+   "label": "headline_template: «Wiem, kto strzelał»: za… → 4 domen",
+   "meta": {
+    "type": "headline_template",
+    "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-lander_id-e7603e32",
+   "kind": "query_result",
+   "label": "lander_id: a7b9f833-7f9b-4bd4-ac5a-… → 4 domen",
+   "meta": {
+    "type": "lander_id",
+    "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-favicon_mmh3-91db2259",
+   "kind": "query_result",
+   "label": "favicon_mmh3: 1690003632 → 6 domen",
+   "meta": {
+    "type": "favicon_mmh3",
+    "value": "1690003632",
+    "level": "campaign",
+    "df": 7,
+    "domains": 6
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-cert-dorquesio.click",
+   "kind": "cert",
+   "label": "crt.sh: 1 certyfikatów · pierwszy 2026-10-07T18:53",
+   "meta": {
+    "count": 1,
+    "first": "2026-10-07T18:53:02",
+    "issuers": [
+     "C=US, O=Let's Encrypt, CN=YE1"
+    ],
+    "san": 0
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "crtsh"
+  },
+  {
+   "id": "n-ip-104.21.19.45",
+   "kind": "ip",
+   "label": "104.21.19.45 · AS",
+   "meta": {
+    "asn": "",
+    "org": "",
+    "cdn": false,
+    "weight_zero": false
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "crtsh"
+  },
+  {
+   "id": "n-ip-172.67.185.56",
+   "kind": "ip",
+   "label": "172.67.185.56 · AS",
+   "meta": {
+    "asn": "",
+    "org": "",
+    "cdn": false,
+    "weight_zero": false
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "crtsh"
+  },
+  {
+   "id": "d-smartcoved.pro",
+   "kind": "domain",
+   "label": "smartcoved.pro",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "KMP-003"
+    ],
+    "evidence": [
+     {
+      "type": "asset_sha256",
+      "value": "ec405e0731aaf5b753307cf9416e5c673cbc1e3b8007d3001eac19840288af61",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": true,
+    "on_certpl": true,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-nexprolinze.com",
+   "kind": "domain",
+   "label": "nexprolinze.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "asset_sha256",
+      "value": "ec405e0731aaf5b753307cf9416e5c673cbc1e3b8007d3001eac19840288af61",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-novumfy.com",
+   "kind": "domain",
+   "label": "novumfy.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [
+     "LAB-K"
+    ],
+    "evidence": [
+     {
+      "type": "person",
+      "value": "Rafał Brzoska",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-obedientbonobo.media",
+   "kind": "domain",
+   "label": "obedientbonobo.media",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "person",
+      "value": "Mateusz Morawiecki",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": false,
+    "on_certpl": false,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-kurierdzienny.info",
+   "kind": "domain",
+   "label": "kurierdzienny.info",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "asset_sha256",
+      "value": "d43d7492f0e97c799eea0883ce4b4dac70e0704037285661172a088f05190d99",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "campaign",
+    "certpl": true,
+    "on_certpl": true,
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "wspólny ślad operatora lub kampanii",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-certpl",
+   "kind": "list_status",
+   "label": "CERT PL: 9 z 13 poza listą",
+   "meta": {
+    "not_listed": 9,
+    "listed": 4,
+    "unknown": 0,
+    "total": 13
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "certpl"
+  },
+  {
+   "id": "n-ads-d83c9992",
+   "kind": "ad",
+   "label": "Ad Library: 0 reklam, 0 stron",
+   "meta": {
+    "terms": "dorquesio",
+    "ads": 0,
+    "pages": 0,
+    "advertisers": [],
+    "library_ids": []
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "adlib"
+  }
+ ],
+ "edges": [
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-fb_pixel-1a94494f",
+   "label": "fb_pixel"
+  },
+  {
+   "a": "n-db-fb_pixel-1a94494f",
+   "b": "d-falmurek.live",
+   "label": "fb_pixel"
+  },
+  {
+   "a": "n-db-fb_pixel-1a94494f",
+   "b": "d-grentavo.click",
+   "label": "fb_pixel"
+  },
+  {
+   "a": "n-db-fb_pixel-1a94494f",
+   "b": "d-wernulio.live",
+   "label": "fb_pixel"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-ns_set-f27d4f14",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-f27d4f14",
+   "b": "d-acrosscommunities.live",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-f27d4f14",
+   "b": "d-falmurek.live",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-f27d4f14",
+   "b": "d-grentavo.click",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-f27d4f14",
+   "b": "d-wernulio.live",
+   "label": "ns_set"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-kit_tenant-b59b3927",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-acrosscommunities.live",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-civicdaybook.live",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-falmurek.live",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-grentavo.click",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-lundevra.live",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-b59b3927",
+   "b": "d-wernulio.live",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-cert_batch-586aafc6",
+   "label": "cert_batch"
+  },
+  {
+   "a": "n-db-cert_batch-586aafc6",
+   "b": "d-wernulio.live",
+   "label": "cert_batch"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-domain_pattern-9f896e38",
+   "label": "domain_pattern"
+  },
+  {
+   "a": "n-db-domain_pattern-9f896e38",
+   "b": "d-golatest.click",
+   "label": "domain_pattern"
+  },
+  {
+   "a": "n-db-domain_pattern-9f896e38",
+   "b": "d-grentavo.click",
+   "label": "domain_pattern"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-registration_batch-aad7f4dc",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-aad7f4dc",
+   "b": "d-lundevra.live",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-aad7f4dc",
+   "b": "d-wernulio.live",
+   "label": "registration_batch"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-clickbait_template-462e506c",
+   "label": "clickbait_template"
+  },
+  {
+   "a": "n-db-clickbait_template-462e506c",
+   "b": "d-lundevra.live",
+   "label": "clickbait_template"
+  },
+  {
+   "a": "n-db-clickbait_template-462e506c",
+   "b": "d-wernulio.live",
+   "label": "clickbait_template"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-asset_sha256-fd766f74",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-fd766f74",
+   "b": "d-acrosscommunities.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-fd766f74",
+   "b": "d-civicdaybook.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-fd766f74",
+   "b": "d-lundevra.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-fd766f74",
+   "b": "d-wernulio.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-asset_sha256-ef038156",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-ef038156",
+   "b": "d-acrosscommunities.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-ef038156",
+   "b": "d-civicdaybook.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-ef038156",
+   "b": "d-lundevra.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-ef038156",
+   "b": "d-wernulio.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-asset_sha256-8cd86cd5",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-8cd86cd5",
+   "b": "d-acrosscommunities.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-8cd86cd5",
+   "b": "d-civicdaybook.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-8cd86cd5",
+   "b": "d-lundevra.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-8cd86cd5",
+   "b": "d-wernulio.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-headline_template-79583319",
+   "label": "headline_template"
+  },
+  {
+   "a": "n-db-headline_template-79583319",
+   "b": "d-acrosscommunities.live",
+   "label": "headline_template"
+  },
+  {
+   "a": "n-db-headline_template-79583319",
+   "b": "d-civicdaybook.live",
+   "label": "headline_template"
+  },
+  {
+   "a": "n-db-headline_template-79583319",
+   "b": "d-lundevra.live",
+   "label": "headline_template"
+  },
+  {
+   "a": "n-db-headline_template-79583319",
+   "b": "d-wernulio.live",
+   "label": "headline_template"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-lander_id-e7603e32",
+   "label": "lander_id"
+  },
+  {
+   "a": "n-db-lander_id-e7603e32",
+   "b": "d-acrosscommunities.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "n-db-lander_id-e7603e32",
+   "b": "d-civicdaybook.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "n-db-lander_id-e7603e32",
+   "b": "d-lundevra.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "n-db-lander_id-e7603e32",
+   "b": "d-wernulio.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-db-favicon_mmh3-91db2259",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-acrosscommunities.live",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-civicdaybook.live",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-falmurek.live",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-grentavo.click",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-lundevra.live",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "n-db-favicon_mmh3-91db2259",
+   "b": "d-wernulio.live",
+   "label": "favicon_mmh3"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-cert-dorquesio.click",
+   "label": "crt.sh"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-ip-104.21.19.45",
+   "label": "DNS"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-ip-172.67.185.56",
+   "label": "DNS"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-grentavo.click",
+   "label": "domain_pattern"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-golatest.click",
+   "label": "domain_pattern"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-smartcoved.pro",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-nexprolinze.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-wernulio.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-civicdaybook.live",
+   "label": "lander_id"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-falmurek.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-lundevra.live",
+   "label": "clickbait_template"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-novumfy.com",
+   "label": "person"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-acrosscommunities.live",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-obedientbonobo.media",
+   "label": "person"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "d-kurierdzienny.info",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-certpl",
+   "label": "lista CERT PL"
+  },
+  {
+   "a": "d-dorquesio.click",
+   "b": "n-ads-d83c9992",
+   "label": "reklamy"
+  }
+ ],
+ "steps": [
+  {
+   "n": 1,
+   "tool": "db_search",
+   "query": "dorquesio.click",
+   "result_summary": "dorquesio.click: 11 incydentów w bazie, 15 śladów; 7 powiązanych domen.",
+   "why": "Zaczynam od tego, co już wiemy o domenie.",
+   "produced": [
+    "n-db-fb_pixel-1a94494f",
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-wernulio.live",
+    "n-db-ns_set-f27d4f14",
+    "d-acrosscommunities.live",
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-wernulio.live",
+    "n-db-kit_tenant-b59b3927",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-cert_batch-586aafc6",
+    "d-wernulio.live",
+    "n-db-domain_pattern-9f896e38",
+    "d-golatest.click",
+    "d-grentavo.click",
+    "n-db-registration_batch-aad7f4dc",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-clickbait_template-462e506c",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-asset_sha256-fd766f74",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-asset_sha256-ef038156",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-asset_sha256-8cd86cd5",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-headline_template-79583319",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-lander_id-e7603e32",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-wernulio.live",
+    "n-db-favicon_mmh3-91db2259",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-lundevra.live",
+    "d-wernulio.live"
+   ],
+   "at": "2026-11-21T22:24:31.725+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 2,
+   "tool": "crtsh",
+   "query": "dorquesio.click",
+   "result_summary": "crt.sh: 1 certyfikatów dla dorquesio.click, pierwszy 2026-10-07; 0 domen w SAN.",
+   "why": "Certyfikaty z tej samej partii zwykle należą do tego samego operatora.",
+   "produced": [
+    "n-cert-dorquesio.click"
+   ],
+   "at": "2026-11-21T22:24:31.735+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 3,
+   "tool": "dns_ns",
+   "query": "dorquesio.click",
+   "result_summary": "DNS dorquesio.click: NS cartman.ns.cloudflare.com, fish.ns.cloudflare.com; A 104.21.19.45, 172.67.185.56.",
+   "why": "Para NS wskazuje konto Cloudflare operatora.",
+   "produced": [
+    "d-dorquesio.click",
+    "n-ip-104.21.19.45",
+    "n-ip-172.67.185.56"
+   ],
+   "at": "2026-11-21T22:24:31.752+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 4,
+   "tool": "urlscan_search",
+   "query": "hash:31a24ebea13afd53ea739e28ac5f7323bcd2ed56fdcc19812adeb4aaaa171ea0",
+   "result_summary": "urlscan „hash:31a24ebea13afd53ea739e28ac5f7323bcd”: błąd (offline mode: no cached entry).",
+   "why": "Szukam innych stron ładujących ten sam plik.",
+   "produced": [],
+   "at": "2026-11-21T22:24:31.758+00:00",
+   "bot": "tropiciel",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 5,
+   "tool": "incident_neighborhood",
+   "query": "INC-1",
+   "result_summary": "Sąsiedztwo INC-1: 34 incydentów przez 10 śladów.",
+   "why": "Sprawdzam sąsiedztwo incydentu w bazie.",
+   "produced": [
+    "d-grentavo.click",
+    "d-golatest.click",
+    "d-smartcoved.pro",
+    "d-nexprolinze.com",
+    "d-wernulio.live",
+    "d-civicdaybook.live",
+    "d-falmurek.live",
+    "d-lundevra.live",
+    "d-novumfy.com",
+    "d-acrosscommunities.live",
+    "d-obedientbonobo.media",
+    "d-kurierdzienny.info"
+   ],
+   "at": "2026-11-21T22:24:31.810+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 6,
+   "tool": "rdap",
+   "query": "dorquesio.click",
+   "result_summary": "RDAP dorquesio.click: rejestrator Dynadot, LLC, utworzona 2026-10-07T18:22.",
+   "why": "Data rejestracji i rejestrator.",
+   "produced": [
+    "d-dorquesio.click"
+   ],
+   "at": "2026-11-21T22:24:31.816+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 7,
+   "tool": "certpl_check",
+   "query": "wszyscy kandydaci",
+   "result_summary": "CERT PL: 9 z 13 domen nie ma na liście ostrzeżeń.",
+   "why": "Domeny spoza listy to kandydaci do zgłoszenia.",
+   "produced": [
+    "n-certpl"
+   ],
+   "at": "2026-11-21T22:24:31.964+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 8,
+   "tool": "adlib_search",
+   "query": "dorquesio",
+   "result_summary": "Ad Library „dorquesio”: 0 reklam na 0 stronach.",
+   "why": "Czy domeny są promowane reklamami.",
+   "produced": [
+    "n-ads-d83c9992"
+   ],
+   "at": "2026-11-21T22:24:31.975+00:00",
+   "bot": "zwiadowca",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 9,
+   "tool": "propose_link",
+   "query": "falmurek.live, grentavo.click, wernulio.live, acrosscommunities.live (+8)",
+   "result_summary": "Sędzia: 12 domen → kandydat. wspólny ślad operatora lub kampanii",
+   "why": "Dowody na poziomie operatora/kampanii.",
+   "produced": [
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-wernulio.live",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-golatest.click",
+    "d-smartcoved.pro",
+    "d-nexprolinze.com",
+    "d-novumfy.com",
+    "d-obedientbonobo.media",
+    "d-kurierdzienny.info"
+   ],
+   "at": "2026-11-21T22:24:31.979+00:00",
+   "bot": "sedzia",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 10,
+   "tool": "finish",
+   "query": "",
+   "result_summary": "Sędzia zamyka śledztwo.",
+   "why": "Podsumowanie.",
+   "produced": [],
+   "at": "2026-11-21T22:24:31.985+00:00",
+   "bot": "sedzia",
+   "cost_usd": 0.0
+  }
+ ],
+ "conclusions": [
+  {
+   "text": "12 domen dzieli z dorquesio.click ślady operatora lub kampanii (asset_sha256, cert_batch, clickbait_template, domain_pattern).",
+   "evidence_refs": [
+    "d-falmurek.live",
+    "d-grentavo.click",
+    "d-wernulio.live",
+    "d-acrosscommunities.live",
+    "d-civicdaybook.live",
+    "d-lundevra.live",
+    "d-golatest.click",
+    "d-smartcoved.pro"
+   ]
+  },
+  {
+   "text": "8 z 12 domen nie ma na liście CERT PL — do zgłoszenia.",
+   "evidence_refs": [
+    "n-certpl"
+   ]
+  }
+ ],
+ "pending_decision": null
+}

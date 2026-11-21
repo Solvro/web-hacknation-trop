@@ -1,0 +1,20 @@
+{
+ "id": "INV-116",
+ "seed": "TreeKollo",
+ "campaign_id": null,
+ "status": "running",
+ "budget": {
+  "steps": 1.0,
+  "used": 0.0,
+  "usd": 1.0,
+  "usd_used": 0.0
+ },
+ "model": "gemini-pro-latest",
+ "tools": [],
+ "started_at": "2026-11-21T22:22:47+00:00",
+ "nodes": [],
+ "edges": [],
+ "steps": [],
+ "conclusions": [],
+ "pending_decision": null
+}

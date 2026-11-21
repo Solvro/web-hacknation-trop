@@ -26,8 +26,8 @@
  {
   "id": "dane-5",
   "title": "Ból pleców — samo nagranie reklamy",
-  "description": "Materiał z samym filmem, bez strony docelowej. Za mało śladów, by przypisać do kampanii — system uczciwie odpowiada „za mało materiału”.",
-  "expected": "insufficient",
+  "description": "Materiał z samym filmem, bez strony docelowej: transkrypcja i analiza nagrania dają dowody (warstwa media), ale nie pasują do znanej kampanii — nowy wzorzec.",
+  "expected": "new",
   "file": "dane-5.zip",
   "size": 8620764
  },
