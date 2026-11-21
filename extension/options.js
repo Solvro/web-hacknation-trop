@@ -1,4 +1,4 @@
-const DEFAULT = "http://127.0.0.1:18000";
+const DEFAULT = "https://trop.b.solvro.pl";
 const $ = (id) => document.getElementById(id);
 chrome.storage.local.get(["apiBase", "installId"]).then((s) => {
   $("base").value = s.apiBase || DEFAULT;

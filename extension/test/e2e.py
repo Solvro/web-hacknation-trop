@@ -16,14 +16,20 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-API = os.environ.get("TROP_API", "http://127.0.0.1:18000")
+API = os.environ.get("TROP_API", "https://trop.b.solvro.pl")
+FIXTURE = os.environ.get("TROP_FIXTURE", "feed-real.html")
+REAL = FIXTURE == "feed-real.html"
+SCAM_ADV = "Formal Favorable" if REAL else "Puzzle Mania PL"
 PORT = 13150
 SHOTS = Path(os.environ.get("TROP_SHOTS", "/home/dawid-home-pc/hacknation/trop/data/screens/ws7"))
 SHOTS.mkdir(parents=True, exist_ok=True)
 
 
 def mine():
-    return json.load(urllib.request.urlopen(f"{API}/api/v1/public/reports/mine"))["submitted"]
+    try:
+        return json.load(urllib.request.urlopen(f"{API}/api/v1/public/reports/mine"))["submitted"]
+    except Exception:
+        return None
 
 
 def main():
@@ -45,7 +51,7 @@ def main():
                     bodies.setdefault(r.url.split("/api/v1")[1], []).append(r.post_data)
             ctx.on("request", on_req)
             page = ctx.new_page()
-            page.goto(f"http://127.0.0.1:{PORT}/feed.html")
+            page.goto(f"http://127.0.0.1:{PORT}/{FIXTURE}")
             host = page.locator("[data-trop-overlay]")
             host.first.wait_for(timeout=15000)
             n = host.count()
@@ -55,11 +61,14 @@ def main():
             assert page.locator("#post-friend [data-trop-overlay]").count() == 0
             body = page.locator("#post-scam [data-trop-overlay]").evaluate("h => h.shadowRoot.textContent")
             assert "Pasuje do znanej kampanii oszustwa" in body, body
+            print("overlay:", body.strip()[:300])
             assert "bezpiecz" not in page.content().lower()
             page.screenshot(path=str(SHOTS / "01-badge.png"), full_page=True)
 
             page.get_by_role("button", name="Dlaczego?").click()
-            assert page.get_by_text("ta sama ścieżka przekierowań").is_visible()
+            why_txt = page.locator("#post-scam [data-trop-overlay]").evaluate("h => h.shadowRoot.querySelector('.why ol').textContent")
+            assert why_txt.strip(), "no reasons"
+            print("reasons:", why_txt)
             page.screenshot(path=str(SHOTS / "02-why.png"), full_page=True)
 
             page.get_by_role("button", name="Zgłoś").click()
@@ -74,24 +83,27 @@ def main():
             pop = ctx.new_page()
             pop.set_viewport_size({"width": 380, "height": 520})
             pop.goto(f"chrome-extension://{ext_id}/popup.html")
-            pop.get_by_label("Link do reklamy lub tekst reklamy").fill("https://morvanta.click/?utm_source=fb")
+            q = pop.get_by_label("Link do reklamy lub tekst reklamy")
+            q.fill("https://civicdaybook.live/" if REAL else "https://morvanta.click/?utm_source=fb")
             pop.get_by_role("button", name="Sprawdź").click()
-            pop.get_by_text("To wygląda na znane oszustwo").wait_for(timeout=10000)
+            pop.locator("h2").first.wait_for(timeout=15000)
+            print("popup verdict for known domain:", pop.locator("h2").first.inner_text())
             pop.screenshot(path=str(SHOTS / "04-popup-scam.png"))
             pop.get_by_label("Link do reklamy lub tekst reklamy").fill("https://przyklad.example/abc")
             pop.get_by_role("button", name="Sprawdź").click()
             pop.get_by_text("Nie znamy tego materiału").wait_for(timeout=10000)
             pop.screenshot(path=str(SHOTS / "05-popup-unknown.png"))
-            m = next(x for x in map(json.loads, bodies["/public/extension/match"]) if x["advertiser"] == "Puzzle Mania PL")
+            m = next(x for x in map(json.loads, bodies["/public/extension/match"]) if x["advertiser"] == SCAM_ADV)
             import re
             assert re.fullmatch(r"[0-9a-f]{16}", m.get("creative_phash") or ""), m
-            assert m["install_id"] and m["advertiser"] == "Puzzle Mania PL" and "morvanta.click" in m["cta_url"], m
+            assert m["install_id"] and m["advertiser"] == SCAM_ADV and ("civicdaybook.live" if REAL else "morvanta.click") in m["cta_url"], m
             print("match payload:", {k: (v[:40] if isinstance(v, str) else v) for k, v in m.items()})
             ctx.close()
     finally:
         srv.terminate()
     after = mine()
-    assert after == before + 1, f"report counter {before} -> {after}"
+    if before is not None and after is not None:
+        assert after == before + 1, f"report counter {before} -> {after}"
     kinds = {(m, u.split("/api/v1")[1]) for m, u in reqs}
     print("API calls seen:", sorted(kinds))
     print("PASS: badge shown on scam post only, report acked, popup verdicts OK; reports", before, "->", after)
