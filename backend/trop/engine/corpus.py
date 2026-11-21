@@ -107,7 +107,8 @@ class Corpus:
             p = p.with_name("known_with_dane.json")
         if p.exists() and not rebuild:
             d = json.load(open(p, encoding="utf-8"))
-            if d.get("version") == CORPUS_VERSION:
+            stale = d.get("meta", {}).get("from_precomputed") and _raw_complete()
+            if d.get("version") == CORPUS_VERSION and not stale:
                 return cls.from_json(d)
         c = build_from_labels(include_dane=include_dane)
         try:
@@ -121,13 +122,19 @@ class Corpus:
         return cls()
 
 
+def _raw_complete() -> bool:
+    from trop.eval import data
+    r = data.raw_dir("sample_v1")
+    return r.exists() and len([p for p in r.iterdir() if p.is_dir()]) >= 15
+
+
 def _known_incidents(corpus: str, live: bool = False) -> list[dict]:
     """Re-extract from the raw folders; when they are absent fall back to the experiments' precomputed
     incidents_q36.json (VLM qwen36 ad fields) + face-gallery identities."""
     from trop.eval import data
     from trop.extract.cache import _exp_file
     from trop.extract.layers import face_hits_to_faces
-    if data.raw_dir(corpus).exists():
+    if data.raw_dir(corpus).exists() and (corpus != "sample_v1" or _raw_complete()):
         return data.extract_corpus(corpus, phash="compute", faces="gallery", live=live)
     log.warning("raw %s absent: building the corpus from precomputed incidents_q36.json", corpus)
     incs = data.load_precomputed(corpus, "incidents_q36.json")
@@ -179,7 +186,9 @@ def build_from_labels(include_dane: bool = False, incidents: list[dict] | None =
     nmap = {o: f"OPN-{i + 1:02d}" for i, o in enumerate(opn_letters)}
 
     c = Corpus(meta={"built_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "source": "labels.yaml" + (" + labels_dane.yaml" if include_dane else ""),
-                     "n": len(S), "build_s": round(time.time() - t0, 1), "label_map": {"campaign": cmap, "operator": omap, "operation": nmap}})
+                     "n": len(S),
+                     "from_precomputed": any((i.get("quality") or {}).get("provenance", {}).get("source") for i in S),
+                     "build_s": round(time.time() - t0, 1), "label_map": {"campaign": cmap, "operator": omap, "operation": nmap}})
     for inc in S:
         L = inc_lab[inc["id"]]
         cid, oid = cmap[L["campaign"]], omap.get(L.get("operator"))

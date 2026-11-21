@@ -53,22 +53,29 @@ def _experiment_index() -> dict:
     from trop.eval.data import fix_path
     idx_p = _cache() / "screenshot_index.json"
     cached = _load(idx_p)
-    if isinstance(cached, dict) and cached.get("_v") == 1:
+    if isinstance(cached, dict) and cached.get("_v") == 2 and cached.get("_complete"):
         return cached
-    idx: dict = {"_v": 1}
+    idx: dict = {"_v": 2}
+    want = got = 0
     for corpus in ("sample_v1", "dane"):
         incs = _load(_data() / "experiments" / corpus / "incidents.json") or []
         for inc in incs:
             ad = inc.get("ad") or {}
             for p in ([ad.get("screenshot_path")] + list(ad.get("screenshots") or []))[:1]:
-                s = sha256_file(fix_path(p)) if p else None
+                if not p:
+                    continue
+                want += 1
+                s = sha256_file(fix_path(p))
                 if s:
+                    got += 1
                     idx[s] = {"corpus": corpus, "id": inc["id"]}
-    try:
-        idx_p.parent.mkdir(parents=True, exist_ok=True)
-        json.dump(idx, open(idx_p, "w"), indent=0)
-    except OSError:
-        pass
+    idx["_complete"] = bool(want) and got == want     # persist only a complete index (raw data may be partial)
+    if idx["_complete"]:
+        try:
+            idx_p.parent.mkdir(parents=True, exist_ok=True)
+            json.dump(idx, open(idx_p, "w"), indent=0)
+        except OSError:
+            pass
     return idx
 
 

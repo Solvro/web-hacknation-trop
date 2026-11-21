@@ -10,7 +10,7 @@ from trop.eval import data
 
 HAVE_LABELS = data.labels_path("labels.yaml") is not None and data.labels_path("labels_dane.yaml") is not None
 HAVE_PRE = (data.exp_dir("sample_v1") / "incidents_all.json").exists() and (data.exp_dir("dane") / "incidents_q36.json").exists()
-HAVE_RAW_S = data.raw_dir("sample_v1").exists()
+HAVE_RAW_S = data.raw_dir("sample_v1").exists() and len([p for p in data.raw_dir("sample_v1").iterdir() if p.is_dir()]) == 15
 HAVE_RAW = HAVE_RAW_S and data.raw_dir("dane").exists()
 HAVE_MODELS = (data.data_dir() / "experiments" / "models" / "sface.onnx").exists() or \
     (data.exp_dir("joint") / "face_clusters_sface.json").exists()
