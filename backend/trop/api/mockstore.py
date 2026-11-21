@@ -481,8 +481,8 @@ class MockStore:
         return M.PromoteResult(campaign_id=campaign_id, added=len(node_ids))
 
     # ---------------------------------------------------------------------------------------------- oracle
-    def predictions(self, status: str | None) -> list[OraclePrediction]:
-        return [p for p in self.preds if not status or p.status == status]
+    def predictions(self, status: str | None = None, campaign: str | None = None) -> list[OraclePrediction]:
+        return [p for p in self.preds if (not status or p.status == status) and (not campaign or p.campaign_id == campaign)]
 
     def oracle_dna(self, campaign: str | None) -> DomainDNA:
         for d in self.odna:
@@ -516,8 +516,8 @@ class MockStore:
         return [M.Brand.model_validate(b) for b in self.brands_]
 
     # ---------------------------------------------------------------------------------------------- act
-    def act_packages(self) -> list[ActPackage]:
-        return list(self.packages.values())
+    def act_packages(self, campaign_id: str | None = None, status: str | None = None) -> list[ActPackage]:
+        return [p for p in self.packages.values() if (not campaign_id or p.campaign_id == campaign_id) and (not status or p.status == status)]
 
     def act_package(self, pid: str) -> ActPackage:
         if pid not in self.packages:

@@ -1,0 +1,50 @@
+[
+ {
+  "id": "dane-1",
+  "title": "Fałszywa Gazeta.pl — „Wiem, kto strzelał”",
+  "description": "Zrzut reklamy, HAR i zapisana strona z fałszywym artykułem o zamachu na znaną osobę. Znana kampania.",
+  "expected": "assign:KMP-001",
+  "file": "dane-1.zip",
+  "size": 2774636
+ },
+ {
+  "id": "dane-3",
+  "title": "Olejnik kontra NBP — fałszywy artykuł",
+  "description": "Reklama i strona z wywiadem, który nigdy się nie odbył; ta sama sieć lejków co kampania A. Znana kampania.",
+  "expected": "assign:KMP-003",
+  "file": "dane-3.zip",
+  "size": 1418315
+ },
+ {
+  "id": "dane-36",
+  "title": "„Poland Invest Summit 2026”",
+  "description": "Przynęta „wydarzenie inwestycyjne” z przeciekiem tokenu w adresie. Nowy wzorzec: system nie dopasowuje go do znanej kampanii.",
+  "expected": "new",
+  "file": "dane-36.zip",
+  "size": 1690134
+ },
+ {
+  "id": "dane-5",
+  "title": "Ból pleców — samo nagranie reklamy",
+  "description": "Materiał z samym filmem, bez strony docelowej. Za mało śladów, by przypisać do kampanii — system uczciwie odpowiada „za mało materiału”.",
+  "expected": "insufficient",
+  "file": "dane-5.zip",
+  "size": 8620764
+ },
+ {
+  "id": "p13",
+  "title": "Grzybica paznokci — „Dr Merritz”",
+  "description": "Materiał, który system już zna (zbiór wzorcowy): pokazuje, jak wygląda wykrycie duplikatu (L0).",
+  "expected": "assign:KMP-008",
+  "file": "p13.zip",
+  "size": 1976881
+ },
+ {
+  "id": "p14",
+  "title": "Divine Script — oferta po angielsku",
+  "description": "Niepowiązana kampania referencyjna (afiliacja z Brazylii); znany materiał.",
+  "expected": "assign:KMP-009",
+  "file": "p14.zip",
+  "size": 1488461
+ }
+]

@@ -76,3 +76,15 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
   `/lab/ablation` → `[{layer, delta_f1, b3_F1, ari, pair_auc, loco_link, wrong}]` (drop-one-layer, from `trop eval --ablation`).
 - **`Decision.duplicate_of`** is set (L0) when the analysed material has the same entry URL / landing hash as a corpus incident.
 - `GET /operators[?ids=]` lists operators; `POST /analyze` with `files` ignores a prefilled `url`.
+
+# WS2 round 3 (prod fixes)
+
+- **Durable streams:** every job / investigation event is appended to Redis list `trop:job:<id>:events` / `trop:inv:<id>:events` (TTL 24 h);
+  `/jobs/{id}/stream` and `/investigations/{id}/stream` replay the list, then follow it by index (no pub/sub loss, no idle cut-off while the job runs)
+  and close after `job.done` / `job.error` / `investigation.done`.
+- `GET /act/packages?campaign_id=&status=`, `GET /oracle/predictions?status=&campaign=` filter; real mode never returns campaigns outside the corpus.
+- Real campaigns: Polish `name`, `narrative` (= headline) and `description` = `"headline\nlead"` from `backend/trop/api/campaigns_pl.json`.
+- `side:'right'` is set only on incident focus nodes.
+- **Samples:** `GET /api/v1/samples` → `[{id,title,description,expected,size}]` (dane-1, dane-3, dane-36, dane-5, p13, p14; zips live in the image bundle,
+  `deploy/make_samples.py`); `POST /api/v1/samples/{id}/analyze` → `AnalyzeAccepted` (a normal job, stream `/jobs/{id}/stream`).
+  Offline outcomes: dane-1 → assign KMP-001, dane-3 → assign KMP-003, dane-36 → new, dane-5 → insufficient, p13 → assign KMP-008, p14 → assign KMP-009 (duplicate_of p14).
