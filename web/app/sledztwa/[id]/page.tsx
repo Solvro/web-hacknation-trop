@@ -53,7 +53,7 @@ function Sledztwo() {
   const replay = sp.get('replay') === 'demo';
   const fast = sp.get('koniec') === '1';
   const inv = useApi<Investigation>(`/investigations/${encodeURIComponent(id)}`).data;
-  const cid = inv?.campaign_id ?? sp.get('kampania') ?? 'KMP-017';
+  const cid = inv?.campaign_id ?? sp.get('kampania') ?? null;
   const camp = useApi<Campaign>(cid ? `/campaigns/${encodeURIComponent(cid)}` : null).data;
   const [s, setS] = useState<S>({ nodes: [], steps: [], decision: null, done: null, text: '' });
   const [skipped, setSkipped] = useState<Record<string, boolean>>({});
@@ -98,16 +98,16 @@ function Sledztwo() {
     if (/pomi/i.test(opt)) setSkipped((k) => ({ ...k, [nid]: true }));
     else setS((p) => ({ ...p, nodes: p.nodes.map((x) => (x.id === nid ? { ...x, status: 'new' } : x)) }));
     setS((p) => ({ ...p, decision: null }));
-    await apiPost(`/investigations/${encodeURIComponent(id)}/steer`, { node_id: nid, decision: opt }, () => ({ ok: true })).catch(() => null);
+    await apiPost(`/investigations/${encodeURIComponent(id)}/steer`, { node_id: nid, choice: opt }, () => ({ ok: true })).catch(() => null);
   }
   async function promote() {
     setBusy(true);
     const ids = [...uniqNew.filter((x) => !unchecked[x.id]).map((x) => x.id), ...(ads && !unchecked[ads.id] ? [ads.id] : [])];
     await apiPost(`/investigations/${encodeURIComponent(id)}/promote`, { campaign_id: cid, node_ids: ids }, () => ({ campaign_id: cid, added: ids.length })).catch(() => null);
-    router.push(`/kampanie/${cid}?dodano=${ids.length}`);
+    router.push(cid ? `/kampanie/${cid}?dodano=${ids.length}` : '/kampanie');
   }
 
-  const crumbs = <Crumbs items={[{ label: 'Kampanie', href: '/kampanie' }, { label: cid, href: `/kampanie/${cid}` }, { label: 'Śledztwo' }]} />;
+  const crumbs = <Crumbs items={cid ? [{ label: 'Kampanie', href: '/kampanie' }, { label: cid, href: `/kampanie/${cid}` }, { label: 'Śledztwo' }] : [{ label: 'Śledztwa', href: '/sledztwa' }, { label: id }]} />;
 
   // ------------------------------------------------------------------ board 10 · finished
   if (s.done) {
@@ -131,7 +131,7 @@ function Sledztwo() {
           lead={`${certNight ? `${certNight === 1 ? 'Jedna domena dostała' : `${['', '', 'Dwie', 'Trzy', 'Cztery'][certNight] ?? certNight} domeny dostały`} certyfikat tej nocy. ` : ''}Żadnej z nowych nie ma jeszcze na liście CERT PL.`}
           meta={`${id} · start ${seed} · ${stepN} kroków`}
           primary={<button type="button" className="btn-pri" onClick={promote} disabled={busy}>{busy ? 'Dodaję…' : 'Dodaj do kampanii'}<IArrow /></button>}
-          secondary={<Link className="lnk" href={`/kampanie/${cid}/zgloszenie`}>albo zgłoś od razu</Link>}
+          secondary={cid ? <Link className="lnk" href={`/kampanie/${cid}/zgloszenie`}>albo zgłoś od razu</Link> : undefined}
         />
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
           <section aria-labelledby="sk-add" className="flex flex-col gap-2.5">
@@ -204,7 +204,7 @@ function Sledztwo() {
                 if (!items.length && !s.steps.some((st) => TOOL_BOT[String(st.tool).split('.')[0]] === br.bot)) return null;
                 return (
                   <div key={br.k} className="grid grid-cols-[130px_minmax(0,1fr)] gap-3 py-2.5 items-start">
-                    <span><b className="block text-[14px] font-semibold">{br.label}</b><span className="text-[12px] text-tx3">{br.k === 'db' ? `już w ${cid}` : br.sub}</span></span>
+                    <span><b className="block text-[14px] font-semibold">{br.label}</b><span className="text-[12px] text-tx3">{br.k === 'db' ? (cid ? `już w ${cid}` : 'już znane') : br.sub}</span></span>
                     <div className="flex flex-wrap gap-1.5">{items.map((x) => <Pill key={x.id} nd={x} />)}{!items.length && <span className="spin" />}</div>
                   </div>
                 );

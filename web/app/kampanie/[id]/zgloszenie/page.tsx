@@ -112,10 +112,10 @@ export default function ZgloszeniePage() {
             <label className="sr-only-x" htmlFor="z-text">Treść zgłoszenia</label>
             <textarea id="z-text" value={text} onChange={(e) => setText(e.target.value)} rows={14} className="w-full rounded-2xl border border-line1 bg-white p-4 text-[14px] leading-relaxed resize-y" />
             <div className="flex flex-wrap gap-2">
-              {['pdf', 'stix'].map((f) => {
+              {['pdf', 'json', 'stix', 'misp', 'csv', 'certpl'].map((f) => {
                 const href = dl(f);
-                return href ? <a key={f} href={href} className="btn-sec btn-sm">Pobierz {f.toUpperCase()}</a>
-                  : <button key={f} type="button" className="btn-sec btn-sm" onClick={() => { const b = new Blob([f === 'stix' ? JSON.stringify({ type: 'bundle', id: `bundle--${c.id}`, objects: [] }, null, 2) : text], { type: f === 'stix' ? 'application/json' : 'text/plain' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `${c.id}-zgloszenie.${f === 'stix' ? 'json' : 'txt'}`; a.click(); }}>Pobierz {f.toUpperCase()}</button>;
+                return href ? <a key={f} href={href} className="btn-sec btn-sm">Pobierz {f === 'certpl' ? 'listę CERT PL' : f.toUpperCase()}</a>
+                  : <button key={f} type="button" className="btn-sec btn-sm" onClick={() => { const b = new Blob([f === 'stix' ? JSON.stringify({ type: 'bundle', id: `bundle--${c.id}`, objects: [] }, null, 2) : text], { type: f === 'stix' ? 'application/json' : 'text/plain' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `${c.id}-zgloszenie.${f === 'stix' ? 'json' : 'txt'}`; a.click(); }}>Pobierz {f === 'certpl' ? 'listę CERT PL' : f.toUpperCase()}</button>;
               })}
             </div>
           </aside>

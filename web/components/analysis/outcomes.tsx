@@ -30,16 +30,16 @@ const meta = (e: EvidenceItem, extra?: string) => [botName(e.bot), LAYER_LABEL[e
 // ------------------------------------------------------------------------------------------- 11 · Nowa
 export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: IncidentSummary | null; names: Record<string, string> }) {
   const router = useRouter();
-  const cand = d.candidate_campaign_id ?? 'KMP-040';
-  const c = useApi<CampaignSummary>(`/campaigns/${encodeURIComponent(cand)}`).data;
+  const cand = d.candidate_campaign_id ?? '';
+  const c = useApi<CampaignSummary>(cand ? `/campaigns/${encodeURIComponent(cand)}` : null).data;
   const [name, setName] = useState('');
-  const shown = name || (c ? `${cand} ${campaignTitle(c)}` : cand);
+  const shown = name || (c ? `${cand} ${campaignTitle(c)}` : cand || 'Nowa kampania');
   const total = useApi<CampaignSummary[]>('/campaigns').data;
   const [busy, setBusy] = useState(false);
   async function create() {
     setBusy(true);
     const r = await apiPost<{ id: string }>('/campaigns', { seed_incident: d.incident_id, name: shown, status: 'candidate' }, () => ({ id: cand })).catch(() => ({ id: cand }));
-    router.push(`/kampanie/${encodeURIComponent(r.id ?? cand)}`);
+    router.push(r.id || cand ? `/kampanie/${encodeURIComponent(r.id || cand)}` : '/kampanie');
   }
   const badge = (e: EvidenceItem) => (e.state === 'missing' ? undefined : (e.df ?? 0) <= 1 ? (e.type === 'infra' ? 'nowa' : 'nowy') : `${e.df} podobne`);
   return (

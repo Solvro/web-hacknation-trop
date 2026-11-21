@@ -27,13 +27,13 @@ function Side({ c, keep, onKeep, tag }: { c: CampaignSummary; keep: boolean; onK
 function Scal() {
   const sp = useSearchParams();
   const router = useRouter();
-  const a = sp.get('a') ?? 'KMP-017';
-  const b = sp.get('b') ?? 'KMP-043';
-  const { data: m, loading } = useApi<MergePreview>(`/campaigns/${encodeURIComponent(a)}/merge-preview?other=${encodeURIComponent(b)}`);
+  const a = sp.get('a') ?? '';
+  const b = sp.get('b') ?? '';
+  const { data: m, loading } = useApi<MergePreview>(a && b ? `/campaigns/${encodeURIComponent(a)}/merge-preview?other=${encodeURIComponent(b)}` : null);
   const [keep, setKeep] = useState<'self' | 'other'>('self');
   const [busy, setBusy] = useState(false);
   if (loading) return <Loading />;
-  if (!m) return <Page><Empty>Nie da się porównać {a} i {b}.</Empty></Page>;
+  if (!m) return <Page><Empty>{a && b ? `Nie da się porównać ${a} i ${b}.` : 'Wybierz dwie kampanie do scalenia na liście Kampanie.'} <Link className="underline" href="/kampanie">Kampanie</Link></Empty></Page>;
   const A = m.a, B = m.b;
   if (A.id === B.id) return <Page><Crumbs items={[{ label: 'Kampanie', href: '/kampanie' }, { label: 'Scal kampanie' }]} /><Empty>{a} i {b} są już jedną kampanią ({A.id}). <Link className="underline" href={`/kampanie/${A.id}`}>Otwórz {A.id}</Link></Empty></Page>;
   const after = m.after ?? {};
