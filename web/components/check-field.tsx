@@ -23,6 +23,28 @@ export function parseInput(raw: string): Parsed {
   return { kind: 'trace', type: 'osoba', value: s };
 }
 
+interface Picked { file: File; path: string }
+const groupKey = (f: Picked) => (f.path.includes('/') ? `dir:${f.path.split('/')[0]}` : `file:${f.path}`);
+function summary(files: Picked[]): { key: string; label: string }[] {
+  const g = new Map<string, number>();
+  for (const f of files) g.set(groupKey(f), (g.get(groupKey(f)) ?? 0) + 1);
+  return [...g.entries()].map(([key, k]) => ({ key, label: key.startsWith('dir:') ? `Folder: ${key.slice(4)} · ${k} ${k === 1 ? 'plik' : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? 'pliki' : 'plików'}` : key.slice(5) }));
+}
+/** Read a dropped folder recursively (File System Entries API), keeping relative paths. */
+async function walk(entry: FileSystemEntry, prefix: string, out: Picked[]): Promise<void> {
+  if (entry.isFile) {
+    const file = await new Promise<File>((res, rej) => (entry as FileSystemFileEntry).file(res, rej));
+    out.push({ file, path: prefix + entry.name });
+    return;
+  }
+  const reader = (entry as FileSystemDirectoryEntry).createReader();
+  for (;;) {
+    const batch = await new Promise<FileSystemEntry[]>((res, rej) => reader.readEntries(res, rej));
+    if (!batch.length) break;
+    for (const e of batch) await walk(e, `${prefix}${entry.name}/`, out);
+  }
+}
+
 const CHIPS = [
   { key: 'img', label: 'Zdjęcie lub wideo', icon: IImage, accept: 'image/*,video/*' },
   { key: 'har', label: 'HAR lub ZIP', icon: IFile, accept: '.har,.zip,.json,application/zip,application/json' },
@@ -31,7 +53,8 @@ const CHIPS = [
 export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: string; onWake?: () => void; compact?: boolean }) {
   const router = useRouter();
   const [text, setText] = useState(initial);
-  const [files, setFiles] = useState<File[]>([]);
+  // each file keeps its path relative to a dropped / picked folder ("1/Zrzut ekranu.png", "1/x_files/a.js")
+  const [files, setFiles] = useState<Picked[]>([]);
   const [traceMode, setTraceMode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -54,13 +77,13 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
     try {
       const [res] = await Promise.all([
         // files win: never send the text field along with an upload
-        analyze(files.length ? { files } : { url: (parsed as { url: string }).url }),
+        analyze(files.length ? { files: files.map((f) => f.file), names: files.map((f) => f.path) } : { url: (parsed as { url: string }).url }),
         new Promise((r) => setTimeout(r, 900)),
       ]);
       if (!res.job_id) { router.push(`/slad/domena/${encodeURIComponent(text.trim())}`); return; }
       const q = new URLSearchParams();
       if (res.incident_id) q.set('inc', res.incident_id);
-      q.set('in', files.length ? files.map((f) => f.name).join(', ') : text.trim());
+      q.set('in', files.length ? summary(files).map((g) => g.label).join(', ') : text.trim());
       router.push(`/analiza/${encodeURIComponent(res.job_id)}?${q}`);
     } catch (e) {
       setErr('Nie udało się wysłać materiału: ' + (e as Error).message);
@@ -70,10 +93,20 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
 
   function addFiles(list: FileList | null) {
     if (!list?.length) return;
-    const picked = Array.from(list); // copy now: the input is cleared right after onChange
+    // copy now: the input is cleared right after onChange. webkitRelativePath is set for folder picks.
+    const picked = Array.from(list).map((f) => ({ file: f, path: (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name }));
     setFiles((f) => [...f, ...picked]);
   }
-  function onDrop(e: DragEvent) { e.preventDefault(); setDrag(false); addFiles(e.dataTransfer.files); }
+  async function onDrop(e: DragEvent) {
+    e.preventDefault(); setDrag(false);
+    const items = Array.from(e.dataTransfer.items ?? []);
+    const entries = items.map((it) => (it.kind === 'file' ? it.webkitGetAsEntry?.() : null)).filter(Boolean) as FileSystemEntry[];
+    if (entries.some((x) => x.isDirectory)) {
+      const out: Picked[] = [];
+      for (const en of entries) await walk(en, '', out);
+      setFiles((f) => [...f, ...out]);
+    } else addFiles(e.dataTransfer.files);
+  }
 
   return (
     <form
@@ -94,11 +127,11 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
       />
       {files.length > 0 && (
         <ul className="flex flex-wrap gap-1.5" aria-label="Dodane pliki">
-          {files.map((f, i) => (
-            <li key={i} className="inline-flex items-center gap-1 h-8 pl-3 pr-1 rounded-full bg-bg3 text-[13px] font-mono">
-              {f.name}
-              <button type="button" aria-label={`Usuń ${f.name}`} onClick={() => setFiles((x) => x.filter((_, j) => j !== i))}
-                className="w-7 h-7 rounded-full inline-flex items-center justify-center hover:bg-bg4"><IX width={12} height={12} /></button>
+          {summary(files).map((g) => (
+            <li key={g.key} className="inline-flex items-center gap-1 h-8 pl-3 pr-1 rounded-full bg-bg3 text-[13px] font-mono max-w-full">
+              <span className="truncate">{g.label}</span>
+              <button type="button" aria-label={`Usuń ${g.label}`} onClick={() => setFiles((x) => x.filter((f) => groupKey(f) !== g.key))}
+                className="w-7 h-7 flex-none rounded-full inline-flex items-center justify-center hover:bg-bg4"><IX width={12} height={12} /></button>
             </li>
           ))}
         </ul>
@@ -114,6 +147,13 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
                 aria-label={c.label} onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
             </span>
           ))}
+          <span>
+            <button type="button" className="chip" onClick={() => inputs.current.dir?.click()}>
+              <IFile width={14} height={14} />Wybierz folder
+            </button>
+            <input ref={(el) => { inputs.current.dir = el; if (el) { el.setAttribute('webkitdirectory', ''); el.setAttribute('directory', ''); } }} type="file" multiple className="hidden"
+              aria-label="Wybierz folder" onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
+          </span>
           <button type="button" className="chip" aria-pressed={traceMode}
             onClick={() => {
               // fill the field with a real trace from the database (cycles through a few on repeated clicks)

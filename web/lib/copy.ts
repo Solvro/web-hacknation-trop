@@ -107,6 +107,8 @@ export function prettyDisplay(s: string | null | undefined): string {
   let out = s.replace(/^([a-z][a-z0-9_]+):\s*/, (m, f: string) => (FIELD_LABEL[f] ? `${FIELD_LABEL[f]}: ` : m));
   out = out.replace(/\bshared \(e\.g\. /g, 'wspólne (np. ').replace(/\(e\.g\. /g, '(np. ');
   out = out.replace(/\b(investment|health|gov|crypto|loans|spiritual)\b/g, (v: string) => VERTICAL[v] ?? v).replace(/ != /g, ' ≠ ');
+  // masked template slots stay visible as slots: {per} → {PER} (never filled in)
+  out = out.replace(/\{([a-z]{2,8})\}/g, (_m, k: string) => `{${k.toUpperCase()}}`);
   return out;
 }
 export const prettyEv = <T extends { display: string }>(e: T): T => ({ ...e, display: prettyDisplay(e.display) });

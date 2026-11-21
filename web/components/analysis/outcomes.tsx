@@ -3,14 +3,31 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import type { CampaignSummary, Decision, EvidenceItem, IncidentSummary, JobStep, LinkExplanation } from '@/lib/contracts';
+import type { CampaignSummary, Decision, EvidenceItem, JobStep, LinkExplanation } from '@/lib/contracts';
+import { restoreTemplateCase, useArtifacts, type Material } from '@/lib/artifacts';
 import { botColor, botName, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from "@/lib/copy";
 import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle } from '@/lib/graph';
 import { Bot } from '../jelly';
 import { IArrow, ICheck } from '../icons';
-import { ReportHeader } from './report';
+import { MaterialImages, MaterialStrip, ReportHeader, hasImages } from './report';
 import { FollowButton } from '../follow-button';
+
+/** The material itself: title strip + its real page / ad images (nothing drawn when the API has none). */
+function MaterialBlock({ incident, incidentId }: { incident?: Material | null; incidentId?: string | null }) {
+  const art = useArtifacts(incidentId);
+  if (!incidentId) return null;
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="-mt-5"><MaterialStrip incident={incident} incidentId={incidentId} art={art} /></div>
+      {hasImages(art) && <div className="max-w-[760px]"><MaterialImages art={art} url={incident?.domain ?? incidentId} height={420} /></div>}
+    </div>
+  );
+}
+
+function FollowRow(p: { incidentId?: string | null; evidence: import('@/lib/contracts').EvidenceItem[]; domain?: string | null }) {
+  return <div className="pt-5 border-t border-bg4 flex flex-wrap items-center gap-2"><FollowButton variant="sec" {...p} /></div>;
+}
 
 function Row({ e, badge, tone = 'cyan', dashed }: { e: { bot?: string | null; title: string; meta: string }; badge?: string; tone?: 'cyan' | 'g' | 'red' | 'neutral'; dashed?: boolean }) {
   const T = { cyan: 'bg-state-cdim text-state-cyan', g: 'bg-state-gdim text-state-g', red: 'bg-state-rdim text-state-red', neutral: 'bg-bg3 text-tx2' }[tone];
@@ -29,7 +46,7 @@ function Row({ e, badge, tone = 'cyan', dashed }: { e: { bot?: string | null; ti
 const meta = (e: EvidenceItem, extra?: string) => [botName(e.bot), LAYER_LABEL[e.type].toLowerCase(), extra].filter(Boolean).join(' · ');
 
 // ------------------------------------------------------------------------------------------- 11 · Nowa
-export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: IncidentSummary | null; names: Record<string, string> }) {
+export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Material | null; names: Record<string, string> }) {
   const router = useRouter();
   const cand = d.candidate_campaign_id ?? '';
   const c = useApi<CampaignSummary>(cand ? `/campaigns/${encodeURIComponent(cand)}` : null).data;
@@ -47,12 +64,11 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
-        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : incident?.title || 'Nowa kampania'}
-        lead={incident?.title ? `Reklama: „${incident.title}”.` : undefined}
-        meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
-        primary={<div className="flex flex-wrap gap-2 sm:justify-end"><button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button><FollowButton variant="sec" incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} /></div>}
+        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : 'Nowa kampania'}
+        primary={<button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button>}
         secondary={<Link className="lnk" href="/kampanie">albo przypisz do istniejącej</Link>}
       />
+      <MaterialBlock incident={incident} incidentId={d.incident_id} />
       <section className="rounded-[22px] border border-[#BFDBFE] bg-state-cdim px-5 py-5 flex flex-wrap gap-5 items-center justify-between">
         <div className="flex-[1_1_480px]">
           <h2 className="text-[17px] font-semibold">{total?.length ? `Nie pasuje do żadnej z ${n(total.length)} kampanii` : 'Nie pasuje do żadnej znanej kampanii'}</h2>
@@ -66,7 +82,7 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-10 items-start">
         <section className="flex flex-col gap-3" aria-labelledby="nw-found">
           <h2 id="nw-found" className="text-[13px] font-medium text-tx3">Co znalazły boty</h2>
-          {(d.evidence ?? []).map((e, i) => (
+          {(d.evidence ?? []).map((e) => restoreTemplateCase(e, incident)).map((e, i) => (
             <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: meta(e, e.state === 'missing' ? 'osoby i marki' : (e.df ?? 0) <= 1 ? 'nie ma go w bazie' : `${e.df} podobne materiały`) }} badge={badge(e)} dashed={e.state === 'missing'} />
           ))}
         </section>
@@ -81,6 +97,7 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
           ))}
         </section>
       </div>
+      <FollowRow incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} />
     </main>
   );
 }
@@ -121,17 +138,16 @@ function CandidateCard({ incidentId, s, names, desc }: { incidentId: string; s: 
   );
 }
 
-export function OutcomeUnsure({ d, incident, names, descs }: { d: Decision; incident?: IncidentSummary | null; names: Record<string, string>; descs: Record<string, string> }) {
+export function OutcomeUnsure({ d, incident, names, descs }: { d: Decision; incident?: Material | null; names: Record<string, string>; descs: Record<string, string> }) {
   const top = [...(d.scores ?? [])].sort((a, b) => (b.p ?? 0) - (a.p ?? 0)).slice(0, 2);
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
         title={d.runner_up?.same_operator ? 'Pasuje do dwóch kampanii jednego operatora' : 'Pasuje do dwóch kampanii'}
         lead={`Ślady techniczne pasują do obu kampanii${d.operator_id ? ` operatora ${d.operator_id}` : ''}.${(d.evidence ?? []).some((e) => e.state === 'missing' && (e.type === 'content' || e.type === 'persons')) ? ' Strona nie ma tekstu ani twarzy, więc boty nie rozstrzygną tego same.' : ' Różnica jest za mała, żeby boty rozstrzygnęły to same.'} Wybierz kampanię.`}
-        meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
-        primary={<FollowButton incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} />}
         secondary={<Link className="lnk" href="/kampanie">albo załóż nową kampanię</Link>}
       />
+      <MaterialBlock incident={incident} incidentId={d.incident_id} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {top.map((s) => <CandidateCard key={s.campaign_id} incidentId={d.incident_id} s={s} names={names} desc={descs[s.campaign_id]} />)}
       </div>
@@ -143,12 +159,13 @@ export function OutcomeUnsure({ d, incident, names, descs }: { d: Decision; inci
         </div>
         <Link href="/" className="btn-sec btn-sm !min-h-[44px]">Dodaj zrzut ekranu</Link>
       </section>
+      <FollowRow incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} />
     </main>
   );
 }
 
 // ------------------------------------------------------------------------------------------- 13 · Błąd
-export function OutcomeError({ d, incident, steps, error, names }: { d: Decision | null; incident?: IncidentSummary | null; steps: JobStep[]; error: { message: string } | null; names: Record<string, string> }) {
+export function OutcomeError({ d, incident, steps, error, names }: { d: Decision | null; incident?: Material | null; steps: JobStep[]; error: { message: string } | null; names: Record<string, string> }) {
   const cand = d?.candidate_campaign_id ?? d?.campaign_id;
   const failed = steps.filter((s) => s.status === 'error' || s.status === 'skip');
   return (
@@ -156,14 +173,13 @@ export function OutcomeError({ d, incident, steps, error, names }: { d: Decision
       <ReportHeader
         title={error ? 'Strona nie odpowiada' : 'Za mało materiału, żeby przypisać kampanię'}
         lead={error?.message ?? 'Boty ustaliły tylko część śladów. Bez strony docelowej albo zrzutu reklamy nie potwierdzą kampanii, więc materiał nie zostanie do niej dołączony. Dodaj więcej materiału albo puść agenta po śladach, które są.'}
-        meta={[d?.incident_id ?? incident?.id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
-        primary={<FollowButton incidentId={d?.incident_id ?? incident?.id} evidence={d?.evidence ?? []} domain={incident?.domain} />}
         secondary={<Link className="lnk" href="/">albo wrzuć zrzut ekranu reklamy</Link>}
       />
+      <MaterialBlock incident={incident} incidentId={d?.incident_id ?? incident?.id} />
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_400px] gap-10 items-start">
         <section className="flex flex-col gap-3" aria-labelledby="er-found">
           <h2 id="er-found" className="text-[13px] font-medium text-tx3">Co udało się ustalić</h2>
-          {(d?.evidence ?? []).map((e, i) => <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: [botName(e.bot), e.bot === 'archiwista' ? 'nasza baza' : 'z rejestru i crt.sh, bez strony'].join(' · ') }} badge="ustalone" tone="g" />)}
+          {(d?.evidence ?? []).map((e) => restoreTemplateCase(e, incident)).map((e, i) => <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: [botName(e.bot), e.bot === 'archiwista' ? 'nasza baza' : 'z rejestru i crt.sh, bez strony'].join(' · ') }} badge="ustalone" tone="g" />)}
           {!(d?.evidence ?? []).length && !failed.length && <p className="text-[14px] text-tx3 py-2">Boty nie znalazły w tym materiale śladów, które łączą go z bazą: brak strony docelowej, pikseli i domen.</p>}
           {failed.map((s) => (
             <Row key={s.key} dashed e={{ bot: s.bot, title: s.status === 'error' ? `Strona: ${(s.detail ?? '').split('\n')[0]}` : `${s.label.split('·').pop()?.trim() ?? s.label}`, meta: `${botName(s.bot)} · ${(s.detail ?? '').split('\n')[0]}` }}
@@ -189,6 +205,7 @@ export function OutcomeError({ d, incident, steps, error, names }: { d: Decision
           </section>
         </div>
       </div>
+      <FollowRow incidentId={d?.incident_id ?? incident?.id} evidence={d?.evidence ?? []} domain={incident?.domain} />
     </main>
   );
 }

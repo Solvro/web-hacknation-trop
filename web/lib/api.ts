@@ -72,11 +72,12 @@ export async function apiPost<T>(path: string, body: unknown, fallback?: () => T
   return (await r.json()) as T;
 }
 
-export async function analyze(input: { url?: string; trace?: string; files?: File[] }): Promise<{ job_id: string | null; incident_id?: string | null; trace?: unknown }> {
+/** `names` = per-file upload names; for folders the relative path ("1/x_files/a.js"), which the API uses to rebuild it. */
+export async function analyze(input: { url?: string; trace?: string; files?: File[]; names?: string[] }): Promise<{ job_id: string | null; incident_id?: string | null; trace?: unknown }> {
   const fd = new FormData();
   if (input.url) fd.append('url', input.url);
   if (input.trace) fd.append('trace', input.trace);
-  for (const f of input.files ?? []) fd.append('files', f, f.name);
+  (input.files ?? []).forEach((f, i) => fd.append('files', f, input.names?.[i] ?? f.name));
   const label = input.url ?? input.trace ?? (input.files ?? []).map((f) => f.name).join(' ');
   return apiPost('/analyze', fd, () => localAnalyze(label));
 }

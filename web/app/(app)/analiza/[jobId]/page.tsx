@@ -6,6 +6,7 @@ import { Suspense, useEffect, useMemo, useState } from 'react';
 import type { Campaign, CampaignSummary, Decision, GraphPayload, IncidentSummary } from '@/lib/contracts';
 import { isOffline, useApi } from '@/lib/api';
 import { plOnly, prettyDisplay } from '@/lib/copy';
+import { toMaterial, useArtifacts } from '@/lib/artifacts';
 import { useJob } from '@/lib/use-job';
 import { JellyRoot } from '@/components/jelly';
 import { BotStrip, CapturedPage, FoundList, MaterialBar, Ranking, StatusPill, useElapsed } from '@/components/analysis/live';
@@ -42,7 +43,9 @@ function Analysis() {
   const decision = direct ? directDecision ?? null : job.decision;
   const incidentId = direct ? jobId : (job.incidentId ?? sp.get('inc') ?? (scenarioFromJobId(jobId) ? SCENARIO_INCIDENT[scenarioFromJobId(jobId)!] : null));
   const directError = useApi<Decision>(direct ? `/incidents/${encodeURIComponent(jobId)}/decision` : null).error;
-  const incident = useApi<IncidentSummary>(incidentId ? `/incidents/${encodeURIComponent(incidentId)}` : null).data;
+  const art = useArtifacts(incidentId);
+  const incidentRaw = useApi<unknown>(incidentId ? `/incidents/${encodeURIComponent(incidentId)}` : null).data;
+  const incident = useMemo(() => toMaterial(incidentRaw, incidentId), [incidentRaw, incidentId]);
   const cid = decision?.campaign_id ?? decision?.candidate_campaign_id ?? null;
   const campaign = useApi<Campaign>(cid ? `/campaigns/${encodeURIComponent(cid)}` : null).data;
 
@@ -65,6 +68,8 @@ function Analysis() {
   };
   // chip / card ids (`ev:<field>:<value>`) are resolved against the real graph before asking for the focus view
   const full = useApi<GraphPayload>(focus && !isOffline() ? '/graph' : null);
+  const incList = useApi<IncidentSummary[] | { items: IncidentSummary[] }>(focus && !isOffline() ? '/incidents?limit=1000' : null).data;
+  const incById = useMemo(() => new Map((Array.isArray(incList) ? incList : incList?.items ?? []).map((i) => [i.id, i])), [incList]);
   const resolved = !focus ? null : isOffline() ? focus : full.data ? resolveNodeId(full.data, focus, incident?.domain) : null;
   const focusRaw = useApi<GraphPayload>(resolved ? `/graph?focus=${encodeURIComponent(resolved)}&origin=${encodeURIComponent(decision?.incident_id ?? '')}` : null);
   const focusData = useMemo(() => {
@@ -77,12 +82,12 @@ function Analysis() {
     if (!g.nodes?.length) return { data: undefined, error: new Error('empty') };
     if (!g.focus || g.nodes.length > 9) g = neighbourhood(g, resolved!, origin) ?? g;
     if (origin && !g.nodes.some((n) => n.id === origin)) g = { ...g, nodes: [{ id: origin, kind: 'incident', label: origin, meta: { sub: 'ten materiał', thumb: true } }, ...g.nodes] };
-    const nodes = g.nodes.map((n) => ({ ...n, label: prettyDisplay(n.label), meta: { ...(n.meta ?? {}), sub: (n.meta as { sub?: string } | undefined)?.sub === 'incydent' ? 'materiał' : (n.meta as { sub?: string } | undefined)?.sub } }));
+    const nodes = g.nodes.map((n) => ({ ...n, label: prettyDisplay(n.label), meta: { ...(n.meta ?? {}), title: n.kind === 'incident' ? ((n.id === origin ? incident?.title : null) ?? incById.get(n.id)?.title ?? incById.get(n.id)?.domain ?? undefined) : undefined, sub: (n.meta as { sub?: string } | undefined)?.sub === 'incydent' ? 'materiał' : (n.meta as { sub?: string } | undefined)?.sub } }));
     const center = nodes.find((n) => n.id === resolved);
     const panel = normalizePanel(g.panel as Record<string, unknown>, center);
     panel.title = prettyDisplay(panel.title); panel.description = prettyDisplay(panel.description); panel.bot_text = prettyDisplay(panel.bot_text);
     return { data: { ...g, nodes, focus: resolved, panel: panel as Record<string, unknown> }, error: undefined };
-  }, [focus, resolved, full.data, full.error, focusRaw.data, focusRaw.error, decision?.incident_id]);
+  }, [focus, resolved, full.data, full.error, focusRaw.data, focusRaw.error, decision?.incident_id, incById, incident?.title]);
 
   const reportReady = shown && decision;
   const outcome = !decision ? null : job.error || decision.decision === 'insufficient' ? 'error' : decision.decision === 'new' ? 'new' : decision.decision === 'ambiguous' ? 'unsure' : 'report';
@@ -98,7 +103,7 @@ function Analysis() {
         onView={(v) => setQuery({ view: v, focus: v === 'raport' ? null : focus })}
         onFocus={(id) => setQuery({ view: 'graf', focus: id })}
         focusView={focus ? (
-          focusData.data ? <FocusView data={focusData.data} originId={decision.incident_id} onFocus={(id) => setQuery({ focus: id })} onBack={() => setQuery({ focus: null })} />
+          focusData.data ? <FocusView data={focusData.data} originId={decision.incident_id} originThumb={art.any} onFocus={(id) => setQuery({ focus: id })} onBack={() => setQuery({ focus: null })} />
             : focusData.error ? (
               <div className="rounded-[22px] border border-dashed border-line2 bg-bg2 p-8 text-center flex flex-col items-center gap-2">
                 <b className="text-[16px]">Ten ślad nie ma jeszcze własnego widoku w grafie</b>
@@ -135,14 +140,18 @@ function Analysis() {
   const compare = job.steps.find((s) => s.key === 'compare');
   const topScore = [...job.scores].sort((a, b) => (b.p ?? 0) - (a.p ?? 0))[0];
   const joined = compare && compare.status !== 'run' && compare.status !== 'pending' && topScore && (topScore.p ?? 0) >= 0.5 ? topScore.campaign_id : null;
-  const tpl = job.evidence.find((e) => e.type === 'content' && /headline|h1/.test(e.field) && e.state !== 'missing');
-  const person = job.evidence.find((e) => e.type === 'persons' || e.field === 'persons' || e.field === 'face')?.value;
-  const headline = tpl ? tpl.value.replace(/\{per\}/i, person ? person.replace(/\b\p{L}/gu, (c) => c.toUpperCase()) : '…') : null;
+  // never re-fill a masked template ({PER}): only the page's own h1 / title as captured, original casing
+  const headline = incident?.h1 || incident?.title || null;
+  // evidence outlines: the render's own boxes, else the bboxes the bots reported in job.finding
+  const KIND: Record<string, string> = { content: 'headline', kit: 'form', tracking: 'tracking', persons: 'face', visual: 'logo', infra: 'domain' };
+  const shot = art.landing && !art.landing.boxes.length
+    ? { ...art.landing, boxes: job.findings.filter((f) => f.bbox?.length === 4).map((f) => ({ kind: KIND[f.evidence.type] ?? 'headline', x: f.bbox![0], y: f.bbox![1], w: f.bbox![2], h: f.bbox![3], text: f.evidence.display })) }
+    : art.landing;
 
   return (
     <main className="relative z-[1] w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[22px] pb-8 box-border flex flex-col gap-4">
       <MaterialBar
-        input={input} incidentId={incidentId} note={(incident as { note?: string } | undefined)?.note}
+        input={input} incidentId={incidentId} thumb={art.ad} note={(incident as { note?: string } | undefined)?.note}
         status={<StatusPill live={!job.done} text={`${job.done ? 'Raport gotowy' : job.error ? 'Problem ze stroną' : 'Analiza trwa'} · ${job.done && total ? (total / 1000).toFixed(1).replace('.', ',') : elapsed.toFixed(1).replace('.', ',')} s${job.source === 'replay' ? ' · nagranie' : job.source === 'simulated' ? ' · demo offline' : ''}`} />}
         onCancel={() => router.push('/')}
       />
@@ -150,7 +159,7 @@ function Analysis() {
       <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)_280px] xl:grid-cols-[340px_minmax(0,1fr)_300px] gap-5 items-start">
         <section aria-labelledby="an-page">
           <div className="colh"><h2 id="an-page">Strona po przechwyceniu</h2></div>
-          <CapturedPage url={input} headline={headline} evidence={job.evidence} captureNote={capture?.detail ?? null} capturing={!capture || capture.status === 'pending' || capture.status === 'run'} failed={capture?.status === 'error'} />
+          <CapturedPage shot={shot} url={input} headline={headline} evidence={job.evidence} captureNote={capture?.detail ?? null} capturing={!capture || capture.status === 'pending' || capture.status === 'run'} failed={capture?.status === 'error'} />
         </section>
         <FoundList state={job} />
         <Ranking scores={job.scores} names={names} evidence={job.evidence} joined={joined} />
