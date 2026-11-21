@@ -66,11 +66,18 @@ def focus_view(g: GraphPayload, focus: str, origin: str | None = None, max_neigh
     out_nodes: list[GraphNode] = []
     origin_n = {e.b if e.a == origin else e.a for e in adj.get(origin or "", [])}
     focus_n = {e.b if e.a == focus else e.a for e in adj.get(focus, [])}
+    def _neigh(k: str) -> set[str]:
+        return {e.b if e.a == k else e.a for e in adj.get(k, [])} - {k}
+
+    def _materials(k: str) -> int:        # how many materials (incidents) share this trace
+        inc = [o for o in _neigh(k) if o in nodes and nodes[o].kind == "incident"]
+        return int(nodes[k].meta.get("materials") or len(inc) or deg.get(k) or len(_neigh(k)))
     for k in keep:
         n = nodes[k].model_copy(deep=True)
         meta = dict(n.meta)
         meta.setdefault("sub", _sub(n, deg[k]))
-        meta.setdefault("count", deg[k])
+        meta["count"] = _materials(k) if n.kind in ("trace", "person", "domain", "cert") else meta.get("count", deg[k])
+        meta["expandable"] = min(len(_neigh(k) - ({origin} if origin else set())), max_neighbours)
         if n.kind == "trace" and ("cloudflare" in n.label.lower() or n.meta.get("weak")):
             meta["weak"] = True
         if k == focus and n.kind == "incident":

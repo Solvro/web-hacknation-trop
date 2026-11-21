@@ -634,12 +634,20 @@ class RealStore:
                 holders.setdefault(("infra", "cdn", cdn), []).append(inc["id"])
         for (layer, key, val), ids in holders.items():
             fresh = any(i in extra for i in ids)
-            if (layer in ("tracking", "kit") or key == "cdn") and (fresh or 2 <= len(ids) <= max(3, self.N // 2) or key == "cdn") and (ls is None or layer in ls):
+            if (layer in ("tracking", "kit", "content") or key == "cdn") and (fresh or 2 <= len(ids) <= max(3, self.N // 2) or key == "cdn") and (ls is None or layer in ls):
                 tid = f"trace:{key}:{val}"
                 it = self._item(layer, key, val, len(ids)) if key != "cdn" else self._item("infra", "cdn", val, len(ids))
                 nodes[tid] = GraphNode(id=tid, kind="trace", label=f"{key}: {val[:28]}", size=2,
                                        meta={"field": key, "value": val, "layer": layer, **({"weak": True} if key == "cdn" else {})})
                 edges += [GraphEdge(a=tid, b=i, type=layer, weight=max(it.weight, 0.1), level="L2") for i in ids]
+        for xid, xinc in extra.items():                  # fresh upload: the campaign / operator of its stored decision, counted text group
+            self._fresh_links(xid, xinc, nodes, edges, await self._stored_decision(xid))
+        for x in (focus, origin):                       # corpus incident in focus: its text group (leave-one-out decision) next to the other traces
+            if x and x in self._by_id and x not in extra:
+                try:
+                    self._fresh_links(x, self._by_id[x], nodes, edges, self._loo_decision(x), campaign=False)
+                except Exception:  # noqa: BLE001
+                    pass
         if scope and scope.startswith("campaign:"):
             cid = scope.split(":", 1)[1]
             keep = {n for n, v in nodes.items() if v.campaign_id == cid or n == cid}
@@ -649,17 +657,49 @@ class RealStore:
         hulls = [{"id": cid, "kind": "campaign", "members": [n for n, v in nodes.items() if v.campaign_id == cid], "label": cid} for cid in c.campaigns]
         g = GraphPayload(nodes=list(nodes.values()), edges=edges, hulls=[h for h in hulls if h["members"]])
         if focus:
-            for p in {i for inc in c.incidents for i in _s((inc.get("content") or {}).get("persons"))}:   # person:<name> nodes
+            pool = list(c.incidents) + list(extra.values())
+            for xid, xinc in extra.items():
+                xinc.setdefault("id", xid)
+            for p in {i for inc in pool for i in _s((inc.get("content") or {}).get("persons"))}:   # person:<name> nodes
                 pid = f"person:{p}"
                 if pid not in nodes:
                     g.nodes.append(GraphNode(id=pid, kind="person", label=p, size=1.5))
-                    g.edges += [GraphEdge(a=pid, b=i["id"], type="persons", weight=1.5, level="L2") for i in c.incidents if p in _s((i.get("content") or {}).get("persons"))]
+                    g.edges += [GraphEdge(a=pid, b=i["id"], type="persons", weight=1.5, level="L2") for i in pool
+                                if p in _s((i.get("content") or {}).get("persons")) and i["id"] in nodes]
             focus = self._alias_focus(g, focus, origin)
             try:
                 return focus_view(g, focus, origin)
             except KeyError:
                 raise _nf("node")
         return g
+
+    async def _stored_decision(self, iid: str):
+        st = await self._stored(iid)
+        try:
+            return Decision.model_validate(st["decision"]) if st and st.get("decision") else None
+        except Exception:  # noqa: BLE001
+            return None
+
+    def _fresh_links(self, iid: str, inc: dict, nodes: dict, edges: list, d, campaign: bool = True) -> None:
+        """Decision-derived nodes of an incident: its candidate / assigned campaign (+ operator) and the counted text-MinHash group."""
+        if d is None:
+            return
+        cid = d.campaign_id or d.candidate_campaign_id
+        if campaign and cid and cid in nodes:
+            nodes[iid].campaign_id = nodes[iid].campaign_id or d.campaign_id
+            edges.append(GraphEdge(a=iid, b=cid, type="member", weight=6 if d.campaign_id else 5, level="L2",
+                                   label=None if d.campaign_id else "kandydat"))
+            if d.operator_id:
+                nodes.setdefault(d.operator_id, GraphNode(id=d.operator_id, kind="operator", label=d.operator_id, size=4))
+                if not any({e.a, e.b} == {cid, d.operator_id} for e in edges):
+                    edges.append(GraphEdge(a=cid, b=d.operator_id, type="operator", weight=3, level="L3"))
+                edges.append(GraphEdge(a=iid, b=d.operator_id, type="operator", weight=4, level="L3", label="ten sam operator"))
+        for e in d.evidence:
+            if e.field in ("text_minhash", "text_group") and e.state == "match" and e.value:
+                tid = f"trace:text_minhash:{e.value}"
+                nodes.setdefault(tid, GraphNode(id=tid, kind="trace", label="Tekst strony: grupa " + str(e.value)[:10], size=2,
+                                                meta={"field": "text_minhash", "value": e.value, "layer": "content", "materials": max(e.df, 1) + (1 if campaign else 0)}))
+                edges.append(GraphEdge(a=tid, b=iid, type="content", weight=max(e.weight, 0.1), level="L2"))
 
     KIT_FIELDS = {"kit_tenants", "lander_ids", "landing_type_ids", "kit_endpoints", "path_shapes", "chain_param_schemas"}
 

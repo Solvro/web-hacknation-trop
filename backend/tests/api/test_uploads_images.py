@@ -141,6 +141,34 @@ def test_public_check_known_domain_is_scam_without_capture(live):  # noqa: F811
     assert live.post(f"{P}/public/check", data={"url": "https://zupelnie-nieznana-domena-xyz.pl/"}).json()["verdict"] == "unknown"
 
 
+def test_graph_focus_on_fresh_upload_has_content_nodes_campaign_and_counts(live):  # noqa: F811
+    import copy
+    import json
+    import redis
+    from trop.engine import service
+    corpus = service.Corpus.load()
+    src = next(i for i in corpus.incidents if (i.get("content") or {}).get("persons") and corpus.campaign_of.get(i["id"]))
+    inc = copy.deepcopy(src)
+    inc["id"] = "INC-UTEST1"
+    dec, _ = service.analyze_incident(inc, corpus)
+    r = redis.Redis.from_url(settings.redis_url)
+    try:
+        r.set("trop:incident:INC-UTEST1", json.dumps({"incident": inc, "decision": dec.model_dump(mode="json")}, default=str), ex=300)
+    except Exception:
+        pytest.skip("redis down")
+    g = live.get(f"{P}/graph?focus=INC-UTEST1").json()
+    ids = {n["id"] for n in g["nodes"]}
+    cid = dec.campaign_id or dec.candidate_campaign_id
+    assert cid in ids and any(i.startswith("person:") for i in ids)
+    assert any(i.startswith("trace:") for i in ids)
+    for n in g["nodes"]:
+        if n["kind"] in ("trace", "person"):
+            assert isinstance(n["meta"]["count"], int) and n["meta"]["count"] >= 1 and "expandable" in n["meta"]
+    pn = next(n for n in g["nodes"] if n["id"].startswith("person:"))
+    assert pn["meta"]["count"] >= 2                              # the original corpus incident shares it too
+    r.delete("trop:incident:INC-UTEST1")
+
+
 def test_person_trace_facts_mock(client):
     t = client.get(f"{P}/traces/person/Jan Kowalski").json()
     assert t["facts"]["campaigns"] and t["facts"]["text"] and t["facts"]["captions"]
