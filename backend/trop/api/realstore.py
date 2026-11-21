@@ -608,7 +608,7 @@ class RealStore:
     # ------------------------------------------------------------------------------------------ investigations (WS6 agent)
     def investigations(self, status=None):
         from trop.agent import service as svc
-        return svc.list_investigations(status)
+        return [i for i in svc.list_investigations(status) if not i.campaign_id or i.campaign_id in self.corpus.campaigns]
 
     def investigation(self, iid: str):
         from trop.agent import service as svc
@@ -667,7 +667,7 @@ class RealStore:
     # ------------------------------------------------------------------------------------------ act (WS6)
     def act_packages(self):
         from trop.act import service as act
-        return act.list_packages()
+        return [x for x in act.list_packages() if x.campaign_id in self.corpus.campaigns]   # no fictional campaigns in real mode
 
     def act_package(self, pid: str):
         from trop.act import service as act

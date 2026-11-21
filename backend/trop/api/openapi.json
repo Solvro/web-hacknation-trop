@@ -193,7 +193,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "$ref": "#/components/schemas/AnalyzeResponse"
+         "$ref": "#/components/schemas/AnalyzeAccepted"
         }
        }
       }
@@ -1981,6 +1981,22 @@
       }
      },
      {
+      "name": "origin",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Origin"
+      }
+     },
+     {
       "name": "from",
       "in": "query",
       "required": false,
@@ -2857,7 +2873,7 @@
       "required": false,
       "schema": {
        "type": "string",
-       "pattern": "^(pdf|json|csv|stix|misp)$",
+       "pattern": "^(pdf|json|csv|stix|misp|certpl)$",
        "default": "pdf",
        "title": "Format"
       }
@@ -2904,6 +2920,58 @@
       "application/json": {
        "schema": {
         "$ref": "#/components/schemas/ActSubmit"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ActPackage"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/act/packages/{pid}/notice": {
+   "patch": {
+    "tags": [
+     "act"
+    ],
+    "summary": "Act Notice",
+    "operationId": "act_notice_api_v1_act_packages__pid__notice_patch",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NoticeUpdate"
        }
       }
      }
@@ -4552,7 +4620,7 @@
     ],
     "title": "Alert"
    },
-   "AnalyzeResponse": {
+   "AnalyzeAccepted": {
     "properties": {
      "job_id": {
       "anyOf": [
@@ -4564,6 +4632,20 @@
        }
       ],
       "title": "Job Id"
+     },
+     "trace": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "string"
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Trace"
      },
      "incident_id": {
       "anyOf": [
@@ -4579,8 +4661,7 @@
     },
     "additionalProperties": false,
     "type": "object",
-    "title": "AnalyzeResponse",
-    "description": "POST /analyze. Differs from schema.AnalyzeAccepted only in `job_id` being nullable (trace input, CONTRACTS §5)."
+    "title": "AnalyzeAccepted"
    },
    "Artifact": {
     "properties": {
@@ -8968,6 +9049,20 @@
      "other_id"
     ],
     "title": "MergeRequest"
+   },
+   "NoticeUpdate": {
+    "properties": {
+     "text": {
+      "type": "string",
+      "title": "Text"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "text"
+    ],
+    "title": "NoticeUpdate"
    },
    "Operation": {
     "properties": {
