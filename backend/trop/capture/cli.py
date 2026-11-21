@@ -135,8 +135,20 @@ def capture(
     proxy: Optional[str] = typer.Option(None, "--proxy", help="egress proxy, e.g. socks5://127.0.0.1:1080"),
     fast: bool = typer.Option(False, "--fast", help="no PDF/MHTML, shorter settle"),
     force: bool = typer.Option(False, "--force", help="ignore the politeness budget (use for known-safe pages only)"),
+    target: Optional[str] = typer.Argument(None, help="`trop capture render <saved.html|dir> --out x.png`: render a saved page"),
+    ids: Optional[list[str]] = typer.Option(None, "--id", help="render-corpus: only these incident ids"),
 ) -> None:
     """Capture a URL as an organizer-compatible bundle (archive_info.json, network.har, html/, screenshots/, dns_ssl.json)."""
+    if url == "render-corpus":                   # trop capture render-corpus [--id p1 --id d2]
+        from .render import render_corpus
+        r = render_corpus(out, ids or None)
+        typer.echo(json.dumps({k: v for k, v in r.items() if k != "items"}, ensure_ascii=False, indent=1))
+        raise typer.Exit(1 if r["failed"] else 0)
+    if url == "render":                          # trop capture render <saved.html|dir> --out page.png
+        from .render import render_saved
+        r = render_saved(target or "", out or "page.png")
+        typer.echo(json.dumps({**r, "boxes": len(r.get("boxes", []))}, ensure_ascii=False, indent=1))
+        raise typer.Exit(0 if r.get("ok") else 1)
     r = capture_url(url, profile or "fb_inapp_android_pl", docker=not local, out=out, proxy=proxy, fast=fast, force=force)
     typer.echo(json.dumps(r, indent=1, ensure_ascii=False))
     raise typer.Exit(0 if r.get("ok") else 1)
