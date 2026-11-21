@@ -56,7 +56,7 @@ function Batch() {
         const r = await apiGet<BatchResult>(`/batch/${encodeURIComponent(job)}`);
         if (stop) return;
         setRes(r);
-        if (!r.rows?.length || r.rows.length < r.n_items) setTimeout(tick, 1500); else setBusy(false);
+        if (!r.rows?.length || r.rows.length < (r.n_items ?? Infinity)) setTimeout(tick, 1500); else setBusy(false);
       } catch { if (!stop) setTimeout(tick, 2000); }
     };
     tick();
@@ -80,7 +80,7 @@ function Batch() {
           <table className="w-full min-w-[760px] text-[13px] border-collapse">
             <thead><tr className="text-left text-tx3 border-b border-line1">{['materiał', 'decyzja', 'kampania', 'pewność', 'operacja', 'pokrycie', 'dowody'].map((h) => <th key={h} className="font-normal py-2 px-2">{h}</th>)}</tr></thead>
             <tbody>
-              {res.rows.map((r) => (
+              {(res.rows ?? []).map((r) => (
                 <tr key={r.item + r.incident_id} className="border-b border-bg4">
                   <td className="py-2 px-2 font-mono">{r.item}</td><td className="px-2">{DECISION_LABEL[r.decision] ?? r.decision}</td><td className="px-2 font-mono">{r.campaign}</td>
                   <td className="px-2 font-mono">{p2(r.campaign_p)}</td><td className="px-2 font-mono">{r.operation}</td><td className="px-2 font-mono">{p2(r.coverage)}</td>
@@ -89,7 +89,7 @@ function Batch() {
               ))}
             </tbody>
           </table>
-          <p className="text-[12.5px] text-tx3 pt-2">{res.rows.length} z {res.n_items} materiałów</p>
+          <p className="text-[12.5px] text-tx3 pt-2">{res.rows?.length ?? 0} z {res.n_items ?? "…"} materiałów</p>
         </div>
       )}
     </Card>

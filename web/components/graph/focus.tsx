@@ -28,7 +28,7 @@ function NodeCard({ n, onClick, active }: { n: GraphNode; onClick?: () => void; 
       {realThumb(m.thumb) && <img src={realThumb(m.thumb)!} alt="" className="w-[34px] h-[34px] flex-none rounded-lg object-cover object-top border border-line1" />}
       {!m.thumb && m.bot && <Bot color={BOT_BY_KEY[m.bot as keyof typeof BOT_BY_KEY]?.color ?? '#525252'} size={30} />}
       <span className="flex-1 min-w-0 flex flex-col gap-0.5 text-left">
-        <span className={(n.kind === 'incident' && m.title ? 'text-[13px] ' : 'font-mono text-[13px] ') + 'font-semibold truncate ' + (m.weak ? 'text-tx4 font-medium' : 'text-tx1')}>{n.kind === 'incident' && m.title ? m.title : n.label}</span>
+        <span className={(n.kind === 'incident' && m.title ? 'text-[13px] leading-snug line-clamp-2 break-words ' : 'font-mono text-[13px] truncate ') + 'font-semibold ' + (m.weak ? 'text-tx4 font-medium' : 'text-tx1')}>{n.kind === 'incident' && m.title ? m.title : n.label}</span>
         {(m.sub || (n.kind === 'incident' && m.title)) && <span className="text-[12.5px] text-tx3 truncate">{[n.kind === 'incident' && m.title ? n.id : null, m.sub].filter(Boolean).join(' · ')}</span>}
       </span>
       {m.count != null && <b className="font-mono text-[14px] font-semibold">{m.count}</b>}
@@ -68,7 +68,7 @@ function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
       <h3 id="focus-title" className="text-[26px] font-semibold tracking-[-0.03em] leading-tight">{p.title}</h3>
       {p.description && <p className="text-[14px] leading-normal text-tx2">{p.description}</p>}
       {p.facts && p.facts.length > 0 && (
-        <dl className="m-0">{p.facts.map((f) => <div key={f.k} className="kv"><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
+        <dl className="m-0">{p.facts.filter((f) => f.v != null && String(f.v).trim() && String(f.v).trim() !== '—').map((f) => <div key={f.k} className="kv"><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
       )}
       {p.bot_text && (
         <div className="flex gap-3 items-start rounded-2xl bg-bg3 p-3.5">
@@ -122,7 +122,7 @@ export function FocusView({ data, originId, originThumb, onFocus, onBack }: { da
           </svg>
           {origin && (
             <div className="absolute" style={{ left: 0, top: mid - 32, width: 180 }}>
-              <NodeCard n={{ ...origin, meta: { ...meta(origin), thumb: originThumb ?? true, sub: 'ten materiał' } }} />
+              <NodeCard n={{ ...origin, meta: { ...meta(origin), thumb: originThumb ?? true, sub: 'ten materiał', count: undefined } }} />
             </div>
           )}
           {!bridge && (

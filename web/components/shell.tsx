@@ -35,7 +35,7 @@ export function Header() {
     <header className={'relative z-[4] border-b ' + (onPole ? 'border-transparent' : 'border-bg4')}>
       <div data-jelly-clear className="max-w-[1240px] mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-x-6 gap-y-3">
         <Logo />
-        <nav aria-label="Sekcje" className="flex-1 flex flex-wrap justify-center gap-0.5 order-3 sm:order-none w-full sm:w-auto">
+        <nav aria-label="Sekcje" className="flex-1 flex flex-wrap justify-center gap-0.5 order-3 sm:order-none basis-full sm:basis-0">
           {TABS.map((t) => {
             const on = t.match(path);
             return (
