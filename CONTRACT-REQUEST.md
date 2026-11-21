@@ -22,3 +22,8 @@ No blocking schema change needed; everything fits `schema.py` as is. Notes for t
 5. `ActPackage.contents` carries an extra key `certpl_new` (domains not yet on the CERT PL list). `ActPackage.formats`
    is `["pdf","json","stix","misp","csv"]`; `download()` also accepts `certpl` (the e-mail draft as text).
 6. Suggest adding `"certpl"` to the `format` pattern of `GET /act/packages/{id}/download` (WS2 route).
+
+## WS7 (extension / public /sprawdz)
+- `POST /public/check` should accept an optional multipart file field `image` (screenshot). The public page already sends it; the server currently ignores it, so a screenshot-only check returns "unknown".
+- `PublicReport` has no `source` field; the extension sends `note: "extension"` and `post{...}`. Please set incident `source=extension` when `post` is present.
+- Web shell (WS3): root layout renders Header/Footer for every route. `/sprawdz` covers it with a fixed full-screen wrapper; cleaner: move `/sprawdz` into a route group `(public)` with its own layout, or hide the shell for that path.
