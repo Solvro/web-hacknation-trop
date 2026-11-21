@@ -202,12 +202,10 @@ class MockStore:
             raise _nf("incident")
         return M.IncidentDetail.model_validate(d)
 
-    def artifacts(self, iid: str) -> list[M.Artifact]:
+    def artifacts(self, iid: str) -> list[M.ArtifactRef]:
         self._summary(iid)
-        return [M.Artifact(kind="screenshot", name="ad.png", url=f"/api/v1/mock/asset/{iid}-ad.svg", size=48211, mime="image/svg+xml"),
-                M.Artifact(kind="screenshot", name="landing.png", url=f"/api/v1/mock/asset/{iid}-landing.svg", size=212004, mime="image/svg+xml"),
-                M.Artifact(kind="har", name="capture.har", url=f"/api/v1/mock/asset/{iid}.har", size=1840211, mime="application/json"),
-                M.Artifact(kind="html", name="dom.html", url=f"/api/v1/mock/asset/{iid}-dom.html", size=60112, mime="text/html")]
+        return [M.ArtifactRef(id=f"{iid}--ad_screenshot--0", role="ad_screenshot", url=f"/api/v1/artifacts/{iid}--ad_screenshot--0", w=640, h=400, mime="image/svg+xml", size=48211),
+                M.ArtifactRef(id=f"{iid}--landing_screenshot--0", role="landing_screenshot", url=f"/api/v1/artifacts/{iid}--landing_screenshot--0", w=640, h=400, mime="image/svg+xml", size=212004)]
 
     def features(self, iid: str) -> list[M.FeatureGroup]:
         d = self.decision(iid)
@@ -702,10 +700,20 @@ class MockStore:
             raise _nf(f"trace type {type_}")
         ev = U.evidence_value(layer, value)
         type_ = canon
+        facts = {}
+        if canon == "person":
+            camps = [c for c, v in U.SPEC.items() if value in v["persons"]]
+            heads = sorted({s.title for s in self.inc_sum if s.person == value and s.title})[:6]
+            seen = sorted(s.captured_at for s in self.inc_sum if s.person == value and s.captured_at)
+            n = sum(1 for s in self.inc_sum if s.person == value)
+            facts = {"campaigns": [{"id": c, "name": next(x.name for x in self.campaigns_ if x.id == c), "count": sum(1 for s in self.inc_sum if s.person == value and s.campaign_id == c)} for c in camps],
+                     "captions": [{"text": h} for h in heads], "first_seen": seen[0] if seen else None, "last_seen": seen[-1] if seen else None,
+                     "face_matches": [{"score": 0.91, "source": "ad_screenshot"}] if n else [],
+                     "text": [f"{value} występuje w {n} incydentach z {len(camps)} kampanii."]}
         latest = [s for s in self.inc_sum if s.campaign_id == "KMP-017"][:5]
         return M.TraceView(value=value, type=type_, campaigns=ev.campaigns, weekly=ev.weekly, latest=[s.model_dump(mode="json") for s in latest],
                            usage=[{"where": "reklamy", "count": ev.df // 2}, {"where": "strony docelowe", "count": ev.df - ev.df // 2}],
-                           co_traces=[{"type": "tracking", "value": U.CAPI, "count": 41}, {"type": "kit", "value": U.KIT, "count": 40}])
+                           co_traces=[{"type": "tracking", "value": U.CAPI, "count": 41}, {"type": "kit", "value": U.KIT, "count": 40}], facts=facts)
 
     def batch(self, names: list[str], path: str | None = None) -> M.BatchAccepted:
         jid = "JOB-B" + uuid.uuid4().hex[:10].upper()

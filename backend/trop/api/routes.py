@@ -1,6 +1,7 @@
 """All /api/v1 routes (docs/design/README.md §7.1 + docs/CONTRACTS.md §4/§5). Routes only talk to the store."""
 from __future__ import annotations
 
+import asyncio
 import inspect
 import json
 import os
@@ -88,7 +89,7 @@ async def search(q: str = ""):
 
 # ============================================================================================== analyze / jobs
 @router.post("/analyze", response_model=AnalyzeAccepted, tags=["jobs"])
-async def analyze(url: str | None = Form(None), trace: str | None = Form(None), files: list[UploadFile] = File(default=[])):
+async def analyze(response: Response, url: str | None = Form(None), trace: str | None = Form(None), files: list[UploadFile] = File(default=[])):
     s = get_store()
     saved: list[str] = []
     if trace:
@@ -99,16 +100,56 @@ async def analyze(url: str | None = Form(None), trace: str | None = Form(None), 
     if not files:                      # files win over a (prefilled) url
         kind, name = "url", url
     else:
-        folder = Path(settings.artifact_dir) / "uploads" / __import__("uuid").uuid4().hex[:12]
-        folder.mkdir(parents=True, exist_ok=True)
-        for f in files:
-            p = folder / _safe(f.filename or "upload")
-            p.write_bytes(await f.read())
-            saved.append(str(p))
-        names = [Path(p).name for p in saved]
-        kind = "zip" if len(names) == 1 and names[0].lower().endswith(".zip") else "file" if len(names) == 1 else "folder"
-        name = names[0] if len(names) == 1 else f"{len(names)} plików"
+        up = await _save_upload(files, "")
+        if up["mode"] == "batch":          # several item folders / a zip of folders: a batch job (GET /batch/{job_id}, job state via /jobs/{job_id})
+            b = await _a(s.batch(up["names"], str(up["path"])))
+            response.headers["X-TROP-Batch"] = "1"
+            return AnalyzeAccepted(job_id=b.job_id)
+        kind, name, saved = up["kind"], up["name"], [str(up["path"])]
     return await _a(s.analyze(kind, name, saved))
+
+
+async def _save_upload(files: list[UploadFile], prefix: str) -> dict:
+    """Write the multipart parts under the upload dir keeping their (sanitised) relative paths; decide single item vs batch.
+    -> {mode: single|batch, kind, name, path, names}."""
+    import shutil
+    import zipfile
+    from trop.api import uploads as UP
+    root = Path(settings.artifact_dir) / "uploads" / (prefix + __import__("uuid").uuid4().hex[:12])
+    root.mkdir(parents=True, exist_ok=True)
+    if len(files) > UP.MAX_FILES:
+        raise HTTPException(413, f"too many files (max {UP.MAX_FILES})")
+    parts: list[list[str]] = []
+    for f in files:
+        try:
+            p = UP.clean_rel(f.filename or "upload")
+        except UP.BadPath as e:
+            raise HTTPException(400, str(e))
+        if not p:
+            continue
+        dest = root.joinpath(*p)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest, "wb") as out:
+            await asyncio.to_thread(shutil.copyfileobj, f.file, out, 1 << 20)
+        parts.append(p)
+    if not parts:
+        raise HTTPException(422, "no usable files in the upload")
+    names = ["/".join(p) for p in parts]
+    if len(parts) == 1 and len(parts[0]) == 1 and parts[0][0].lower().endswith(".zip"):
+        zp = root / parts[0][0]
+        try:
+            with zipfile.ZipFile(zp) as z:
+                mode, _ = UP.zip_plan(z.namelist())
+        except zipfile.BadZipFile:
+            raise HTTPException(400, "not a valid zip file")
+        return {"mode": mode, "kind": "zip", "name": parts[0][0], "path": zp, "names": [parts[0][0]]}
+    mode, at = UP.plan(parts)
+    if mode == "batch":
+        return {"mode": "batch", "kind": "folder", "name": f"{len(parts)} plików", "path": root.joinpath(*at), "names": names}
+    if len(parts) == 1 and len(parts[0]) == 1:
+        return {"mode": "single", "kind": "file", "name": parts[0][0], "path": root / parts[0][0], "names": names}
+    target = root.joinpath(*at)
+    return {"mode": "single", "kind": "folder", "name": (at[-1] if at else f"{len(parts)} plików"), "path": target, "names": names, "root": root, "at": at}
 
 
 def _samples_dir() -> Path:
@@ -222,9 +263,22 @@ async def incident(incident_id: str):
     return await _a(get_store().incident(incident_id))
 
 
-@router.get("/incidents/{incident_id}/artifacts", response_model=list[M.Artifact], tags=["incidents"])
+@router.get("/incidents/{incident_id}/artifacts", response_model=list[M.ArtifactRef], tags=["incidents"])
 async def artifacts(incident_id: str):
     return await _a(get_store().artifacts(incident_id))
+
+
+@router.get("/artifacts/{artifact_id}", tags=["incidents"], response_class=Response, summary="A downscaled screenshot / keyframe (WebP)")
+async def artifact_file(artifact_id: str):
+    from fastapi.responses import FileResponse
+    s = get_store()
+    if s.mode == "mock":
+        return await mock_asset(f"{artifact_id}.svg")
+    from trop.api import images
+    p = images.file_for(artifact_id)
+    if not p:
+        raise HTTPException(404, "artifact not found")
+    return FileResponse(p, media_type="image/webp", headers={"Cache-Control": "public, max-age=86400"})
 
 
 @router.get("/incidents/{incident_id}/features", response_model=list[M.FeatureGroup], tags=["incidents"])
@@ -596,15 +650,14 @@ async def public_reports_mine():
 # ============================================================================================== batch
 @router.post("/batch", response_model=M.BatchAccepted, tags=["batch"])
 async def batch_create(files: list[UploadFile] = File(default=[])):
-    names = []
-    folder = Path(settings.artifact_dir) / "uploads" / ("batch-" + __import__("uuid").uuid4().hex[:8])
-    folder.mkdir(parents=True, exist_ok=True)
-    for f in files:
-        (folder / _safe(f.filename or "item")).write_bytes(await f.read())
-        names.append(_safe(f.filename or "item"))
-    # a single zip is handed to run_batch as is; several files -> the upload folder
-    path = folder / names[0] if len(names) == 1 and names[0].lower().endswith(".zip") else folder
-    return await _a(get_store().batch(names, str(path)))
+    """Folder tree / zip of item folders / loose files. A single item folder is a batch of one (its parent is handed to run_batch)."""
+    up = await _save_upload(files, "batch-")
+    path = up["path"]
+    if up["mode"] == "single" and up["kind"] == "folder":
+        path = up["path"].parent                       # run_batch treats every sub-folder of `path` as one item
+    elif up["mode"] == "single" and up["kind"] == "file":
+        path = up["path"] if str(up["path"]).lower().endswith(".zip") else up["path"].parent
+    return await _a(get_store().batch(up["names"], str(path)))
 
 
 @router.get("/batch/{job_id}", response_model=BatchResult, tags=["batch"])

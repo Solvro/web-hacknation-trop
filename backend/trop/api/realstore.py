@@ -316,6 +316,11 @@ class RealStore:
             doc, d = dict(st["incident"]), Decision.model_validate(st["decision"])
         doc = {k: v for k, v in doc.items() if not k.startswith("_")}
         doc["source"] = {**(doc.get("source") or {}), "path": None}     # local paths are never exposed
+        for sec, keys in (("ad", ("screenshot_path", "video_path")), ("landing", ("screenshot_path",))):
+            doc[sec] = {**(doc.get(sec) or {}), **{k: None for k in keys}}
+        doc["ad"]["screenshots"] = []
+        if (doc.get("media") or {}).get("video"):
+            doc["media"] = {**doc["media"], "video": {**doc["media"]["video"], "path": None, "keyframes": []}}
         return M.IncidentDetail.model_validate({**doc, "decision": {"campaign_id": d.campaign_id, "p": d.p, "decision": d.decision}, "coverage": d.coverage})
 
     async def decision(self, iid: str) -> Decision:
@@ -355,15 +360,10 @@ class RealStore:
         return [M.HistoryEvent(at=str(at), kind="captured", text=f"Przechwycono ({inc.source.type})"),
                 M.HistoryEvent(at=str(at), kind="decision", text=f"Decyzja: {d.decision} (p={d.p:.2f})")]
 
-    async def artifacts(self, iid: str) -> list[M.Artifact]:
-        inc = await self.incident(iid)
-        out = []
-        for key, kind in (("screenshot_path", "screenshot"),):
-            for sec in (inc.ad, inc.landing):
-                p = getattr(sec, key, None)
-                if p:
-                    out.append(M.Artifact(kind=kind, name=Path(p).name, url="", size=0))
-        return out
+    async def artifacts(self, iid: str) -> list[M.ArtifactRef]:
+        from trop.api import images
+        await self.incident(iid)                            # 404 for unknown incidents
+        return [M.ArtifactRef(**r) for r in images.artifact_refs(iid)]
 
     # ------------------------------------------------------------------------------------------ links / evidence
     async def link(self, a: str, b: str, view: str):
@@ -402,11 +402,47 @@ class RealStore:
     def trace(self, type_: str, value: str) -> M.TraceView:
         ev = self.evidence_value(type_, value)
         type_ = norm_type(type_)[0]
+        facts = self._person_facts(value) if type_ == "person" else {}
         ids = [s.id for s in ev.incidents]
         co = Counter(t for i in ids for t in _triples(self._by_id[i]) if t[2] != value and t[0] in ("tracking", "kit"))
         return M.TraceView(value=value, type=type_, campaigns=ev.campaigns, weekly=[], latest=[s.model_dump(mode="json") for s in ev.incidents[:10]],
                            usage=[{"where": "incydenty", "count": ev.df}],
-                           co_traces=[{"type": t[0], "value": t[2], "count": n} for t, n in co.most_common(8)])
+                           co_traces=[{"type": t[0], "value": t[2], "count": n} for t, n in co.most_common(8)], facts=facts)
+
+    def _person_facts(self, name: str) -> dict:
+        """Text-ready usage of a person: campaigns + counts, ad captions / headline templates, first/last seen, face-match scores."""
+        low = name.lower()
+        mem = []
+        for inc in self.corpus.incidents:
+            con, ad, med = inc.get("content") or {}, inc.get("ad") or {}, inc.get("media") or {}
+            names = [x.lower() for x in _s(con.get("persons")) + _s(ad.get("persons"))]
+            faces = [f for f in (med.get("faces") or []) if (f.get("identity") or "").lower() == low]
+            if low in names or faces:
+                mem.append((inc, faces))
+        camps = Counter(self._camp_of(i["id"]) for i, _ in mem)
+        caps, seen_cap = [], set()
+        for inc, _ in mem:
+            for txt in (((inc.get("ad") or {}).get("text") or ""), (inc.get("content") or {}).get("headline_template") or "", (inc.get("landing") or {}).get("title") or ""):
+                t = txt.strip()
+                if t and t not in seen_cap:
+                    seen_cap.add(t)
+                    caps.append({"text": t[:160], "incident_id": inc["id"]})
+        dates = sorted(str((i.get("source") or {}).get("captured_at") or "")[:10] for i, _ in mem if (i.get("source") or {}).get("captured_at"))
+        faces_out = [{"incident_id": i["id"], "score": round(float(f.get("score") or 0), 2), "source": f.get("source"), "deepfake": f.get("deepfake")}
+                     for i, fs in mem for f in fs]
+        cl = [{"id": c, "name": self._camp_name(c), "count": n} for c, n in camps.most_common() if c]
+        text = []
+        if mem:
+            text.append(f"{name} występuje w {len(mem)} incydentach z {len(cl)} kampanii: " + ", ".join(f"{c['id']} ({c['count']})" for c in cl) + ".")
+        if caps:
+            text.append("W reklamach i na stronach: " + "; ".join(f"„{c['text'][:70]}”" for c in caps[:3]) + ".")
+        if dates:
+            text.append(f"Pierwszy raz widziana {dates[0]}, ostatni {dates[-1]}.")
+        if faces_out:
+            best = max(faces_out, key=lambda f: f["score"])
+            text.append(f"Dopasowanie twarzy do galerii: do {best['score']:.2f} ({len(faces_out)} trafień).")
+        return {"incidents": len(mem), "campaigns": cl, "captions": caps[:8], "first_seen": dates[0] if dates else None,
+                "last_seen": dates[-1] if dates else None, "face_matches": faces_out[:12], "text": text}
 
     # ------------------------------------------------------------------------------------------ campaigns
     def _dna_rows(self, cid: str) -> list[DnaRow]:
