@@ -11,3 +11,4 @@ web/out/
 /web/data
 .pytest_cache/
 .ruff_cache/
+.claude/worktrees/
