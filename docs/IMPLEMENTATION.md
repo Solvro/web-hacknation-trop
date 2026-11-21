@@ -10,13 +10,53 @@
 
 | # | Blocker | Owner | Why it matters |
 |---|---|---|---|
-| B1 | **C: has 1.5 GB free** (953 GB disk). The face-photo fetch already failed on it. | Dawid | Docker images (torch, Playwright), `node_modules`, models and Postgres need roughly 30–40 GB. Free space, move Docker/WSL storage to another drive, or develop on the home PC / WCSS. `data/captures` (5.1 GB) and `data/artifacts` (2.3 GB) can move to another drive or be pruned. |
-| B2 | **Meta Ad Library identity verification** (facebook.com/ID). Steps: `docs/db/META_AD_LIBRARY_ACCESS.md`. | Dawid | Critical path for the live Hunter. Until it passes, the Hunter runs on the public-UI fallback and fixtures. |
-| B3 | Keys in `.env` (git-ignored): `ANTHROPIC_API_KEY`, `URLSCAN_API_KEY` (exists), `IPINFO_TOKEN` (exists), `gcloud auth application-default login` for BigQuery, `WIKIMEDIA_UA`. | Dawid | Agent, adjudicator, notices, Google Ads Transparency, gallery refresh. |
-| B4 | **Submission deadline and demo slot length.** | Dawid | Sets the clock times of the gates in §7. The plan below is written relative to T0 (start of implementation). |
-| B5 | **WCSS GPU for the demo window**: our own `serve_vllm.sbatch` reservation (Qwen3.6-35B-A3B), not someone else's server. | Models stream | The ad-screenshot reader and Polish LLM run there. The judge build must still work without it (cache + EasyOCR + Claude fallback). |
+| B1 | **Laptop C: needs about 50 GB free** (5 GB now) and Docker Desktop must respond again. We finish on the laptop (§1a). | Dawid | Docker images, Postgres, `node_modules` per worktree, data and video files. |
+| B2 | ~~Meta Ad Library identity verification~~ → **resolved**: `META_ACCESS_TOKEN` works (live `ads_archive` query for PL returned ads, 21.11). | — | The live Hunter is unblocked. |
+| B3 | Keys in `.env` (git-ignored), **all verified 21.11**: `GEMINI_API_KEY` (AI Studio endpoint; Vertex blocked, not needed), `OPENROUTER_API_KEY` ($100 limit), `META_*`, `URLSCAN_API_KEY`, `IPINFO_TOKEN`, `GOOGLE_CLOUD_PROJECT=gen-lang-client-0264807540` + gcloud ADC (BigQuery dry-run OK), `WIKIMEDIA_UA`. `ANTHROPIC_API_KEY` not needed. | — | — |
+| B4 | **Submission deadline and demo slot length** (still unknown). | Dawid | Sets the clock times of the gates in §7. The plan below is written relative to T0 (start of implementation). |
+| B5 | ~~WCSS GPU for the demo window~~ → **WCSS is out of the live path** (unstable: SLURM queue, SSH rate limits, shared vLLM server). Live = Gemini + OpenRouter; WCSS = batch jobs and training only. | — | — |
 
 ---
+
+## 1a. Hosting (final decision 21.11 ~21:45: **everything on the home PC**)
+
+- **Build and run host: home PC** (details below). The laptop's uplink is 4.7 Mbit/s with 264 ms latency, against 38 / 331 Mbit/s and 12 ms at home.
+  - Repo, Docker stack, database, data, captures and all workstream sessions live there.
+  - The laptop keeps only the browser, the extension, the demo and this coordinating session.
+- **Repo moves to the Solvro GitHub org** (Dawid, 21.11) so Coolify (devops.solvro.pl, Solvro's GitHub App) can build and deploy it. After the transfer, every checkout's `origin` points to the new Solvro URL.
+- **Deploy target for judges and the demo: Solvro Coolify (`devops.solvro.pl`, v4.7.6), server `solvro-stacja-web`** (office VM 10.21.36.12; Solvro's hackathon server).
+  - Coolify project **"Hackatony"**, deployed as a docker-compose resource through the Coolify API (`COOLIFY_URL` / `COOLIFY_API_TOKEN` in `.env`).
+  - The proxy is Traefik with the wildcard **`*.b.solvro.pl`**: web `trop.b.solvro.pl`, API under `/api` on the same host (or `api-trop.b.solvro.pl`).
+  - **Measured 21.11 21:22:**
+    - CPU: 16 cores (Ryzen 9 7950X), load ~1.5, **92% idle**.
+    - RAM: **23 GiB, ~9 GiB available**, swap 5.7 of 23 GiB used.
+    - Disk: root 147 GB free, `/mnt/data` 483 GB free.
+    - 97 containers running.
+
+    CPU and disk are plentiful; **RAM is the constraint**.
+  - **TROP memory budget ≤ 5 GiB total**, enforced with `mem_limit` on every container:
+
+    | Container | Limit | Note |
+    |---|---|---|
+    | Postgres | 1.5 GiB | `shared_buffers` 512 MB |
+    | Redis | 256 MiB | |
+    | API | 1 GiB | |
+    | Worker | 1.5 GiB | one process, Playwright one browser on demand |
+    | Web | 512 MiB | Next.js standalone |
+
+    No local ML models in the deployed image: faces use the precomputed gallery index (SFace on CPU is small), and VLM/LLM/ASR go to Gemini and OpenRouter.
+  - Video and bulk capture jobs stay off this server and run on the home PC. The deployed instance serves the UI, API and engine on precomputed data, plus light live analysis.
+
+- **Home PC (build host)** (SSH connection `HomePC` in the app, `ssh home`): Ubuntu 26.04, 12 cores, 60 GB RAM, 236 GB free disk, Docker 29.6, GTX 1050 Ti 4 GB.
+  - Repo: `~/hacknation/trop` (copied with git history, `.env` and `data/`).
+  - Tools: uv 0.12, Node 26 LTS (fnm), `gh` logged in. No sudo, so ffmpeg comes from the worker image (Debian package) plus `imageio-ffmpeg` outside Docker.
+- **It shares the machine with other projects.** Their ports: 80/443/8080 (Coolify proxy), 1025, 3000, 3128, 4000–4002, 5173, 5432–5434, 7000–7003, 8000, 8025, 8102.
+  - TROP uses compose project name `trop` and ports **Postgres 55432 · Redis 56379 · API 18000 · web 13000** (bound to `10.8.0.3` / localhost).
+  - Container resource limits keep TROP from starving the other stacks.
+- **Workstream sessions run on HomePC**, each in its own git worktree under `~/hacknation/trop-wt/<ws>`.
+- **Laptop:** browser at `http://10.8.0.3:13000` over WireGuard, the extension, the demo. Near the end, a backup of the prebuilt images and a DB snapshot (76 GB free now).
+- **Public URL for judges and the demo:** `trop.b.solvro.pl` on solvro-stacja-web (above).
+- **Live scam captures** run in the capture container. Its egress should go through a VPN or proxy rather than the bare home IP when possible.
 
 ## 1. Architecture (final)
 
@@ -56,8 +96,21 @@ Fixed choices and why:
 - **Déjà Vu = the approach (a) evidence engine from `experiments/rp/evidence.py` + `cluster.py`, ported as is.** It's the only approach with 0 wrong links on sample LOCO, all perturbations and held-out DANE (9/9). Embeddings, the GBM and the LLM adjudicator are support or veto only (RESULTS §0).
 - **Artifacts on a local FS volume**, with an S3 interface kept behind a flag. MinIO community images are no longer pullable (docs/db §8.3).
 - **No MinIO, no Neo4j, no login.** Graph views come from Postgres (`incident_neighborhood()`, recursive CTEs), with a GraphML/Cypher export for NASK.
-- **Model gateway order:** WCSS vLLM (Qwen3.6-35B-A3B; raw material allowed) → Claude (cloud now allowed) → EasyOCR/offline cache. **Never take person identity from a VLM**; faces come only from SFace + gallery (VLMs renamed politicians in tests).
-- **Claude models:** `claude-opus-5-5` for White Rabbit (long tool loops), `claude-sonnet-5-5` for notices and campaign summaries, `claude-haiku-5-5` for the adjudicator. Whoever writes this code loads the `claude-api` skill first.
+- **Model gateway**, one interface (`media/gateway.py`), with provider order per task:
+  - **ad screenshots:** OpenRouter `qwen/qwen3.6-35b-a3b` (the exact model that scored 14/14 on WCSS, $0.10/M) → Gemini Flash (`gemini-flash-latest`) → EasyOCR/offline cache. WCSS vLLM is used only for bulk re-runs;
+  - **video ads:** Gemini first, because it reads the whole video and its audio in one call (`gemini-flash-latest` for bulk, `gemini-pro-latest` for hard cases). Fallback: ffmpeg keyframes → WCSS VLM + ASR;
+  - **speech:** `gemini-3.5-transcribe` → faster-whisper (WCSS GPU / CPU int8).
+
+  The gateway caches every response by input sha256, so the judge build replays without keys. **Never take person identity from a VLM or Gemini**; faces come only from SFace + gallery (VLMs renamed politicians in tests).
+- **LLM provider = Gemini by default (decided 21.11: no Anthropic key needed).** One provider-agnostic `llm` interface (chat + function calling + JSON output):
+  - White Rabbit runs on `gemini-pro-latest` with function calling;
+  - takedown notices, campaign summaries and the adjudicator run on `gemini-flash-latest`;
+  - Claude (`claude-opus-5-5` / `claude-sonnet-5-5` / `claude-haiku-5-5`) is an optional drop-in when `ANTHROPIC_API_KEY` is set;
+  - fallback for every LLM task: OpenRouter (`qwen/qwen3.8-27b`, the same model as the proven WCSS adjudicator with 0 false links in RESULTS §2a; Claude through OpenRouter is optional);
+  - WCSS is batch-only (bulk VLM re-runs, embeddings, M1/M2 training).
+
+  Before trusting Gemini as adjudicator, rerun the 105-pair benchmark (`experiments/run_h_adjudicator.py`, via Gemini's OpenAI-compatible endpoint) and require 0 false links.
+- **Gemini models** (verified available to our key, 21.11): `gemini-flash-latest`, `gemini-pro-latest`, `gemini-3.5-transcribe`, plus the Omni flash models for audio and video. Use the `-latest` aliases in config, so a model rename doesn't break the build. Gemini's Google Search grounding is optional for White Rabbit's "seen elsewhere?" lookups.
 
 ---
 
@@ -95,8 +148,9 @@ CLI (`trop …`): `db migrate|seed`, `ingest <path> [--source]`, `analyze <url|f
 ### 3.2 Media: video and speech (stretch, now in scope)
 - Video sources: DANE 5 (yt-dlp mp4 + info.json), 14 and 47 (screen recordings, 339 MB), sample p9 (HLS in HAR), and Ad Library videos from the Hunter.
 - Pipeline:
-  1. `ffmpeg` scene-change keyframes (≤ 12 per video), each going to the ad VLM and to faces.
-  2. faster-whisper (`large-v3-turbo` on WCSS, `small` int8 on CPU as fallback) → transcript, then into the content layer (templates, persons, products, MinHash).
+  0. **Gemini video pass (primary):** upload the video via the Files API (long screen recordings are cut to the ad part with ffmpeg first), with structured JSON output: transcript (pl), on-screen text, scene list, claimed product/brand, narrative, calls to action, spoken URLs and phone numbers. These feed the content and ad layers. Persons named by Gemini are *hints only*.
+  1. `ffmpeg` scene-change keyframes (≤ 12 per video) → faces (SFace gallery, always) and the ad VLM (when Gemini is unavailable).
+  2. ASR when there is no Gemini pass: `gemini-3.5-transcribe`, then faster-whisper (`large-v3-turbo` on WCSS, `small` int8 on CPU) → transcript, then into the content layer (templates, persons, products, MinHash).
   3. SpeechBrain ECAPA speaker embedding → new **`voice_id` evidence** (same synthetic voice across ads; strength 4, rarity-weighted).
   4. facetorch deepfake score → context only (shown, never linking).
 - DoD: DANE 5 goes from "unattributable" to a decision with transcript-based evidence; the voice match is demonstrated on ≥ 2 videos, or reported honestly if none share a voice.
@@ -120,7 +174,7 @@ CLI (`trop …`): `db migrate|seed`, `ingest <path> [--source]`, `analyze <url|f
 - DoD: install unpacked, open the fixture, see the badge, report it, and watch the incident appear in TROP.
 
 ### 3.5 White Rabbit (agent investigation)
-- A Claude tool-use loop. Tools: `db_search`, `incident_neighborhood`, `crtsh`, `rdap`, `dns_ns`, `urlscan_search`, `certpl_check`, `wayback`, `adlib_search`, `capture` (budgeted, headless), `propose_link`.
+- An LLM tool-use loop (Gemini Pro function calling by default, Claude optional). Tools: `db_search`, `incident_neighborhood`, `crtsh`, `rdap`, `dns_ns`, `urlscan_search`, `certpl_check`, `wayback`, `adlib_search`, `capture` (budgeted, headless), `propose_link`.
 - Budget (steps and cost), a steer/stop API, and a streamed `agent.step` / `graph.node_added` / `casefile.delta`.
 - The result is a set of candidate domains and incidents with their evidence, then **promote** into the campaign (board 10 "Dodaj do kampanii").
 - DoD: from a kit-A domain it finds ≥ 10 sibling domains (urlscan already gave 137 candidates), live in the UI, with a recorded replay for the demo.
@@ -132,7 +186,7 @@ CLI (`trop …`): `db migrate|seed`, `ingest <path> [--source]`, `analyze <url|f
 - DoD: the Oracle strip in Kampanie shows live predictions; at least one historical backtest ("would have flagged X N hours before its first ad").
 
 ### 3.7 Act
-- **DSA Art. 16 notice package for a whole campaign:** all ad library IDs, advertisers, domains and evidence, as PDF + JSON. The text is drafted by Sonnet and editable.
+- **DSA Art. 16 notice package for a whole campaign:** all ad library IDs, advertisers, domains and evidence, as PDF + JSON. The text is drafted by the LLM (Gemini Flash by default) and editable.
 - **CERT PL submission draft:** the domains not yet on the list.
 - STIX 2.1 bundle (MISP-importable); rules (urlscan query, URL regex, HTML signature) with "test on dataset".
 - **Nothing is ever actually sent.** "Wyślij" marks the package as prepared, exports it and logs it, and the UI says so.
@@ -235,6 +289,6 @@ Cut order if late (last cut first): extension live-on-Facebook (keep the fixture
 ## 9. Assumptions we act on (no organizer answers)
 - **The hidden test set looks like DANE** (same pool, heterogeneous shapes) and may be run by the organizers themselves → batch mode, a robust ingest, and no keys required.
 - **"Kampania" = same operator and same narrative** (persona swaps are the same campaign; a shared funnel is the same *operation*). We report both levels.
-- **Cloud processing is allowed.** Raw material may go to Claude. We still prefer WCSS for bulk VLM work (cost, speed), and we log which model saw what.
+- **Cloud processing is allowed.** Raw material may go to Gemini (or Claude if configured). We still prefer WCSS for bulk VLM work (cost, speed), and we log which model saw what.
 - **Nothing is sent to platforms or CERT PL** during the hackathon: packages are prepared and exported only.
 - **The zgrai bots** (three.js jelly scripts) are our own work and can be shipped in the private repo; check their license before any public release.

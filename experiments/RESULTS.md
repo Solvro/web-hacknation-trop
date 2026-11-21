@@ -30,8 +30,9 @@ Read the numbers as "which approach fails how", not as final accuracy.
    Qwen3.8-27B same accuracy at 9.6 s; EasyOCR on CPU 64–86% as offline fallback). **Never take person identity
    from a VLM** (both Qwen models renamed Morawiecki to Tusk/Duda). Faces = SFace embeddings against a
    **6,305-person gallery** (every Polish public figure on Wikidata with ≥ 5 Wikipedia editions + 25 international
-   + 25 curated, several photos per person): precision 1.0 / recall 0.82 on the sample+DANE ads with the rule
-   cos ≥ 0.45 and lead over runner-up ≥ 0.10, vs 0.38–0.50 for the VLMs.
+   + 25 curated; 7,364 photos, 1–4 per person from Wikimedia Commons): precision 1.0 / recall 0.82 on the
+   sample+DANE ads with the rule cos ≥ 0.45 and lead over runner-up ≥ 0.10, vs 0.38–0.50 for the VLMs. The
+   automatic Commons photos alone reach the same 1.0 / 0.82 without any hand-picked photo (Wikidata portrait only: 0.64).
 5. **Embeddings (b), learned GBM (c), LLM adjudicator (h) = supporting / veto only.** On held-out DANE, b and c make
    3–4 wrong links each; the LLM never links wrongly but splits persona-swap variants. Train M1 again when there are
    many campaigns (labelling functions: 100% accurate on 98/105 gold pairs → cheap weak labels).
@@ -124,7 +125,30 @@ blurry studio faces), so a single photo per person forces a higher threshold and
 person restores it** (Glapiński 0.52 → 0.62, Olejnik back at 0.56). Hits: Morawiecki ×4 (0.71–0.73), Zełenski 0.79,
 Sikorski 0.69, Brzoska 0.57 (d1), Olejnik 0.56 and Glapiński 0.62 (d3); true matches lead the runner-up by ≥ 0.13.
 Misses: both faces in p5's studio still (profile view). **Rule: name a person only if cos ≥ 0.45 and top-1 − top-2
-≥ 0.10** (perfect anywhere in 0.40–0.55 here). Next: 2–3 Commons photos for the ~500 most-impersonated people.
+≥ 0.10** (perfect anywhere in 0.40–0.55 here).
+
+**Extra Commons photos** (`rp.gallery fetch-extra` + `build --per 3`): for the 500 living Polish figures with the most
+Wikipedia editions in scam-prone occupations (politicians, journalists, presenters, economists, entrepreneurs, doctors,
+clergy, actors, athletes, singers …) + the 25 international + 25 curated people (534 in total), up to 6 photos from each
+person's Commons category (signatures, coats of arms, graves, logos and .svg filtered by file name). An extra photo is
+kept only if its best face matches the person's own portrait at 0.45 ≤ cos ≤ 0.97 (same person, not a duplicate).
+2,363 downloaded → **1,002 kept, 616 rejected** (group photos, other people in the category, no face) → 7,364 photos.
+Fetch 12 min / 167 MB (serial Commons API calls; parallel ones got rate-limited), build 4.6 min CPU.
+
+Ablation (same 11 truth faces, rule cos ≥ 0.45 and lead ≥ 0.10, without the 25 hand-picked photos):
+
+| gallery (6,299 people) | photos | TP | FP | FN | precision | recall |
+|---|---|---|---|---|---|---|
+| Wikidata portrait only | 6,338 | 7 | 0 | 4 | 1.00 | 0.64 |
+| **Wikidata portrait + Commons extras** | **7,340** | **9** | **0** | **2** | **1.00** | **0.82** |
+| + hand-picked photos (shipped index) | 7,364 | 9 | 0 | 2 | 1.00 | 0.82 |
+
+So the automatic extras replace manual photo curation: Olejnik 0.42 (lost) → 0.53, Glapiński 0.52 with a 0.04 lead
+(rejected) → 0.65 with 0.17. Impostor scores barely move (max 0.48 on p5, its lead 0.09 stays below 0.10), so the
+rule is unchanged. Caveat: Olejnik and Glapiński are ranks 509 and 526 by editions; they got extras only because the
+curated list forces them in. **Next: extend `--top` to ~2,000 people (≈ 45 min, ≈ 0.6 GB)** so that people at
+their level of fame are covered without curation. The 2 misses (p5's profile-view studio still) are a face-quality
+limit, not a gallery gap.
 Use: persons layer (named identity, weight ~2: celebrities are reused across operators), cross-modal check "face in
 the ad = person in the landing story", and the Impersonation radar.
 
@@ -215,7 +239,7 @@ kit endpoints 1 (platform). Negatives: tenant conflict −5, language conflict �
 | enrichment | 23 domains in ~6 min (crt.sh dominates) | cache per eTLD+1 |
 | ad VLM | Qwen3.6-35B-A3B 2.7 s/img, Qwen3.8-27B 9.6 s/img (unbatched, shared H100) | batched ≫ 1k img/h → 10k ads ≈ 1–3 GPU-h |
 | embeddings (WCSS CPU 32 cores, 25 items) | mmlw 7 s, bge-m3 16 s, Qwen3-Emb 32 s, SigLIP 9 s (incl. load) | minutes per 10k on GPU |
-| faces | 72 ms/screenshot CPU; gallery fetch ≈ 20 min / 484 MB, index build ≈ 5 min CPU (6,305 people) | gallery refresh weekly |
+| faces | 72 ms/screenshot CPU; gallery fetch ≈ 20 min / 484 MB + extras 12 min / 167 MB, index build ≈ 5 min CPU (6,305 people / 7,364 photos) | gallery refresh weekly |
 | **WCSS GPU-hours charged to us** | **0** (all GPU inference ran inside the other session's live allocation via `srun --overlap`) | ~4976 GPU-h left on PBR |
 | WCSS CPU-hours | ~2 (4 short CPU jobs) | — |
 | Claude adjudicator via `claude -p` | $0.48 / 105 pairs (CLI overhead ~90k cached tokens per call) | direct API ≈ 1.2k in / 150 out per pair: Haiku 5.5 ≈ $0.0002, Sonnet 5.5 ≈ $0.004; Batch −50%; only the uncertain band |
@@ -231,7 +255,8 @@ kit endpoints 1 (platform). Negatives: tenant conflict −5, language conflict �
    Both LLMs split A1/A2. If the organizers label by funnel, report the operation level as "campaign".
 4. **Video-only ads** (DANE 5) are unattributable without keyframe VLM + ASR — next extractor to build.
 5. **Face gallery**: coverage stops at the Wikidata cut (≥ 5 language editions, 6.3k people) — local influencers,
-   doctors and fake personas are outside it; bigger galleries need more photos per person to stay precise (§2c).
+   doctors and fake personas are outside it; bigger galleries need more photos per person to stay precise (§2c);
+   extra photos currently cover only 534 people (the top 500 + forced-in lists).
    Recall on profile/low-res
    faces is limited (p5). Face embeddings of real people are biometric data: keep the gallery local, use it only to flag
    impersonation, document it in DATA_SOURCES.md.
@@ -263,5 +288,10 @@ uv run python merge_enrich.py ../data/experiments/dane incidents_q36.json --ad q
 uv run python run_dane_eval.py incidents_q36.json      # a: open-set, incremental, joint
 uv run python run_b_joint.py                           # b held-out
 uv run python run_c_dane.py                            # c held-out
+# face gallery (needs WIKIMEDIA_UA="name/version (contact: <address>)" in the shell; never commit the address)
+uv run python -m rp.gallery fetch --min-sitelinks 5     # Wikidata portraits
+uv run python -m rp.gallery fetch-extra --top 500       # Commons extras (resumable)
+uv run python -m rp.gallery build --per 3               # offline: detect + SFace -> index_sface.npz
+uv run python run_faces_id.py                           # truth test; FACES_NO_CURATED=1 / FACES_INDEX=... for ablations
 ```
 Logs/JSON: `data/experiments/{sample_v1,dane,joint}/` (git-ignored).

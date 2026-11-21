@@ -145,6 +145,20 @@ BAD_FILE = ("signature", "podpis", "autograf", "logo", "herb", "coat_of_arms", "
             "flaga", "tablica", "plaque", ".svg", ".pdf", ".tif", ".webm", ".ogg", ".ogv", ".gif")
 
 
+def _sparql(h, query: str, tries: int = 6) -> list:
+    """WDQS query that honours 429/503 Retry-After (WDQS throttles per IP + User-Agent)."""
+    for attempt in range(tries):
+        r = h.post("https://query.wikidata.org/sparql", data={"query": query, "format": "json"})
+        if r.status_code in (429, 503):
+            wait = int(r.headers.get("retry-after", 0) or 0) or 15 * (attempt + 1)
+            print(f"  wikidata {r.status_code}: waiting {wait}s", flush=True)
+            time.sleep(wait)
+            continue
+        r.raise_for_status()
+        return json.loads(r.text, strict=False)["results"]["bindings"]
+    raise SystemExit("Wikidata keeps throttling (429); try again in a few minutes")
+
+
 def fetch_extra(top: int = 500, per: int = 3, candidates: int = 6, workers: int = 4) -> None:
     """Extra photos from each person's Wikimedia Commons category for the ~`top` most-impersonated people
     (living, IMPERSONATED_OCC, ranked by sitelinks) + all international + curated people. Downloads up to
@@ -157,6 +171,11 @@ def fetch_extra(top: int = 500, per: int = 3, candidates: int = 6, workers: int 
         m = json.loads(line)
         meta[m["qid"]] = m
     # resume: reuse the people list (qid -> Commons category) of an earlier run instead of re-querying Wikidata
+    cache = os.path.join(GAL, "extra_people.json")
+    if os.path.exists(cache):
+        chosen = {k: tuple(v) for k, v in json.load(open(cache, encoding="utf-8")).items()}
+        print(f"reusing people list from extra_people.json: {len(chosen)} people", flush=True)
+        return _download_extra(h, chosen, meta, candidates, workers, t0)
     for prev_list in ("extra.jsonl", "extra.run1.jsonl"):
         pl = os.path.join(GAL, prev_list)
         if os.path.exists(pl):
@@ -169,14 +188,13 @@ def fetch_extra(top: int = 500, per: int = 3, candidates: int = 6, workers: int 
                     missing.append(x["qid"])
             for i in range(0, len(missing), 150):          # direct ID lookups: fast, far below the 60 s limit
                 vals = " ".join("wd:" + q for q in missing[i:i + 150])
-                rq = h.get("https://query.wikidata.org/sparql", params={
-                    "query": "SELECT ?p ?cat WHERE { VALUES ?p { " + vals + " } ?p wdt:P373 ?cat }", "format": "json"})
-                rq.raise_for_status()
-                for b in json.loads(rq.text, strict=False)["results"]["bindings"]:
+                rows = _sparql(h, "SELECT ?p ?cat WHERE { VALUES ?p { " + vals + " } ?p wdt:P373 ?cat }")
+                for b in rows:
                     q = b["p"]["value"].rsplit("/", 1)[-1]
                     chosen[q] = (meta.get(q, {}).get("sitelinks", 0), b["cat"]["value"])
-                time.sleep(1)
+                time.sleep(2)
             if len(chosen) >= 50:
+                json.dump(chosen, open(cache, "w", encoding="utf-8"), ensure_ascii=False)
                 print(f"reusing people list from {prev_list}: {len(chosen)} people", flush=True)
                 return _download_extra(h, chosen, meta, candidates, workers, t0)
     occ = " ".join("wd:" + q for q in IMPERSONATED_OCC)

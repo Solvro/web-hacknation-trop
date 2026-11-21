@@ -33,7 +33,12 @@ def faces(path):
     return out
 
 
-idx = np.load(os.path.join(GAL, "index_sface.npz"))
+# ablations: FACES_INDEX=index_sface.v6305.npz (other index), FACES_NO_CURATED=1 (drop the 25 hand-picked photos)
+INDEX = os.environ.get("FACES_INDEX", "index_sface.npz")
+idx = dict(np.load(os.path.join(GAL, INDEX)))
+if os.environ.get("FACES_NO_CURATED"):
+    m = np.array([not str(q).startswith("cur:") for q in idx["qid"]])
+    idx = {k: v[m] for k, v in idx.items()}
 G = idx["emb"]
 tmpl_names = np.array([str(x).lower() for x in idx["label"]])
 names, inv = np.unique(tmpl_names, return_inverse=True)      # several templates (photos) per person
@@ -78,4 +83,4 @@ for thr, mg in [(t, 0.0) for t in (0.363, 0.40, 0.45, 0.50, 0.55)] + [(t, 0.10) 
 print(tabulate(rows, headers=["cos thr", "min lead", "TP", "FP", "FN", "precision", "recall"], tablefmt="github"))
 for k in sorted(hits, key=lambda x: (x[0], int(x[1:]))):
     print(k, [(n, round(s, 3), round(s2, 3)) for n, s, s2 in hits[k]], "| truth", truth.get(k))
-json.dump({"hits": hits, "table": rows}, open("../data/experiments/joint/faces_gallery_id.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+json.dump({"hits": hits, "table": rows}, open("../data/experiments/joint/faces_gallery_id" + os.environ.get("FACES_TAG", "") + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
