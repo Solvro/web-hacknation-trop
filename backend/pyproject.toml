@@ -46,6 +46,8 @@ dependencies = [
   "opencv-python-headless",
   "imageio-ffmpeg",
   "onnxruntime",
+  # agent / act (WS6)
+  "fpdf2>=2.7",
 ]
 
 [project.optional-dependencies]
