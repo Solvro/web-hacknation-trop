@@ -75,3 +75,18 @@ async def set_state(r: aioredis.Redis, job_id: str, state: dict) -> None:
 async def get_state(r: aioredis.Redis, job_id: str) -> dict | None:
     raw = await r.get(f"trop:job:{job_id}:state")
     return json.loads(raw) if raw else None
+
+
+def publish_sync(name: str, typ: str, data: dict) -> None:
+    """Publish from a non-async thread (hunter sink publisher, oracle notifier, scheduler jobs, agent emit)."""
+    import redis
+    from datetime import datetime, timezone
+    ev = Event(type=typ, at=datetime.now(timezone.utc).isoformat(timespec="milliseconds"), data=data)
+    payload = ev.model_dump_json()
+    r = redis.Redis.from_url(settings.redis_url)
+    try:
+        n = r.rpush(ekey(name), payload)
+        r.expire(ekey(name), TTL)
+        r.publish(f"trop:{name}", json.dumps({"i": n - 1, "e": payload}))
+    finally:
+        r.close()

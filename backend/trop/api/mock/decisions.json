@@ -424,7 +424,7 @@
   },
   "INC-24866": {
    "incident_id": "INC-24866",
-   "decision": "confirm",
+   "decision": "ambiguous",
    "campaign_id": null,
    "candidate_campaign_id": "KMP-034",
    "score": 3.9,
@@ -592,6 +592,92 @@
     "achieved": 0.041,
     "n_cal": 412.0
    },
+   "model_version": "engine@mock"
+  },
+  "INC-24920": {
+   "incident_id": "INC-24920",
+   "decision": "insufficient",
+   "campaign_id": null,
+   "candidate_campaign_id": null,
+   "score": 0.0,
+   "margin": 0.0,
+   "p": 0.0,
+   "tau": 5.0,
+   "delta": 1.0,
+   "confirm_floor": 1.0,
+   "operator_id": null,
+   "operation_id": null,
+   "same_operator_as": null,
+   "duplicate_of": null,
+   "scores": [],
+   "runner_up": null,
+   "coverage": 0.12,
+   "layers": [
+    {
+     "layer": "tracking",
+     "state": "partial",
+     "reason": null
+    },
+    {
+     "layer": "kit",
+     "state": "missing",
+     "reason": null
+    },
+    {
+     "layer": "infra",
+     "state": "missing",
+     "reason": null
+    },
+    {
+     "layer": "content",
+     "state": "error",
+     "reason": "serwer odpowiada 502"
+    },
+    {
+     "layer": "persons",
+     "state": "error",
+     "reason": null
+    },
+    {
+     "layer": "visual",
+     "state": "error",
+     "reason": "serwer odpowiada 502"
+    },
+    {
+     "layer": "ad",
+     "state": "error",
+     "reason": null
+    },
+    {
+     "layer": "media",
+     "state": "missing",
+     "reason": null
+    }
+   ],
+   "evidence": [
+    {
+     "type": "infra",
+     "field": "domain",
+     "value": "selqueno.live",
+     "display": "domena selqueno.live",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 1,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "why_not": [],
+   "adjudicator": null,
+   "alpha": null,
+   "conformal_tau": null,
+   "set": [],
+   "calibration": null,
    "model_version": "engine@mock"
   }
  }

@@ -77,7 +77,8 @@ class StubAdapter:
 
     def analyze(self, material: Material, emit: Emit) -> Decision:
         from trop.api import sequences as S
-        scenario = "new" if any(h in material.name.lower() for h in ("bon", "energ")) else "known"
+        from trop.api.mockstore import scenario_of
+        scenario = scenario_of(material.name)
         seq = S.job_sequence(material.job_id, scenario)
         t0 = time.monotonic()
         dec = None
@@ -131,17 +132,29 @@ class ServiceAdapter:
             else:
                 emit(typ, data)
 
-        if material.kind == "url" and not capture_available():
+        src = material.name if material.kind == "url" else (material.paths[0] if len(material.paths) == 1 else str(_common_dir(material.paths)))
+        skip_capture_run = False
+        if material.kind == "url":
             from trop.engine.progress import Steps
             st = Steps(cb)
+            if not capture_available():
+                self._page_down(jid, st, emit, "przechwytywanie na żywo jest niedostępne w tym trybie (offline). Wgraj zrzut/HAR/ZIP zamiast adresu URL.")
             st.start("capture")
-            st.done("capture", status="error", detail="Strona niedostępna dla przechwytywania (moduł capture nie jest włączony)",
-                    warnings=["capture unavailable"])
-            emit("job.error", {"job_id": jid, "step": "capture",
-                               "message": "Nie udało się pobrać strony: przechwytywanie na żywo jest niedostępne w tym trybie. "
-                                          "Wgraj zrzut/HAR/ZIP zamiast adresu URL."})
-            raise CaptureUnavailable(material.name)
-        src = material.name if material.kind == "url" else (material.paths[0] if len(material.paths) == 1 else str(_common_dir(material.paths)))
+            try:
+                from trop.capture.cli import capture_url
+                res = capture_url(material.name, docker=os.environ.get("TROP_CAPTURE_LOCAL") != "1", fast=True)
+            except Exception as e:  # noqa: BLE001
+                res = {"ok": False, "error": f"{type(e).__name__}: {e}"}
+            if not res.get("ok") or not res.get("bundle"):
+                st.done("capture", status="error", detail=f"Strona niedostępna: {str(res.get('error') or 'brak odpowiedzi')[:160]}", warnings=["capture failed"])
+                self._page_down(jid, None, emit, f"nie udało się pobrać strony ({str(res.get('error') or 'brak odpowiedzi')[:160]}).")
+            src, skip_capture_run = res["bundle"], True
+            _inner = cb
+
+            def cb(typ: str, data: dict, _inner=_inner) -> None:     # noqa: F811 -- we already emitted `capture` run
+                if skip_capture_run and typ == "job.step" and data["step"]["key"] == "capture" and data["step"]["status"] == "run":
+                    return
+                _inner(typ, data)
         inc_id = "INC-U" + jid.rsplit("-", 1)[-1][:6]
         dec, inc, findings = self.service.analyze_path(src, worker_corpus(), emit=cb, inc_id=inc_id)
         for f in findings:
@@ -150,6 +163,15 @@ class ServiceAdapter:
         for typ, data in held:
             emit(typ, data)
         return dec
+
+
+    @staticmethod
+    def _page_down(jid: str, st, emit: Emit, why: str):
+        if st is not None:
+            st.start("capture")
+            st.done("capture", status="error", detail="Strona niedostępna dla przechwytywania", warnings=["capture unavailable"])
+        emit("job.error", {"job_id": jid, "step": "capture", "message": "Nie udało się pobrać strony: " + why})
+        raise CaptureUnavailable(why)
 
 
 class CaptureUnavailable(RuntimeError):

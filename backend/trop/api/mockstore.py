@@ -16,6 +16,7 @@ from typing import Any
 from fastapi import HTTPException
 
 from trop.api import models as M
+from trop.api.graphview import focus_view, norm_type
 from trop.api import sequences as S
 from trop.api.mock import universe as U
 from trop.schema import (
@@ -23,11 +24,25 @@ from trop.schema import (
     Decision, EvidenceValue, ExtensionMatch, ExtensionPost, GraphPayload, HunterRun, HunterSource, IncidentSummary, Indicators,
     Investigation, InvestigationCreate, InvestigationStep, Job, JobInput, LabMetrics, LinkExplanation, MergePreview, Member,
     Operation, Operator, OracleMetrics, OraclePrediction, DomainDNA, PublicCampaign, PublicReport, Rule, RuleTest, SearchHit,
-    StatsOverview, TemplateDiff, Timeline, TriageDecision, TriageItem, Variant,
+    StatsOverview, GraphEdge, GraphNode, TemplateDiff, Timeline, TriageDecision, TriageItem, Variant,
 )
 
 DIR = Path(__file__).parent / "mock"
 NEW_HINTS = ("bon", "energ", "kmp-040", "new")
+AMBIG_HINTS = ("kelvaro", ".har", "ambig")
+ERROR_HINTS = ("selqueno", "down", "502")
+
+
+def scenario_of(name: str) -> str:
+    n = name.lower()
+    if any(h in n for h in ERROR_HINTS):
+        return "error"
+    if any(h in n for h in AMBIG_HINTS):
+        return "ambiguous"
+    return "new" if any(h in n for h in NEW_HINTS) else "known"
+
+
+SCENARIO_INCIDENT = {"known": "INC-24817", "new": "INC-24901", "ambiguous": "INC-24866", "error": "INC-24920"}
 
 
 def _j(name: str) -> Any:
@@ -130,16 +145,16 @@ class MockStore:
         return out[:40]
 
     # ---------------------------------------------------------------------------------------------- jobs
-    def analyze(self, kind: str, name: str, saved: list[str] | None = None) -> M.AnalyzeResponse:
+    def analyze(self, kind: str, name: str, saved: list[str] | None = None) -> AnalyzeAccepted:
         if kind == "trace":
-            return M.AnalyzeResponse(job_id=None)
+            return AnalyzeAccepted(job_id=None, trace={"type": "trace", "value": name})
         jid = "JOB-" + uuid.uuid4().hex[:12].upper()
-        scenario = "new" if any(h in name.lower() for h in NEW_HINTS) else "known"
+        scenario = scenario_of(name)
         base = datetime.now(timezone.utc)
         seq = S.job_sequence(jid, scenario, base)
         self.jobs[jid] = {"input": JobInput(kind=kind if kind in ("url", "file", "zip", "folder", "batch") else "file", name=name), "seq": seq,
                           "t0": time.monotonic(), "scenario": scenario}
-        return M.AnalyzeResponse(job_id=jid, incident_id="INC-24817" if scenario == "known" else "INC-24901")
+        return AnalyzeAccepted(job_id=jid, incident_id=SCENARIO_INCIDENT[scenario])
 
     def _elapsed(self, j: dict) -> float:
         from trop.api.streams import speed
@@ -243,7 +258,11 @@ class MockStore:
         return self._summary(iid).campaign_id
 
     def evidence_value(self, type_: str, value: str) -> EvidenceValue:
-        return U.evidence_value(type_, value)
+        try:
+            _, layer = norm_type(type_)
+        except KeyError:
+            raise _nf(f"evidence type {type_}")
+        return U.evidence_value(layer, value)
 
     # ---------------------------------------------------------------------------------------------- campaigns
     def campaigns(self, sort: str | None, status: str | None) -> list[CampaignSummary]:
@@ -313,12 +332,11 @@ class MockStore:
     def merge(self, cid: str, other: str, keep: str) -> Campaign:
         a, b = self.campaign(cid), self.campaign(other)
         keep_c, drop = (a, b) if keep == "self" else (b, a)
-        keep_c.n_incidents += drop.n_incidents
-        keep_c.counts.incidents += drop.n_incidents
-        keep_c.merge_hint = None
-        self.campaigns_ = [c for c in self.campaigns_ if c.id != drop.id]
-        self.merged[drop.id] = keep_c.id
-        return keep_c
+        out = keep_c.model_copy(deep=True)       # demo: the merge is previewed/answered but NOT persisted
+        out.n_incidents += drop.n_incidents
+        out.counts.incidents += drop.n_incidents
+        out.merge_hint = None
+        return out
 
     def split(self, cid: str, body: M.SplitRequest) -> Campaign:
         src = self.campaign(cid)
@@ -342,8 +360,59 @@ class MockStore:
                 return o
         raise _nf("operation")
 
-    def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None) -> GraphPayload:
+    def _ensure_graph_nodes(self, g: GraphPayload, ids: list[str | None]) -> None:
+        """Focus ids that are not in the base graph (incidents, persons, small campaigns) get a local neighbourhood."""
+        have = {n.id for n in g.nodes}
+        for fid in ids:
+            if not fid or fid in have:
+                continue
+            if fid in U.SPEC:                                              # a campaign without graph nodes
+                c = U.SPEC[fid]
+                g.nodes.append(GraphNode(id=fid, kind="campaign", label=f"{fid} {c['name'].split('—')[0].strip()}", campaign_id=fid, size=2 + c["n"] / 20))
+                have.add(fid)
+                if c["op"]:
+                    if c["op"] not in have:
+                        g.nodes.append(GraphNode(id=c["op"], kind="operator", label=c["op"], size=3))
+                        have.add(c["op"])
+                    g.edges.append(GraphEdge(a=fid, b=c["op"], type="operator", weight=3, level="L3"))
+                for d in U._DOMS.get(fid, [])[:5]:
+                    if d not in have:
+                        g.nodes.append(GraphNode(id=d, kind="domain", label=d, campaign_id=fid, size=1))
+                        have.add(d)
+                    g.edges.append(GraphEdge(a=d, b=fid, type="member", weight=1, level="L2"))
+            elif fid.startswith("INC-"):
+                s = next((x for x in self.inc_sum if x.id == fid), None)
+                if not s:
+                    continue
+                self._ensure_graph_nodes(g, [s.campaign_id])
+                g.nodes.append(GraphNode(id=fid, kind="incident", label=fid, campaign_id=s.campaign_id, size=1.5, first_seen=(s.captured_at or "")[:10] or None))
+                have.add(fid)
+                g.edges.append(GraphEdge(a=fid, b=s.campaign_id, type="member", weight=1, level="L2"))
+                if s.domain:
+                    if s.domain not in have:
+                        g.nodes.append(GraphNode(id=s.domain, kind="domain", label=s.domain, campaign_id=s.campaign_id, size=1))
+                        have.add(s.domain)
+                    g.edges.append(GraphEdge(a=fid, b=s.domain, type="member", weight=1, level="L2"))
+                if s.campaign_id in ("KMP-017", "KMP-034", "KMP-043"):
+                    g.edges += [GraphEdge(a="trace:capi", b=fid, type="tracking", weight=3.1, level="L3"), GraphEdge(a="trace:kit", b=fid, type="kit", weight=2.7, level="L3")]
+                if s.person:
+                    self._ensure_graph_nodes(g, [f"person:{s.person}"])
+                    g.edges.append(GraphEdge(a=f"person:{s.person}", b=fid, type="persons", weight=0.8, level="L2"))
+            elif fid.startswith("person:"):
+                name = fid.split(":", 1)[1]
+                cs = [c for c, v in U.SPEC.items() if name in v["persons"]]
+                if not cs:
+                    continue
+                g.nodes.append(GraphNode(id=fid, kind="person", label=name, size=1.5))
+                have.add(fid)
+                for c in cs:
+                    self._ensure_graph_nodes(g, [c])
+                    g.edges.append(GraphEdge(a=fid, b=c, type="persons", weight=1.5, level="L2"))
+
+    def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None, origin=None) -> GraphPayload:
         g = self.graph_.model_copy(deep=True)
+        if focus:
+            self._ensure_graph_nodes(g, [focus, origin])
         if layers:
             ls = set(layers.split(","))
             g.edges = [e for e in g.edges if e.type in ls or e.type in ("member", "operator", "operation")]
@@ -357,14 +426,10 @@ class MockStore:
         g.edges = [e for e in g.edges if e.a in ids and e.b in ids]
         g.hulls = [h for h in g.hulls if any(m in ids for m in h["members"])]
         if focus:
-            n = next((n for n in g.nodes if n.id == focus), None)
-            if not n:
+            try:
+                return focus_view(g, focus, origin)
+            except KeyError:
                 raise _nf("node")
-            deg = sum(1 for e in g.edges if focus in (e.a, e.b))
-            g.focus = focus
-            g.panel = {"title": n.label, "kind": n.kind, "facts": [f"Połączenia: {deg}", f"Kampania: {n.campaign_id or '—'}", f"Pierwszy raz: {n.first_seen or '—'}"],
-                       "bot_sentence": f"Tropiciel: {n.label} łączy się z {deg} innymi węzłami w tym widoku.",
-                       "primary_action": {"label": "Otwórz szczegóły", "href": f"/slad/{n.kind}/{n.id}"}}
         return g
 
     # ---------------------------------------------------------------------------------------------- investigations
@@ -491,6 +556,11 @@ class MockStore:
         pdf = (b"%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj\n"
                b"3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 300 100]>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n% " + txt.encode("ascii", "replace"))
         return pdf, "application/pdf", f"{pid}.pdf"
+
+    def act_notice(self, pid: str, text: str) -> ActPackage:
+        p = self.act_package(pid)
+        p.notice_text = text
+        return p
 
     def act_rules(self, campaign: str | None) -> list[Rule]:
         return [r for r in self.rules if not campaign or r.campaign_id == campaign]
@@ -620,7 +690,12 @@ class MockStore:
 
     # ---------------------------------------------------------------------------------------------- traces / batch
     def trace(self, type_: str, value: str) -> M.TraceView:
-        ev = U.evidence_value(type_, value)
+        try:
+            canon, layer = norm_type(type_)
+        except KeyError:
+            raise _nf(f"trace type {type_}")
+        ev = U.evidence_value(layer, value)
+        type_ = canon
         latest = [s for s in self.inc_sum if s.campaign_id == "KMP-017"][:5]
         return M.TraceView(value=value, type=type_, campaigns=ev.campaigns, weekly=ev.weekly, latest=[s.model_dump(mode="json") for s in latest],
                            usage=[{"where": "reklamy", "count": ev.df // 2}, {"where": "strony docelowe", "count": ev.df - ev.df // 2}],
@@ -654,6 +729,10 @@ class MockStore:
         return buf.getvalue()
 
     # ---------------------------------------------------------------------------------------------- live streams
+    def reset(self) -> None:
+        """Back to the pristine fictional universe (POST /mock/reset)."""
+        self.__init__()
+
     def events_sequence(self) -> S.Seq:
         return S.global_sequence()
 

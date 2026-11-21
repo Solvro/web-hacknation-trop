@@ -40,6 +40,8 @@ def ensure_replay_files() -> None:
 def generate_canned(out: Path = PKG_REPLAY) -> list[Path]:
     paths = []
     for name, seq in canned_recordings().items():
+        if name == "demo-investigation":
+            continue   # shipped from trop/agent/replay/velmoria_demo.jsonl (WS6, real agent run recording)
         p = out / f"{name}.jsonl"
         record_to(p, seq)
         paths.append(p)
@@ -48,7 +50,7 @@ def generate_canned(out: Path = PKG_REPLAY) -> list[Path]:
 
 def find_recording(name: str, kind: str) -> Path | None:
     for d in (replay_dir(), PKG_REPLAY):
-        for cand in (f"{name}-{kind}.jsonl", f"{name}.jsonl"):
+        for cand in (f"{name}-{kind}.jsonl", f"{kind}_{name}.jsonl", f"{name}.jsonl"):
             if (d / cand).exists():
                 return d / cand
     return None

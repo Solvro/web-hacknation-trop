@@ -34021,6 +34021,166 @@
     "decision": "assign"
    },
    "coverage": 0.79
+  },
+  "INC-24920": {
+   "id": "INC-24920",
+   "source": {
+    "type": "upload",
+    "path": null,
+    "ref": "mock/INC-24920",
+    "captured_at": "2026-11-21T08:47:00Z"
+   },
+   "ad": {
+    "platform": "meta",
+    "kind": "feed",
+    "library_id": null,
+    "advertiser": "Hobby Zakątek PL",
+    "page_id": null,
+    "text": "selqueno.live — strona niedostępna (502)",
+    "overlay": null,
+    "display_link": "OKAZJE-DNIA.COM",
+    "cta": "Czytaj więcej",
+    "narrative": null,
+    "persons": [],
+    "is_decoy": true,
+    "vertical": "investment",
+    "creative_phash": null,
+    "screenshot_path": "mock/INC-24920/ad.png",
+    "screenshots": [],
+    "video_path": null,
+    "video_title": null,
+    "n_creatives": null,
+    "delivery": {}
+   },
+   "landing": {
+    "entry_url": "https://selqueno.live/",
+    "final_url": "https://selqueno.live/",
+    "host": "selqueno.live",
+    "etld1": "selqueno.live",
+    "status": 200,
+    "title": "selqueno.live — strona niedostępna (502)",
+    "text": null,
+    "lang": "pl",
+    "h1": [],
+    "dom_paths": [],
+    "css_classes": [],
+    "page_role": "prelander",
+    "redirect_chain": [
+     "https://selqueno.live/r/1",
+     "https://selqueno.live/"
+    ],
+    "chain_urls": [],
+    "chain_titles": [],
+    "n_hars": 1,
+    "n_pages": 2,
+    "screenshot_path": "mock/INC-24920/landing.png",
+    "screenshot_phash": null,
+    "favicon_mmh3": null,
+    "forms": [],
+    "outlinks": []
+   },
+   "tracking": {
+    "fb_pixels": [],
+    "capi_gateways": [
+     "cg-7f3a91e0.ecs.eu-west-1.on.aws/events"
+    ],
+    "google_ads": [],
+    "ga4": [],
+    "gtm": [],
+    "tiktok_pixels": [],
+    "snap_pixels": [],
+    "kit_tenants": [
+     "kit-tenant-a41"
+    ],
+    "lander_ids": [],
+    "landing_type_ids": [],
+    "video_hosts": [],
+    "kit_endpoints": [
+     "/api/v2/relay/lead/{uuid}/"
+    ],
+    "url_param_schema": "utm*5+utm_visit",
+    "chain_param_schemas": [],
+    "entry_path_template": null,
+    "path_shapes": [],
+    "third_party": [],
+    "asset_hashes": [],
+    "brand_asset_hashes": []
+   },
+   "infra": {
+    "domains": [
+     {
+      "fqdn": "selqueno.live",
+      "etld1": "selqueno.live",
+      "tld": "live",
+      "sld_label": "selqueno",
+      "ips": [
+       "198.51.100.23"
+      ],
+      "cdn": [],
+      "asn": "AS64500",
+      "cert": null,
+      "enrich": {
+       "registrar": "R-114 (anonimizowany)"
+      }
+     }
+    ],
+    "ips": [
+     "203.0.113.7"
+    ],
+    "cdn": [
+     "cloudflare"
+    ],
+    "origin_ips": [
+     "198.51.100.23"
+    ],
+    "on_certpl_list": false
+   },
+   "content": {
+    "headline_template": "Nagranie: znana osoba o napaści",
+    "h1_template": null,
+    "persons": [],
+    "comment_names": [],
+    "brands": [],
+    "products": [],
+    "vertical": "investment",
+    "vertical_scores": {},
+    "lang": "pl",
+    "ad_name": null,
+    "narrative": "Fałszywy portal „Kurier Dnia” z newsem o napaści prowadzi do „inwestycji”.",
+    "keywords": [],
+    "contacts": {}
+   },
+   "media": {
+    "faces": [],
+    "video": null,
+    "asr_text": null,
+    "asr_model": null,
+    "voice_id": null,
+    "voice_embedding_ref": null
+   },
+   "quality": {
+    "available": [],
+    "missing": [
+     "tracking",
+     "kit",
+     "infra",
+     "content",
+     "persons",
+     "visual",
+     "ad",
+     "media"
+    ],
+    "errors": [
+     "capture: HTTP 502"
+    ]
+   },
+   "emb": {},
+   "decision": {
+    "campaign_id": null,
+    "p": 0.0,
+    "decision": "insufficient"
+   },
+   "coverage": 0.12
   }
  }
 }
