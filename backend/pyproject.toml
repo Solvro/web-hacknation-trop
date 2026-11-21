@@ -38,6 +38,8 @@ dependencies = [
   "httpx",
   "dnspython",
   "apscheduler>=3.10,<4",
+  "certifi",
+  "google-cloud-bigquery",
   # media / llm (WS4, WS6)
   "google-genai",
   "openai",
