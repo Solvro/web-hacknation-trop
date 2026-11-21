@@ -700,16 +700,31 @@ class RealStore:
         from trop.agent import service as svc
         from datetime import datetime, timezone
         from trop.schema import Investigation
+        notes: list[str] = []
+        seed, campaign_id, pivots = body.seed, body.campaign_id, None
+        if seed.startswith("incident:"):                 # any analysed incident: derive the pivots (domains, advertiser, kit/pixel) from it
+            from trop.api import pivots as PV
+            iid_in = seed.split(":", 1)[1].strip()
+            self.corpus
+            inc = self._by_id.get(iid_in) or (await self._stored(iid_in) or {}).get("incident")
+            if not inc:
+                raise _nf("incident")
+            pivots = PV.derive(inc)
+            if not pivots["seed"]:
+                raise HTTPException(422, "ten materiał nie zawiera ani domeny, ani reklamodawcy — nie ma od czego zacząć śledztwa")
+            seed, notes = pivots["seed"], PV.hints(pivots, iid_in)
+            campaign_id = campaign_id or self._camp_of(iid_in)
+            body = body.model_copy(update={"seed": seed, "campaign_id": campaign_id})
         iid = svc.new_investigation_id()
         svc._save(Investigation(id=iid, seed=body.seed, campaign_id=body.campaign_id, status="running",       # visible to GET at once (no 404 race)
                                 budget={"steps": float(body.budget_steps), "used": 0.0, "usd": 1.0, "usd_used": 0.0},
                                 started_at=datetime.now(timezone.utc).isoformat(timespec="seconds")))
         pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
         try:
-            await pool.enqueue_job("agent", iid, body.model_dump(), _job_id=iid)
+            await pool.enqueue_job("agent", iid, body.model_dump(), notes, _job_id=iid)
         finally:
             await pool.aclose()
-        return {"id": iid}
+        return {"id": iid, "seed": body.seed, **({"pivots": pivots, "hints": notes} if pivots else {})}
 
     async def _inv_stream(self, iid: str):
         """Durable: Redis list `trop:inv:<id>:events` (replay + follow); a finished run whose list expired replays the recorded events file."""
