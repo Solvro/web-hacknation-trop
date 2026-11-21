@@ -40,7 +40,7 @@ function NodeCard({ n, onClick, active }: { n: GraphNode; onClick?: () => void; 
   return <button type="button" onClick={onClick} className={cls + ' hover:border-line3 transition-colors'} aria-label={`Rozwiń: ${n.label}`}>{inner}</button>;
 }
 
-function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
+export function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);

@@ -3,18 +3,17 @@
 // /analiza/<incident id> opens the report of an existing incident; ?replay=<name> plays a recorded stream.
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import type { Campaign, CampaignSummary, Decision, GraphPayload, IncidentSummary } from '@/lib/contracts';
+import type { Campaign, CampaignSummary, Decision, GraphPayload } from '@/lib/contracts';
 import { isOffline, useApi } from '@/lib/api';
-import { plOnly, prettyDisplay } from '@/lib/copy';
+import { plOnly } from '@/lib/copy';
 import { toMaterial, useArtifacts } from '@/lib/artifacts';
 import { useJob } from '@/lib/use-job';
 import { JellyRoot } from '@/components/jelly';
 import { BotStrip, CapturedPage, FoundList, MaterialBar, Ranking, StatusPill, useElapsed } from '@/components/analysis/live';
 import { Report } from '@/components/analysis/report';
 import { OutcomeError, OutcomeNew, OutcomeUnsure } from '@/components/analysis/outcomes';
-import { FocusView } from '@/components/graph/focus';
 import { SCENARIO_INCIDENT, scenarioFromJobId } from '@/lib/mock/jobs';
-import { campaignTitle, neighbourhood, normalizePanel, resolveNodeId } from '@/lib/graph';
+import { campaignTitle, resolveNodeId } from '@/lib/graph';
 
 function useNames() {
   const list = useApi<CampaignSummary[]>('/campaigns').data;
@@ -66,28 +65,11 @@ function Analysis() {
     for (const [k, v] of Object.entries(patch)) { if (v == null) q.delete(k); else q.set(k, v); }
     router.replace(`/analiza/${encodeURIComponent(jobId)}?${q}`, { scroll: false });
   };
-  // chip / card ids (`ev:<field>:<value>`) are resolved against the real graph before asking for the focus view
-  const full = useApi<GraphPayload>(focus && !isOffline() ? '/graph' : null);
-  const incList = useApi<IncidentSummary[] | { items: IncidentSummary[] }>(focus && !isOffline() ? '/incidents?limit=500' : null).data;
-  const incById = useMemo(() => new Map((Array.isArray(incList) ? incList : incList?.items ?? []).map((i) => [i.id, i])), [incList]);
-  const resolved = !focus ? null : isOffline() ? focus : full.data ? resolveNodeId(full.data, focus, incident?.domain) : null;
-  const focusRaw = useApi<GraphPayload>(resolved ? `/graph?focus=${encodeURIComponent(resolved)}&origin=${encodeURIComponent(decision?.incident_id ?? '')}` : null);
-  const focusData = useMemo(() => {
-    if (!focus) return { data: undefined, error: undefined };
-    if (full.data && !resolved) return { data: undefined, error: new Error('not in graph') };
-    if (full.error) return { data: undefined, error: full.error };
-    const origin = decision?.incident_id ?? '';
-    let g = focusRaw.data;
-    if (!g) return { data: undefined, error: focusRaw.error };
-    if (!g.nodes?.length) return { data: undefined, error: new Error('empty') };
-    if (!g.focus || g.nodes.length > 9) g = neighbourhood(g, resolved!, origin) ?? g;
-    if (origin && !g.nodes.some((n) => n.id === origin)) g = { ...g, nodes: [{ id: origin, kind: 'incident', label: origin, meta: { sub: 'ten materiał', thumb: true } }, ...g.nodes] };
-    const nodes = g.nodes.map((n) => ({ ...n, label: prettyDisplay(n.label), meta: { ...(n.meta ?? {}), title: n.kind === 'incident' ? ((n.id === origin ? incident?.title : null) ?? incById.get(n.id)?.title ?? incById.get(n.id)?.domain ?? undefined) : undefined, sub: (n.meta as { sub?: string } | undefined)?.sub === 'incydent' ? 'materiał' : (n.meta as { sub?: string } | undefined)?.sub } }));
-    const center = nodes.find((n) => n.id === resolved);
-    const panel = normalizePanel(g.panel as Record<string, unknown>, center);
-    panel.title = prettyDisplay(panel.title); panel.description = prettyDisplay(panel.description); panel.bot_text = prettyDisplay(panel.bot_text);
-    return { data: { ...g, nodes, focus: resolved, panel: panel as Record<string, unknown> }, error: undefined };
-  }, [focus, resolved, full.data, full.error, focusRaw.data, focusRaw.error, decision?.incident_id, incById, incident?.title]);
+  // chip / card ids (`ev:<field>:<value>`) are resolved against the real graph, then unfolded in the Graf explorer
+  const needResolve = !!focus && focus.startsWith('ev:') && !isOffline();
+  const full = useApi<GraphPayload>(needResolve ? '/graph' : null);
+  const resolved = !focus ? null : !needResolve ? focus : full.data ? resolveNodeId(full.data, focus, incident?.domain) : null;
+  const focusMissing = needResolve && (!!full.error || (!!full.data && !resolved));
 
   const reportReady = shown && decision;
   const outcome = !decision ? null : job.error || decision.decision === 'insufficient' ? 'error' : decision.decision === 'new' ? 'new' : decision.decision === 'ambiguous' ? 'unsure' : 'report';
@@ -102,17 +84,7 @@ function Analysis() {
         view={view ?? (focus ? 'graf' : 'raport')}
         onView={(v) => setQuery({ view: v, focus: v === 'raport' ? null : focus })}
         onFocus={(id) => setQuery({ view: 'graf', focus: id })}
-        focusView={focus ? (
-          focusData.data ? <FocusView data={focusData.data} originId={decision.incident_id} originThumb={art.any} onFocus={(id) => setQuery({ focus: id })} onBack={() => setQuery({ focus: null })} />
-            : focusData.error ? (
-              <div className="rounded-[22px] border border-dashed border-line2 bg-bg2 p-8 text-center flex flex-col items-center gap-2">
-                <b className="text-[16px]">Ten ślad nie ma jeszcze własnego widoku w grafie</b>
-                <span className="text-[14px] text-tx3 max-w-[520px]">Graf pokazuje materiały, kampanie, domeny i najważniejsze ślady techniczne. Ten ślad liczy się do wyniku, ale nie jest osobnym węzłem.</span>
-                <button type="button" className="btn-sec btn-sm mt-2" onClick={() => setQuery({ focus: null })}>Wróć do grafu</button>
-              </div>
-            )
-              : <div className="h-[420px] flex items-center justify-center"><span className="spin" /></div>
-        ) : undefined}
+        graphFocus={resolved} graphFocusMissing={focusMissing}
       />
     );
   }
