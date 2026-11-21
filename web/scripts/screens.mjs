@@ -28,7 +28,7 @@ const SHOTS = [
   ['06-kampania', '/kampanie/KMP-017', 3000],
   ['07-zgloszenie', '/kampanie/KMP-017/zgloszenie', 2500],
   ['08-scal', '/kampanie/scal?a=KMP-017&b=KMP-043', 2500],
-  ['09-sledztwo', '/sledztwa/INV-7', 14000],
+  ['09-sledztwo', '/sledztwa/INV-7', 7500],
   ['10-sledztwo-koniec', '/sledztwa/INV-7?koniec=1', 3000],
   ['15-lab', '/lab', 2500],
   ['01-sprawdz-phone', '/', 2500, { width: 390, height: 844 }],
