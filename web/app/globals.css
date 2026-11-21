@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens: names from docs/design/README.md §2, values from the "TROP · Sprawdź" boards (light, rp-zg.css).
+   RGB triplets so Tailwind opacity modifiers work. */
+:root {
+  --bg0: 255 255 255; --bg1: 255 255 255; --bg2: 250 250 250; --bg3: 245 245 245; --bg4: 240 240 240;
+  --line1: 229 229 229; --line2: 212 212 212; --line3: 163 163 163;
+  --tx1: 10 10 10; --tx2: 82 82 82; --tx3: 107 107 107; --tx4: 138 138 138;
+  --ink: 250 250 250;
+  --ev-tracking: 3 105 161; --ev-kit: 109 40 217; --ev-infra: 180 83 9; --ev-content: 190 24 93;
+  --ev-persons: 194 65 12; --ev-visual: 15 118 110; --ev-ad: 77 124 15; --ev-media: 162 28 175;
+  --st-g: 21 128 61; --st-gdim: 240 253 244; --st-amber: 180 83 9; --st-adim: 255 251 235;
+  --st-red: 193 0 18; --st-rdim: 254 242 242; --st-cyan: 29 78 216; --st-cdim: 239 246 255;
+  --st-violet: 109 40 217; --st-vdim: 245 243 255;
+  color-scheme: light;
+}
+/* Optional SOC/phosphor theme from rp.css (docs/design §2), not the default direction. */
+[data-theme='phosphor'] {
+  --bg0: 5 8 6; --bg1: 10 16 12; --bg2: 15 24 18; --bg3: 22 35 26; --bg4: 28 44 33;
+  --line1: 29 43 34; --line2: 43 63 50; --line3: 59 84 68;
+  --tx1: 221 235 226; --tx2: 169 189 176; --tx3: 131 153 139; --tx4: 131 153 139;
+  --ink: 3 20 10;
+  --ev-tracking: 92 200 255; --ev-kit: 183 148 255; --ev-infra: 255 181 71; --ev-content: 255 143 184;
+  --ev-persons: 255 154 98; --ev-visual: 143 211 196; --ev-ad: 201 226 101; --ev-media: 229 156 255;
+  --st-g: 59 240 126; --st-amber: 255 181 71; --st-red: 255 93 108; --st-cyan: 92 200 255; --st-violet: 183 148 255;
+  color-scheme: dark;
+}
+
+html, body { background: rgb(var(--bg0)); color: rgb(var(--tx1)); }
+body { -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+
+/* Focus ring: 2 px, 2 px offset (design §2). */
+:focus-visible { outline: 2px solid rgb(var(--tx1)); outline-offset: 2px; border-radius: 6px; }
+
+.sr-only-x { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@layer components {
+  .card { @apply bg-bg1 border border-line1 rounded-card shadow-card; }
+  .chip { @apply inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-full border border-line1 bg-bg1 text-[13px] text-[#404040] cursor-pointer hover:bg-bg3 transition-colors; }
+  .chip[aria-pressed='true'] { @apply bg-tx1 text-white border-tx1; }
+  .btn-pri { @apply inline-flex items-center justify-center gap-2 min-h-[46px] px-5 rounded-field bg-tx1 text-white text-[15px] font-semibold whitespace-nowrap hover:bg-[#262626] disabled:opacity-60 disabled:cursor-not-allowed; }
+  .btn-sec { @apply inline-flex items-center justify-center gap-2 min-h-[46px] px-[18px] rounded-field border border-line1 bg-bg1 text-tx1 text-[15px] font-medium whitespace-nowrap hover:bg-bg3; }
+  .btn-sm { @apply min-h-[38px] px-3.5 text-[14px] rounded-xl; }
+  .lnk { @apply inline-flex items-center min-h-[40px] text-[14px] text-tx2 underline decoration-line2 underline-offset-4 hover:text-tx1; }
+  .tag { @apply inline-flex items-center h-[26px] px-2.5 rounded-full bg-[#262626] text-[#FAFAFA] text-[12px] font-medium; }
+  .pill { @apply inline-flex items-center gap-1.5 h-[26px] px-2.5 rounded-full text-[12.5px] font-medium whitespace-nowrap; }
+  .spin { @apply inline-block w-[18px] h-[18px] flex-none rounded-full border-2 border-line2 border-t-tx1 animate-spin; }
+  .okc { @apply w-5 h-5 flex-none rounded-full bg-tx1 text-white inline-flex items-center justify-center text-[12px] font-bold; }
+  .colh { @apply flex items-baseline justify-between gap-2.5 px-1 pb-2.5; }
+  .colh h2 { @apply m-0 text-[16px] font-semibold tracking-[-0.015em]; }
+  .colh span { @apply text-[12.5px] text-tx3; }
+  .meter { @apply block h-1.5 rounded-full bg-bg4 overflow-hidden; }
+  .meter > i { @apply block h-full bg-tx1; }
+  .gb { @apply block h-[7px] rounded bg-[#EDEDED]; }
+  .ph-img { background: repeating-linear-gradient(135deg, #FAFAFA 0 8px, #F5F5F5 8px 16px); @apply border border-dashed border-line2 rounded-[10px] grid place-items-center font-mono text-[10px] text-tx4; }
+  .seg { @apply inline-flex gap-0.5 p-1 rounded-full bg-bg3; }
+  .seg > button, .seg > a { @apply inline-flex items-center gap-[7px] min-h-[38px] px-4 rounded-full text-[14px] font-medium text-tx2; }
+  .seg > [aria-pressed='true'], .seg > [aria-current='page'] { @apply bg-bg1 text-tx1 shadow-[0_1px_2px_rgba(0,0,0,.08)]; }
+  .kv { @apply flex justify-between gap-3 py-2.5 border-b border-bg4 text-[13.5px]; }
+  .kv > dt { @apply text-tx3; }
+  .kv > dd { @apply m-0 font-semibold text-right; }
+}
+
+/* Evidence chip [TYP][wartość][siła][waga][rzadkość] (rp.css .ev, light). */
+.ev { --c: rgb(var(--tx2)); display: inline-flex; align-items: stretch; height: 28px; border: 1px solid rgb(var(--line1)); border-radius: 9px; background: #fff; font: 12px/1 var(--font-geist-mono), ui-monospace, monospace; color: rgb(var(--tx1)); overflow: hidden; white-space: nowrap; max-width: 100%; vertical-align: middle; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+.ev > * { display: inline-flex; align-items: center; padding: 0 8px; }
+.ev > .t { color: var(--c); font-weight: 500; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; background: color-mix(in oklab, var(--c) 7%, #fff); border-right: 1px solid rgb(var(--line1)); }
+.ev > .v { display: block; line-height: 26px; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ev > .sb { align-items: flex-end; gap: 2px; padding: 8px 7px 7px; border-left: 1px solid rgb(var(--line1)); }
+.ev > .w { font-weight: 600; border-left: 1px solid rgb(var(--line1)); }
+.ev > .r { color: rgb(var(--tx3)); border-left: 1px solid rgb(var(--line1)); }
+.ev.conf { border-style: dashed; border-color: #fecaca; } .ev.conf > .w { color: rgb(var(--st-red)); }
+.ev.miss { border-style: dashed; background: #fafafa; box-shadow: none; } .ev.miss > .v { color: rgb(var(--tx3)); font-style: italic; }
+.ev.zero > .v { color: rgb(var(--tx3)); text-decoration: line-through; text-decoration-color: rgb(var(--line3)); } .ev.zero > .w { color: rgb(var(--tx3)); }
+.ev.big { height: 34px; font-size: 13px; } .ev.big > .v { line-height: 32px; }
+.sb { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+.sb i { display: block; width: 3px; background: rgb(var(--line1)); border-radius: 1px; }
+.sb i:nth-child(1) { height: 4px; } .sb i:nth-child(2) { height: 7px; } .sb i:nth-child(3) { height: 11px; }
+.sb.l i:nth-child(1), .sb.m i:nth-child(-n+2), .sb.h i { background: var(--c, #171717); }
+.t-tracking { --c: rgb(var(--ev-tracking)); } .t-kit { --c: rgb(var(--ev-kit)); } .t-infra { --c: rgb(var(--ev-infra)); } .t-content { --c: rgb(var(--ev-content)); }
+.t-persons { --c: rgb(var(--ev-persons)); } .t-visual { --c: rgb(var(--ev-visual)); } .t-ad { --c: rgb(var(--ev-ad)); } .t-media { --c: rgb(var(--ev-media)); }
+
+/* Moving cards (Raport ↔ Graf) */
+.mv { transition: left .7s cubic-bezier(.2,.8,.2,1), top .7s cubic-bezier(.2,.8,.2,1), width .7s cubic-bezier(.2,.8,.2,1), opacity .45s ease; }
+.fadeN { transition: opacity .45s ease; }
+.hl { position: relative; border-radius: 8px; transition: box-shadow .4s ease; }
+.tagc { position: absolute; top: -10px; right: 6px; padding: 2px 7px; border-radius: 999px; color: #fff; font: 600 10.5px/1.35 var(--font-geist-sans), sans-serif; transition: opacity .4s ease; }
+
+/* Bots without WebGL: flat blobs in the bot colour (asleep = grey), same footprint as the jelly avatar. */
+.jelly-fallback .jelly-slot { background: var(--jc); border-radius: 44% 44% 36% 36%; box-shadow: inset 0 -4px 0 rgba(0,0,0,.12); }
+.jelly-fallback .jelly-slot[data-state='asleep'] { background: #E6E6E6; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
