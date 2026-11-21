@@ -39,7 +39,11 @@
      - other outcomes: new / uncertain / page down / trace.
    - Canvas sources: `docs/design/canvas/project/*.dc.html`; tokens in `docs/design/canvas/assets/rp.css`; bots in `jelly-overlay-detective.js`.
 5. `docs/db/DB_AND_SCRAPING.md` (plus `SOURCES_FACTSHEET.md`, `META_AD_LIBRARY_ACCESS.md`): the 57-table schema, ingest/enrich/capture/hunter prototypes, source matrix.
-6. `docs/PLAN.md`: the product vision (pillars, wow features). Where it disagrees with 1–5, those win.
+6. `docs/research/`: background that existed only in the planning conversation. Use it for DATA_SOURCES, ATLAS and related work.
+   - `01_pl_scam_context.md`: Polish scam landscape (CSIRT KNF clustering report, NASK templates, Keitaro/TDS), the impersonated people, lure phrases, teaser-page hints.
+   - `02_sources_and_tech.md`: ad-library APIs, metadata sources with limits and licenses, library and model licenses, prior work.
+   - `03_session_briefs.md`: what the three exploration sessions were asked to do and produced, and the **UI decisions fixed with Dawid**. These override older parts of the design README: **light zgrai look (Geist, black on white)**, no sidebar, no chat, no conformal jargon in the UI, Oracle/operators/people inside Kampanie.
+7. `docs/PLAN.md`: the product vision (pillars, wow features). Where it disagrees with 1–6, those win.
 
 ## 2. State of this machine
 - **Repo:** `~/hacknation/trop`, branch `plan/trop-foundation` (2 commits on top of `main`).
