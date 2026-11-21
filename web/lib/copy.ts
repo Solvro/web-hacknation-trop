@@ -106,7 +106,7 @@ export function prettyDisplay(s: string | null | undefined): string {
   if (!s) return '';
   let out = s.replace(/^([a-z][a-z0-9_]+):\s*/, (m, f: string) => (FIELD_LABEL[f] ? `${FIELD_LABEL[f]}: ` : m));
   out = out.replace(/\bshared \(e\.g\. /g, 'wspólne (np. ').replace(/\(e\.g\. /g, '(np. ');
-  out = out.replace(/^Branża: (\w+)/, (_, v: string) => `Branża: ${VERTICAL[v] ?? v}`);
+  out = out.replace(/\b(investment|health|gov|crypto|loans|spiritual)\b/g, (v: string) => VERTICAL[v] ?? v).replace(/ != /g, ' ≠ ');
   return out;
 }
 export const prettyEv = <T extends { display: string }>(e: T): T => ({ ...e, display: prettyDisplay(e.display) });

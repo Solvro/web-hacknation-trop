@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useRef, useState, type DragEvent } from 'react';
 import { analyze } from '@/lib/api';
-import { IArrow, IFile, IImage, ISearch, IVideo, IX } from './icons';
+import { IArrow, IFile, IImage, ISearch, IX } from './icons';
+import { useTraceExamples } from '@/lib/examples';
 
 export const DEMO_URL = 'https://morvanta.click/?utm_source=fb&utm_visit=0193a7c2-5b1e-7c3a-9f20-6d1e4b8a2c10';
 
@@ -23,8 +24,7 @@ export function parseInput(raw: string): Parsed {
 }
 
 const CHIPS = [
-  { key: 'img', label: 'Zrzut ekranu', icon: IImage, accept: 'image/*' },
-  { key: 'vid', label: 'Wideo', icon: IVideo, accept: 'video/*' },
+  { key: 'img', label: 'Zdjęcie lub wideo', icon: IImage, accept: 'image/*,video/*' },
   { key: 'har', label: 'HAR lub ZIP', icon: IFile, accept: '.har,.zip,.json,application/zip,application/json' },
 ] as const;
 
@@ -38,6 +38,8 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
   const [drag, setDrag] = useState(false);
   const inputs = useRef<Record<string, HTMLInputElement | null>>({});
   const ta = useRef<HTMLTextAreaElement>(null);
+  const examples = useTraceExamples();
+  const exIdx = useRef(0);
 
   async function go() {
     setErr(null);
@@ -86,7 +88,7 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
         id="rp-in" ref={ta} rows={compact ? 1 : 2} value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); } }}
-        placeholder={traceMode ? 'np. morvanta.click, Jan Kowalski albo 870011223344556' : 'https://… albo przeciągnij plik'}
+        placeholder={traceMode ? 'domena, piksel albo imię i nazwisko' : 'https://… albo przeciągnij plik'}
         className="border-0 outline-none resize-none p-0 font-mono text-[16px] leading-[1.55] text-tx1 bg-transparent focus-visible:outline-none"
         aria-describedby={err ? 'rp-err' : undefined}
       />
@@ -113,7 +115,12 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
             </span>
           ))}
           <button type="button" className="chip" aria-pressed={traceMode}
-            onClick={() => { setTraceMode((t) => !t); if (!traceMode) { setText(''); setFiles([]); } ta.current?.focus(); }}>
+            onClick={() => {
+              // fill the field with a real trace from the database (cycles through a few on repeated clicks)
+              setTraceMode(true); setFiles([]); setErr(null);
+              if (examples.length) { setText(examples[exIdx.current % examples.length]); exIdx.current += 1; } else setText('');
+              ta.current?.focus();
+            }}>
             <ISearch width={14} height={14} />Domena lub osoba
           </button>
         </div>

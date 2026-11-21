@@ -8,6 +8,7 @@ import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle, focusIdOf as fid } from '@/lib/graph';
 import { Bot } from '../jelly';
 import { EvidenceChip } from '../evidence-chip';
+import { FollowButton } from '../follow-button';
 import { GraphCloud } from '../graph/cloud';
 import { IArrow, ICheck, IChev, IGraph, IList } from '../icons';
 
@@ -173,8 +174,8 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
         title={story.h1 || (names[cid] ?? cid)}
         lead={story.p}
         meta={metaLine}
-        primary={<Link className="btn-pri" href={`/kampanie/${encodeURIComponent(cid)}`}>Otwórz kampanię<IArrow /></Link>}
-        secondary={<Link className="lnk" href={incident?.domain ? `/sledztwa?seed=${encodeURIComponent(incident.domain)}&kampania=${encodeURIComponent(cid)}` : `/sledztwa?kampania=${encodeURIComponent(cid)}`}>albo szukaj reszty z agentem</Link>}
+        primary={<div className="flex flex-wrap gap-2 sm:justify-end"><FollowButton incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} campaignId={cid} /><Link className="btn-sec" href={`/kampanie/${encodeURIComponent(cid)}`}>Otwórz kampanię</Link></div>}
+        secondary={<span className="text-[12.5px] text-tx3">agent poszuka reszty: domen, reklam i reklamodawców z tymi samymi śladami</span>}
       />
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <span className="pill bg-state-gdim text-state-g !h-8 !text-[13.5px]"><ICheck width={12} height={12} />{d.decision === 'confirm' ? 'Dołącza do kampanii (do potwierdzenia)' : 'Dołącza do kampanii'} {cid} · pewność {p2(d.p)}</span>
@@ -215,7 +216,7 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
             {/* this material */}
             <div className="mv absolute bg-bg1 border border-line1 rounded-[18px] p-3.5 flex flex-col gap-2 shadow-soft" style={{ left: 0, top: 215, width: 240, height: 170, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
               <span className="text-[12px] font-medium text-tx3">Ten materiał</span>
-              <span className="ph-img h-14 text-[11px]">zrzut</span>
+              <span className="ph-img h-14 text-[11px]">materiał</span>
               <b className="text-[18px] font-semibold tracking-[-0.02em]">{d.incident_id}</b>
               <span className="font-mono text-[12px] text-tx3 truncate">{incident?.domain ?? ''}</span>
             </div>

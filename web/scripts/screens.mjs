@@ -41,12 +41,18 @@ const ZIP = process.env.ZIP;
 const upload = async (p) => { await p.waitForTimeout(2500); await p.setInputFiles('input[accept*=".zip"]', ZIP); await p.click('button[type=submit]'); await p.waitForURL(/analiza/); };
 const REAL = [
   ['r01-sprawdz', '/', 4000],
+  ['r01b-chip-slad', '/', async (p) => { await p.waitForTimeout(3500); await p.click('button:has-text("Domena lub osoba")'); await p.waitForTimeout(500); }],
+  ['r01c-slad-z-chipa', '/', async (p) => { await p.waitForTimeout(3500); await p.click('button:has-text("Domena lub osoba")'); await p.click('button[type=submit]'); await p.waitForURL(/slad/); await p.waitForTimeout(3500); }],
+  ['r03s-raport-probka', '/', async (p) => { await p.waitForTimeout(3500); await p.locator('#pr-h ~ ul button').first().click(); await p.waitForURL(/analiza/); await p.waitForSelector('#rp-verdict', { timeout: 90000 }); await p.waitForTimeout(1500); }],
+  ['r11s-nowa-probka', '/', async (p) => { await p.waitForTimeout(3500); await p.click('button:has-text("Poland Invest")'); await p.waitForURL(/analiza/); await p.waitForSelector('#rp-verdict', { timeout: 90000 }); await p.waitForTimeout(1500); }],
+  ['r13s-za-malo-probka', '/', async (p) => { await p.waitForTimeout(3500); await p.click('button:has-text("Ból pleców")'); await p.waitForURL(/analiza/); await p.waitForSelector('#rp-verdict', { timeout: 120000 }); await p.waitForTimeout(1500); }],
   ['r02-analiza', '/', async (p) => { await upload(p); await p.waitForTimeout(3500); }],
   ['r03-raport', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.waitForTimeout(1500); }],
   ['r04-graf', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(2500); }],
   ['r04a-graf-wezel', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(1200); await p.locator('.mv button').first().click(); await p.waitForTimeout(3000); }],
   ['r04b-graf-wezel2', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(1200); await p.locator('.mv button').nth(1).click(); await p.waitForTimeout(3000); }],
   ['r03b-raport-p1', '/analiza/p1', 4000],
+  ['r09s-sledz-dalej', '/analiza/p1', async (p) => { await p.waitForTimeout(4000); await p.click('button:has-text("Śledź dalej")'); await p.waitForURL(/sledztwa\//, { timeout: 30000 }); await p.waitForTimeout(9000); }],
   ['r05-kampanie', '/kampanie', 3000],
   ['r06-kampania', '/kampanie/KMP-001', 4000],
   ['r07-zgloszenie', '/kampanie/KMP-001/zgloszenie', 4000],

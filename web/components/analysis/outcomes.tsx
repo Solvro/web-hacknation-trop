@@ -10,6 +10,7 @@ import { campaignTitle } from '@/lib/graph';
 import { Bot } from '../jelly';
 import { IArrow, ICheck } from '../icons';
 import { ReportHeader } from './report';
+import { FollowButton } from '../follow-button';
 
 function Row({ e, badge, tone = 'cyan', dashed }: { e: { bot?: string | null; title: string; meta: string }; badge?: string; tone?: 'cyan' | 'g' | 'red' | 'neutral'; dashed?: boolean }) {
   const T = { cyan: 'bg-state-cdim text-state-cyan', g: 'bg-state-gdim text-state-g', red: 'bg-state-rdim text-state-red', neutral: 'bg-bg3 text-tx2' }[tone];
@@ -46,10 +47,10 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
-        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : 'Nowa kampania'}
+        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : incident?.title || 'Nowa kampania'}
         lead={incident?.title ? `Reklama: „${incident.title}”.` : undefined}
         meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
-        primary={<button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button>}
+        primary={<div className="flex flex-wrap gap-2 sm:justify-end"><button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button><FollowButton variant="sec" incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} /></div>}
         secondary={<Link className="lnk" href="/kampanie">albo przypisz do istniejącej</Link>}
       />
       <section className="rounded-[22px] border border-[#BFDBFE] bg-state-cdim px-5 py-5 flex flex-wrap gap-5 items-center justify-between">
@@ -128,6 +129,7 @@ export function OutcomeUnsure({ d, incident, names, descs }: { d: Decision; inci
         title={d.runner_up?.same_operator ? 'Pasuje do dwóch kampanii jednego operatora' : 'Pasuje do dwóch kampanii'}
         lead={`Ślady techniczne pasują do obu kampanii${d.operator_id ? ` operatora ${d.operator_id}` : ''}.${(d.evidence ?? []).some((e) => e.state === 'missing' && (e.type === 'content' || e.type === 'persons')) ? ' Strona nie ma tekstu ani twarzy, więc boty nie rozstrzygną tego same.' : ' Różnica jest za mała, żeby boty rozstrzygnęły to same.'} Wybierz kampanię.`}
         meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
+        primary={<FollowButton incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} />}
         secondary={<Link className="lnk" href="/kampanie">albo załóż nową kampanię</Link>}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -152,16 +154,17 @@ export function OutcomeError({ d, incident, steps, error, names }: { d: Decision
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
-        title="Strona nie odpowiada"
-        lead={error?.message ?? 'Bez strony boty nie zobaczą kitu ani formularza, więc nie potwierdzą kampanii.'}
+        title={error ? 'Strona nie odpowiada' : 'Za mało materiału, żeby przypisać kampanię'}
+        lead={error?.message ?? 'Boty ustaliły tylko część śladów. Bez strony docelowej albo zrzutu reklamy nie potwierdzą kampanii, więc materiał nie zostanie do niej dołączony. Dodaj więcej materiału albo puść agenta po śladach, które są.'}
         meta={[d?.incident_id ?? incident?.id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
-        primary={<a className="btn-pri" href={`https://web.archive.org/web/*/${incident?.domain ?? ''}`} target="_blank" rel="noopener noreferrer nofollow">Sprawdź kopię z archiwum<IArrow /></a>}
+        primary={<FollowButton incidentId={d?.incident_id ?? incident?.id} evidence={d?.evidence ?? []} domain={incident?.domain} />}
         secondary={<Link className="lnk" href="/">albo wrzuć zrzut ekranu reklamy</Link>}
       />
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_400px] gap-10 items-start">
         <section className="flex flex-col gap-3" aria-labelledby="er-found">
           <h2 id="er-found" className="text-[13px] font-medium text-tx3">Co udało się ustalić</h2>
           {(d?.evidence ?? []).map((e, i) => <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: [botName(e.bot), e.bot === 'archiwista' ? 'nasza baza' : 'z rejestru i crt.sh, bez strony'].join(' · ') }} badge="ustalone" tone="g" />)}
+          {!(d?.evidence ?? []).length && !failed.length && <p className="text-[14px] text-tx3 py-2">Boty nie znalazły w tym materiale śladów, które łączą go z bazą: brak strony docelowej, pikseli i domen.</p>}
           {failed.map((s) => (
             <Row key={s.key} dashed e={{ bot: s.bot, title: s.status === 'error' ? `Strona: ${(s.detail ?? '').split('\n')[0]}` : `${s.label.split('·').pop()?.trim() ?? s.label}`, meta: `${botName(s.bot)} · ${(s.detail ?? '').split('\n')[0]}` }}
               badge={s.status === 'error' ? 'nie udało się' : 'brak'} tone={s.status === 'error' ? 'red' : 'neutral'} />
