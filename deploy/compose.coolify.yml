@@ -58,6 +58,7 @@ services:
     environment:
       SERVICE_FQDN_WEB_3000: trop.b.solvro.pl
       API_INTERNAL_URL: http://api:8000
+      PORT: "3000"
       NEXT_PUBLIC_API_BASE: /api/v1
     depends_on: [api]
     mem_limit: 512m
