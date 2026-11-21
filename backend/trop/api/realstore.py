@@ -16,14 +16,17 @@ import subprocess
 import sys
 import uuid
 from collections import Counter, defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import AsyncIterator
 
 from fastapi import HTTPException
 
 from trop.api import models as M
+from trop.api.graphview import focus_view, norm_type
 from trop.config import settings
 from trop.schema import (
+    AnalyzeAccepted,
     BOT_STEPS, Campaign, CampaignCounts, CampaignDNA, CampaignSummary, Decision, DnaRow, DomainIndicator, EvidenceItem,
     EvidenceValue, Event, GraphEdge, GraphNode, GraphPayload, Heat, Incident, IncidentSummary, Indicators, Job, JobInput,
     JobStep, LabMetrics, LinkExplanation, Member, Operation, Operator, Timeline, Variant, BatchResult, BatchRow,
@@ -191,9 +194,9 @@ class RealStore:
         return out[:40]
 
     # ------------------------------------------------------------------------------------------ jobs (arq -> Redis -> SSE)
-    async def analyze(self, kind: str, name: str, saved: list[str] | None = None) -> M.AnalyzeResponse:
+    async def analyze(self, kind: str, name: str, saved: list[str] | None = None) -> AnalyzeAccepted:
         if kind == "trace":
-            return M.AnalyzeResponse(job_id=None)
+            return AnalyzeAccepted(job_id=None, trace={"type": "trace", "value": name})
         from arq import create_pool
         from arq.connections import RedisSettings
         jid = "JOB-" + uuid.uuid4().hex[:12].upper()
@@ -205,7 +208,7 @@ class RealStore:
             await pool.enqueue_job("analyze", jid, {"kind": kind, "name": name, "paths": saved or []}, _job_id=jid)
         finally:
             await pool.aclose()
-        return M.AnalyzeResponse(job_id=jid, incident_id=None)
+        return AnalyzeAccepted(job_id=jid, incident_id=None)
 
     async def job(self, jid: str) -> Job:
         r = bus.client()
@@ -242,21 +245,6 @@ class RealStore:
 
     def channel_events(self, name: str) -> AsyncIterator[Event]:
         return bus.subscribe(bus.client(), name, history=False, stop_on_terminal=False)
-
-    def investigation_events(self, iid: str) -> AsyncIterator[Event]:
-        return bus.subscribe(bus.client(), f"inv:{iid}")
-
-    async def create_investigation(self, body) -> dict:
-        from arq import create_pool
-        from arq.connections import RedisSettings
-        r = bus.client()
-        iid = f"INV-{await r.incr('trop:inv:seq')}"
-        pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
-        try:
-            await pool.enqueue_job("agent", iid, body.seed, body.campaign_id, body.budget_steps)
-        finally:
-            await pool.aclose()
-        return {"id": iid}
 
     # ------------------------------------------------------------------------------------------ incidents
     async def _stored(self, iid: str) -> dict | None:
@@ -377,7 +365,12 @@ class RealStore:
 
     def evidence_value(self, type_: str, value: str) -> EvidenceValue:
         self.corpus
-        trip = [t for t in self.holders if t[0] == type_ and t[2] == value]
+        try:
+            canon, layer = norm_type(type_)
+        except KeyError:
+            raise _nf(f"evidence type {type_}")
+        type_ = layer
+        trip = [t for t in self.holders if t[0] == type_ and (t[2] == value or (canon == "domain" and t[2].endswith(value)))]
         if not trip:
             raise _nf("evidence value")
         ids = sorted({i for t in trip for i in self.holders[t]})
@@ -389,6 +382,7 @@ class RealStore:
 
     def trace(self, type_: str, value: str) -> M.TraceView:
         ev = self.evidence_value(type_, value)
+        type_ = norm_type(type_)[0]
         ids = [s.id for s in ev.incidents]
         co = Counter(t for i in ids for t in _triples(self._by_id[i]) if t[2] != value and t[0] in ("tracking", "kit"))
         return M.TraceView(value=value, type=type_, campaigns=ev.campaigns, weekly=[], latest=[s.model_dump(mode="json") for s in ev.incidents[:10]],
@@ -532,7 +526,7 @@ class RealStore:
         return MergePreview(a=sa, b=sb, shared=[self._item(*t) for t in sh], before={cid: a.n_incidents, other: b.n_incidents}, after={cid: a.n_incidents + b.n_incidents})
 
     # ------------------------------------------------------------------------------------------ graph
-    def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None) -> GraphPayload:
+    def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None, origin=None) -> GraphPayload:
         c = self.corpus
         nodes: dict[str, GraphNode] = {}
         edges: list[GraphEdge] = []
@@ -567,14 +561,15 @@ class RealStore:
         hulls = [{"id": cid, "kind": "campaign", "members": [n for n, v in nodes.items() if v.campaign_id == cid], "label": cid} for cid in c.campaigns]
         g = GraphPayload(nodes=list(nodes.values()), edges=edges, hulls=[h for h in hulls if h["members"]])
         if focus:
-            n = nodes.get(focus)
-            if not n:
+            for p in {i for inc in c.incidents for i in _s((inc.get("content") or {}).get("persons"))}:   # person:<name> nodes
+                pid = f"person:{p}"
+                if pid not in nodes:
+                    g.nodes.append(GraphNode(id=pid, kind="person", label=p, size=1.5))
+                    g.edges += [GraphEdge(a=pid, b=i["id"], type="persons", weight=1.5, level="L2") for i in c.incidents if p in _s((i.get("content") or {}).get("persons"))]
+            try:
+                return focus_view(g, focus, origin)
+            except KeyError:
                 raise _nf("node")
-            deg = [e for e in edges if focus in (e.a, e.b)]
-            g.focus = focus
-            g.panel = {"title": n.label, "kind": n.kind, "facts": [f"Połączenia: {len(deg)}", f"Kampania: {n.campaign_id or '—'}"],
-                       "bot_sentence": f"{n.label} łączy się z {len(deg)} węzłami w tym widoku.",
-                       "primary_action": {"label": "Otwórz szczegóły", "href": f"/slad/{n.kind}/{n.id}"}}
         return g
 
     # ------------------------------------------------------------------------------------------ batch
@@ -609,6 +604,238 @@ class RealStore:
         for row in r.rows:
             w.writerow({k: ("" if v is None else v) for k, v in row.model_dump().items()})
         return buf.getvalue()
+
+    # ------------------------------------------------------------------------------------------ investigations (WS6 agent)
+    def investigations(self, status=None):
+        from trop.agent import service as svc
+        return [i for i in svc.list_investigations(status) if not i.campaign_id or i.campaign_id in self.corpus.campaigns]
+
+    def investigation(self, iid: str):
+        from trop.agent import service as svc
+        try:
+            return svc.get_investigation(iid)
+        except (FileNotFoundError, KeyError):
+            raise _nf("investigation")
+
+    async def create_investigation(self, body) -> dict:
+        from arq import create_pool
+        from arq.connections import RedisSettings
+        from trop.agent import service as svc
+        iid = svc.new_investigation_id()
+        pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
+        try:
+            await pool.enqueue_job("agent", iid, body.model_dump(), _job_id=iid)
+        finally:
+            await pool.aclose()
+        return {"id": iid}
+
+    async def _inv_stream(self, iid: str):
+        from trop.agent import service as svc
+        r = bus.client()
+        if await r.llen(bus.ekey(f"inv:{iid}")):
+            async for ev in bus.subscribe(r, f"inv:{iid}"):
+                yield ev
+            return
+        try:
+            hist = svc.events(iid)
+        except (FileNotFoundError, KeyError):
+            hist = []
+        for e in hist:                                  # finished (or not yet started) run: recorded history
+            yield Event.model_validate(e)
+        if not hist or hist[-1].get("type") != "investigation.done":
+            async for ev in bus.subscribe(r, f"inv:{iid}", history=False):
+                yield ev
+
+    def investigation_events(self, iid: str):
+        return self._inv_stream(iid)
+
+    def steer(self, iid: str, body):
+        from trop.agent import service as svc
+        r = svc.steer(iid, message=body.message, node_id=body.node_id, choice=body.choice)
+        return M.Ack(ok=bool(r.get("ok", True)), detail=r.get("detail"))
+
+    def stop(self, iid: str):
+        from trop.agent import service as svc
+        r = svc.stop(iid)
+        return M.Ack(ok=bool(r.get("ok", True)), detail=r.get("detail"))
+
+    def promote(self, iid: str, campaign_id: str, node_ids: list[str]):
+        from trop.agent import service as svc
+        r = svc.promote(iid, campaign_id, node_ids)
+        return M.PromoteResult(campaign_id=r["campaign_id"], added=int(r["added"]))
+
+    # ------------------------------------------------------------------------------------------ act (WS6)
+    def act_packages(self):
+        from trop.act import service as act
+        return [x for x in act.list_packages() if x.campaign_id in self.corpus.campaigns]   # no fictional campaigns in real mode
+
+    def act_package(self, pid: str):
+        from trop.act import service as act
+        try:
+            return act.get_package(pid)
+        except (FileNotFoundError, KeyError):
+            raise _nf("package")
+
+    async def act_create(self, body):
+        from trop.act import service as act
+        use_llm = bool(settings.gemini_api_key or settings.openrouter_api_key) and __import__("os").environ.get("TROP_NO_LIVE") != "1"
+        return await asyncio.to_thread(lambda: act.create_package(body, use_llm=use_llm))
+
+    def act_notice(self, pid: str, text: str):
+        from trop.act import service as act
+        return act.update_notice(pid, text)
+
+    def act_submit(self, pid: str):
+        from trop.act import service as act
+        return act.submit(pid, emit=lambda t, d: bus.publish_sync("events", t, d))
+
+    def act_download(self, pid: str, fmt: str):
+        from trop.act import service as act
+        try:
+            return act.download(pid, fmt)
+        except (FileNotFoundError, KeyError):
+            raise _nf("package")
+
+    def act_rules(self, campaign):
+        from trop.act import service as act
+        return act.rules(campaign) if campaign else [r for c in self.corpus.campaigns for r in act.rules(c)]
+
+    def act_rule_test(self, body):
+        from trop.act import service as act
+        return act.test_rule(body.kind, body.body)
+
+    # ------------------------------------------------------------------------------------------ hunter (WS5)
+    def hunter_sources(self):
+        from trop.hunter import sources
+        return sources.list_sources()
+
+    def hunter_runs(self, limit: int):
+        from trop.hunter import sources
+        return sources.list_runs(limit=limit)
+
+    def hunter_creds(self):
+        from trop.hunter import sources
+        return [M.CredStatus(source_id=x.id, status=x.credentials_status) for x in sources.list_sources()]
+
+    async def hunter_run(self, sid: str):
+        from arq import create_pool
+        from arq.connections import RedisSettings
+        from trop.worker.tasks import HUNT_RUNNERS
+        if sid not in HUNT_RUNNERS:
+            raise _nf("source")
+        pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
+        try:
+            job = await pool.enqueue_job("hunt", sid)
+        finally:
+            await pool.aclose()
+        return M.RunStarted(run_id=f"queued:{job.job_id if job else sid}")
+
+    # ------------------------------------------------------------------------------------------ oracle (WS5)
+    def predictions(self, status=None):
+        from trop.oracle import service as oracle
+        return oracle.list_predictions(status)
+
+    def oracle_dna(self, campaign=None):
+        from trop.oracle import service as oracle
+        d = oracle.get_dna(campaign)
+        if d is None:
+            raise _nf("domain DNA (run `trop oracle train`)")
+        return d
+
+    def oracle_metrics(self):
+        from trop.oracle import service as oracle
+        return oracle.get_metrics()
+
+    # ------------------------------------------------------------------------------------------ public (coarse; never KMP ids / indicators)
+    PUBLIC_NAME = {"investment": "Fałszywe wiadomości z „inwestycją”", "health": "Fałszywy lekarz poleca preparat",
+                   "loan": "Pożyczki „bez BIK” z fałszywym bankiem"}
+    PUBLIC_REASON = {"tracking": "ta sama sieć reklam i przekierowań", "kit": "ta sama sieć reklam i przekierowań",
+                     "content": "ten sam szablon tekstu", "persons": "ten sam wizerunek osoby", "visual": "ten sam wygląd strony",
+                     "infra": "ta sama infrastruktura stron", "ad": "ten sam schemat reklamy", "media": "to samo nagranie"}
+
+    def _public_campaign(self, d: Decision):
+        from trop.schema import PublicCampaign
+        cid = d.campaign_id or d.candidate_campaign_id
+        if not cid or cid not in self.corpus.campaigns:
+            return None
+        mem = self._members(cid)
+        seen = sorted(str((i.get("source") or {}).get("captured_at") or "")[:10] for i in mem if (i.get("source") or {}).get("captured_at"))
+        vert = (self.corpus.campaigns[cid].get("vertical") or "").split(" ")[0]
+        reasons = []
+        for e in d.evidence:
+            r = self.PUBLIC_REASON.get(e.type)
+            if e.state == "match" and e.weight > 0 and r and r not in reasons:
+                reasons.append(r)
+        return PublicCampaign(name=self.PUBLIC_NAME.get(vert, "Znana kampania oszustwa reklamowego"), seen_count=len(mem),
+                              since=seen[0] if seen else "2026", reasons=reasons[:4] or ["podobieństwo do znanych oszustw"])
+
+    def _quick_decision(self, inc_doc: dict) -> Decision:
+        from trop.engine import service
+        inc = Incident.model_validate({"id": "PUB-TMP", **inc_doc}).model_dump(mode="json")
+        d, _ = service.analyze_incident(inc, self.corpus)
+        return d
+
+    async def public_check(self, url, text):
+        from trop.schema import CheckResult
+        inc: dict = {}
+        if url:
+            from urllib.parse import urlsplit
+            host = (urlsplit(url if "//" in url else "//" + url).hostname or "").lower()
+            inc = {"landing": {"entry_url": url, "host": host, "etld1": ".".join(host.split(".")[-2:])},
+                   "infra": {"domains": [{"fqdn": host, "etld1": ".".join(host.split(".")[-2:])}]}}
+        if text:
+            inc.setdefault("landing", {})["text"] = text
+            inc["ad"] = {"text": text}
+        if not inc:
+            raise HTTPException(422, "provide `url` or `text`")
+        d = await asyncio.to_thread(self._quick_decision, inc)
+        pc = self._public_campaign(d) if d.decision in ("assign", "confirm") else None
+        if pc:
+            return CheckResult(verdict="scam", public_campaign=pc, advice=["Nie klikaj w link i nie podawaj danych.", "Zgłoś reklamę platformie i na incydent.cert.pl."])
+        return CheckResult(verdict="unknown", advice=["Brak dopasowania nie oznacza, że strona jest bezpieczna.", "Zachowaj ostrożność; możesz ją zgłosić."])
+
+    async def public_match(self, p):
+        from trop.schema import ExtensionMatch
+        inc = {"ad": {"advertiser": p.advertiser, "text": p.caption, "creative_phash": p.creative_phash},
+               "landing": {"entry_url": p.cta_url, "text": p.caption}}
+        d = await asyncio.to_thread(self._quick_decision, inc)
+        pc = self._public_campaign(d) if d.decision in ("assign", "confirm") else None
+        if pc:
+            return ExtensionMatch(match=True, label="Pasuje do znanej kampanii oszustwa", public_campaign=pc, reasons=pc.reasons)
+        return ExtensionMatch(match=False)
+
+    async def public_report(self, r):
+        rid = "REP-" + uuid.uuid4().hex[:8].upper()
+        rc = bus.client()
+        await rc.rpush("trop:public:reports", json.dumps({"id": rid, "report": r.model_dump(mode="json")}, ensure_ascii=False))
+        if r.post and r.post.install_id:
+            await rc.incr(f"trop:public:mine:{r.post.install_id}")
+        iid = "INC-X" + rid[4:]
+        doc = {"ad": {"advertiser": r.post.advertiser if r.post else None, "text": r.post.caption if r.post else None},
+               "landing": {"entry_url": (r.url or (r.post.cta_url if r.post else None))}, "source": {"type": "extension", "ref": rid}}
+        await bus.publish(rc, "events", Event(type="extension.report", at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                               data={"incident_id": iid}))
+        return M.PublicReportAck(report_id=rid)
+
+    def public_schemes(self, window: str):
+        out = []
+        for cid in self.corpus.campaigns:
+            mem = self._members(cid)
+            seen = sorted(str((i.get("source") or {}).get("captured_at") or "")[:10] for i in mem if (i.get("source") or {}).get("captured_at"))
+            vert = (self.corpus.campaigns[cid].get("vertical") or "").split(" ")[0]
+            out.append(M.PublicScheme(name=self.PUBLIC_NAME.get(vert, "Znana kampania oszustwa reklamowego"), seen_count=len(mem),
+                                      since=seen[0] if seen else "2026", reasons=["ta sama sieć reklam i przekierowań"]))
+        agg: dict[str, M.PublicScheme] = {}
+        for x in out:                                   # public names merge campaigns of the same kind
+            if x.name in agg:
+                agg[x.name].seen_count += x.seen_count
+            else:
+                agg[x.name] = x
+        return list(agg.values())
+
+    async def public_reports_mine(self):
+        n = await bus.client().llen("trop:public:reports")
+        return M.ReportsMine(submitted=int(n), matched=0)
 
     # ------------------------------------------------------------------------------------------ lab (from `trop eval`)
     async def lab_metrics(self, view: str) -> LabMetrics:

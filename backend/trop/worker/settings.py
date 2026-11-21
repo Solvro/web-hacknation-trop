@@ -13,10 +13,21 @@ async def startup(ctx: dict) -> None:
         await asyncio.get_running_loop().run_in_executor(None, worker_corpus)
     except Exception:  # noqa: BLE001 - stub mode without engine
         pass
+    try:
+        from trop.worker import hooks
+        ctx["scheduler"] = hooks.install()
+    except Exception:  # noqa: BLE001
+        pass
+
+
+async def shutdown(ctx: dict) -> None:
+    if ctx.get("scheduler"):
+        ctx["scheduler"].shutdown(wait=False)
 
 
 class WorkerSettings:
     on_startup = startup
+    on_shutdown = shutdown
     functions = [tasks.analyze, tasks.batch, tasks.capture, tasks.enrich, tasks.hunt, tasks.oracle, tasks.agent, tasks.act]
     redis_settings = RedisSettings.from_dsn(settings.redis_url)
     max_jobs = 2                 # memory budget: worker container 1.5 GiB

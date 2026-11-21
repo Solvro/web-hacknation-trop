@@ -89,7 +89,7 @@
    ],
    "report_status": "draft",
    "merge_hint": null,
-   "description": "Reklamy z kreacjami-wabikami (krajobrazy, zwierzęta) prowadzą na klon portalu «Kurier Dnia» z fałszywym newsem o napaści na znaną osobę; dalej przekierowanie do platformy „inwestycyjnej”.",
+   "description": "Fałszywy portal „Kurier Dnia” z newsem o napaści prowadzi do „inwestycji”.\nReklamy z kreacjami-wabikami (krajobrazy, zwierzęta) prowadzą na klon portalu «Kurier Dnia» z fałszywym newsem o napaści na znaną osobę; dalej przekierowanie do platformy „inwestycyjnej”.",
    "level": "L2",
    "counts": {
     "incidents": 46,
@@ -193,7 +193,7 @@
    ],
    "report_status": "none",
    "merge_hint": null,
-   "description": "Wideo-deepfake „dr Piotra Wiśniewskiego” i landing produktu Glikonor; ten sam kit relay v1 i bramka CAPI co KMP-017.",
+   "description": "Deepfake lekarza reklamuje „cud-preparat” Glikonor na cukrzycę.\nWideo-deepfake „dr Piotra Wiśniewskiego” i landing produktu Glikonor; ten sam kit relay v1 i bramka CAPI co KMP-017.",
    "level": "L2",
    "counts": {
     "incidents": 12,
@@ -297,7 +297,7 @@
    ],
    "report_status": "sent",
    "merge_hint": null,
-   "description": "Persona dr Piotr Wiśniewski (głos syntetyczny 0.87), produkt Artovita Forte, parametry Keitaro clickid/key/pixel_fb.",
+   "description": "Syntetyczny głos „lekarza” poleca Artovita Forte na stawy.\nPersona dr Piotr Wiśniewski (głos syntetyczny 0.87), produkt Artovita Forte, parametry Keitaro clickid/key/pixel_fb.",
    "level": "L2",
    "counts": {
     "incidents": 31,
@@ -402,7 +402,7 @@
    ],
    "report_status": "sent",
    "merge_hint": null,
-   "description": "Persony Marek Zieliński i Katarzyna Wójcik, landing quantapl-invest.top, Google Ads AW-11122233344.",
+   "description": "„Platforma AI” z udziałem sportowca i prezenterki obiecuje zyski z inwestycji.\nPersony Marek Zieliński i Katarzyna Wójcik, landing quantapl-invest.top, Google Ads AW-11122233344.",
    "level": "L2",
    "counts": {
     "incidents": 58,
@@ -505,7 +505,7 @@
    "persons": [],
    "report_status": "none",
    "merge_hint": null,
-   "description": "Kandydat nowej kampanii: przynęta rządowa, zbiór konformalny pusty, brak wspólnych warstw z KMP-017/022/031.",
+   "description": "Dopłata „bon energetyczny” — wyłudzenie danych; brak wspólnej infrastruktury ze znanymi kampaniami.\nKandydat nowej kampanii: przynęta rządowa, zbiór konformalny pusty, brak wspólnych warstw z KMP-017/022/031.",
    "level": "L2",
    "counts": {
     "incidents": 3,
@@ -609,7 +609,7 @@
    ],
    "report_status": "none",
    "merge_hint": "może to KMP-017?",
-   "description": "Mała grupa z deepfake’iem Jana Kowalskiego; wspólny kit relay i CAPI z KMP-017.",
+   "description": "Ten sam szablon V3 (deepfake) co w KMP-017, osobny klaster.\nMała grupa z deepfake’iem Jana Kowalskiego; wspólny kit relay i CAPI z KMP-017.",
    "level": "L2",
    "counts": {
     "incidents": 4,
@@ -711,7 +711,7 @@
    "persons": [],
    "report_status": "sent",
    "merge_hint": null,
-   "description": "Wygasająca kampania pożyczkowa, 5 domen, ostatnia reklama 17.11.",
+   "description": "Pożyczki „bez BIK” z fałszywą stroną banku.\nWygasająca kampania pożyczkowa, 5 domen, ostatnia reklama 17.11.",
    "level": "L2",
    "counts": {
     "incidents": 22,
@@ -813,7 +813,7 @@
    "persons": [],
    "report_status": "none",
    "merge_hint": null,
-   "description": "Ankieta + formularz karty, infrastruktura kitu v2 niepowiązana z innymi.",
+   "description": "„Bon na paliwo” z ankietą zbierającą dane karty.\nAnkieta + formularz karty, infrastruktura kitu v2 niepowiązana z innymi.",
    "level": "L2",
    "counts": {
     "incidents": 17,
@@ -917,7 +917,7 @@
    ],
    "report_status": "draft",
    "merge_hint": null,
-   "description": "Landing z licznikiem „miejsc”, ten sam wizerunek co w KMP-031 ale inna infrastruktura (OP-09).",
+   "description": "Bot handlowy „AutoProfit” promowany przez deepfake sportowca.\nLanding z licznikiem „miejsc”, ten sam wizerunek co w KMP-031 ale inna infrastruktura (OP-09).",
    "level": "L2",
    "counts": {
     "incidents": 14,

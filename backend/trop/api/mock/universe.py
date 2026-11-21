@@ -166,7 +166,7 @@ def campaigns() -> list[Campaign]:
             id=c["id"], name=c["name"], narrative=c["narrative"], vertical=c["vertical"], status=c["status"],
             operator_id=c["op"], operation_id=c["opn"], heat=heat, n_incidents=c["n"], n_domains=c["dom"],
             new_domains_24h=c["new_dom"], predicted_domains=c["pred"], persons=c["persons"], report_status=c["report"],
-            merge_hint=c.get("merge"), description=c["desc"],
+            merge_hint=c.get("merge"), description=c["narrative"] + "\n" + c["desc"],   # line 1 = Raport headline (WS3 req. 5)
             counts=CampaignCounts(incidents=c["n"], incidents_24h=c["inc24"], domains=c["dom"], certs_tonight=c["certs"],
                                   advertisers=c["adv"], advertisers_removed=c["advrm"], persons=c["persn"],
                                   certpl_listed=c["certpl"]),
@@ -299,11 +299,13 @@ def incident_summaries() -> list[IncidentSummary]:
                 decision="new" if cid == "KMP-040" else "assign", p=m.p,
                 coverage=0.78 if m.incident_id == "INC-24817" else round(0.6 + (h(m.incident_id) % 30) / 100, 2)))
     out.sort(key=lambda s: s.captured_at or "", reverse=True)
+    out.append(IncidentSummary(id="INC-24920", captured_at="2026-11-21T08:47:00Z", source="upload", domain="selqueno.live", title="selqueno.live — strona niedostępna (502)",
+                               campaign_id=None, decision="insufficient", p=0.0, coverage=0.12))
     return out
 
 
 def _incident(summary: IncidentSummary) -> dict:
-    cid = summary.campaign_id
+    cid = summary.campaign_id or "KMP-017"        # INC-24920 has no campaign; shaped like its (down) KMP-017 domain
     dom = summary.domain or "example.invalid"
     is_k17 = cid == "KMP-017"
     tracking = Tracking(
@@ -340,6 +342,8 @@ def _incident(summary: IncidentSummary) -> dict:
 
 def incident_details() -> dict[str, dict]:
     out = {s.id: _incident(s) for s in incident_summaries()}
+    out["INC-24920"]["quality"] = {"available": [], "missing": LAYERS, "errors": ["capture: HTTP 502"]}
+    out["INC-24920"]["decision"] = {"campaign_id": None, "p": 0.0, "decision": "insufficient"}
     k = out["INC-24817"]
     k["source"].update(type="hunter", ref="adlibrary:meta:INC-24817", captured_at="2026-11-21T02:31:00Z")
     k["ad"].update(advertiser="Ogród i Pasja 24", page_id="104200113345001", library_id="1049912003345117", cta="Czytaj więcej",
@@ -393,8 +397,9 @@ def decision_new() -> Decision:
 
 
 def decision_confirm() -> Decision:
+    """INC-24866 (kelvaro.live): two campaigns of the same operator in the conformal set -> ambiguous (board 12)."""
     d = decision_24817().model_copy(deep=True)
-    d.incident_id, d.decision, d.campaign_id, d.candidate_campaign_id = "INC-24866", "confirm", None, "KMP-034"
+    d.incident_id, d.decision, d.campaign_id, d.candidate_campaign_id = "INC-24866", "ambiguous", None, "KMP-034"
     d.score, d.p, d.margin, d.set = 3.9, 0.52, 0.1, ["KMP-034", "KMP-017"]
     d.scores = [CampaignScore(campaign_id="KMP-034", score=3.9, score_operator=6.8, p=0.52, p_value=0.21, in_set=True),
                 CampaignScore(campaign_id="KMP-017", score=3.7, score_operator=6.8, p=0.42, p_value=0.16, in_set=True)]
@@ -403,8 +408,17 @@ def decision_confirm() -> Decision:
     return d
 
 
+def decision_insufficient() -> Decision:
+    """INC-24920 (selqueno.live, 502): page down at capture -> insufficient (board 13)."""
+    return Decision(incident_id="INC-24920", decision="insufficient", score=0.0, p=0.0, coverage=0.12,
+                    layers=[LayerCoverage(layer=l, state="error" if l in ("content", "visual", "persons", "ad") else "missing" if l != "tracking" else "partial",
+                                          reason="serwer odpowiada 502" if l in ("content", "visual") else None) for l in LAYERS],
+                    evidence=[ev("infra", "domain", "selqueno.live", "domena selqueno.live", "L", 0.0, 1, "notariusz", state="missing")],
+                    set=[], model_version="engine@mock")
+
+
 def decisions() -> dict[str, Decision]:
-    return {"INC-24817": decision_24817(), "INC-24901": decision_new(), "INC-24866": decision_confirm()}
+    return {"INC-24817": decision_24817(), "INC-24901": decision_new(), "INC-24866": decision_confirm(), "INC-24920": decision_insufficient()}
 
 
 def generic_decision(summary: IncidentSummary) -> Decision:

@@ -21,12 +21,13 @@ Seq = list[tuple[float, Event]]
 
 # (key, duration_ms, detail, warnings) -- adds up to 18.3 s + 1.3 s dispatch = 19.6 s (BRIEF.md pipeline)
 STEP_PLAN = {
-    "capture": (7000, "Playwright sandbox: 4 redirecty, HAR 212 żądań, DOM, TLS", []),
-    "tracking": (600, "CAPI, kit relay/lead, parametry URL", []),
-    "content": (7500, "OCR + VLM 3.9 s · twarze 1.7 s · tekst/NER/szablon 0.8 s · embeddingi 1.1 s", []),
-    "infra": (2400, "DNS/RDAP/crt.sh — RDAP timeout (dane częściowe)", ["RDAP timeout — brak rejestratora"]),
-    "compare": (700, "blocking + dowody: 312 kandydatów → 9 kampanii · M1 + kalibracja", []),
-    "verdict": (100, "decyzja konformalna", []),
+    # detail convention (WS3 req. 4): line 1 = summary shown in the strip, following lines = the bot's sentences
+    "capture": (7000, "4 redirecty · HAR 212 żądań · DOM · TLS\nOtworzyłem stronę w piaskownicy z profilem Facebook (Android, PL).\nZapisałem HAR, DOM, zrzut ekranu i certyfikat TLS.", []),
+    "tracking": (600, "bramka CAPI + kit relay/lead\nZnalazłem bramkę CAPI cg-7f3a… i ścieżkę /api/v2/relay/lead/{uuid}/.\nObie rzadkie: 47 i 58 z 1 284 incydentów.", []),
+    "content": (7500, "szablon „PILNE: {PER}…” · Jan Kowalski\nOCR + VLM 3.9 s, twarze 1.7 s, tekst/NER/szablon 0.8 s, embeddingi 1.1 s.\nTwarz Jana Kowalskiego (0.91) potwierdza nazwisko z tekstu.", []),
+    "infra": (2400, "partia LE R11 · RDAP timeout\nCertyfikat z nocnej partii 00:47–02:31 UTC; origin AS64500 za Cloudflare (waga 0).\nRDAP nie odpowiedział — dane częściowe.", ["RDAP timeout — brak rejestratora"]),
+    "compare": (700, "312 kandydatów → 9 kampanii\nPorównałem z 1 284 znanymi incydentami (blocking + dowody).\nNajlepsza: KMP-017, druga KMP-034 (ten sam operator).", []),
+    "verdict": (100, "decyzja konformalna\nZbiór konformalny = {KMP-017} przy α = 0,05.", []),
 }
 DISPATCH_S = 1.3
 TOTAL_MS = 19600
@@ -41,10 +42,13 @@ def _load(name: str) -> Any:
 
 
 def job_sequence(job_id: str, kind: str = "known", base: datetime | None = None) -> Seq:
-    """kind: 'known' -> INC-24817 joins KMP-017 (p=0.94); 'new' -> INC-24901 new-campaign candidate (KMP-040)."""
+    """kind: known -> INC-24817 joins KMP-017 (p=0.94); new -> INC-24901 (KMP-040 candidate); ambiguous -> INC-24866
+    (kelvaro.live, board 12); error -> INC-24920 (selqueno.live: capture fails, job.error + insufficient, board 13)."""
     base = base or datetime.now(timezone.utc)
     decs = _load("decisions")["data"]
-    dec = Decision.model_validate(decs["INC-24817" if kind == "known" else "INC-24901"])
+    dec = Decision.model_validate(decs[{"known": "INC-24817", "new": "INC-24901", "ambiguous": "INC-24866", "error": "INC-24920"}[kind]])
+    if kind == "error":
+        return _error_sequence(job_id, dec, base)
     by_field = {e.field: e for e in dec.evidence}
     ev_for: dict[str, list[EvidenceItem]] = {
         "zwiadowca": [e for e in dec.evidence if e.bot == "zwiadowca"], "tropiciel": [e for e in dec.evidence if e.bot == "tropiciel"],
@@ -73,13 +77,35 @@ def job_sequence(job_id: str, kind: str = "known", base: datetime | None = None)
                 scores = [s.model_copy(update={"score": round(s.score * frac, 2), "p": round(s.p * (0.55 + 0.45 * frac), 2)}) for s in dec.scores]
                 emit(t + dur / 1000 * frac, "job.ranking", {"job_id": job_id, "scores": [s.model_dump(mode="json") for s in scores],
                                                             "graph": _mini_graph(dec).model_dump(mode="json")})
-        status = "warn" if (warns and kind == "known") else "done"
+        status = "warn" if ((warns and kind in ("known", "ambiguous")) or (key == "verdict" and dec.decision in ("ambiguous", "confirm"))) else "done"
         done = JobStep(key=key, bot=bot, label=label, status=status, started_at=_ts(base, t), duration_ms=dur, detail=detail,
                        warnings=warns if kind == "known" else [])
         t += dur / 1000
         emit(t, "job.step", {"job_id": job_id, "step": done.model_dump(mode="json")})
     emit(t + 0.05, "job.done", {"job_id": job_id, "incident_id": dec.incident_id, "decision": dec.model_dump(mode="json")})
     seq.sort(key=lambda x: x[0])
+    return seq
+
+
+def _error_sequence(job_id: str, dec: Decision, base: datetime) -> Seq:
+    seq: Seq = []
+    emit = lambda off, typ, data: seq.append((round(off, 3), Event(type=typ, at=_ts(base, off), data=data)))
+    t = DISPATCH_S
+    for key, bot, label in BOT_STEPS:
+        if key == "capture":
+            emit(t, "job.step", {"job_id": job_id, "step": JobStep(key=key, bot=bot, label=label, status="run", started_at=_ts(base, t)).model_dump(mode="json")})
+            t += 4.2
+            err = JobStep(key=key, bot=bot, label=label, status="error", started_at=_ts(base, t - 4.2), duration_ms=4200,
+                          detail="strona nie odpowiada (HTTP 502)\nPróbowałem 3 razy z profilem Facebook (Android, PL).\nSerwer zwraca 502 — nie mam z czego wyciągnąć śladów.",
+                          warnings=["HTTP 502 po 3 próbach"])
+            emit(t, "job.step", {"job_id": job_id, "step": err.model_dump(mode="json")})
+            emit(t + 0.05, "job.error", {"job_id": job_id, "step": "capture", "message": "Nie udało się pobrać strony: serwer odpowiada 502 (selqueno.live)."})
+        else:
+            t += 0.15
+            st = JobStep(key=key, bot=bot, label=label, status="skip" if key != "verdict" else "warn", duration_ms=0,
+                         detail=("pominięto — brak materiału ze strony" if key != "verdict" else "za mało materiału\nZostały tylko cechy samego adresu URL.\nBrak decyzji — spróbuj ponownie lub wgraj HAR/zrzut."))
+            emit(t, "job.step", {"job_id": job_id, "step": st.model_dump(mode="json")})
+    emit(t + 0.1, "job.done", {"job_id": job_id, "incident_id": dec.incident_id, "decision": dec.model_dump(mode="json")})
     return seq
 
 
@@ -104,8 +130,10 @@ def fold_job(job_id: str, inp: JobInput, seq: Seq, elapsed: float) -> Job:
         if ev.type == "job.step":
             st = JobStep.model_validate(ev.data["step"])
             steps[st.key] = st
+        elif ev.type == "job.error":
+            job.status, job.error = "error", ev.data.get("message")
         elif ev.type == "job.done":
-            job.status, job.incident_id = "done", ev.data["incident_id"]
+            job.status, job.incident_id = ("error" if job.status == "error" else "done"), ev.data["incident_id"]
             d = Decision.model_validate(ev.data["decision"])
             job.decision, job.campaign_id, job.total_ms = d.decision, d.campaign_id or d.candidate_campaign_id, TOTAL_MS
     job.steps = [steps[k] for k, _, _ in BOT_STEPS]

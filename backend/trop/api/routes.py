@@ -28,6 +28,16 @@ async def _a(x: Any) -> Any:
     return await x if inspect.isawaitable(x) else x
 
 
+def _trace_type(v: str) -> str:
+    if re.fullmatch(r"\d{10,18}", v):
+        return "fb_pixel"
+    if re.fullmatch(r"AW-\d+|G-[A-Z0-9]+|GTM-[A-Z0-9]+", v):
+        return "google"
+    if "." in v and " " not in v:
+        return "domain"
+    return "name"
+
+
 def _safe(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]", "_", Path(name).name)[:120] or "file"
 
@@ -72,12 +82,13 @@ async def search(q: str = ""):
 
 
 # ============================================================================================== analyze / jobs
-@router.post("/analyze", response_model=M.AnalyzeResponse, tags=["jobs"])
+@router.post("/analyze", response_model=AnalyzeAccepted, tags=["jobs"])
 async def analyze(url: str | None = Form(None), trace: str | None = Form(None), files: list[UploadFile] = File(default=[])):
     s = get_store()
     saved: list[str] = []
     if trace:
-        return await _a(s.analyze("trace", trace, []))
+        res = await _a(s.analyze("trace", trace, []))
+        return res.model_copy(update={"trace": {"type": _trace_type(trace), "value": trace}})
     if not url and not files:
         raise HTTPException(422, "provide `url`, `files[]` or `trace`")
     if url:
@@ -303,8 +314,8 @@ async def operation(oid: str):
 
 @router.get("/graph", response_model=GraphPayload, tags=["graph"])
 async def graph(scope: str | None = None, layers: str | None = None, level: str | None = None, min_weight: float = 0.0, focus: str | None = None,
-                from_: str | None = Query(None, alias="from"), to: str | None = None, group: str | None = None):
-    return await _a(get_store().graph(scope, layers, level, min_weight, focus))
+                origin: str | None = None, from_: str | None = Query(None, alias="from"), to: str | None = None, group: str | None = None):
+    return await _a(get_store().graph(scope, layers, level, min_weight, focus, origin))
 
 
 # ============================================================================================== investigations (White Rabbit)
@@ -406,7 +417,7 @@ async def act_package(pid: str):
 
 
 @router.get("/act/packages/{pid}/download", tags=["act"], response_class=Response)
-async def act_download(pid: str, format: str = Query("pdf", pattern="^(pdf|json|csv|stix|misp)$")):
+async def act_download(pid: str, format: str = Query("pdf", pattern="^(pdf|json|csv|stix|misp|certpl)$")):
     data, mime, name = await _a(get_store().act_download(pid, format))
     return Response(data, media_type=mime, headers={"Content-Disposition": f'attachment; filename="{name}"'})
 
@@ -416,6 +427,11 @@ async def act_submit(pid: str, body: M.ActSubmit):
     if not body.confirm:
         raise HTTPException(422, "confirm must be true (two-step action; nothing is sent externally)")
     return await _a(get_store().act_submit(pid))
+
+
+@router.patch("/act/packages/{pid}/notice", response_model=ActPackage, tags=["act"])
+async def act_notice(pid: str, body: M.NoticeUpdate):
+    return await _a(get_store().act_notice(pid, body.text))
 
 
 @router.get("/act/rules", response_model=list[Rule], tags=["act"])
@@ -561,6 +577,15 @@ async def batch_csv(job_id: str):
 
 
 # ============================================================================================== mock assets
+@router.post("/mock/reset", include_in_schema=False)
+async def mock_reset():
+    s = get_store()
+    if s.mode != "mock":
+        raise HTTPException(404)
+    s.reset()
+    return {"ok": True}
+
+
 @router.get("/mock/asset/{name}", include_in_schema=False)
 async def mock_asset(name: str):
     if get_store().mode != "mock":
