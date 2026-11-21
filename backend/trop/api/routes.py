@@ -100,13 +100,17 @@ async def analyze(response: Response, url: str | None = Form(None), trace: str |
     if not files:                      # files win over a (prefilled) url
         kind, name = "url", url
     else:
-        up = await _save_upload(files, "")
-        if up["mode"] == "batch":          # several item folders / a zip of folders: a batch job (GET /batch/{job_id}, job state via /jobs/{job_id})
-            b = await _a(s.batch(up["names"], str(up["path"])))
-            response.headers["X-TROP-Batch"] = "1"
-            return AnalyzeAccepted(job_id=b.job_id)
-        kind, name, saved = up["kind"], up["name"], [str(up["path"])]
+        return await _run_analyze(await _save_upload(files, ""), response)
     return await _a(s.analyze(kind, name, saved))
+
+
+async def _run_analyze(up: dict, response: Response):
+    s = get_store()
+    if up["mode"] == "batch":          # several item folders / a zip of folders: a batch job (GET /batch/{job_id}, job state via /jobs/{job_id})
+        b = await _a(s.batch(up["names"], str(up["path"])))
+        response.headers["X-TROP-Batch"] = "1"
+        return AnalyzeAccepted(job_id=b.job_id)
+    return await _a(s.analyze(up["kind"], up["name"], [str(up["path"])]))
 
 
 async def _save_upload(files: list[UploadFile], prefix: str) -> dict:
@@ -132,6 +136,13 @@ async def _save_upload(files: list[UploadFile], prefix: str) -> dict:
         with open(dest, "wb") as out:
             await asyncio.to_thread(shutil.copyfileobj, f.file, out, 1 << 20)
         parts.append(p)
+    return _decide(root, parts)
+
+
+def _decide(root: Path, parts: list[list[str]]) -> dict:
+    """Single item vs batch for a tree already on disk under `root` (`parts` = its relative paths)."""
+    import zipfile
+    from trop.api import uploads as UP
     if not parts:
         raise HTTPException(422, "no usable files in the upload")
     names = ["/".join(p) for p in parts]
@@ -651,13 +662,45 @@ async def public_reports_mine():
 @router.post("/batch", response_model=M.BatchAccepted, tags=["batch"])
 async def batch_create(files: list[UploadFile] = File(default=[])):
     """Folder tree / zip of item folders / loose files. A single item folder is a batch of one (its parent is handed to run_batch)."""
-    up = await _save_upload(files, "batch-")
+    return await _run_batch(await _save_upload(files, "batch-"))
+
+
+async def _run_batch(up: dict):
     path = up["path"]
     if up["mode"] == "single" and up["kind"] == "folder":
         path = up["path"].parent                       # run_batch treats every sub-folder of `path` as one item
     elif up["mode"] == "single" and up["kind"] == "file":
         path = up["path"] if str(up["path"]).lower().endswith(".zip") else up["path"].parent
     return await _a(get_store().batch(up["names"], str(path)))
+
+
+# ============================================================================================== chunked uploads
+from trop.api import chunked as CH  # noqa: E402
+
+
+@router.post("/uploads", tags=["jobs"], summary="Start a chunked upload (for bodies the proxy would time out on)")
+async def upload_create(body: dict):
+    return CH.create(body)
+
+
+@router.put("/uploads/{upload_id}/chunks/{n}", tags=["jobs"], summary="Raw body <= 8 MiB (zip) or multipart `files` with relative paths (folder)")
+async def upload_chunk(upload_id: str, n: int, request: Request):
+    return await CH.put_chunk(upload_id, n, request)
+
+
+@router.post("/uploads/{upload_id}/complete", tags=["jobs"])
+async def upload_complete(upload_id: str, response: Response, body: dict | None = None):
+    mode = (body or {}).get("mode", "analyze")
+    if mode not in ("analyze", "batch"):
+        raise HTTPException(422, "mode must be analyze | batch")
+    root, parts = await asyncio.to_thread(CH.assemble, upload_id)
+    up = _decide(root, parts)
+    if mode == "batch":
+        r = await _run_batch(up)
+        response.headers["X-TROP-Batch"] = "1"
+        return {**r.model_dump(mode="json"), "batch": True}
+    r = await _run_analyze(up, response)
+    return {**r.model_dump(mode="json"), "batch": response.headers.get("X-TROP-Batch") == "1"}
 
 
 @router.get("/batch/{job_id}", response_model=BatchResult, tags=["batch"])
