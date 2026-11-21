@@ -366,8 +366,13 @@ def t_adlib(a: dict, ctx: Ctx) -> ToolResult:
         ctx.case.node(dom_id(d), "domain", d, meta={"ads": len(ids), "library_ids": ids[:20]})
     view = {"terms": terms, "count": len(ads), "pages": pages[:15],
             "ads": [{k: x.get(k) for k in ("id", "page_name", "page_id", "caption", "start")} | {"body": (x.get("body") or "")[:120]}
-                    for x in ads[:10]], "domains_with_ads": {d: len(i) for d, i in caps.items()}}
-    return ToolResult(view, f"Ad Library „{terms[:30]}”: {len(ads)} reklam na {len(pages)} stronach.", produced)
+                    for x in ads[:10]], "domains_with_ads": {d: len(i) for d, i in caps.items()},
+            "note": "Keyword search: rows match words, not links. Only `domains_with_ads` (ad link caption = a graph domain) "
+                    "is evidence that a domain is promoted."}
+    linked = sum(len(i) for i in caps.values())
+    return ToolResult(view, f"Ad Library „{terms[:30]}”: {len(ads)} reklam na {len(pages)} stronach"
+                      + (f", {linked} z linkiem do domen z grafu." if linked else ", żadna nie linkuje do domen z grafu."
+                         if ads else "."), produced)
 
 
 def t_capture(a: dict, ctx: Ctx) -> ToolResult:
