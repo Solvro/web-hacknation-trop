@@ -90,3 +90,15 @@ def load_precomputed(corpus: str, name: str) -> list[dict]:
     """Load data/experiments/<corpus>/<name> (the exact inputs the RESULTS rows were computed from)."""
     incs = json.load(open(exp_dir(corpus) / name, encoding="utf-8"))
     return [_fix_paths(i) for i in incs]
+
+
+def extract_corpus(corpus: str, *, ad_model: str = "qwen36-35b-a3b", phash: str = "cache_only", faces: str = "none",
+                   live: bool = False) -> list[dict]:
+    """Re-extract a labelled corpus from the raw folders with the TROP ingest pipeline (ids p<N> / d<N> as labels)."""
+    from trop.ingest.adapters import natural_key
+    from trop.ingest.pipeline import IngestOptions, build_incident
+    root = raw_dir(corpus)
+    pref = "d" if corpus == "dane" else ""
+    names = sorted((x.name for x in root.iterdir() if x.is_dir()), key=lambda n: (len(n), natural_key(n)))
+    opts = IngestOptions(ad_model=ad_model, phash=phash, faces=faces, live=live)
+    return [build_incident(root / n, inc_id=f"{pref}{n}", opts=opts) for n in names]

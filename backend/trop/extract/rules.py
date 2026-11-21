@@ -382,6 +382,30 @@ def is_bundle(d: str) -> bool:
     return os.path.exists(os.path.join(d, "archive_info.json"))
 
 
+# TROP addition: the capture-tool layout ('page-capture', DANE 14 nested; also a top-level item) =
+# manifest.json {page_url, captured_at, title} + dom.html + page.har + screenshot.png (LANDING screenshot) + resources/
+def is_capture_tool(d: str) -> bool:
+    m = os.path.join(d, "manifest.json")
+    if not os.path.isfile(m):
+        return False
+    try:
+        j = json.load(open(m, encoding="utf-8", errors="replace"))
+    except Exception:  # noqa: BLE001
+        return False
+    return isinstance(j, dict) and bool(j.get("page_url") or str(j.get("tool", "")).startswith("page-capture"))
+
+
+def find_capture_tool_files(d: str) -> dict:
+    j = json.load(open(os.path.join(d, "manifest.json"), encoding="utf-8", errors="replace"))
+    har = [os.path.join(d, n) for n in sorted(os.listdir(d)) if n.lower().endswith(".har")]
+    html = [os.path.join(d, n) for n in ("dom.html", "page.html", "index.html") if os.path.isfile(os.path.join(d, n))]
+    shots = [os.path.join(d, n) for n in ("screenshot.png", "full_page.png") if os.path.isfile(os.path.join(d, n))]
+    ad_shots = sorted(os.path.join(d, n) for n in os.listdir(d)
+                      if re.search(r"reklama|zrzut|^ad[_-]", n, re.I) and n.lower().endswith((".png", ".jpg", ".jpeg", ".webp")))
+    return {"har": har[:1], "html": html[:1], "screenshot": ad_shots, "landing_screenshot": shots[:1], "archive": None,
+            "files_dirs": [], "other": [], "manifest": j}
+
+
 def _saved_from(raw_html: str) -> str | None:
     m = re.search(r"saved from url=\(\d+\)(\S+)", raw_html[:3000])
     return m.group(1).rstrip("-->").strip() if m else None
@@ -391,7 +415,7 @@ def extract_incident(d: str, inc_id: str | None = None, drop: set[str] | None = 
     """Build the Incident dict for one sample directory. `drop` simulates missing inputs: {'har','html','screenshot','archive'}."""
     drop = drop or set()
     inc_id = inc_id or os.path.basename(d.rstrip("/\\"))
-    files = find_bundle_files(d) if is_bundle(d) else find_files(d)
+    files = find_bundle_files(d) if is_bundle(d) else (find_capture_tool_files(d) if is_capture_tool(d) else find_files(d))
     for k in ("har", "html", "screenshot"):
         if k in drop:
             files[k] = []
@@ -402,7 +426,8 @@ def extract_incident(d: str, inc_id: str | None = None, drop: set[str] | None = 
 
     inc: dict = {
         "id": inc_id,
-        "source": {"type": "archive_bundle" if is_bundle(d) else "sample_dir", "path": d, "captured_at": None},
+        "source": {"type": "archive_bundle" if is_bundle(d) else ("capture_tool" if files.get("manifest") else "sample_dir"),
+                   "path": d, "captured_at": None},
         "ad": {"screenshot_path": files["screenshot"][0] if files["screenshot"] else None},
         "landing": {"screenshot_path": (files.get("landing_screenshot") or [None])[0]},
         "tracking": {},
@@ -468,7 +493,8 @@ def extract_incident(d: str, inc_id: str | None = None, drop: set[str] | None = 
         inc["quality"]["available"].append("video")
 
     # ---------------- entry URL / landing host
-    entry_url = (archive.get("archive_info.json") or {}).get("url") or (_saved_from(raw_html) if raw_html else None)
+    entry_url = ((archive.get("archive_info.json") or {}).get("url") or (files.get("manifest") or {}).get("page_url")
+                 or (_saved_from(raw_html) if raw_html else None))
     if not entry_url and har:
         docs = [r for r in har["requests"] if "html" in r["mime"] and r["status"] == 200]
         entry_url = (docs[0]["url"] if docs else har["requests"][0]["url"]) if har["requests"] else None
@@ -486,6 +512,8 @@ def extract_incident(d: str, inc_id: str | None = None, drop: set[str] | None = 
     inc["tracking"]["entry_path_template"] = path_template(urlsplit(entry_url).path) if entry_url else ""
     if archive.get("archive_info.json"):
         inc["source"]["captured_at"] = archive["archive_info.json"].get("timestamp_utc")
+    elif (files.get("manifest") or {}).get("captured_at"):
+        inc["source"]["captured_at"] = files["manifest"]["captured_at"]
     elif har and har["requests"]:
         inc["source"]["captured_at"] = min(r["t"] for r in har["requests"] if r["t"])
 
