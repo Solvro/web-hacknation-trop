@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
-import type { ActPackage, DomainIndicator, Campaign, CampaignDNA, CampaignSummary, Indicators, Operator, OraclePrediction, Timeline } from '@/lib/contracts';
+import type { ActPackage, DomainIndicator, Campaign, CampaignDNA, CampaignSummary, IncidentSummary, Indicators, Operator, OraclePrediction, Timeline } from '@/lib/contracts';
 import { apiPost, useApi } from '@/lib/api';
 import { BOT_FOR_LAYER, plural, botColor, botName, fmtDate, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from '@/lib/copy';
 import { campaignTitle, personName } from '@/lib/graph';
@@ -12,6 +12,7 @@ import { JellyRoot, Bot } from '@/components/jelly';
 import { ReportHeader, storyOf } from '@/components/analysis/report';
 import { Bars, Card, Crumbs, Empty, Initials, Loading, Page } from '@/components/ui';
 import { IArrow } from '@/components/icons';
+import { MaterialThumb } from '@/components/material-thumb';
 
 const RSTATUS: Record<string, string> = { ready: 'gotowe do wysłania', done: 'zrobione', sent: 'wysłane', queued: 'w kolejce', pending: 'czeka', off: 'wyłączony', exported: 'wyeksportowane' };
 const opLabel = (op: Operator | undefined, id: string) => (op && op.codename && op.codename !== id ? `${id} «${op.codename}»` : id);
@@ -35,6 +36,9 @@ export default function KampaniaPage() {
   const oracle = useApi<OraclePrediction[]>(`/oracle/predictions?campaign=${encodeURIComponent(id)}`).data;
   const pk = useApi<ActPackage[]>(`/act/packages?campaign_id=${encodeURIComponent(id)}`).data;
   const all = useApi<CampaignSummary[]>('/campaigns').data;
+  const incs = useApi<IncidentSummary[] | { items: IncidentSummary[] }>('/incidents?limit=1000').data;
+  const mats = (Array.isArray(incs) ? incs : incs?.items ?? []).filter((m) => m.campaign_id === id)
+    .sort((a, b) => String(b.captured_at ?? '').localeCompare(String(a.captured_at ?? '')));
   const [confirmed, setConfirmed] = useState(false);
 
   if (loading) return <Loading />;
@@ -93,6 +97,18 @@ export default function KampaniaPage() {
               ))}
               {!dna?.signature?.length && <Empty>Za mało materiałów, żeby opisać wspólne ślady.</Empty>}
             </section>
+            {mats.length > 0 && (
+              <Card title="Materiały" action={<span className="text-[13px] text-tx3">{plural(mats.length, 'materiał', 'materiały', 'materiałów')}</span>}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                  {mats.slice(0, 8).map((m) => (
+                    <Link key={m.id} href={`/analiza/${encodeURIComponent(m.id)}`} className="flex items-center gap-3 py-2.5 border-b border-bg4 hover:bg-bg2 -mx-2 px-2 rounded-lg min-w-0">
+                      <MaterialThumb id={m.id} className="w-12 h-12" />
+                      <span className="flex-1 min-w-0"><b className="block text-[13.5px] font-semibold leading-snug line-clamp-2">{m.title || m.domain || m.id}</b><span className="block font-mono text-[12px] text-tx3 truncate">{[m.id, m.title ? m.domain : null, m.captured_at ? fmtDate(m.captured_at, false) : null].filter(Boolean).join(' · ')}</span></span>
+                    </Link>
+                  ))}
+                </div>
+              </Card>
+            )}
             <Card title="Domeny" action={<span className="text-[13px] text-tx3">{plural(c.n_domains ?? domains.length, 'domena', 'domeny', 'domen')}</span>}>
               {domains.slice(0, 6).map((d) => (
                 <Link key={d.fqdn} href={`/slad/domena/${d.fqdn}`} className="flex items-center justify-between gap-3 py-3 border-b border-bg4 last:border-0 hover:bg-bg2 -mx-2 px-2 rounded-lg">

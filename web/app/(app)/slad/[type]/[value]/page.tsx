@@ -11,6 +11,7 @@ import { JellyRoot } from '@/components/jelly';
 import { CheckField } from '@/components/check-field';
 import { Bars, Card, Empty, Loading } from '@/components/ui';
 import { IChevR } from '@/components/icons';
+import { MaterialThumb } from '@/components/material-thumb';
 
 const API_TYPE: Record<string, string> = { domena: 'domain', osoba: 'person', piksel: 'pixel', kit: 'kit' };
 const TYPE_LABEL: Record<string, string> = { domena: 'domena', osoba: 'osoba', piksel: 'piksel', kit: 'kit', domain: 'domena', person: 'osoba', pixel: 'piksel', tracking: 'tracking', infra: 'infra', content: 'treść' };
@@ -134,6 +135,7 @@ export default function SladPage() {
                 <Card title={isPerson ? 'Materiały z tą osobą' : 'Ostatnie materiały'}>
                   {(t.latest ?? []).map((m: IncidentSummary) => (
                     <Link key={m.id} href={`/analiza/${m.id}`} className="flex items-center gap-3 py-2.5 border-b border-bg4 last:border-0 text-[13.5px] hover:bg-bg2 -mx-2 px-2 rounded-lg">
+                      <MaterialThumb id={m.id} className="w-11 h-11" />
                       <span className="flex-1 min-w-0"><b className="block font-semibold truncate">{m.title || m.domain || m.id}</b><span className="block font-mono text-[12px] text-tx3 truncate">{[m.id, m.title ? m.domain : null, m.campaign_id ?? 'bez kampanii'].filter(Boolean).join(' · ')}</span></span>
                       <span className="text-tx3 text-[12.5px] flex-none">{fmtDate(m.captured_at)}</span>
                     </Link>

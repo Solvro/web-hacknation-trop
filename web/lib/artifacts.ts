@@ -45,11 +45,21 @@ export function useArtifacts(incidentId?: string | null): Artifacts {
 type Detail = {
   id?: string; title?: string | null; domain?: string | null; captured_at?: string | null; source?: unknown;
   landing?: { title?: string | null; h1?: string | null; host?: string | null; etld1?: string | null; final_url?: string | null; entry_url?: string | null } | null;
-  ad?: { video_title?: string | null; display_link?: string | null } | null;
+  ad?: { video_title?: string | null; display_link?: string | null; advertiser?: string | null; text?: string | null } | null;
+  media?: { asr_text?: string | null; video?: { asr_text?: string | null } | null } | null;
   content?: { headline_template?: string | null; h1_template?: string | null } | null;
 };
 export type Material = IncidentSummary & { h1?: string | null; headline_template?: string | null; h1_template?: string | null };
 
+/** Video-only material: its own title when it is a real one, else the opening sentence of the transcript. */
+function videoTitle(d: Detail): string | null {
+  const t = d.ad?.video_title?.trim();
+  if (t && t.length >= 14) return t;
+  const asr = (d.media?.asr_text ?? d.media?.video?.asr_text ?? '').trim();
+  if (asr) { const s = asr.split(/(?<=[.!?])\s/)[0]; return s.length > 90 ? s.slice(0, 88).replace(/\s\S*$/, '') + '…' : s; }
+  if (d.ad?.text?.trim()) return d.ad.text.trim().slice(0, 90);
+  return d.ad?.advertiser ? `Reklama: ${d.ad.advertiser}` : null;
+}
 const hostOf = (u?: string | null) => { try { return u ? new URL(u).hostname : null; } catch { return null; } };
 
 /** `GET /incidents/{id}` answers with the full incident (landing.title, …) or a summary; normalise both. */
@@ -62,7 +72,7 @@ export function toMaterial(raw: unknown, id?: string | null): Material | undefin
     ...(raw as IncidentSummary),
     id: d.id ?? id ?? '',
     source: typeof d.source === 'string' ? d.source : src.type ?? '',
-    title: d.title?.trim() || l.title?.trim() || d.ad?.video_title?.trim() || null,
+    title: d.title?.trim() || l.title?.trim() || videoTitle(d) || null,
     h1: l.h1 ?? null,
     domain: d.domain ?? l.host ?? l.etld1 ?? hostOf(l.final_url ?? l.entry_url) ?? d.ad?.display_link ?? null,
     captured_at: d.captured_at ?? src.captured_at ?? null,

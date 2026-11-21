@@ -74,7 +74,7 @@ export interface ReportProps {
 export const hasImages = (art: Artifacts) => !!(art.landing || art.adShot || art.frames.length);
 
 /** Real images of the material: the rendered landing page (evidence outlined) and the ad / video frames. Nothing when there are none. */
-export function MaterialImages({ art, url, height = 420 }: { art: Artifacts; url: string; height?: number }) {
+export function MaterialImages({ art, url, height = 420, adMax }: { art: Artifacts; url: string; height?: number; adMax?: string }) {
   if (!hasImages(art)) return null;
   const ad = art.adShot && !/keyframe|video/.test(art.adShot.role ?? '') && art.adShot.url !== art.landing?.url ? art.adShot : undefined;
   return (
@@ -91,7 +91,7 @@ export function MaterialImages({ art, url, height = 420 }: { art: Artifacts; url
           <div className="flex gap-2 overflow-x-auto">
             {(ad ? [ad] : art.frames.slice(0, 4)).map((s) => (
               <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="flex-none max-w-full">
-                <img src={s.url} alt={ad ? 'Zrzut reklamy' : 'Klatka nagrania'} className={(ad ? 'max-h-[150px] max-w-full' : 'h-[96px]') + ' w-auto object-contain rounded-[12px] border border-line1 bg-bg2'} />
+                <img src={s.url} alt={ad ? 'Zrzut reklamy' : 'Klatka nagrania'} className={(ad ? (adMax ?? (art.landing ? 'max-h-[150px]' : 'max-h-[400px]')) + ' max-w-full' : 'h-[96px]') + ' w-auto object-contain rounded-[12px] border border-line1 bg-bg2'} />
               </a>
             ))}
           </div>
@@ -138,7 +138,8 @@ export function Report({ decision: d, campaign, incident, names, view, onView, o
   const cols = img ? 1 : 2;
   const listPos = (k: number) => (cols === 1 ? { left: 0, top: 36 + 76 * k, width: 700 } : { left: (k % 2) * 606, top: 36 + 76 * Math.floor(k / 2), width: 586 });
   const listH = 36 + Math.ceil(cards.length / cols) * 76;
-  const stageH = isGraf ? Math.max(600, 20 + cards.length * 96 + 20) : Math.max(listH, img ? 36 + 640 : 0);
+  const imgH = (art.landing ? 470 : 0) + (art.adShot && !/keyframe|video/.test(art.adShot.role ?? '') && art.adShot.url !== art.landing?.url ? (art.landing ? 190 : 440) : art.frames.length ? 130 : 0);
+  const stageH = isGraf ? Math.max(600, 20 + cards.length * 96 + 20) : Math.max(listH, img ? imgH + 10 : 0);
   const pick = (e: EvidenceItem) => { onView('graf'); onFocus(fid(e, incident?.domain)); };
   const verdictTitle = story.h1 || names[cid] || cid;
 

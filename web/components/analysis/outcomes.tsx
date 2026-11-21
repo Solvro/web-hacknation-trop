@@ -20,7 +20,7 @@ function MaterialBlock({ incident, incidentId }: { incident?: Material | null; i
   return (
     <div className="flex flex-col gap-4">
       <div className="-mt-5"><MaterialStrip incident={incident} incidentId={incidentId} art={art} /></div>
-      {hasImages(art) && <div className="max-w-[760px]"><MaterialImages art={art} url={incident?.domain ?? incidentId} height={420} /></div>}
+      {hasImages(art) && <div className="max-w-[760px]"><MaterialImages art={art} url={incident?.domain ?? incidentId} height={420} adMax="max-h-[220px]" /></div>}
     </div>
   );
 }
@@ -89,7 +89,7 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Mat
         <section className="card !rounded-[22px] p-5" aria-labelledby="nw-near">
           <h2 id="nw-near" className="text-[17px] font-semibold">Najbliższe kampanie</h2>
           <p className="text-[13px] text-tx3 pb-2">Żeby dołączyć, potrzeba co najmniej 0.80.</p>
-          {(d.scores ?? []).map((s) => (
+          {[...(d.scores ?? [])].sort((a, b) => (b.p ?? 0) - (a.p ?? 0)).slice(0, 3).map((s) => (
             <div key={s.campaign_id} className="py-2.5 border-b border-bg4 last:border-0 flex flex-col gap-1.5">
               <span className="flex justify-between text-[14px]"><Link href={`/kampanie/${s.campaign_id}`} className="hover:underline">{names[s.campaign_id] ?? s.campaign_id}</Link><b className="font-mono text-[13px]">{p2(s.p)}</b></span>
               <span className="block h-2 rounded-full bg-bg4 overflow-hidden"><i className="block h-full rounded-full bg-line3" style={{ width: `${Math.round((s.p ?? 0) * 100)}%` }} /></span>

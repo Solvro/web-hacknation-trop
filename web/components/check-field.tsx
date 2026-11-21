@@ -31,7 +31,9 @@ function summary(files: Picked[]): { key: string; label: string }[] {
   return [...g.entries()].map(([key, k]) => ({ key, label: key.startsWith('dir:') ? `Folder: ${key.slice(4)} · ${k} ${k === 1 ? 'plik' : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? 'pliki' : 'plików'}` : key.slice(5) }));
 }
 /** Read a dropped folder recursively (File System Entries API), keeping relative paths. */
+const junk = (name: string) => name.startsWith('.') || /^(thumbs\.db|desktop\.ini)$/i.test(name);
 async function walk(entry: FileSystemEntry, prefix: string, out: Picked[]): Promise<void> {
+  if (junk(entry.name)) return;
   if (entry.isFile) {
     const file = await new Promise<File>((res, rej) => (entry as FileSystemFileEntry).file(res, rej));
     out.push({ file, path: prefix + entry.name });
@@ -94,7 +96,8 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
   function addFiles(list: FileList | null) {
     if (!list?.length) return;
     // copy now: the input is cleared right after onChange. webkitRelativePath is set for folder picks.
-    const picked = Array.from(list).map((f) => ({ file: f, path: (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name }));
+    const picked = Array.from(list).map((f) => ({ file: f, path: (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name }))
+      .filter((f) => !f.path.split('/').some(junk));
     setFiles((f) => [...f, ...picked]);
   }
   async function onDrop(e: DragEvent) {
