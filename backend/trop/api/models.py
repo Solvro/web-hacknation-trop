@@ -260,5 +260,13 @@ class AnalyzeOptions(_C):
 
 
 
+class Sample(_C):
+    id: str
+    title: str
+    description: str
+    expected: str
+    size: int
+
+
 class NoticeUpdate(_C):
     text: str

@@ -38,4 +38,8 @@ mkdir -p "$OUT/act"; [ -d "$SRC/act/ACT-105" ] && cp -r "$SRC/act/ACT-105" "$OUT
 mkdir -p "$OUT/replay"
 for f in live-analyze.jsonl investigation_live.jsonl; do [ -f "$SRC/replay/$f" ] && cp "$SRC/replay/$f" "$OUT/replay/$f" || echo "skip (missing): replay/$f"; done
 
+python3 "$ROOT/deploy/make_samples.py" "$SRC" "$OUT/samples"          # jury sample zips + samples.json (GET /api/v1/samples)
+# purge any cached model output that mentions the fictional demo universe (real product must never show it)
+grep -rlE "KMP-017|«Zamach»|INC-24817|Kurier Dnia" "$OUT/cache/models" 2>/dev/null | xargs -r rm -f
+
 du -sh "$OUT"; find "$OUT" -type f -size +90M -print | sed 's/^/WARNING >90MB: /'

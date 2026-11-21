@@ -35,6 +35,15 @@ from trop.schema import (
 from trop.worker import bus
 
 LAYERS = ["tracking", "kit", "infra", "content", "persons", "visual", "ad", "media"]
+def _load_pl() -> dict:
+    """Polish names + descriptions of the real campaigns (trop/api/campaigns_pl.json; DATA_DIR/corpus/campaigns_pl.json overrides)."""
+    for p in (Path(settings.data_dir) / "corpus" / "campaigns_pl.json", Path(__file__).with_name("campaigns_pl.json")):
+        if p.exists():
+            return json.loads(p.read_text(encoding="utf-8"))
+    return {}
+
+
+CAMPAIGNS_PL = _load_pl()
 PL_NAMES = {
     "KMP-001": "Fałszywa Gazeta.pl — „Zyskarnia/Switowin”: inwestycja przez szokujący news (zmiana persony)",
     "KMP-002": "FinNews „Trudna odpowiedź” — inwestycja Baltic Pipe przez polityczny fake news",
@@ -135,7 +144,7 @@ class RealStore:
         self._corpus, self._dec = None, {}
 
     def _camp_name(self, cid: str) -> str:
-        return PL_NAMES.get(cid) or self.corpus.campaigns.get(cid, {}).get("name") or cid
+        return (CAMPAIGNS_PL.get(cid) or {}).get("name") or PL_NAMES.get(cid) or self.corpus.campaigns.get(cid, {}).get("name") or cid
 
     def health_counts(self) -> dict[str, int]:
         try:
@@ -241,25 +250,16 @@ class RealStore:
         return out
 
     async def job_events(self, jid: str) -> AsyncIterator[Event]:
-        """History + live events; ends right after job.done / job.error, or when the job state says it is finished and nothing arrives."""
+        """Durable stream: replays the Redis list `trop:job:<id>:events`, follows it by index, ends after job.done / job.error."""
         r = bus.client()
-        it = bus.subscribe(r, f"job:{jid}").__aiter__()
+
+        async def finished() -> bool:
+            st = await bus.get_state(r, jid)
+            return bool(st and st.get("status") in ("done", "error"))
         try:
-            while True:
-                try:
-                    ev = await asyncio.wait_for(it.__anext__(), 3.0)
-                except StopAsyncIteration:
-                    return
-                except asyncio.TimeoutError:
-                    st = await bus.get_state(r, jid)
-                    if st and st.get("status") in ("done", "error"):
-                        return
-                    continue
+            async for ev in bus.follow(r, f"job:{jid}", idle_check=finished):
                 yield ev
-                if ev.type in ("job.done", "job.error"):
-                    return
         finally:
-            await it.aclose()
             await r.aclose()
 
     def channel_events(self, name: str) -> AsyncIterator[Event]:
@@ -435,10 +435,12 @@ class RealStore:
         m, mem = self.corpus.campaigns[cid], self._members(cid)
         doms = self._domains(mem)
         advs = {(i.get("ad") or {}).get("advertiser") for i in mem} - {None, ""}
-        return Campaign(id=cid, name=self._camp_name(cid), narrative=(m.get("name") or "")[:160], vertical=m.get("vertical"),
+        pl = CAMPAIGNS_PL.get(cid) or {}
+        return Campaign(id=cid, name=self._camp_name(cid), narrative=pl.get("headline") or (m.get("name") or "")[:160], vertical=pl.get("vertical") or m.get("vertical"),
                         status=m.get("status") if m.get("status") in ("active", "fading", "candidate", "closed") else "active",
                         operator_id=m.get("operator_id"), operation_id=m.get("operation_id"), heat=Heat(), n_incidents=len(mem), n_domains=len(doms),
-                        persons=self._persons(mem), description=m.get("name") or "",
+                        persons=self._persons(mem),
+                        description=(pl["headline"] + "\n" + pl["description"]) if pl.get("headline") else (m.get("name") or ""),
                         counts=CampaignCounts(incidents=len(mem), domains=len(doms), advertisers=len(advs), persons=len(self._persons(mem))),
                         brands=sorted({b for i in mem for b in _s((i.get("content") or {}).get("brands"))})[:6])
 
@@ -710,21 +712,29 @@ class RealStore:
         return {"id": iid}
 
     async def _inv_stream(self, iid: str):
+        """Durable: Redis list `trop:inv:<id>:events` (replay + follow); a finished run whose list expired replays the recorded events file."""
         from trop.agent import service as svc
         r = bus.client()
-        if await r.llen(bus.ekey(f"inv:{iid}")):
-            async for ev in bus.subscribe(r, f"inv:{iid}"):
-                yield ev
-            return
         try:
-            hist = svc.events(iid)
-        except (FileNotFoundError, KeyError):
-            hist = []
-        for e in hist:                                  # finished (or not yet started) run: recorded history
-            yield Event.model_validate(e)
-        if not hist or hist[-1].get("type") != "investigation.done":
-            async for ev in bus.subscribe(r, f"inv:{iid}", history=False):
+            if not await r.llen(bus.ekey(f"inv:{iid}")):
+                try:
+                    hist = svc.events(iid)
+                except (FileNotFoundError, KeyError):
+                    hist = []
+                if hist and hist[-1].get("type") == "investigation.done":
+                    for e in hist:
+                        yield Event.model_validate(e)
+                    return
+
+            async def finished() -> bool:
+                try:
+                    return svc.get_investigation(iid).status != "running"
+                except (FileNotFoundError, KeyError):
+                    return True
+            async for ev in bus.follow(r, f"inv:{iid}", idle_check=finished, idle_s=20.0):
                 yield ev
+        finally:
+            await r.aclose()
 
     def investigation_events(self, iid: str):
         return self._inv_stream(iid)
@@ -745,9 +755,9 @@ class RealStore:
         return M.PromoteResult(campaign_id=r["campaign_id"], added=int(r["added"]))
 
     # ------------------------------------------------------------------------------------------ act (WS6)
-    def act_packages(self):
+    def act_packages(self, campaign_id=None, status=None):
         from trop.act import service as act
-        return [x for x in act.list_packages() if x.campaign_id in self.corpus.campaigns]   # no fictional campaigns in real mode
+        return [x for x in act.list_packages(campaign_id, status) if x.campaign_id in self.corpus.campaigns]   # never fictional campaigns in real mode
 
     def act_package(self, pid: str):
         from trop.act import service as act
@@ -811,9 +821,12 @@ class RealStore:
         return M.RunStarted(run_id=f"queued:{job.job_id if job else sid}")
 
     # ------------------------------------------------------------------------------------------ oracle (WS5)
-    def predictions(self, status=None):
+    def predictions(self, status=None, campaign=None):
         from trop.oracle import service as oracle
-        return oracle.list_predictions(status)
+        rows = oracle.list_predictions(status)
+        known = self.corpus.campaigns
+        return [p for p in rows if (not campaign or p.campaign_id == campaign)
+                and not (p.campaign_id and p.campaign_id.startswith("KMP-") and p.campaign_id not in known)]
 
     def oracle_dna(self, campaign=None):
         from trop.oracle import service as oracle

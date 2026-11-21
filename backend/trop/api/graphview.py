@@ -73,7 +73,7 @@ def focus_view(g: GraphPayload, focus: str, origin: str | None = None, max_neigh
         meta.setdefault("count", deg[k])
         if n.kind == "trace" and ("cloudflare" in n.label.lower() or n.meta.get("weak")):
             meta["weak"] = True
-        if k == focus and origin:
+        if k == focus and n.kind == "incident":
             meta["side"] = "right"
         if origin and n.kind == "trace":
             if k in origin_n and k not in focus_n:
