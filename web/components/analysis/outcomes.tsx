@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { CampaignSummary, Decision, EvidenceItem, IncidentSummary, JobStep, LinkExplanation } from '@/lib/contracts';
 import { botColor, botName, LAYER_LABEL, n, p2 } from '@/lib/copy';
 import { apiPost, useApi } from '@/lib/api';
+import { campaignTitle } from '@/lib/graph';
 import { Bot } from '../jelly';
 import { IArrow, ICheck } from '../icons';
 import { ReportHeader } from './report';
@@ -32,7 +33,7 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
   const cand = d.candidate_campaign_id ?? 'KMP-040';
   const c = useApi<CampaignSummary>(`/campaigns/${encodeURIComponent(cand)}`).data;
   const [name, setName] = useState('');
-  const shown = name || (c ? `${cand} ${c.name}` : cand);
+  const shown = name || (c ? `${cand} ${campaignTitle(c)}` : cand);
   const total = useApi<CampaignSummary[]>('/campaigns').data;
   const [busy, setBusy] = useState(false);
   async function create() {
