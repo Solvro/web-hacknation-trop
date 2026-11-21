@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:fideplata-app.com", "status": "ok", "fetched_at": 1795295466.6148112, "error": null, "http_status": null, "seeded": true}, "data": {"name": "fideplata-app.com", "A": ["104.21.96.45", "172.67.173.2"], "AAAA": ["2606:4700:3030::6815:602d", "2606:4700:3037::ac43:ad02"], "NS": ["harley.ns.cloudflare.com", "tessa.ns.cloudflare.com"], "MX": [], "TXT": []}}

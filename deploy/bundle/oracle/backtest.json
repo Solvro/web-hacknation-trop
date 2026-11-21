@@ -1,0 +1,1231 @@
+{
+ "summary": {
+  "n_train_pos": 82,
+  "n_test_pos": 55,
+  "n_train_neg": 2116,
+  "n_test_neg": 1412,
+  "threshold": 0.658,
+  "target_fpr": 0.02,
+  "auc": 0.539,
+  "recall_at_thr": 0.055,
+  "flagged": 3,
+  "alerts_per_1000_certs": 9.9,
+  "precision_at_k": {
+   "1:1": {
+    "pool": "55 held-out kit-A + 55 negatives",
+    "p@10": 0.8,
+    "p@20": 0.6,
+    "p@50": 0.5
+   },
+   "1:10": {
+    "pool": "55 held-out kit-A + 550 negatives",
+    "p@10": 0.4,
+    "p@20": 0.25,
+    "p@50": 0.18
+   },
+   "1:50": {
+    "pool": "55 held-out kit-A + 1412 negatives",
+    "p@10": 0.1,
+    "p@20": 0.2,
+    "p@50": 0.1
+   }
+  },
+  "by_negative_kind": {
+   "other_scam": {
+    "n": 1166,
+    "auc": 0.562,
+    "fpr_at_thr": 0.0034
+   },
+   "same_tld_recent": {
+    "n": 246,
+    "auc": 0.43,
+    "fpr_at_thr": 0.0407
+   }
+  },
+  "n_with_timing": 3,
+  "flagged_before_first_activity": 3,
+  "median_lead_h": 59.5,
+  "median_lead_h_positive": 59.5,
+  "ct_latency_h": 0.25,
+  "split": "temporal 60/40 by certificate time",
+  "cv_auc_5fold": 0.8,
+  "random_split": {
+   "n_train_pos": 82,
+   "n_test_pos": 55,
+   "n_train_neg": 2116,
+   "n_test_neg": 1412,
+   "threshold": 0.802,
+   "target_fpr": 0.02,
+   "auc": 0.78,
+   "recall_at_thr": 0.182,
+   "flagged": 10,
+   "alerts_per_1000_certs": 7.8,
+   "precision_at_k": {
+    "1:1": {
+     "pool": "55 held-out kit-A + 55 negatives",
+     "p@10": 1.0,
+     "p@20": 0.8,
+     "p@50": 0.68
+    },
+    "1:10": {
+     "pool": "55 held-out kit-A + 550 negatives",
+     "p@10": 0.8,
+     "p@20": 0.55,
+     "p@50": 0.36
+    },
+    "1:50": {
+     "pool": "55 held-out kit-A + 1412 negatives",
+     "p@10": 0.6,
+     "p@20": 0.5,
+     "p@50": 0.26
+    }
+   },
+   "by_negative_kind": {
+    "benign": {
+     "n": 4,
+     "auc": 0.909,
+     "fpr_at_thr": 0.0
+    },
+    "other_scam": {
+     "n": 1145,
+     "auc": 0.806,
+     "fpr_at_thr": 0.0044
+    },
+    "same_tld_recent": {
+     "n": 263,
+     "auc": 0.662,
+     "fpr_at_thr": 0.0228
+    }
+   },
+   "n_with_timing": 10,
+   "flagged_before_first_activity": 10,
+   "median_lead_h": 42.8,
+   "median_lead_h_positive": 42.8,
+   "ct_latency_h": 0.25,
+   "split": "random 60/40"
+  },
+  "stage2_same_tld": {
+   "n_test_pos": 55,
+   "n_same_tld_neg": 150,
+   "stage": "lexical + NS pair/registrar (train-only DNA)",
+   "lexical_only": {
+    "auc": 0.238,
+    "p@5": 0.2,
+    "p@10": 0.2,
+    "p@20": 0.1,
+    "recall_at_1pct_fpr": 0.0
+   },
+   "with_metadata": {
+    "auc": 0.316,
+    "p@5": 0.0,
+    "p@10": 0.3,
+    "p@20": 0.2,
+    "recall_at_1pct_fpr": 0.0
+   }
+  }
+ },
+ "rows": [
+  {
+   "domain": "kiqyzeegady.autos",
+   "score": 0.727,
+   "flagged": true,
+   "cert_time": "2026-10-05T07:10:20.000Z",
+   "flagged_at": "2026-10-05T07:25:20+00:00",
+   "first_ad_at": "2026-10-09T10:41:03.388Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 99.3
+  },
+  {
+   "domain": "daxycyucywo.autos",
+   "score": 0.817,
+   "flagged": true,
+   "cert_time": "2026-10-13T06:25:41.000Z",
+   "flagged_at": "2026-10-13T06:40:41+00:00",
+   "first_ad_at": "2026-10-15T18:08:38.668Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 59.5
+  },
+  {
+   "domain": "figagoyleko.autos",
+   "score": 0.701,
+   "flagged": true,
+   "cert_time": "2026-10-13T06:23:58.000Z",
+   "flagged_at": "2026-10-13T06:38:58+00:00",
+   "first_ad_at": "2026-10-15T18:04:15.584Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 59.4
+  },
+  {
+   "domain": "haltergrove.xyz",
+   "score": 0.071,
+   "flagged": false,
+   "cert_time": "2026-09-24T15:41:33.000Z",
+   "flagged_at": "2026-09-24T15:56:33+00:00",
+   "first_ad_at": "2026-10-01T14:42:40.474Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 166.8
+  },
+  {
+   "domain": "amberglowly.xyz",
+   "score": 0.221,
+   "flagged": false,
+   "cert_time": "2026-09-24T15:41:51.000Z",
+   "flagged_at": "2026-09-24T15:56:51+00:00",
+   "first_ad_at": "2026-10-01T14:44:27.836Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 166.8
+  },
+  {
+   "domain": "aventurink.xyz",
+   "score": 0.274,
+   "flagged": false,
+   "cert_time": "2026-09-24T16:38:03.000Z",
+   "flagged_at": "2026-09-24T16:53:03+00:00",
+   "first_ad_at": "2026-10-01T14:44:35.542Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 165.9
+  },
+  {
+   "domain": "verdantmoth.xyz",
+   "score": 0.093,
+   "flagged": false,
+   "cert_time": "2026-09-24T16:38:41.000Z",
+   "flagged_at": "2026-09-24T16:53:41+00:00",
+   "first_ad_at": "2026-10-01T14:44:26.390Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 165.8
+  },
+  {
+   "domain": "canilyojio.autos",
+   "score": 0.655,
+   "flagged": false,
+   "cert_time": "2026-09-25T07:28:00.000Z",
+   "flagged_at": "2026-09-25T07:43:00+00:00",
+   "first_ad_at": "2026-09-29T09:56:30.718Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 98.2
+  },
+  {
+   "domain": "trade-vector-ai-arg.com",
+   "score": 0.125,
+   "flagged": false,
+   "cert_time": "2026-09-27T17:23:18.000Z",
+   "flagged_at": "2026-09-27T17:38:18+00:00",
+   "first_ad_at": "2026-10-18T02:35:52.325Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 489.0
+  },
+  {
+   "domain": "winterlark.xyz",
+   "score": 0.134,
+   "flagged": false,
+   "cert_time": "2026-09-28T18:11:06.000Z",
+   "flagged_at": "2026-09-28T18:26:06+00:00",
+   "first_ad_at": "2026-09-29T06:56:03.357Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 12.5
+  },
+  {
+   "domain": "stonesail.xyz",
+   "score": 0.054,
+   "flagged": false,
+   "cert_time": "2026-09-29T13:22:20.000Z",
+   "flagged_at": "2026-09-29T13:37:20+00:00",
+   "first_ad_at": "2026-09-30T09:26:53.521Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 19.8
+  },
+  {
+   "domain": "trynabeauty.com",
+   "score": 0.394,
+   "flagged": false,
+   "cert_time": "2026-10-01T08:17:08.000Z",
+   "flagged_at": "2026-10-01T08:32:08+00:00",
+   "first_ad_at": "2026-10-04T18:34:21.540Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 82.0
+  },
+  {
+   "domain": "duroryevamo.autos",
+   "score": 0.553,
+   "flagged": false,
+   "cert_time": "2026-10-02T08:20:03.000Z",
+   "flagged_at": "2026-10-02T08:35:03+00:00",
+   "first_ad_at": "2026-10-07T02:33:16.603Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 114.0
+  },
+  {
+   "domain": "fideplata-app.com",
+   "score": 0.047,
+   "flagged": false,
+   "cert_time": "2026-10-02T09:36:22.000Z",
+   "flagged_at": "2026-10-02T09:51:22+00:00",
+   "first_ad_at": "2026-10-04T05:45:10.610Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 43.9
+  },
+  {
+   "domain": "hrinvest-app.com",
+   "score": 0.035,
+   "flagged": false,
+   "cert_time": "2026-10-02T20:07:24.000Z",
+   "flagged_at": "2026-10-02T20:22:24+00:00",
+   "first_ad_at": "2026-10-05T12:27:58.348Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 64.1
+  },
+  {
+   "domain": "socupi-vidaje.info",
+   "score": 0.038,
+   "flagged": false,
+   "cert_time": "2026-10-04T19:07:04.000Z",
+   "flagged_at": "2026-10-04T19:22:04+00:00",
+   "first_ad_at": "2026-10-07T18:15:45.735Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 70.9
+  },
+  {
+   "domain": "brainrot-hub.online",
+   "score": 0.067,
+   "flagged": false,
+   "cert_time": "2026-10-05T05:59:31.000Z",
+   "flagged_at": "2026-10-05T06:14:31+00:00",
+   "first_ad_at": "2026-10-06T06:47:33.044Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 24.6
+  },
+  {
+   "domain": "joxohoacuvo.autos",
+   "score": 0.471,
+   "flagged": false,
+   "cert_time": "2026-10-05T07:14:50.000Z",
+   "flagged_at": "2026-10-05T07:29:50+00:00",
+   "first_ad_at": "2026-10-09T16:45:21.054Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 105.3
+  },
+  {
+   "domain": "deltazlumen.life",
+   "score": 0.039,
+   "flagged": false,
+   "cert_time": "2026-10-05T07:52:49.000Z",
+   "flagged_at": "2026-10-05T08:07:49+00:00",
+   "first_ad_at": "2026-10-07T05:36:06.857Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 45.5
+  },
+  {
+   "domain": "northglint.vip",
+   "score": 0.13,
+   "flagged": false,
+   "cert_time": "2026-10-06T07:40:33.000Z",
+   "flagged_at": "2026-10-06T07:55:33+00:00",
+   "first_ad_at": "2026-10-07T20:47:24.798Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 36.9
+  },
+  {
+   "domain": "quiveronne.com",
+   "score": 0.375,
+   "flagged": false,
+   "cert_time": "2026-10-06T07:46:44.000Z",
+   "flagged_at": "2026-10-06T08:01:44+00:00",
+   "first_ad_at": "2026-10-13T20:02:50.217Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 180.0
+  },
+  {
+   "domain": "vel-numquam-esse.top",
+   "score": 0.268,
+   "flagged": false,
+   "cert_time": "2026-10-06T08:32:51.000Z",
+   "flagged_at": "2026-10-06T08:47:51+00:00",
+   "first_ad_at": "2026-10-13T06:07:23.728Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 165.3
+  },
+  {
+   "domain": "amplia-valorinde-app.com",
+   "score": 0.025,
+   "flagged": false,
+   "cert_time": "2026-10-06T13:29:05.000Z",
+   "flagged_at": "2026-10-06T13:44:05+00:00",
+   "first_ad_at": "2026-10-06T23:57:15.662Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 10.2
+  },
+  {
+   "domain": "valerisoire-app.com",
+   "score": 0.012,
+   "flagged": false,
+   "cert_time": "2026-10-06T13:31:16.000Z",
+   "flagged_at": "2026-10-06T13:46:16+00:00",
+   "first_ad_at": "2026-10-08T10:07:19.819Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 44.4
+  },
+  {
+   "domain": "teljingsnad-app.com",
+   "score": 0.017,
+   "flagged": false,
+   "cert_time": "2026-10-06T13:40:21.000Z",
+   "flagged_at": "2026-10-06T13:55:21+00:00",
+   "first_ad_at": "2026-10-08T05:35:08.911Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 39.7
+  },
+  {
+   "domain": "branmolore.com",
+   "score": 0.352,
+   "flagged": false,
+   "cert_time": "2026-10-08T10:34:45.000Z",
+   "flagged_at": "2026-10-08T10:49:45+00:00",
+   "first_ad_at": "2026-10-16T16:12:12.097Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 197.4
+  },
+  {
+   "domain": "narodny-program-financneho-pristupu-app.com",
+   "score": 0.008,
+   "flagged": false,
+   "cert_time": "2026-10-08T14:56:24.000Z",
+   "flagged_at": "2026-10-08T15:11:24+00:00",
+   "first_ad_at": "2026-10-10T02:48:45.369Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 35.6
+  },
+  {
+   "domain": "stolt-dataheim-app.com",
+   "score": 0.046,
+   "flagged": false,
+   "cert_time": "2026-10-08T18:47:10.000Z",
+   "flagged_at": "2026-10-08T19:02:10+00:00",
+   "first_ad_at": "2026-10-09T16:13:08.388Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 21.2
+  },
+  {
+   "domain": "chapada-creditovor-app.com",
+   "score": 0.018,
+   "flagged": false,
+   "cert_time": "2026-10-09T09:10:02.000Z",
+   "flagged_at": "2026-10-09T09:25:02+00:00",
+   "first_ad_at": "2026-10-09T10:10:30.958Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 0.8
+  },
+  {
+   "domain": "sillage-valesonde-app.com",
+   "score": 0.012,
+   "flagged": false,
+   "cert_time": "2026-10-09T11:10:10.000Z",
+   "flagged_at": "2026-10-09T11:25:10+00:00",
+   "first_ad_at": "2026-10-11T10:08:04.366Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 46.7
+  },
+  {
+   "domain": "rente-lucavie-platform.com",
+   "score": 0.042,
+   "flagged": false,
+   "cert_time": "2026-10-09T13:52:21.000Z",
+   "flagged_at": "2026-10-09T14:07:21+00:00",
+   "first_ad_at": "2026-10-11T05:53:08.978Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 39.8
+  },
+  {
+   "domain": "bursovia-nextron-app.com",
+   "score": 0.014,
+   "flagged": false,
+   "cert_time": "2026-10-09T21:50:51.000Z",
+   "flagged_at": "2026-10-09T22:05:51+00:00",
+   "first_ad_at": "2026-10-10T01:57:43.025Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 3.9
+  },
+  {
+   "domain": "sabirnistvo-ai-platform.com",
+   "score": 0.028,
+   "flagged": false,
+   "cert_time": "2026-10-09T22:09:24.000Z",
+   "flagged_at": "2026-10-09T22:24:24+00:00",
+   "first_ad_at": "2026-10-11T06:32:23.766Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 32.1
+  },
+  {
+   "domain": "zhalikerdurtrx-official.com",
+   "score": 0.112,
+   "flagged": false,
+   "cert_time": "2026-10-09T22:12:58.000Z",
+   "flagged_at": "2026-10-09T22:27:58+00:00",
+   "first_ad_at": "2026-10-11T05:39:17.811Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 31.2
+  },
+  {
+   "domain": "avkast-rden-apps.com",
+   "score": 0.04,
+   "flagged": false,
+   "cert_time": "2026-10-09T22:55:20.000Z",
+   "flagged_at": "2026-10-09T23:10:20+00:00",
+   "first_ad_at": "2026-10-11T05:35:12.116Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 30.4
+  },
+  {
+   "domain": "norexa-diro.cz",
+   "score": 0.1,
+   "flagged": false,
+   "cert_time": "2026-10-10T11:44:00.000Z",
+   "flagged_at": "2026-10-10T11:59:00+00:00",
+   "first_ad_at": "2026-10-11T08:31:51.811Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 20.5
+  },
+  {
+   "domain": "tohykaadoi.autos",
+   "score": 0.484,
+   "flagged": false,
+   "cert_time": "2026-10-12T06:51:15.000Z",
+   "flagged_at": "2026-10-12T07:06:15+00:00",
+   "first_ad_at": "2026-10-15T09:06:35.047Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 74.0
+  },
+  {
+   "domain": "kurierdzienny.info",
+   "score": 0.04,
+   "flagged": false,
+   "cert_time": "2026-10-12T15:42:10.000Z",
+   "flagged_at": "2026-10-12T15:57:10+00:00",
+   "first_ad_at": "2026-10-15T19:15:23.766Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 75.3
+  },
+  {
+   "domain": "rentaison-ai-platform.com",
+   "score": 0.023,
+   "flagged": false,
+   "cert_time": "2026-10-12T19:50:45.000Z",
+   "flagged_at": "2026-10-12T20:05:45+00:00",
+   "first_ad_at": "2026-10-14T07:28:15.262Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 35.4
+  },
+  {
+   "domain": "xarvelok-imbrethu-official-app.com",
+   "score": 0.014,
+   "flagged": false,
+   "cert_time": "2026-10-13T17:32:52.000Z",
+   "flagged_at": "2026-10-13T17:47:52+00:00",
+   "first_ad_at": "2026-10-15T05:25:08.835Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 35.6
+  },
+  {
+   "domain": "valoirine-france.com",
+   "score": 0.325,
+   "flagged": false,
+   "cert_time": "2026-10-13T20:21:25.000Z",
+   "flagged_at": "2026-10-13T20:36:25+00:00",
+   "first_ad_at": "2026-10-15T05:29:12.920Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 32.9
+  },
+  {
+   "domain": "lattisoratom-ai-platform.com",
+   "score": 0.03,
+   "flagged": false,
+   "cert_time": "2026-10-14T20:58:16.000Z",
+   "flagged_at": "2026-10-14T21:13:16+00:00",
+   "first_ad_at": "2026-10-16T05:30:17.417Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 32.3
+  },
+  {
+   "domain": "druveyci-akmuino-ai-app.com",
+   "score": 0.01,
+   "flagged": false,
+   "cert_time": "2026-10-15T00:29:15.000Z",
+   "flagged_at": "2026-10-15T00:44:15+00:00",
+   "first_ad_at": "2026-10-15T02:52:28.055Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.1
+  },
+  {
+   "domain": "torixanews.top",
+   "score": 0.286,
+   "flagged": false,
+   "cert_time": "2026-10-15T13:18:06.000Z",
+   "flagged_at": "2026-10-15T13:33:06+00:00",
+   "first_ad_at": "2026-10-16T12:26:56.474Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 22.9
+  },
+  {
+   "domain": "syntex-ai-apps.com",
+   "score": 0.013,
+   "flagged": false,
+   "cert_time": "2026-10-16T08:46:36.000Z",
+   "flagged_at": "2026-10-16T09:01:36+00:00",
+   "first_ad_at": "2026-10-18T05:31:52.723Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 44.5
+  },
+  {
+   "domain": "green-corevo.top",
+   "score": 0.179,
+   "flagged": false,
+   "cert_time": "2026-10-20T09:49:08.000Z",
+   "flagged_at": "2026-10-20T10:04:08+00:00",
+   "first_ad_at": "2026-11-04T07:04:48.717Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 357.0
+  },
+  {
+   "domain": "ciel-patrimoire-apps.com",
+   "score": 0.035,
+   "flagged": false,
+   "cert_time": "2026-10-20T13:09:09.000Z",
+   "flagged_at": "2026-10-20T13:24:09+00:00",
+   "first_ad_at": "2026-10-23T06:47:37.175Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 65.4
+  },
+  {
+   "domain": "argentum-placeza-platform.com",
+   "score": 0.046,
+   "flagged": false,
+   "cert_time": "2026-10-20T13:09:28.000Z",
+   "flagged_at": "2026-10-20T13:24:28+00:00",
+   "first_ad_at": "2026-10-22T08:10:12.792Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 42.8
+  },
+  {
+   "domain": "serra-fondecto-platform.com",
+   "score": 0.047,
+   "flagged": false,
+   "cert_time": "2026-10-20T13:10:44.000Z",
+   "flagged_at": "2026-10-20T13:25:44+00:00",
+   "first_ad_at": "2026-10-22T06:29:08.016Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 41.1
+  },
+  {
+   "domain": "sinal-capitivo-ai-app.com",
+   "score": 0.007,
+   "flagged": false,
+   "cert_time": "2026-10-20T13:26:40.000Z",
+   "flagged_at": "2026-10-20T13:41:40+00:00",
+   "first_ad_at": "2026-10-20T18:56:42.728Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 5.3
+  },
+  {
+   "domain": "mintforge-capital-apps.com",
+   "score": 0.05,
+   "flagged": false,
+   "cert_time": "2026-10-20T13:28:07.000Z",
+   "flagged_at": "2026-10-20T13:43:07+00:00",
+   "first_ad_at": "2026-10-23T08:51:48.229Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 67.1
+  },
+  {
+   "domain": "perle-kapithort-platform-ai.com",
+   "score": 0.017,
+   "flagged": false,
+   "cert_time": "2026-10-21T13:54:26.000Z",
+   "flagged_at": "2026-10-21T14:09:26+00:00",
+   "first_ad_at": "2026-10-23T06:40:08.315Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 40.5
+  },
+  {
+   "domain": "newsnowl.art",
+   "score": 0.25,
+   "flagged": false,
+   "cert_time": "2026-10-21T18:01:07.000Z",
+   "flagged_at": "2026-10-21T18:16:07+00:00",
+   "first_ad_at": "2026-10-23T07:29:30.986Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 37.2
+  },
+  {
+   "domain": "obedientbonobo.media",
+   "score": 0.349,
+   "flagged": false,
+   "cert_time": "2026-10-22T07:44:47.000Z",
+   "flagged_at": "2026-10-22T07:59:47+00:00",
+   "first_ad_at": "2026-10-22T10:31:39.018Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.5
+  },
+  {
+   "domain": "monomount.cloud",
+   "score": 0.193,
+   "flagged": false,
+   "cert_time": "2026-10-31T10:15:54.000Z",
+   "flagged_at": "2026-10-31T10:30:54+00:00",
+   "first_ad_at": "2026-11-04T03:14:26.943Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 88.7
+  }
+ ],
+ "rows_random_split": [
+  {
+   "domain": "gleamingmole.autos",
+   "score": 0.875,
+   "flagged": true,
+   "cert_time": "2026-09-02T19:10:53.000Z",
+   "flagged_at": "2026-09-02T19:25:53+00:00",
+   "first_ad_at": "2026-10-13T12:02:22.097Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 976.6
+  },
+  {
+   "domain": "rotowet.online",
+   "score": 0.85,
+   "flagged": true,
+   "cert_time": "2026-06-15T16:01:06.000Z",
+   "flagged_at": "2026-06-15T16:16:06+00:00",
+   "first_ad_at": "2026-07-14T17:08:51.203Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 696.9
+  },
+  {
+   "domain": "qijumoyloe.autos",
+   "score": 0.812,
+   "flagged": true,
+   "cert_time": "2026-09-22T09:25:31.000Z",
+   "flagged_at": "2026-09-22T09:40:31+00:00",
+   "first_ad_at": "2026-09-25T10:24:02.432Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 72.7
+  },
+  {
+   "domain": "ciel-patrimoire-apps.com",
+   "score": 0.899,
+   "flagged": true,
+   "cert_time": "2026-10-20T13:09:09.000Z",
+   "flagged_at": "2026-10-20T13:24:09+00:00",
+   "first_ad_at": "2026-10-23T06:47:37.175Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 65.4
+  },
+  {
+   "domain": "valerisoire-app.com",
+   "score": 0.927,
+   "flagged": true,
+   "cert_time": "2026-10-06T13:31:16.000Z",
+   "flagged_at": "2026-10-06T13:46:16+00:00",
+   "first_ad_at": "2026-10-08T10:07:19.819Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 44.4
+  },
+  {
+   "domain": "serra-fondecto-platform.com",
+   "score": 0.938,
+   "flagged": true,
+   "cert_time": "2026-10-20T13:10:44.000Z",
+   "flagged_at": "2026-10-20T13:25:44+00:00",
+   "first_ad_at": "2026-10-22T06:29:08.016Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 41.1
+  },
+  {
+   "domain": "narodny-program-financneho-pristupu-app.com",
+   "score": 0.836,
+   "flagged": true,
+   "cert_time": "2026-10-08T14:56:24.000Z",
+   "flagged_at": "2026-10-08T15:11:24+00:00",
+   "first_ad_at": "2026-10-10T02:48:45.369Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 35.6
+  },
+  {
+   "domain": "xarvelok-imbrethu-official-app.com",
+   "score": 0.838,
+   "flagged": true,
+   "cert_time": "2026-10-13T17:32:52.000Z",
+   "flagged_at": "2026-10-13T17:47:52+00:00",
+   "first_ad_at": "2026-10-15T05:25:08.835Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 35.6
+  },
+  {
+   "domain": "avkast-rden-apps.com",
+   "score": 0.906,
+   "flagged": true,
+   "cert_time": "2026-10-09T22:55:20.000Z",
+   "flagged_at": "2026-10-09T23:10:20+00:00",
+   "first_ad_at": "2026-10-11T05:35:12.116Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 30.4
+  },
+  {
+   "domain": "sinal-capitivo-ai-app.com",
+   "score": 0.918,
+   "flagged": true,
+   "cert_time": "2026-10-20T13:26:40.000Z",
+   "flagged_at": "2026-10-20T13:41:40+00:00",
+   "first_ad_at": "2026-10-20T18:56:42.728Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 5.3
+  },
+  {
+   "domain": "nixlit-bio.top",
+   "score": 0.122,
+   "flagged": false,
+   "cert_time": "2026-07-22T19:05:32.000Z",
+   "flagged_at": "2026-07-22T19:20:32+00:00",
+   "first_ad_at": "2026-07-24T06:14:09.379Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 34.9
+  },
+  {
+   "domain": "snickerschinese.live",
+   "score": 0.063,
+   "flagged": false,
+   "cert_time": "2026-04-25T12:05:19.000Z",
+   "flagged_at": "2026-04-25T12:20:19+00:00",
+   "first_ad_at": "2026-04-29T17:26:54.662Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 101.1
+  },
+  {
+   "domain": "bursovia-nextron-app.com",
+   "score": 0.761,
+   "flagged": false,
+   "cert_time": "2026-10-09T21:50:51.000Z",
+   "flagged_at": "2026-10-09T22:05:51+00:00",
+   "first_ad_at": "2026-10-10T01:57:43.025Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 3.9
+  },
+  {
+   "domain": "qualityautospares.net",
+   "score": 0.072,
+   "flagged": false,
+   "cert_time": "2026-09-02T11:09:25.000Z",
+   "flagged_at": "2026-09-02T11:24:25+00:00",
+   "first_ad_at": "2026-09-03T06:46:14.426Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 19.4
+  },
+  {
+   "domain": "faithfull-partners.com",
+   "score": 0.136,
+   "flagged": false,
+   "cert_time": "2026-01-20T05:20:18.000Z",
+   "flagged_at": "2026-01-20T05:35:18+00:00",
+   "first_ad_at": "2026-01-20T07:46:52.650Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.2
+  },
+  {
+   "domain": "aventurink.xyz",
+   "score": 0.425,
+   "flagged": false,
+   "cert_time": "2026-09-24T16:38:03.000Z",
+   "flagged_at": "2026-09-24T16:53:03+00:00",
+   "first_ad_at": "2026-10-01T14:44:35.542Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 165.9
+  },
+  {
+   "domain": "bronzecaribou.media",
+   "score": 0.036,
+   "flagged": false,
+   "cert_time": "2024-07-18T16:10:35.000Z",
+   "flagged_at": "2024-07-18T16:25:35+00:00",
+   "first_ad_at": "2026-10-18T17:46:18.763Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 19729.3
+  },
+  {
+   "domain": "riverjbeta.info",
+   "score": 0.083,
+   "flagged": false,
+   "cert_time": "2026-09-08T18:50:10.000Z",
+   "flagged_at": "2026-09-08T19:05:10+00:00",
+   "first_ad_at": "2026-10-18T08:58:14.044Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 949.9
+  },
+  {
+   "domain": "bronzenctuber.shop",
+   "score": 0.028,
+   "flagged": false,
+   "cert_time": "2026-05-05T21:08:44.000Z",
+   "flagged_at": "2026-05-05T21:23:44+00:00",
+   "first_ad_at": "2026-05-05T22:11:21.525Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 0.8
+  },
+  {
+   "domain": "obedientbonobo.media",
+   "score": 0.044,
+   "flagged": false,
+   "cert_time": "2026-10-22T07:44:47.000Z",
+   "flagged_at": "2026-10-22T07:59:47+00:00",
+   "first_ad_at": "2026-10-22T10:31:39.018Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.5
+  },
+  {
+   "domain": "purerelates.store",
+   "score": 0.211,
+   "flagged": false,
+   "cert_time": "2026-02-20T11:24:32.000Z",
+   "flagged_at": "2026-02-20T11:39:32+00:00",
+   "first_ad_at": "2026-04-04T17:26:10.246Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1037.8
+  },
+  {
+   "domain": "spiritedduck.autos",
+   "score": 0.303,
+   "flagged": false,
+   "cert_time": "2026-09-14T06:55:14.000Z",
+   "flagged_at": "2026-09-14T07:10:14+00:00",
+   "first_ad_at": "2026-10-01T11:52:08.294Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 412.7
+  },
+  {
+   "domain": "gringero.com",
+   "score": 0.224,
+   "flagged": false,
+   "cert_time": "2026-02-03T17:16:24.000Z",
+   "flagged_at": "2026-02-03T17:31:24+00:00",
+   "first_ad_at": "2026-02-06T09:09:07.813Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 63.6
+  },
+  {
+   "domain": "lijujouqie.autos",
+   "score": 0.366,
+   "flagged": false,
+   "cert_time": "2026-09-22T09:24:45.000Z",
+   "flagged_at": "2026-09-22T09:39:45+00:00",
+   "first_ad_at": "2026-09-25T08:50:51.702Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 71.2
+  },
+  {
+   "domain": "aioldvibe.com",
+   "score": 0.061,
+   "flagged": false,
+   "cert_time": "2026-08-28T07:34:10.000Z",
+   "flagged_at": "2026-08-28T07:49:10+00:00",
+   "first_ad_at": "2026-10-17T23:28:41.855Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1215.7
+  },
+  {
+   "domain": "krysenor.com",
+   "score": 0.227,
+   "flagged": false,
+   "cert_time": "2025-11-09T08:16:29.000Z",
+   "flagged_at": "2025-11-09T08:31:29+00:00",
+   "first_ad_at": "2025-12-30T12:31:00.229Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1228.0
+  },
+  {
+   "domain": "kurierdzienny.info",
+   "score": 0.02,
+   "flagged": false,
+   "cert_time": "2026-10-12T15:42:10.000Z",
+   "flagged_at": "2026-10-12T15:57:10+00:00",
+   "first_ad_at": "2026-10-15T19:15:23.766Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 75.3
+  },
+  {
+   "domain": "fourlongflow.store",
+   "score": 0.045,
+   "flagged": false,
+   "cert_time": "2026-02-24T17:48:54.000Z",
+   "flagged_at": "2026-02-24T18:03:54+00:00",
+   "first_ad_at": "2026-04-02T17:12:33.908Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 887.1
+  },
+  {
+   "domain": "legacydata.lat",
+   "score": 0.251,
+   "flagged": false,
+   "cert_time": "2025-11-18T11:37:23.000Z",
+   "flagged_at": "2025-11-18T11:52:23+00:00",
+   "first_ad_at": "2026-10-01T10:19:48.640Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 7606.5
+  },
+  {
+   "domain": "caringfamily.net",
+   "score": 0.242,
+   "flagged": false,
+   "cert_time": "2026-01-16T09:18:16.000Z",
+   "flagged_at": "2026-01-16T09:33:16+00:00",
+   "first_ad_at": "2026-01-16T22:15:20.492Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 12.7
+  },
+  {
+   "domain": "mistandmemory.blog",
+   "score": 0.175,
+   "flagged": false,
+   "cert_time": "2026-01-16T09:22:30.000Z",
+   "flagged_at": "2026-01-16T09:37:30+00:00",
+   "first_ad_at": "2026-01-16T11:56:20.693Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.3
+  },
+  {
+   "domain": "diamondpig.autos",
+   "score": 0.418,
+   "flagged": false,
+   "cert_time": "2026-09-14T06:55:47.000Z",
+   "flagged_at": "2026-09-14T07:10:47+00:00",
+   "first_ad_at": "2026-09-30T13:46:48.897Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 390.6
+  },
+  {
+   "domain": "spinmaxwin.cc",
+   "score": 0.291,
+   "flagged": false,
+   "cert_time": "2025-08-23T00:00:00.000Z",
+   "flagged_at": "2025-08-23T00:15:00+00:00",
+   "first_ad_at": "2025-12-03T03:21:07.668Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2451.1
+  },
+  {
+   "domain": "nexprolinze.com",
+   "score": 0.135,
+   "flagged": false,
+   "cert_time": "2026-09-24T05:51:06.000Z",
+   "flagged_at": "2026-09-24T06:06:06+00:00",
+   "first_ad_at": "2026-09-24T11:42:54.053Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 5.6
+  },
+  {
+   "domain": "floracosmos.online",
+   "score": 0.224,
+   "flagged": false,
+   "cert_time": "2026-02-02T12:22:06.000Z",
+   "flagged_at": "2026-02-02T12:37:06+00:00",
+   "first_ad_at": "2026-03-13T09:30:21.730Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 932.9
+  },
+  {
+   "domain": "green-corevo.top",
+   "score": 0.254,
+   "flagged": false,
+   "cert_time": "2026-10-20T09:49:08.000Z",
+   "flagged_at": "2026-10-20T10:04:08+00:00",
+   "first_ad_at": "2026-11-04T07:04:48.717Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 357.0
+  },
+  {
+   "domain": "kolfrantuz.digital",
+   "score": 0.025,
+   "flagged": false,
+   "cert_time": "2026-09-22T15:21:05.000Z",
+   "flagged_at": "2026-09-22T15:36:05+00:00",
+   "first_ad_at": "2026-09-30T22:40:27.150Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 199.1
+  },
+  {
+   "domain": "socupi-vidaje.info",
+   "score": 0.059,
+   "flagged": false,
+   "cert_time": "2026-10-04T19:07:04.000Z",
+   "flagged_at": "2026-10-04T19:22:04+00:00",
+   "first_ad_at": "2026-10-07T18:15:45.735Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 70.9
+  },
+  {
+   "domain": "amberglowly.xyz",
+   "score": 0.554,
+   "flagged": false,
+   "cert_time": "2026-09-24T15:41:51.000Z",
+   "flagged_at": "2026-09-24T15:56:51+00:00",
+   "first_ad_at": "2026-10-01T14:44:27.836Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 166.8
+  },
+  {
+   "domain": "glorion1casino.it",
+   "score": 0.044,
+   "flagged": false,
+   "cert_time": "2026-08-29T19:20:31.000Z",
+   "flagged_at": "2026-08-29T19:35:31+00:00",
+   "first_ad_at": "2026-09-26T10:47:08.395Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 663.2
+  },
+  {
+   "domain": "class-light.com",
+   "score": 0.087,
+   "flagged": false,
+   "cert_time": "2026-07-21T12:46:44.000Z",
+   "flagged_at": "2026-07-21T13:01:44+00:00",
+   "first_ad_at": "2026-07-21T21:00:24.459Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 8.0
+  },
+  {
+   "domain": "regavano.com",
+   "score": 0.34,
+   "flagged": false,
+   "cert_time": "2025-12-04T07:42:09.000Z",
+   "flagged_at": "2025-12-04T07:57:09+00:00",
+   "first_ad_at": "2025-12-04T16:15:34.949Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 8.3
+  },
+  {
+   "domain": "dernvoral.com",
+   "score": 0.318,
+   "flagged": false,
+   "cert_time": "2026-09-24T09:43:54.000Z",
+   "flagged_at": "2026-09-24T09:58:54+00:00",
+   "first_ad_at": "2026-10-14T15:39:37.257Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 485.7
+  },
+  {
+   "domain": "winterlark.xyz",
+   "score": 0.359,
+   "flagged": false,
+   "cert_time": "2026-09-28T18:11:06.000Z",
+   "flagged_at": "2026-09-28T18:26:06+00:00",
+   "first_ad_at": "2026-09-29T06:56:03.357Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 12.5
+  },
+  {
+   "domain": "zhalikerdurtrx-official.com",
+   "score": 0.108,
+   "flagged": false,
+   "cert_time": "2026-10-09T22:12:58.000Z",
+   "flagged_at": "2026-10-09T22:27:58+00:00",
+   "first_ad_at": "2026-10-11T05:39:17.811Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 31.2
+  },
+  {
+   "domain": "fumoheitie.autos",
+   "score": 0.574,
+   "flagged": false,
+   "cert_time": "2026-09-21T08:10:27.000Z",
+   "flagged_at": "2026-09-21T08:25:27+00:00",
+   "first_ad_at": "2026-09-24T11:55:43.922Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 75.5
+  },
+  {
+   "domain": "lrbeauties.com",
+   "score": 0.2,
+   "flagged": false,
+   "cert_time": "2026-01-20T05:23:42.000Z",
+   "flagged_at": "2026-01-20T05:38:42+00:00",
+   "first_ad_at": "2026-01-20T07:46:27.909Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 2.1
+  },
+  {
+   "domain": "ruffryderstexas.com",
+   "score": 0.128,
+   "flagged": false,
+   "cert_time": "2026-01-23T09:37:39.000Z",
+   "flagged_at": "2026-01-23T09:52:39+00:00",
+   "first_ad_at": "2026-01-23T11:40:04.582Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1.8
+  },
+  {
+   "domain": "new-radar.top",
+   "score": 0.407,
+   "flagged": false,
+   "cert_time": "2026-05-06T12:59:47.000Z",
+   "flagged_at": "2026-05-06T13:14:47+00:00",
+   "first_ad_at": "2026-06-30T15:49:48.495Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1322.6
+  },
+  {
+   "domain": "turbowagmi.cc",
+   "score": 0.387,
+   "flagged": false,
+   "cert_time": "2026-02-03T00:00:00.000Z",
+   "flagged_at": "2026-02-03T00:15:00+00:00",
+   "first_ad_at": "2026-04-20T02:57:11.552Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 1826.7
+  },
+  {
+   "domain": "postpycnoticin.buzz",
+   "score": 0.045,
+   "flagged": false,
+   "cert_time": "2026-07-13T14:20:08.000Z",
+   "flagged_at": "2026-07-13T14:35:08+00:00",
+   "first_ad_at": "2026-07-13T15:21:56.878Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 0.8
+  },
+  {
+   "domain": "lesdermes.com",
+   "score": 0.114,
+   "flagged": false,
+   "cert_time": "2026-07-16T10:31:03.000Z",
+   "flagged_at": "2026-07-16T10:46:03+00:00",
+   "first_ad_at": "2026-07-16T17:45:26.197Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 7.0
+  },
+  {
+   "domain": "monomount.cloud",
+   "score": 0.112,
+   "flagged": false,
+   "cert_time": "2026-10-31T10:15:54.000Z",
+   "flagged_at": "2026-10-31T10:30:54+00:00",
+   "first_ad_at": "2026-11-04T03:14:26.943Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 88.7
+  },
+  {
+   "domain": "figagoyleko.autos",
+   "score": 0.527,
+   "flagged": false,
+   "cert_time": "2026-10-13T06:23:58.000Z",
+   "flagged_at": "2026-10-13T06:38:58+00:00",
+   "first_ad_at": "2026-10-15T18:04:15.584Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 59.4
+  },
+  {
+   "domain": "norexa-diro.cz",
+   "score": 0.098,
+   "flagged": false,
+   "cert_time": "2026-10-10T11:44:00.000Z",
+   "flagged_at": "2026-10-10T11:59:00+00:00",
+   "first_ad_at": "2026-10-11T08:31:51.811Z",
+   "first_activity_source": "urlscan_first_scan",
+   "lead_h": 20.5
+  }
+ ]
+}

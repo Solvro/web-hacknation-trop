@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:my-free-delivery.com", "status": "ok", "fetched_at": 1795296636.313339, "error": null, "http_status": null}, "data": {"name": "my-free-delivery.com", "A": ["15.197.148.33", "3.33.130.190"], "AAAA": [], "NS": ["ns49.domaincontrol.com", "ns50.domaincontrol.com"], "MX": ["0 smtp.secureserver.net.", "10 mailstore1.secureserver.net."], "TXT": []}}

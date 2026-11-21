@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:barkeeperapp.com", "status": "ok", "fetched_at": 1795296660.2852511, "error": null, "http_status": null}, "data": {"name": "barkeeperapp.com", "A": ["188.114.96.11", "188.114.97.11"], "AAAA": [], "NS": ["christian.ns.cloudflare.com", "gina.ns.cloudflare.com"], "MX": ["10 inbound.postmarkapp.com."], "TXT": []}}

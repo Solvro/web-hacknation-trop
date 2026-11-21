@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:strawberry.autos", "status": "ok", "fetched_at": 1795296243.6016698, "error": null, "http_status": null}, "data": {"name": "strawberry.autos", "A": ["57.129.120.168"], "AAAA": [], "NS": ["dns10.ovh.ca", "ns10.ovh.ca"], "MX": [], "TXT": ["\"1|www.strawberry.autos\"", "\"v=spf1 -all\""]}}

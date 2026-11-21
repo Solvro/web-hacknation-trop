@@ -1,0 +1,532 @@
+{
+ "grid": [
+  {
+   "b3_P": 0.686,
+   "b3_R": 1.0,
+   "b3_F1": 0.814,
+   "ARI": 0.707,
+   "pair_P": 0.615,
+   "pair_R": 1.0,
+   "n_pred": 5,
+   "n_gold": 9,
+   "hardneg_viol": "4/9",
+   "hardpos_ok": "5/5",
+   "tau": 3
+  },
+  {
+   "b3_P": 0.867,
+   "b3_R": 1.0,
+   "b3_F1": 0.929,
+   "ARI": 0.93,
+   "pair_P": 0.889,
+   "pair_R": 1.0,
+   "n_pred": 7,
+   "n_gold": 9,
+   "hardneg_viol": "2/9",
+   "hardpos_ok": "5/5",
+   "tau": 4
+  },
+  {
+   "b3_P": 0.867,
+   "b3_R": 1.0,
+   "b3_F1": 0.929,
+   "ARI": 0.93,
+   "pair_P": 0.889,
+   "pair_R": 1.0,
+   "n_pred": 7,
+   "n_gold": 9,
+   "hardneg_viol": "2/9",
+   "hardpos_ok": "5/5",
+   "tau": 5
+  },
+  {
+   "b3_P": 0.867,
+   "b3_R": 1.0,
+   "b3_F1": 0.929,
+   "ARI": 0.93,
+   "pair_P": 0.889,
+   "pair_R": 1.0,
+   "n_pred": 7,
+   "n_gold": 9,
+   "hardneg_viol": "2/9",
+   "hardpos_ok": "5/5",
+   "tau": 6
+  },
+  {
+   "b3_P": 0.933,
+   "b3_R": 1.0,
+   "b3_F1": 0.966,
+   "ARI": 0.964,
+   "pair_P": 0.941,
+   "pair_R": 1.0,
+   "n_pred": 8,
+   "n_gold": 9,
+   "hardneg_viol": "1/9",
+   "hardpos_ok": "5/5",
+   "tau": 7
+  },
+  {
+   "b3_P": 0.933,
+   "b3_R": 1.0,
+   "b3_F1": 0.966,
+   "ARI": 0.964,
+   "pair_P": 0.941,
+   "pair_R": 1.0,
+   "n_pred": 8,
+   "n_gold": 9,
+   "hardneg_viol": "1/9",
+   "hardpos_ok": "5/5",
+   "tau": 8
+  }
+ ],
+ "open_set": {
+  "should_link_acc": 1.0,
+  "should_not_link_acc": 0.733,
+  "wrong_assign": 4,
+  "n_link": 8,
+  "n_nolink": 15,
+  "decisions": [
+   {
+    "query": "p1",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 7.35
+   },
+   {
+    "query": "p2",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 7.35
+   },
+   {
+    "query": "p3",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 6.98
+   },
+   {
+    "query": "p4",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 6.98
+   },
+   {
+    "query": "p7",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 7.35
+   },
+   {
+    "query": "p15",
+    "expect": "A",
+    "got": "A",
+    "score": 10.0,
+    "margin": 7.35
+   },
+   {
+    "query": "p1",
+    "expect": null,
+    "got": null,
+    "score": 2.65,
+    "margin": 2.51
+   },
+   {
+    "query": "p2",
+    "expect": null,
+    "got": null,
+    "score": 2.65,
+    "margin": 2.51
+   },
+   {
+    "query": "p3",
+    "expect": null,
+    "got": null,
+    "score": 3.02,
+    "margin": 2.88
+   },
+   {
+    "query": "p4",
+    "expect": null,
+    "got": null,
+    "score": 3.02,
+    "margin": 2.88
+   },
+   {
+    "query": "p7",
+    "expect": null,
+    "got": null,
+    "score": 2.65,
+    "margin": 2.51
+   },
+   {
+    "query": "p15",
+    "expect": null,
+    "got": null,
+    "score": 2.65,
+    "margin": 2.56
+   },
+   {
+    "query": "p5",
+    "expect": null,
+    "got": null,
+    "score": 2.96,
+    "margin": 1.9
+   },
+   {
+    "query": "p6",
+    "expect": null,
+    "got": "E",
+    "score": 9.63,
+    "margin": 9.55
+   },
+   {
+    "query": "p8",
+    "expect": "B",
+    "got": "B",
+    "score": 10.0,
+    "margin": 8.94
+   },
+   {
+    "query": "p11",
+    "expect": "B",
+    "got": "B",
+    "score": 10.0,
+    "margin": 8.94
+   },
+   {
+    "query": "p8",
+    "expect": null,
+    "got": null,
+    "score": 1.06,
+    "margin": 0.9
+   },
+   {
+    "query": "p11",
+    "expect": null,
+    "got": null,
+    "score": 1.06,
+    "margin": 0.98
+   },
+   {
+    "query": "p9",
+    "expect": null,
+    "got": "G",
+    "score": 6.82,
+    "margin": 3.35
+   },
+   {
+    "query": "p10",
+    "expect": null,
+    "got": "F",
+    "score": 6.82,
+    "margin": 6.71
+   },
+   {
+    "query": "p12",
+    "expect": null,
+    "got": "D",
+    "score": 9.63,
+    "margin": 9.55
+   },
+   {
+    "query": "p13",
+    "expect": null,
+    "got": null,
+    "score": 3.47,
+    "margin": 3.37
+   },
+   {
+    "query": "p14",
+    "expect": null,
+    "got": null,
+    "score": 0.08,
+    "margin": 0.05
+   }
+  ]
+ },
+ "robustness": {
+  "duplicate": {
+   "acc": 0.733,
+   "wrong_assign": 4,
+   "n": 15
+  },
+  "drop_screenshot": {
+   "acc": 0.733,
+   "wrong_assign": 4,
+   "n": 15
+  },
+  "drop_har": {
+   "acc": 0.733,
+   "wrong_assign": 4,
+   "n": 15
+  },
+  "drop_html": {
+   "acc": 0.733,
+   "wrong_assign": 2,
+   "n": 15
+  },
+  "swap_domain": {
+   "acc": 0.733,
+   "wrong_assign": 4,
+   "n": 15
+  },
+  "rotate_tracking": {
+   "acc": 0.733,
+   "wrong_assign": 4,
+   "n": 15
+  },
+  "error_502": {
+   "acc": 0.867,
+   "wrong_assign": 2,
+   "n": 15
+  },
+  "full_rotation": {
+   "acc": 0.933,
+   "wrong_assign": 1,
+   "n": 15
+  }
+ },
+ "shap_global": [
+  [
+   "hand_operator",
+   1.8029729919805153
+  ],
+  [
+   "coverage",
+   1.7494003973629335
+  ],
+  [
+   "hand_campaign",
+   1.5843944370107652
+  ],
+  [
+   "op_only_sum",
+   0.9427013445171463
+  ],
+  [
+   "n_layers",
+   0.6159097085461087
+  ],
+  [
+   "camp_persons",
+   0.4921460123991763
+  ],
+  [
+   "camp_kit",
+   0.3232815058308088
+  ],
+  [
+   "camp_content",
+   0.1287445901348875
+  ],
+  [
+   "neg_sum",
+   0.12505811412917497
+  ],
+  [
+   "camp_ad",
+   0.000522879462272474
+  ],
+  [
+   "camp_tracking",
+   0.0
+  ],
+  [
+   "camp_infra",
+   0.0
+  ],
+  [
+   "camp_visual",
+   0.0
+  ]
+ ],
+ "explanations": {
+  "p8-p11": {
+   "P": 1.0,
+   "gold_same": true,
+   "shap": [
+    [
+     "hand_operator",
+     6.58
+    ],
+    [
+     "hand_campaign",
+     6.09
+    ],
+    [
+     "n_layers",
+     1.55
+    ],
+    [
+     "op_only_sum",
+     1.27
+    ],
+    [
+     "camp_kit",
+     0.96
+    ],
+    [
+     "coverage",
+     -0.92
+    ]
+   ]
+  },
+  "p3-p4": {
+   "P": 1.0,
+   "gold_same": true,
+   "shap": [
+    [
+     "hand_operator",
+     6.31
+    ],
+    [
+     "hand_campaign",
+     5.3
+    ],
+    [
+     "op_only_sum",
+     2.44
+    ],
+    [
+     "camp_kit",
+     1.41
+    ],
+    [
+     "n_layers",
+     1.31
+    ],
+    [
+     "coverage",
+     -0.52
+    ]
+   ]
+  },
+  "p1-p15": {
+   "P": 1.0,
+   "gold_same": true,
+   "shap": [
+    [
+     "hand_operator",
+     5.87
+    ],
+    [
+     "hand_campaign",
+     4.85
+    ],
+    [
+     "camp_persons",
+     3.77
+    ],
+    [
+     "op_only_sum",
+     2.18
+    ],
+    [
+     "n_layers",
+     1.21
+    ],
+    [
+     "camp_kit",
+     1.02
+    ]
+   ]
+  },
+  "p5-p1": {
+   "P": 0.042,
+   "gold_same": false,
+   "shap": [
+    [
+     "coverage",
+     1.69
+    ],
+    [
+     "hand_campaign",
+     -1.05
+    ],
+    [
+     "hand_operator",
+     0.85
+    ],
+    [
+     "op_only_sum",
+     0.56
+    ],
+    [
+     "n_layers",
+     0.55
+    ],
+    [
+     "camp_persons",
+     -0.3
+    ]
+   ]
+  },
+  "p11-p1": {
+   "P": 0.003,
+   "gold_same": false,
+   "shap": [
+    [
+     "coverage",
+     -2.81
+    ],
+    [
+     "hand_operator",
+     -2.04
+    ],
+    [
+     "hand_campaign",
+     -1.31
+    ],
+    [
+     "op_only_sum",
+     0.84
+    ],
+    [
+     "n_layers",
+     0.58
+    ],
+    [
+     "camp_kit",
+     -0.39
+    ]
+   ]
+  },
+  "p6-p12": {
+   "P": 0.031,
+   "gold_same": false,
+   "shap": [
+    [
+     "hand_operator",
+     5.04
+    ],
+    [
+     "coverage",
+     -3.8
+    ],
+    [
+     "op_only_sum",
+     2.6
+    ],
+    [
+     "hand_campaign",
+     -1.76
+    ],
+    [
+     "camp_kit",
+     -1.51
+    ],
+    [
+     "n_layers",
+     1.17
+    ]
+   ]
+  }
+ },
+ "train_s": 21.60265874862671,
+ "n_pairs": 6825
+}

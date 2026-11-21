@@ -108,11 +108,18 @@ def worker_corpus():
     return _CORPUS
 
 
-def capture_available() -> bool:
+def capture_mode() -> str:
+    """off | sandbox | local. TROP_CAPTURE wins; default = sandbox in live mode, else off."""
     import importlib.util
     from trop.config import settings
-    return (settings.trop_mode == "live" and os.environ.get("TROP_NO_LIVE") != "1"
-            and importlib.util.find_spec("trop.capture.capture") is not None)
+    m = (settings.trop_capture or ("sandbox" if settings.trop_mode == "live" and os.environ.get("TROP_NO_LIVE") != "1" else "off")).lower()
+    if m not in ("sandbox", "local") or importlib.util.find_spec("trop.capture.capture") is None:
+        return "off"
+    return m
+
+
+def capture_available() -> bool:
+    return capture_mode() != "off"
 
 
 class ServiceAdapter:
@@ -142,7 +149,7 @@ class ServiceAdapter:
             st.start("capture")
             try:
                 from trop.capture.cli import capture_url
-                res = capture_url(material.name, docker=os.environ.get("TROP_CAPTURE_LOCAL") != "1", fast=True)
+                res = capture_url(material.name, docker=capture_mode() == "sandbox" and os.environ.get("TROP_CAPTURE_LOCAL") != "1", fast=True)
             except Exception as e:  # noqa: BLE001
                 res = {"ok": False, "error": f"{type(e).__name__}: {e}"}
             if not res.get("ok") or not res.get("bundle"):

@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:buildyourownnation.com", "status": "ok", "fetched_at": 1795296612.868234, "error": null, "http_status": null}, "data": {"name": "buildyourownnation.com", "A": ["208.91.197.13"], "AAAA": [], "NS": ["ns1.buildyourownnation.com", "ns2.buildyourownnation.com"], "MX": ["0 buildyourownnation.com."], "TXT": ["\"v=spf1 ip4:50.6.173.205 +a +mx ~all\""]}}

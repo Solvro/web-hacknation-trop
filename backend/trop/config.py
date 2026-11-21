@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     # mode
     trop_mode: str = "live"                 # live | offline (no network, cached model outputs only) | mock (API fixtures)
+    trop_capture: str | None = None         # off | sandbox | local; None = sandbox when trop_mode=live else off (URL input -> board-13 job.error)
     trop_replay: bool = False               # SSE endpoints serve recorded streams by default
 
     # storage

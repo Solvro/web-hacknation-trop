@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:snowglim.com", "status": "ok", "fetched_at": 1795296109.1393514, "error": null, "http_status": null}, "data": {"name": "snowglim.com", "A": ["216.120.131.66"], "AAAA": [], "NS": ["david.ns.cloudflare.com", "emely.ns.cloudflare.com"], "MX": ["10 mail.trekmail.net."], "TXT": ["\"v=spf1 include:spf.trekmail.net -all\""]}}

@@ -1,0 +1,1577 @@
+{
+ "abundancecaller.com": {
+  "A": [
+   "2.57.91.92"
+  ],
+  "AAAA": [
+   "ERR:NoAnswer"
+  ],
+  "NS": [
+   "ns1.dns-expired.com.",
+   "ns2.dns-expired.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "\"This domain is expired at Hostinger!\""
+  ],
+  "asn": {
+   "2.57.91.92": {
+    "err": "LifetimeTimeout"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "HOSTINGER operations, UAB",
+   "created": "2023-10-31T17:36:26Z",
+   "expires": "2027-10-31T17:36:26Z",
+   "updated": "2026-11-01T08:33:48Z",
+   "ns": [
+    "ns1.dns-expired.com",
+    "ns2.dns-expired.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-02-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12100569710
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-02-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12100569613
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-02-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12100563357
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-02-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12100562991
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-04-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12744854428
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-04-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12744853519
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-04-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12744856795
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL ECC Domain Secure Site CA",
+    "not_before": "2024-04-16T00:00:00",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 12744853616
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R3",
+    "not_before": "2024-05-29T17:46:09",
+    "names": [
+     "www.abundancecaller.com"
+    ],
+    "id": 13224077511
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R3",
+    "not_before": "2024-05-29T17:46:09",
+    "names": [
+     "www.abundancecaller.com"
+    ],
+    "id": 13224081993
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo ECC Domain Validation Secure Server CA",
+    "not_before": "2024-06-01T00:00:00",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 13256385129
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo ECC Domain Validation Secure Server CA",
+    "not_before": "2024-06-01T00:00:00",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 13256385325
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services LLC, CN=GTS CA 1P5",
+    "not_before": "2024-06-01T20:05:56",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 13256428592
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R3",
+    "not_before": "2024-06-01T20:13:15",
+    "names": [
+     "abundancecaller.com"
+    ],
+    "id": 13256470060
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R3",
+    "not_before": "2024-06-01T20:13:15",
+    "names": [
+     "abundancecaller.com"
+    ],
+    "id": 13256477996
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-06-11T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 13357493639
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-06-11T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 13357493663
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-07-19T19:11:24",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 13856070824
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-07-19T19:11:24",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 13805586402
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-07-24T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 13869291207
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-07-24T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 13869291054
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2024-07-30T19:29:03",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 13950603141
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-08-01T04:42:36",
+    "names": [
+     "abundancecaller.com"
+    ],
+    "id": 14053346859
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-08-01T04:42:36",
+    "names": [
+     "abundancecaller.com"
+    ],
+    "id": 13951416822
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2024-09-27T18:42:18",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 14711869602
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-10-09T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 14859430859
+   },
+   {
+    "issuer": "C=AT, O=ZeroSSL, CN=ZeroSSL RSA Domain Secure Site CA",
+    "not_before": "2024-10-09T00:00:00",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 14859420534
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R11",
+    "not_before": "2024-10-14T23:11:53",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 14935381460
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R11",
+    "not_before": "2024-10-14T23:11:53",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 14935392838
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E6",
+    "not_before": "2024-10-19T04:16:24",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 14996363547
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E6",
+    "not_before": "2024-10-19T04:16:24",
+    "names": [
+     "inst.abundancecaller.com"
+    ],
+    "id": 14996364295
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-11-21T14:34:18",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 15446528351
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2024-11-21T14:34:18",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 15454311608
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2024-11-25T18:00:33",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 15505802725
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R11",
+    "not_before": "2025-01-10T23:06:52",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 16547537524
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R11",
+    "not_before": "2025-01-10T23:06:52",
+    "names": [
+     "watch.abundancecaller.com"
+    ],
+    "id": 16143350468
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-01-23T17:16:37",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 16375561840
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-01-23T17:16:37",
+    "names": [
+     "*.abundancecaller.com",
+     "abundancecaller.com"
+    ],
+    "id": 16406175581
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2025-02-05T18:47:52",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 17071974090
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=R10",
+    "not_before": "2025-02-05T18:47:52",
+    "names": [
+     "rt.abundancecaller.com"
+    ],
+    "id": 16573226804
+   }
+  ],
+  "t": 43.0
+ },
+ "door-focus.com": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "laila.ns.cloudflare.com.",
+   "lochlan.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-07-09T08:32:37Z",
+   "expires": "2027-07-09T08:32:37Z",
+   "updated": "2026-07-09T08:47:07Z",
+   "ns": [
+    "laila.ns.cloudflare.com",
+    "lochlan.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-07-09T07:49:07",
+    "names": [
+     "*.door-focus.com",
+     "door-focus.com"
+    ],
+    "id": 27802081561
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-07-09T08:39:50",
+    "names": [
+     "*.door-focus.com",
+     "door-focus.com"
+    ],
+    "id": 27802078173
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-07-09T09:28:25",
+    "names": [
+     "door-focus.com"
+    ],
+    "id": 27803728516
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-07-09T09:28:25",
+    "names": [
+     "door-focus.com"
+    ],
+    "id": 27803726639
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-09-06T12:22:38",
+    "names": [
+     "*.door-focus.com",
+     "door-focus.com"
+    ],
+    "id": 29853725603
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-09-06T15:36:51",
+    "names": [
+     "*.door-focus.com",
+     "door-focus.com"
+    ],
+    "id": 29951047316
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-09-08T18:41:18",
+    "names": [
+     "*.door-focus.com",
+     "door-focus.com"
+    ],
+    "id": 30089069712
+   }
+  ],
+  "t": 21.2
+ },
+ "dorquesio.click": {
+  "A": [
+   "104.21.19.45",
+   "172.67.185.56"
+  ],
+  "AAAA": [
+   "2606:4700:3031::ac43:b938",
+   "2606:4700:3036::6815:132d"
+  ],
+  "NS": [
+   "cartman.ns.cloudflare.com.",
+   "fish.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.19.45": {
+    "asn": "13335",
+    "prefix": "104.21.16.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.185.56": {
+    "asn": "13335",
+    "prefix": "172.67.176.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot, LLC",
+   "created": "2026-10-07T18:22:47.358Z",
+   "expires": "2027-10-07T18:22:47.358Z",
+   "updated": "2026-10-12T18:23:43.381Z",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-07T18:53:02",
+    "names": [
+     "*.dorquesio.click",
+     "dorquesio.click"
+    ],
+    "id": 29975537144
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-07T18:53:02",
+    "names": [
+     "*.dorquesio.click",
+     "dorquesio.click"
+    ],
+    "id": 29831948038
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-10-07T20:37:03",
+    "names": [
+     "*.dorquesio.click",
+     "dorquesio.click"
+    ],
+    "id": 29929954653
+   }
+  ],
+  "t": 39.9
+ },
+ "falmurek.live": {
+  "A": [
+   "104.21.8.235",
+   "172.67.188.210"
+  ],
+  "AAAA": [
+   "2606:4700:3031::ac43:bcd2",
+   "2606:4700:3033::6815:8eb"
+  ],
+  "NS": [
+   "cartman.ns.cloudflare.com.",
+   "fish.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.8.235": {
+    "asn": "13335",
+    "prefix": "104.21.0.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.188.210": {
+    "asn": "13335",
+    "prefix": "172.67.176.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot Inc",
+   "created": "2026-10-05T18:20:32.824Z",
+   "expires": "2027-10-05T18:20:32.824Z",
+   "updated": "2026-10-10T18:20:46.59Z",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 5.1
+ },
+ "grentavo.click": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "cartman.ns.cloudflare.com.",
+   "fish.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot, LLC",
+   "created": "2026-10-05T18:20:38.504Z",
+   "expires": "2027-10-05T18:20:38.504Z",
+   "updated": "2026-10-10T18:20:43.563Z",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 1.0
+ },
+ "konbjk.com": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "leland.ns.cloudflare.com.",
+   "princess.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-06-19T12:11:59Z",
+   "expires": "2027-06-19T12:11:59Z",
+   "updated": "2026-06-19T12:12:07Z",
+   "ns": [
+    "leland.ns.cloudflare.com",
+    "princess.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-06-19T11:14:13",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 27318245334
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-06-19T11:14:13",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 27328320383
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-06-19T20:42:27",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 27328270591
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-08-17T13:58:33",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 28988888405
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-08-17T13:58:33",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 28886951888
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-08-18T14:40:55",
+    "names": [
+     "*.konbjk.com",
+     "konbjk.com"
+    ],
+    "id": 28946634958
+   }
+  ],
+  "t": 0.9
+ },
+ "lundevra.live": {
+  "A": [
+   "1.1.1.1"
+  ],
+  "AAAA": [
+   "ERR:NoAnswer"
+  ],
+  "NS": [
+   "ns1.dyna-ns.net.",
+   "ns2.dyna-ns.net."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "1.1.1.1": {
+    "asn": "13335",
+    "prefix": "1.1.1.0/24",
+    "cc": "AU",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot Inc",
+   "created": "2026-10-07T18:27:41.296Z",
+   "expires": "2027-10-07T18:27:41.296Z",
+   "updated": "2026-10-19T13:08:21.707Z",
+   "ns": [
+    "ns1.dyna-ns.net",
+    "ns2.dyna-ns.net"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 2.3
+ },
+ "move-fitlum.top": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "dan.ns.cloudflare.com.",
+   "isabel.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Namecheap Inc.",
+   "created": "2026-09-22T13:43:35.0Z",
+   "expires": "2027-09-22T13:43:35.0Z",
+   "updated": "2026-09-23T12:24:51.0Z",
+   "ns": [
+    "dan.ns.cloudflare.com.",
+    "isabel.ns.cloudflare.com."
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YR2",
+    "not_before": "2026-09-29T13:10:16",
+    "names": [
+     "move-fitlum.top"
+    ],
+    "id": 29841294117
+   }
+  ],
+  "t": 2.2
+ },
+ "resader.com": {
+  "A": [
+   "104.21.72.23",
+   "172.67.174.30"
+  ],
+  "AAAA": [
+   "2606:4700:3030::ac43:ae1e",
+   "2606:4700:3034::6815:4817"
+  ],
+  "NS": [
+   "leland.ns.cloudflare.com.",
+   "princess.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.72.23": {
+    "asn": "13335",
+    "prefix": "104.21.64.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.174.30": {
+    "asn": "13335",
+    "prefix": "172.67.160.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-05-12T18:59:57Z",
+   "expires": "2027-05-12T18:59:57Z",
+   "updated": "2026-05-12T19:00:01Z",
+   "ns": [
+    "leland.ns.cloudflare.com",
+    "princess.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-05-12T00:00:00",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 26290017322
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-05-12T00:00:00",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 26290017256
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-05-12T18:03:39",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 26289899786
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-05-12T18:03:39",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 26290001978
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-07-10T20:47:01",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 27840243072
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-07-10T20:47:01",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 27840248160
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-07-10T23:26:37",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 27842811562
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-07-10T23:26:37",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 27842811404
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-09-08T01:05:42",
+    "names": [
+     "*.resader.com",
+     "resader.com"
+    ],
+    "id": 29455967771
+   }
+  ],
+  "t": 14.5
+ },
+ "sfuxd.com": {
+  "A": [
+   "159.65.146.122"
+  ],
+  "AAAA": [
+   "ERR:NoAnswer"
+  ],
+  "NS": [
+   "ns1.mysecurecloudhost.com.",
+   "ns2.mysecurecloudhost.com.",
+   "ns3.mysecurecloudhost.com.",
+   "ns4.mysecurecloudhost.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "159.65.146.122": {
+    "err": "LifetimeTimeout"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Porkbun LLC",
+   "created": "2024-10-01T18:26:39Z",
+   "expires": "2027-10-01T18:26:39Z",
+   "updated": "2026-09-30T03:24:07Z",
+   "ns": [
+    "ns1.mysecurecloudhost.com",
+    "ns2.mysecurecloudhost.com"
+   ],
+   "status": [
+    "client delete prohibited",
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 7.3
+ },
+ "smartcoved.pro": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "braelyn.ns.cloudflare.com.",
+   "kurt.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NICENIC INTERNATIONAL GROUP CO., LIMITED",
+   "created": "2026-10-08T07:59:37.495Z",
+   "expires": "2027-10-08T07:59:37.495Z",
+   "updated": "2026-10-13T08:00:33.752Z",
+   "ns": [
+    "braelyn.ns.cloudflare.com",
+    "kurt.ns.cloudflare.com"
+   ],
+   "status": [
+    "client delete prohibited",
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 6.7
+ },
+ "spiritualityinsports.org": {
+  "A": [
+   "142.93.95.250"
+  ],
+  "AAAA": [
+   "ERR:NoAnswer"
+  ],
+  "NS": [
+   "ns1.mysecurecloudhost.com.",
+   "ns2.mysecurecloudhost.com.",
+   "ns3.mysecurecloudhost.com.",
+   "ns4.mysecurecloudhost.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "142.93.95.250": {
+    "asn": "14061",
+    "prefix": "142.93.80.0/20",
+    "cc": "US",
+    "name": "DIGITALOCEAN-ASN - DigitalOcean, LLC, US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2010-08-05T19:33:21.822Z",
+   "expires": "2027-08-05T19:33:21.822Z",
+   "updated": "2026-08-12T06:09:29.7Z",
+   "ns": [
+    "ns1.mysecurecloudhost.com",
+    "ns2.mysecurecloudhost.com",
+    "ns3.mysecurecloudhost.com",
+    "ns4.mysecurecloudhost.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 3.5
+ },
+ "wernulio.live": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::c",
+   "2a06:98c1:3121::c"
+  ],
+  "NS": [
+   "cartman.ns.cloudflare.com.",
+   "fish.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot Inc",
+   "created": "2026-10-07T18:22:29.271Z",
+   "expires": "2027-10-07T18:22:29.271Z",
+   "updated": "2026-10-12T18:22:37.907Z",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-07T18:51:34",
+    "names": [
+     "*.wernulio.live",
+     "wernulio.live"
+    ],
+    "id": 29879138474
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-10-07T20:36:32",
+    "names": [
+     "*.wernulio.live",
+     "wernulio.live"
+    ],
+    "id": 29929936180
+   }
+  ],
+  "t": 8.4
+ },
+ "zenithlab.ink": {
+  "A": [
+   "104.21.78.140",
+   "172.67.222.109"
+  ],
+  "AAAA": [
+   "2606:4700:3031::ac43:de6d",
+   "2606:4700:3035::6815:4e8c"
+  ],
+  "NS": [
+   "lennox.ns.cloudflare.com.",
+   "rachel.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.78.140": {
+    "asn": "13335",
+    "prefix": "104.21.64.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.222.109": {
+    "asn": "13335",
+    "prefix": "172.67.208.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-02-12T09:59:01Z",
+   "expires": "2027-02-12T09:59:01Z",
+   "updated": "2026-09-22T17:44:47Z",
+   "ns": [
+    "lennox.ns.cloudflare.com",
+    "rachel.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:08:57",
+    "names": [
+     "zenithlab.ink"
+    ],
+    "id": 24355013048
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:08:57",
+    "names": [
+     "zenithlab.ink"
+    ],
+    "id": 24355027496
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:06",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 24355010385
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:06",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 24355031545
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:15",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 24355012181
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:15",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 24355011246
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:25",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 24355013749
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:09:25",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 24355014272
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:10:50",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 24355042893
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:10:50",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 24355037139
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:11:00",
+    "names": [
+     "pr4.zenithlab.ink"
+    ],
+    "id": 24355046312
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-02-12T09:11:00",
+    "names": [
+     "pr4.zenithlab.ink"
+    ],
+    "id": 24355050638
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:11:09",
+    "names": [
+     "pr5.zenithlab.ink"
+    ],
+    "id": 24355054210
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:11:09",
+    "names": [
+     "pr5.zenithlab.ink"
+    ],
+    "id": 24355044730
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:11:19",
+    "names": [
+     "pr6.zenithlab.ink"
+    ],
+    "id": 24355049537
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-02-12T09:11:19",
+    "names": [
+     "pr6.zenithlab.ink"
+    ],
+    "id": 24355069276
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:58:43",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 25928189136
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:58:43",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 25526948857
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:58:59",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 25830826790
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:58:59",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 25566946494
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:59:16",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 25489852776
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:59:16",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 25830828041
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T17:59:32",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 25593684418
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T17:59:32",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 25830829256
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:59:49",
+    "names": [
+     "pr4.zenithlab.ink"
+    ],
+    "id": 25573280187
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T17:59:49",
+    "names": [
+     "pr4.zenithlab.ink"
+    ],
+    "id": 25593684990
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T18:00:00",
+    "names": [
+     "pr5.zenithlab.ink"
+    ],
+    "id": 25830853735
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T18:00:00",
+    "names": [
+     "pr5.zenithlab.ink"
+    ],
+    "id": 25526955040
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T18:00:16",
+    "names": [
+     "pr6.zenithlab.ink"
+    ],
+    "id": 25830831665
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E8",
+    "not_before": "2026-04-13T18:00:16",
+    "names": [
+     "pr6.zenithlab.ink"
+    ],
+    "id": 25509741450
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T18:08:45",
+    "names": [
+     "zenithlab.ink"
+    ],
+    "id": 25567578729
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-04-13T18:08:45",
+    "names": [
+     "zenithlab.ink"
+    ],
+    "id": 25527007626
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-06-13T12:35:44",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 27153726066
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-06-13T12:35:44",
+    "names": [
+     "pr.zenithlab.ink"
+    ],
+    "id": 27153723180
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-06-13T12:36:03",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 27153728719
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-06-13T12:36:03",
+    "names": [
+     "pr1.zenithlab.ink"
+    ],
+    "id": 27153720546
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-06-13T12:36:20",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 27153738551
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-06-13T12:36:20",
+    "names": [
+     "pr2.zenithlab.ink"
+    ],
+    "id": 27153737594
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-06-13T12:36:37",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 27153738709
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+    "not_before": "2026-06-13T12:36:37",
+    "names": [
+     "pr3.zenithlab.ink"
+    ],
+    "id": 27153738168
+   }
+  ],
+  "t": 10.5
+ }
+}

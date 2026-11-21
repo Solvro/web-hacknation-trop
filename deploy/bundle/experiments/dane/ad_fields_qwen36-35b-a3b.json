@@ -1,0 +1,243 @@
+{
+ "d10": {
+  "screenshot_kind": "feed",
+  "advertiser": "Sweet Bonanza",
+  "library_id": null,
+  "text": "VOLER PENDANT UNE ÉCLIPSE... więcej",
+  "overlay": "MŁODA PIELĘGNIARKA Z WARSZAWY - ZAMIENIŁA 100 ZŁ NA 4 000 000 ZŁ W APLIKACJI SWEET BONANZA OD CRISTIANO RONALDO",
+  "cta": "Zagraj w grę",
+  "display_link": null,
+  "persons": [
+   "cristiano ronaldo"
+  ],
+  "is_decoy": false,
+  "vertical": "other",
+  "brands": [
+   "Sweet Bonanza",
+   "TVM24"
+  ],
+  "narrative": "Reklama sugeruje, że młoda pielęgniarka z Warszawy wygrała 4 miliony złotych w aplikacji Sweet Bonanza, podszywając się pod wiadomości TVN24 i wykorzystując wizerunek Cristiana Ronaldo.",
+  "all_screens": [
+   {
+    "adv": "Sweet Bonanza",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że młoda pielęgniarka z Warszawy wygrała 4 miliony złotych w a"
+   },
+   {
+    "adv": "Sweet Bonanza",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że młoda pielęgniarka z Warszawy wygrała 4 miliony złotych w a"
+   },
+   {
+    "adv": "shop-77vault.xyz",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że sławny piłkarz Cristiano Ronaldo promuje aplikację hazardow"
+   },
+   {
+    "adv": "Sweet Bonanza",
+    "kind": "adlibrary",
+    "narr": "Reklama promuje dywaniki łazienkowe marki Olanly, podkreślając ich miękkość, chł"
+   },
+   {
+    "adv": "Sweet Bonanza",
+    "kind": "adlibrary",
+    "narr": "Reklama promuje dywaniki łazienkowe marki Olanly, wskazując na ich miękkość, chł"
+   },
+   {
+    "adv": "AMAZON.COM",
+    "kind": "adlibrary",
+    "narr": "Reklama promuje chłonne dywaniki łazienkowe marki Olanly dostępne na Amazonie, p"
+   }
+  ]
+ },
+ "d14": {
+  "screenshot_kind": "feed",
+  "advertiser": "Sustain Studio",
+  "library_id": null,
+  "text": "Sustain Studio\nSponsorowane",
+  "overlay": "",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [],
+  "is_decoy": false,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama studio Sustain Studio z nieczytelnym przekazem wizualnym i przyciskiem zachęcającym do zapoznania się z ofertą.",
+  "all_screens": [
+   {
+    "adv": "Sustain Studio",
+    "kind": "feed",
+    "narr": "Reklama studio Sustain Studio z nieczytelnym przekazem wizualnym i przyciskiem z"
+   },
+   {
+    "adv": "Sustain Studio",
+    "kind": "feed",
+    "narr": "Reklama zachęca do natychmiastowego działania, sugerując, że czas ucieka, aby po"
+   },
+   {
+    "adv": "Sustain Studio",
+    "kind": "feed",
+    "narr": "Reklama podszywa się pod autentyczny przekaz informacyjny, wykorzystując wizerun"
+   },
+   {
+    "adv": "Sustain Studio",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że osoba o imieniu Maria opublikowała ważną informację, wykorz"
+   },
+   {
+    "adv": "ineptsolidoval.top",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że istnieje naturalna metoda na schudnięcie w 7 dni bez diety,"
+   },
+   {
+    "adv": "ineptsolidoval.top",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że przedstawiona metoda skutecznie pomaga w walce z nadwagą, p"
+   },
+   {
+    "adv": "Sustain Studio",
+    "kind": "adlibrary",
+    "narr": "Reklama sugeruje pilność sytuacji, wykorzystując wizerunek osoby w formalnym str"
+   },
+   {
+    "adv": "Sustain Studio",
+    "kind": "adlibrary",
+    "narr": "Reklama wykorzystuje wizerunek nadawcy informacyjnego do sugerowania pilności lu"
+   },
+   {
+    "adv": "FB.ME",
+    "kind": "adlibrary",
+    "narr": "Reklama wykorzystuje wizerunek prezentera newsowego w stylu Interii, aby zaintry"
+   },
+   {
+    "adv": "ineptsolidoval.top",
+    "kind": "feed",
+    "narr": "Reklama podszywa się pod autorytet medyczny i używa logo TVN24, aby obiecać użyt"
+   }
+  ]
+ },
+ "d1": {
+  "screenshot_kind": "feed",
+  "advertiser": "Formal Favorable",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO\nWTOREK, 20:10 — WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "paweł kukiz"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że Paweł Kukiz będzie uczestniczył w ważnym wydarzeniu politycznym transmitowanym na żywo w Warszawie.",
+  "all_screens": [
+   {
+    "adv": "Formal Favorable",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że Paweł Kukiz będzie uczestniczył w ważnym wydarzeniu polityc"
+   }
+  ]
+ },
+ "d36": {
+  "screenshot_kind": "feed",
+  "advertiser": "El John Production",
+  "library_id": null,
+  "text": "LICZBA POZOSTAŁYCH MIEJSC 99",
+  "overlay": "ODBIERCIE OD WIKARÓW NASZE PIENIĄDZE\nPIENIĄDZE DLA POLAKÓW",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznani politycy",
+   "nieznani uczestnicy debaty"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że politycy odbierają pieniądze od wikariuszy i przeznacza je dla Polaków, co może być manipulacją emocjonalną w kontekście politycznym.",
+  "all_screens": [
+   {
+    "adv": "El John Production",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że politycy odbierają pieniądze od wikariuszy i przeznacza je "
+   }
+  ]
+ },
+ "d3": {
+  "screenshot_kind": "feed",
+  "advertiser": "EasyJoy",
+  "library_id": null,
+  "text": "Skutki wywiadu z prezesem banku centralnego. Nikt się tego nie spodziewał. Nagranie wciąż jest dostępne — zobacz szybko.",
+  "overlay": "NA ŻYWO\nINCIDENT W CENTRUM WARSZAWY\nZNANE SĄ NOWE SZCZEGÓŁY",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "katarzyna piekarska",
+   "adam glapiński"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "TVN24",
+   "Polsat News"
+  ],
+  "narrative": "Reklama sugeruje, że w centrum Warszawy doszło do incydentu związanego z prezesem NBP, a nowe szczegóły są dostępne w nagraniu.",
+  "all_screens": [
+   {
+    "adv": "EasyJoy",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że w centrum Warszawy doszło do incydentu związanego z prezese"
+   }
+  ]
+ },
+ "d48": {
+  "screenshot_kind": "feed",
+  "advertiser": "Sharon Coleman",
+  "library_id": null,
+  "text": "„KŁAMIECIE MILIONOM POLAKÓW!” — szokujący moment podczas transmisji na żywo",
+  "overlay": "tvn24",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "mateusz morawiecki",
+   "beata szydło",
+   "jarosław kaczyński"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "tvn24"
+  ],
+  "narrative": "Reklama sugeruje, że politycy PiS kłamią milionom Polaków, przedstawiając dramatyczną scenę z udziałem czołowych działaczy partii w studio TVN24.",
+  "all_screens": [
+   {
+    "adv": "Sharon Coleman",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że politycy PiS kłamią milionom Polaków, przedstawiając dramat"
+   }
+  ]
+ },
+ "d61": {
+  "screenshot_kind": "feed",
+  "advertiser": "Glowpixel",
+  "library_id": null,
+  "text": "Dziedzictwo gwiazd dla zwykłych ludzi\nNowe detale zainteresowały media oraz opinię publiczną",
+  "overlay": "AI",
+  "cta": null,
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna"
+  ],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że zwykli ludzie mogą dziedziczyć bogactwo po gwiazdach, co jest nieprawdą i ma na celu wywołanie emocji lub ciekawości.",
+  "all_screens": [
+   {
+    "adv": "Glowpixel",
+    "kind": "feed",
+    "narr": "Reklama sugeruje, że zwykli ludzie mogą dziedziczyć bogactwo po gwiazdach, co je"
+   }
+  ]
+ }
+}

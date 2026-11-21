@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import inspect
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -63,7 +64,10 @@ async def health() -> M.Health:
             redis = f"down: {type(e).__name__}"
     else:
         db = redis = "mock"
-    return M.Health(ok=s.mode == "mock" or (db == "ok" and redis == "ok"), mode=current_mode() if s.mode != "mock" else "mock", db=db, redis=redis, version="0.1.0", counts=s.health_counts())
+    from trop.api.engine_adapter import capture_mode
+    llm = "off" if s.mode == "mock" or current_mode() == "offline" or not (settings.gemini_api_key or settings.openrouter_api_key) else "live"
+    mode = "mock" if s.mode == "mock" else ("offline" if os.environ.get("TROP_NO_LIVE") == "1" else current_mode())   # engine/capture offline; LLM may still be live
+    return M.Health(ok=s.mode == "mock" or (db == "ok" and redis == "ok"), mode=mode, capture="off" if s.mode == "mock" else capture_mode(), llm=llm, db=db, redis=redis, version="0.1.0", counts=s.health_counts())
 
 
 @router.get("/stats/overview", response_model=StatsOverview, tags=["dashboard"])
@@ -119,6 +123,8 @@ async def job(job_id: str):
 def _replay_or_none(replay: str | None, kind: str, jid: str | None, key: str) -> Any:
     if replay is None and settings.trop_replay:
         replay = "demo"
+    if replay == "demo" and get_store().mode != "mock":
+        replay = "live"          # real mode: only recordings of real runs (live-analyze.jsonl, investigation_live.jsonl)
     if replay is None:
         return None
     p = ST.find_recording(replay, kind)

@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:sofiacaruso.com", "status": "ok", "fetched_at": 1795296652.874485, "error": null, "http_status": null}, "data": {"name": "sofiacaruso.com", "A": ["192.254.185.150"], "AAAA": [], "NS": ["ns6305.hostgator.com", "ns6306.hostgator.com"], "MX": ["0 sofiacaruso.com."], "TXT": ["\"v=spf1 a mx include:websitewelcome.com ~all\""]}}
