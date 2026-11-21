@@ -10,10 +10,16 @@ from trop.eval import data
 
 HAVE_LABELS = data.labels_path("labels.yaml") is not None and data.labels_path("labels_dane.yaml") is not None
 HAVE_PRE = (data.exp_dir("sample_v1") / "incidents_all.json").exists() and (data.exp_dir("dane") / "incidents_q36.json").exists()
-HAVE_RAW = data.data_dir().joinpath("raw", "sample_v1").exists() and data.raw_dir("dane").exists()
-HAVE_MODELS = (data.data_dir() / "experiments" / "models" / "sface.onnx").exists()
+HAVE_RAW_S = data.raw_dir("sample_v1").exists()
+HAVE_RAW = HAVE_RAW_S and data.raw_dir("dane").exists()
+HAVE_MODELS = (data.data_dir() / "experiments" / "models" / "sface.onnx").exists() or \
+    (data.exp_dir("joint") / "face_clusters_sface.json").exists()
 
-need_pre = pytest.mark.skipif(not (HAVE_LABELS and HAVE_PRE and HAVE_MODELS), reason="organizer data / labels absent")
+# sample: the drop_har/drop_html perturbations re-extract from the raw folders; DANE: joint SFace face clusters
+need_pre_sample = pytest.mark.skipif(not (HAVE_LABELS and HAVE_PRE and HAVE_RAW_S), reason="organizer data / labels absent")
+need_pre_dane = pytest.mark.skipif(not (HAVE_LABELS and HAVE_PRE and HAVE_MODELS), reason="organizer data / face models absent")
+need_raw_dane = pytest.mark.skipif(not (HAVE_LABELS and HAVE_PRE and HAVE_MODELS and data.raw_dir("dane").exists()),
+                                   reason="raw DANE absent")
 need_raw = pytest.mark.skipif(not (HAVE_LABELS and HAVE_RAW and HAVE_PRE and HAVE_MODELS), reason="raw organizer data absent")
 
 
@@ -58,7 +64,7 @@ def _assert_dane(r):
     assert r["n_joint"] == 24
 
 
-@need_pre
+@need_pre_sample
 def test_sample_precomputed_reproduces_results_2a():
     from trop.eval import cli
     _assert_sample(cli.run(dane=False, source="precomputed")["precomputed"])
@@ -70,13 +76,13 @@ def test_sample_reextracted_reproduces_results_2a():
     _assert_sample(cli.run(dane=False, source="extract")["extract"])
 
 
-@need_pre
+@need_pre_dane
 def test_dane_precomputed_reproduces_results_2b():
     from trop.eval import cli
     _assert_dane(cli.run(dane=True, source="precomputed")["precomputed"])
 
 
-@need_raw
+@need_raw_dane
 def test_dane_reextracted_reproduces_results_2b():
     from trop.eval import cli
     _assert_dane(cli.run(dane=True, source="extract")["extract"])

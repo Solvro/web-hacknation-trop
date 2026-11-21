@@ -8,6 +8,7 @@ from __future__ import annotations
 import copy
 import os
 from collections import defaultdict
+from pathlib import Path
 
 from trop.engine import cluster, evidence
 
@@ -85,13 +86,54 @@ def _ablation(incs, gold, raw, dup_of, ids) -> list[dict]:
 
 
 # ------------------------------------------------------------------------------------------------ DANE (§2b)
-def joint_face_clusters(incs: list[dict], models_dir: str | None = None, thr: float = 0.45) -> dict[str, list[str]]:
+def models_dir() -> str | None:
+    from trop.config import settings
+    for d in (data_dir() / "experiments" / "models", Path(settings.models_dir)):
+        if (d / "sface.onnx").exists() and (d / "yunet.onnx").exists():
+            return str(d)
+    return None
+
+
+FACE_CACHE = "face_clusters_sface.json"
+
+
+def joint_face_clusters(incs: list[dict], models: str | None = None, thr: float = 0.45) -> dict[str, list[str]]:
+    """Joint SFace face clusters; computed when the ONNX models are present (and cached under
+    experiments/joint/face_clusters_sface.json), else read from that cache (only cross-incident clusters matter:
+    a face label seen in one incident never produces evidence)."""
+    import json
+    ids = sorted(i["id"] for i in incs)
+    cache_p = data_dir() / "experiments" / "joint" / FACE_CACHE
+    m = models or models_dir()
+    if m is None:
+        if not cache_p.exists():
+            raise FileNotFoundError("SFace/YuNet models and face-cluster cache both absent")
+        c = json.load(open(cache_p))
+        out = {k: v for k, v in c["shared"].items() if k in ids}
+        cnt: dict = defaultdict(int)
+        for v in out.values():
+            for x in set(v):
+                cnt[x] += 1
+        return {k: [x for x in v if cnt[x] > 1] for k, v in out.items() if any(cnt[x] > 1 for x in v)}
+    res = _joint_face_clusters(incs, m, thr)
+    try:
+        prev = json.load(open(cache_p)) if cache_p.exists() else {}
+        if len(ids) >= len(prev.get("ids", [])):
+            shared = {k: v for k, v in res.items() if any(set(v) & set(res[o]) for o in res if o != k)}
+            cache_p.parent.mkdir(parents=True, exist_ok=True)
+            json.dump({"ids": ids, "shared": shared, "thr": thr}, open(cache_p, "w"), indent=1)
+    except OSError:
+        pass
+    return res
+
+
+def _joint_face_clusters(incs: list[dict], models_dir: str, thr: float = 0.45) -> dict[str, list[str]]:
     """run_dane_eval.py's joint SFace face clustering: first ad screenshot of every incident, YuNet detect, SFace
     embed, link faces of different incidents at cos >= 0.45, label = face<k>. Returns {incident_id: [face labels]}."""
     import cv2
     import numpy as np
 
-    m = models_dir or str(data_dir() / "experiments" / "models")
+    m = models_dir
     det = cv2.FaceDetectorYN.create(os.path.join(m, "yunet.onnx"), "", (320, 320), score_threshold=0.75)
     rec = cv2.FaceRecognizerSF.create(os.path.join(m, "sface.onnx"), "")
 

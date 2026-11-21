@@ -1,0 +1,39 @@
+{
+ "model_version": "engine@1",
+ "method": "isotonic (linear interpolation between breakpoints)",
+ "fitted_on": "all pairs of the labelled incidents (sample_v1 + DANE), score_campaign",
+ "n_pairs": 276,
+ "n_pos": 31,
+ "n_neg": 245,
+ "isotonic": {
+  "x": [
+   -5.186,
+   1.31,
+   1.441,
+   3.917,
+   7.645,
+   68.47
+  ],
+  "y": [
+   0.0,
+   0.0,
+   0.3529,
+   0.3529,
+   1.0,
+   1.0
+  ]
+ },
+ "platt": {
+  "a": 1.316,
+  "b": -4.2667
+ },
+ "clip": [
+  0.01,
+  0.99
+ ],
+ "summary": {
+  "pos_min": 1.441,
+  "neg_max": 3.917,
+  "p_at_tau": 0.541
+ }
+}

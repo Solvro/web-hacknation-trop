@@ -65,7 +65,10 @@ def dane_inputs(source: str) -> tuple[list[dict], list[dict]]:
     if source == "precomputed":
         return data.load_precomputed("sample_v1", DANE_PRECOMPUTED), data.load_precomputed("dane", DANE_PRECOMPUTED)
     kw = dict(ad_model="qwen36-35b-a3b", phash="cache_only", faces="none", live=False)
-    return data.extract_corpus("sample_v1", **kw), data.extract_corpus("dane", **kw)
+    # raw sample_v1 may be absent (22:10 data loss): then the known side is the precomputed sample, DANE re-extracted
+    S = data.extract_corpus("sample_v1", **kw) if data.raw_dir("sample_v1").exists() else \
+        data.load_precomputed("sample_v1", DANE_PRECOMPUTED)
+    return S, data.extract_corpus("dane", **kw)
 
 
 def run(dane: bool = False, source: str = "both", robustness: bool = True, ablation: bool = False) -> dict:

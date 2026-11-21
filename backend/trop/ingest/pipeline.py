@@ -68,10 +68,11 @@ def _try_capture(url: str, workdir: Path) -> Path | None:
 
 
 def build_incident(src: str | Path | Item, inc_id: str | None = None, *, emit=None,
-                   opts: IngestOptions | None = None, workdir: Path | None = None) -> dict:
+                   opts: IngestOptions | None = None, workdir: Path | None = None, df: dict | None = None,
+                   n: int = 0) -> dict:
     from trop.engine.progress import Steps
     opts = opts or IngestOptions()
-    steps = Steps(emit)
+    steps = Steps(emit, df, n)
     old_live = os.environ.get("TROP_NO_LIVE")
     if opts.live is False:
         os.environ["TROP_NO_LIVE"] = "1"
