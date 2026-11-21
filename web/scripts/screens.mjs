@@ -36,12 +36,35 @@ const SHOTS = [
   ['05-kampanie-phone', '/kampanie', 2500, { width: 390, height: 844 }],
 ];
 
+// SET=real: the jury path against the real API (ZIP=<path to a DANE item zipped>)
+const ZIP = process.env.ZIP;
+const upload = async (p) => { await p.waitForTimeout(2500); await p.setInputFiles('input[accept*=".zip"]', ZIP); await p.click('button[type=submit]'); await p.waitForURL(/analiza/); };
+const REAL = [
+  ['r01-sprawdz', '/', 4000],
+  ['r02-analiza', '/', async (p) => { await upload(p); await p.waitForTimeout(3500); }],
+  ['r03-raport', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.waitForTimeout(1500); }],
+  ['r04-graf', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(2500); }],
+  ['r04a-graf-wezel', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(1200); await p.locator('.mv button').first().click(); await p.waitForTimeout(3000); }],
+  ['r04b-graf-wezel2', '/', async (p) => { await upload(p); await p.waitForSelector('#rp-verdict', { timeout: 60000 }); await p.click('button:has-text("Graf")'); await p.waitForTimeout(1200); await p.locator('.mv button').nth(1).click(); await p.waitForTimeout(3000); }],
+  ['r03b-raport-p1', '/analiza/p1', 4000],
+  ['r05-kampanie', '/kampanie', 3000],
+  ['r06-kampania', '/kampanie/KMP-001', 4000],
+  ['r07-zgloszenie', '/kampanie/KMP-001/zgloszenie', 4000],
+  ['r09-sledztwo', '/sledztwa?seed=dorquesio.click&kampania=KMP-001', async (p) => { await p.waitForURL(/sledztwa\/[^?]/, { timeout: 30000 }); await p.waitForTimeout(8000); }],
+  ['r09b-sledztwa', '/sledztwa', 3000],
+  ['r14-slad', '/slad/osoba/rafa%C5%82%20brzoska', 4000],
+  ['r14b-slad-domena', '/slad/domena/dorquesio.click', 4000],
+  ['r15-lab', '/lab', 4000],
+  ['r16-sprawdz-public', '/sprawdz', 4000],
+  ['r01-sprawdz-phone', '/', 4000, { width: 390, height: 844 }],
+  ['r03-raport-phone', '/analiza/p1', 4000, { width: 390, height: 844 }],
+];
 const only = process.argv.slice(2);
 const exe = process.env.CHROME || [
   `${process.env.HOME}/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome`,
 ].find((p) => fs.existsSync(p));
 const browser = await chromium.launch({ executablePath: exe, args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-const jobs = SHOTS.filter(([n]) => !only.length || only.some((o) => n.startsWith(o)));
+const jobs = (process.env.SET === 'real' ? REAL : SHOTS).filter(([n]) => !only.length || only.some((o) => n.startsWith(o)));
 for (const [name, url, wait, vp] of jobs) {
   const page = await browser.newPage({ viewport: vp || { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
   const errors = [];

@@ -17,7 +17,7 @@ const TERMINAL = new Set(['job.done', 'investigation.done']);
 export interface StreamOpts {
   /** path under /api/v1, e.g. `/jobs/JOB-1/stream` */
   path: string | null;
-  replay?: boolean;
+  replay?: boolean | string;
   /** events to play when the live stream is unavailable */
   simulate?: () => TimedEvent[];
   /** force simulation (local ids) */
@@ -25,9 +25,13 @@ export interface StreamOpts {
   speed?: number;
   onEvent: (ev: Event) => void;
   onSource?: (src: 'live' | 'replay' | 'simulated') => void;
+  /** the live stream could not be opened (no events before the first error) */
+  onFail?: () => void;
 }
 
-export function useEventStream({ path, replay, simulate, local, speed = 1, onEvent, onSource }: StreamOpts) {
+export function useEventStream({ path, replay, simulate, local, speed = 1, onEvent, onSource, onFail }: StreamOpts) {
+  const failCb = useRef(onFail);
+  failCb.current = onFail;
   const cb = useRef(onEvent);
   cb.current = onEvent;
   const srcCb = useRef(onSource);
@@ -49,11 +53,14 @@ export function useEventStream({ path, replay, simulate, local, speed = 1, onEve
       }
     };
 
-    if (local || isOffline() || typeof EventSource === 'undefined') {
+    // simulation only for explicit offline demo ids; never as a silent fallback for a real stream
+    if (local || isOffline()) {
       runSim();
+    } else if (typeof EventSource === 'undefined') {
+      failCb.current?.();
     } else {
       let got = false;
-      const url = API + path + (replay ? (path.includes('?') ? '&' : '?') + 'replay=demo' : '');
+      const url = API + path + (replay ? (path.includes('?') ? '&' : '?') + `replay=${encodeURIComponent(typeof replay === 'string' ? replay : 'demo')}` : '');
       es = new EventSource(url);
       srcCb.current?.(replay ? 'replay' : 'live');
       const handle = (m: MessageEvent) => {
@@ -69,7 +76,7 @@ export function useEventStream({ path, replay, simulate, local, speed = 1, onEve
       es.onmessage = handle;
       es.onerror = () => {
         if (closed) return;
-        if (!got) { es?.close(); es = null; runSim(); }
+        if (!got) { es?.close(); es = null; failCb.current?.(); }
         // after events started, EventSource retries on its own; a finished stream is closed above.
       };
     }

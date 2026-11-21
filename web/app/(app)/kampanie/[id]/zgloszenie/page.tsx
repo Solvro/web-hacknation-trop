@@ -48,25 +48,39 @@ export default function ZgloszeniePage() {
   const [text, setText] = useState('');
   const [confirm, setConfirm] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [fail, setFail] = useState<string | null>(null);
+  const [sendErr, setSendErr] = useState<string | null>(null);
   const dlg = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     if (!c || pkg) return;
     apiPost<ActPackage>('/act/packages', { campaign_id: c.id, kind: 'bundle', recipients: ['meta_dsa', 'certpl', 'google'] }, () => localDraft(c))
-      .catch(() => localDraft(c))
-      .then((p) => { const d = localDraft(c); const merged = { ...d, ...p, parts: p.parts?.length ? p.parts : d.parts, notice_text: p.notice_text || d.notice_text }; setPkg(merged); setText(merged.notice_text ?? ""); });
+      .then((p) => { setPkg(p); setText(p.notice_text ?? ''); })
+      .catch((e: Error) => setFail(e.message));
   }, [c, pkg]);
 
+  if (fail) return (
+    <Page>
+      <Crumbs items={[{ label: 'Kampanie', href: '/kampanie' }, { label: id, href: `/kampanie/${id}` }, { label: 'Nowe zgłoszenie' }]} />
+      <div className="rounded-[22px] border border-dashed border-line2 bg-bg2 p-8 text-center flex flex-col items-center gap-2">
+        <b className="text-[17px]">Nie udało się przygotować pakietu</b>
+        <span className="text-[14px] text-tx3 max-w-[520px]">Serwer odpowiedział: {fail}. Spróbuj ponownie za chwilę.</span>
+        <button type="button" className="btn-sec btn-sm mt-2" onClick={() => { setFail(null); setPkg(null); }}>Spróbuj ponownie</button>
+      </div>
+    </Page>
+  );
   if (!c || !pkg) return <Loading />;
   const nRec = Object.values(rec).filter(Boolean).length;
   const cnt = pkg.contents ?? {};
-  const countFor = (rid: string) => rid === 'meta_dsa' ? `${n(cnt.ads ?? 0)} reklam · ${n(cnt.advertisers ?? 0)} kont` : rid === 'certpl' ? `${n(cnt.domains ?? 0)} domen` : `${n(cnt.domains ?? 0)} domen`;
+  const countFor = (rid: string) => rid === 'meta_dsa' ? `${n(cnt.ads ?? 0)} reklam · ${n(cnt.advertisers ?? 0)} kont` : rid === 'certpl' ? `${n(cnt.certpl_new ?? cnt.domains ?? 0)} domen` : `${n(cnt.domains ?? 0)} domen`;
   const dl = (fmt: string) => (isOffline() || pkg.id === 'ACT-local' ? undefined : `${API}/act/packages/${pkg.id}/download?format=${fmt}`);
 
   async function send() {
     setBusy(true);
-    await apiPost(`/act/packages/${pkg!.id}/submit`, { confirm: true, recipients: Object.keys(rec).filter((k) => rec[k]), notice_text: text }, () => ({ ...pkg, status: 'sent' })).catch(() => null);
-    router.push(`/kampanie/${id}?zgloszono=1`);
+    const ok = await apiPost(`/act/packages/${pkg!.id}/submit`, { confirm: true, recipients: Object.keys(rec).filter((k) => rec[k]), notice_text: text }, () => ({ ...pkg, status: 'sent' }))
+      .then(() => true).catch((e: Error) => { setSendErr(e.message); return false; });
+    setBusy(false);
+    if (ok) router.push(`/kampanie/${id}?zgloszono=1`);
   }
 
   return (
@@ -76,7 +90,7 @@ export default function ZgloszeniePage() {
         <ReportHeader
           title="Zgłoś całą kampanię naraz"
           lead={`Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami i dowodami, zamiast ${n(cnt.ads ?? c.n_incidents)} osobnych.`}
-          meta={`${c.id} ${campaignTitle(c)} · ${n(cnt.ads ?? 0)} reklam · ${n(cnt.domains ?? 0)} domen · ${n(cnt.advertisers ?? 0)} reklamodawców`}
+          meta={`${campaignTitle(c).length <= 28 ? `${c.id} ${campaignTitle(c)}` : c.id} · ${n(cnt.ads ?? 0)} reklam · ${n(cnt.domains ?? 0)} domen · ${n(cnt.advertisers ?? 0)} reklamodawców`}
           primary={<button type="button" className="btn-pri" disabled={!nRec} onClick={() => { setConfirm(false); dlg.current?.showModal(); }}>Wyślij {nRec} {nRec === 1 ? 'zgłoszenie' : 'zgłoszenia'}<IArrow /></button>}
           secondary={<span className="text-[12.5px] text-tx3 max-w-[300px] sm:text-right">Demo: pakiet zostanie przygotowany i wyeksportowany, nic nie wyjdzie na zewnątrz.</span>}
         />
@@ -128,6 +142,7 @@ export default function ZgloszeniePage() {
           <label className="flex items-center gap-2.5 text-[14px]"><input type="checkbox" checked={confirm} onChange={(e) => setConfirm(e.target.checked)} className="w-[18px] h-[18px] accent-black" />Sprawdziłem odbiorców i treść</label>
           <div className="flex gap-2 justify-end">
             <button type="submit" className="btn-sec btn-sm">Anuluj</button>
+            {sendErr && <span role="alert" className="text-[13px] text-state-red self-center mr-auto">{sendErr}</span>}
             <button type="button" className="btn-pri btn-sm" disabled={!confirm || busy} onClick={send}>{busy ? 'Przygotowuję…' : 'Potwierdź'}</button>
           </div>
         </form>

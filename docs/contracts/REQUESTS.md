@@ -25,6 +25,16 @@ No blocking schema change needed; everything fits `schema.py` as is. Notes for t
 
 # WS3 (web) contract requests
 
+**Round 2 (real mode, 21.11 late):** the fixture fallback in point 2 is gone — fixtures only with `?offline=1` /
+`NEXT_PUBLIC_MOCK=1`. Focus ids: the web sends `ev:<field>:<value>` for an evidence chip and resolves it itself
+against `GET /graph` (exact id → `trace:<field>s:<value>` / any id ending in `:<value>` → `person:<lower name>` →
+`d:<domain>` for URL/cert fields), then calls `/graph?focus=<real node id>`; unresolved → intentional empty state.
+`trace:<type>:<value>` with the engine field name (plural or singular) works with this. Please: (a) `side:'right'` only on
+incident centres (the web ignores it elsewhere), (b) a freshly analysed incident as a graph node (today `focus=INC-…`
+404s, the web shows it as the origin card without edges), (c) Polish `narrative`/`description` in real mode (the web hides
+English narratives and uses `name` as the headline), (d) `GET /act/packages?campaign_id=` should filter (the web filters
+client-side meanwhile), (e) `oracle/predictions?campaign=` should filter (same).
+
 The web works against today's API with local adapters (web/lib/graph.ts, web/lib/mock/*). These would remove them.
 
 1. **`GET /graph?focus=<id>` returns the neighbourhood, not the whole graph** (focus node + origin + ≤ 6 direct

@@ -72,7 +72,7 @@ export function Bars({ data, labels, highlightLast = true, h = 140, label, marke
 }
 
 export function Initials({ name }: { name: string }) {
-  const s = name.replace(/[«»„”dr. ]+/g, ' ').trim().split(/\s+/).map((x) => x[0]).join('').slice(0, 2).toUpperCase();
+  const s = name.replace(/^dr\.?\s+/i, '').replace(/[«»„”.]+/g, ' ').trim().split(/\s+/).map((x) => x[0]).join('').slice(0, 2).toUpperCase();
   return <span aria-hidden="true" className="w-8 h-8 flex-none rounded-full bg-bg4 text-[11px] font-semibold text-tx2 inline-flex items-center justify-center">{s}</span>;
 }
 

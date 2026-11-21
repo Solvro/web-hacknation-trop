@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { Campaign, Decision, EvidenceItem, GraphPayload, IncidentSummary, JobStep } from '@/lib/contracts';
-import { BOT_BY_KEY, BOT_BY_STEP, LAYER_LABEL, botColor, botName, evidenceMeta, evidenceSentence, n, p2, secs, w1 } from '@/lib/copy';
+import { isPolish, prettyEv, BOT_BY_KEY, BOT_BY_STEP, LAYER_LABEL, botColor, botName, evidenceMeta, evidenceSentence, n, p2, secs, w1 } from '@/lib/copy';
 import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle, focusIdOf as fid } from '@/lib/graph';
-import { campaignCloud } from '@/lib/mock/graph';
 import { Bot } from '../jelly';
 import { EvidenceChip } from '../evidence-chip';
 import { GraphCloud } from '../graph/cloud';
@@ -15,7 +14,11 @@ import { IArrow, ICheck, IChev, IGraph, IList } from '../icons';
 export function storyOf(c?: Campaign | null): { h1: string; p: string } {
   const d = c?.description ?? '';
   if (d.includes('\n')) { const [h1, ...rest] = d.split('\n'); return { h1, p: rest.join(' ') }; }
-  return { h1: (c?.narrative ?? '').replace(/\.$/, ''), p: d };
+  // real mode: Polish descriptive name, English engine narrative → headline from the name, no English lead
+  const pl = (t: string) => isPolish(t);
+  const narrative = (c?.narrative ?? '').replace(/\.$/, '');
+  if (narrative && pl(narrative)) return { h1: narrative, p: d && d !== c?.narrative && pl(d) ? d : '' };
+  return { h1: c?.name ?? narrative, p: d && pl(d) && d !== c?.name ? d : '' };
 }
 
 export function ReportHeader({ title, lead, meta, primary, secondary }: { title: string; lead?: string; meta: string; primary?: React.ReactNode; secondary?: React.ReactNode }) {
@@ -148,7 +151,7 @@ export interface ReportProps {
 export function Report({ decision: d, campaign, incident, steps, names, view, onView, onFocus, focusView }: ReportProps) {
   const cid = d.campaign_id ?? d.candidate_campaign_id ?? '';
   const story = storyOf(campaign);
-  const ev = d.evidence ?? [];
+  const ev = (d.evidence ?? []).map(prettyEv).sort((a, b) => (b.state === 'zero' ? -1 : 0) - (a.state === 'zero' ? -1 : 0) || Math.abs(b.weight) - Math.abs(a.weight));
   const cards = ev.slice(0, 6);
   const isGraf = view === 'graf';
   const total = steps?.reduce((a, s) => a + (s.duration_ms ?? 0), 0);
@@ -156,14 +159,13 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
   const cloud = useMemo(() => {
     if (!cloudRaw) return undefined;
     const members = cloudRaw.nodes.filter((x) => x.kind === 'incident' && (x.campaign_id === cid || cloudRaw.edges.some((e) => (e.a === cid && e.b === x.id) || (e.b === cid && e.a === x.id))));
-    // the API may return the whole graph with few incidents; the cloud needs the campaign's materials
-    if (members.length < 5) return campaignCloud(cid);
+    if (!members.length) return undefined;
     return { ...cloudRaw, nodes: [{ id: cid, kind: 'campaign' as const, label: cid }, ...members], edges: members.map((m) => ({ a: cid, b: m.id, type: 'member' as const })) };
   }, [cloudRaw, cid]);
   const op = d.operator_id ?? campaign?.operator_id;
   const ru = d.runner_up;
-  const stageH = Math.max(isGraf ? 600 : 700, 36 + cards.length * 76 + 90, isGraf ? 20 + cards.length * 96 + 20 : 0);
-  const metaLine = [cid && `${cid} ${campaignTitle(campaign)}`.trim(), campaign && `${n(campaign.n_incidents)} reklam`, campaign && `${n(campaign.n_domains)} domen`, d.incident_id, incident?.domain].filter(Boolean).join(' · ');
+  const stageH = Math.max(isGraf ? 600 : 620, 36 + cards.length * 76 + 90, isGraf ? 20 + cards.length * 96 + 20 : 0);
+  const metaLine = [cid, campaign && `${n(campaign.n_incidents)} materiałów`, campaign && `${n(campaign.n_domains)} domen`, d.incident_id, incident?.domain].filter(Boolean).join(' · ');
 
   return (
     <main className="relative z-[1] w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 box-border">
@@ -172,10 +174,10 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
         lead={story.p}
         meta={metaLine}
         primary={<Link className="btn-pri" href={`/kampanie/${encodeURIComponent(cid)}`}>Otwórz kampanię<IArrow /></Link>}
-        secondary={<Link className="lnk" href={`/sledztwa?seed=${encodeURIComponent(incident?.domain ?? '')}&kampania=${encodeURIComponent(cid)}`}>albo szukaj reszty z agentem</Link>}
+        secondary={<Link className="lnk" href={incident?.domain ? `/sledztwa?seed=${encodeURIComponent(incident.domain)}&kampania=${encodeURIComponent(cid)}` : `/sledztwa?kampania=${encodeURIComponent(cid)}`}>albo szukaj reszty z agentem</Link>}
       />
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span className="pill bg-state-gdim text-state-g !h-8 !text-[13.5px]"><ICheck width={12} height={12} />Dołącza do kampanii {cid} · pewność {p2(d.p)}</span>
+        <span className="pill bg-state-gdim text-state-g !h-8 !text-[13.5px]"><ICheck width={12} height={12} />{d.decision === 'confirm' ? 'Dołącza do kampanii (do potwierdzenia)' : 'Dołącza do kampanii'} {cid} · pewność {p2(d.p)}</span>
         {op && <span className="pill bg-bg3 text-tx1 !h-8">operator {op}</span>}
         {ru && <span className="pill bg-bg3 text-tx2 !h-8">następna: {ru.campaign_id} {p2(ru.p)}{ru.same_operator ? ' · ten sam operator' : ''}</span>}
       </div>
@@ -225,23 +227,25 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
             {/* campaign */}
             <article aria-label={`Kampania ${cid}`} className="mv absolute bg-tx1 text-[#FAFAFA] rounded-[22px] p-5 flex flex-col gap-2.5 shadow-dark" style={{ left: 660, top: 190, width: 300, height: 220, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
               <span className="text-[12px] font-medium text-line3">Kampania · dopasowanie {p2(d.p)}</span>
-              <h2 className="m-0 text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}<br />{campaignTitle(campaign)}</h2>
-              <p className="m-0 text-[13.5px] leading-[1.45] text-line2 line-clamp-2">{campaign?.narrative}</p>
+              {campaignTitle(campaign).length > 24
+                ? <h2 className="m-0 flex flex-col gap-1.5"><span className="text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}</span><span className="text-[15px] leading-snug font-semibold line-clamp-2">{campaignTitle(campaign)}</span></h2>
+                : <h2 className="m-0 text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}<br />{campaignTitle(campaign)}</h2>}
+              {campaignTitle(campaign).length <= 24 && <p className="m-0 text-[13.5px] leading-[1.45] text-line2 line-clamp-2">{campaign?.narrative}</p>}
               <div className="mt-auto flex flex-wrap gap-1.5">
                 {op && <button type="button" className="tag" onClick={() => onFocus(op)}>{op}</button>}
                 <Link className="tag !bg-white !text-tx1" href={`/kampanie/${encodeURIComponent(cid)}`}>Otwórz kampanię</Link>
               </div>
             </article>
             {ru && (
-              <div className="mv absolute bg-bg1 border-[1.5px] border-dashed border-[#C4B5FD] rounded-[18px] px-3.5 py-3 flex flex-col gap-1" style={{ left: 690, top: 476, width: 240, height: 92, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
+              <div className="mv absolute bg-bg1 border-[1.5px] border-dashed border-[#C4B5FD] rounded-[18px] px-3.5 py-3 flex flex-col gap-1" style={{ left: 690, top: 476, width: 240, minHeight: 92, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
                 <span className="flex justify-between items-center"><span className="text-[12px] font-medium text-[#6D28D9]">Inna kampania</span><b className="font-mono text-[14px] font-semibold">{p2(ru.p)}</b></span>
-                <Link href={`/kampanie/${ru.campaign_id}`} className="text-[16px] font-semibold tracking-[-0.02em] hover:underline">{names[ru.campaign_id] ?? ru.campaign_id}</Link>
+                <Link href={`/kampanie/${ru.campaign_id}`} className="text-[14px] leading-snug font-semibold tracking-[-0.01em] hover:underline line-clamp-2">{names[ru.campaign_id] ?? ru.campaign_id}</Link>
                 <span className="text-[12.5px] text-tx3">{ru.same_operator ? `ten sam operator ${op ?? ''}` : 'inny operator'}</span>
               </div>
             )}
             {isGraf && (
               <>
-                <GraphCloud data={cloud} onPick={onFocus} className="!absolute left-[970px] top-[110px] w-[222px] h-[340px]" label={`Materiały kampanii ${cid}`} highlight="INC-24702" />
+                <GraphCloud data={cloud} onPick={onFocus} className="!absolute left-[970px] top-[110px] w-[222px] h-[340px]" label={`Materiały kampanii ${cid}`} />
                 <span className="absolute left-[1000px] top-[462px] w-[190px] text-[12px] leading-[1.4] text-tx3">{campaign ? `${n(campaign.n_incidents)} materiałów i ${n(campaign.n_domains)} domen tej kampanii` : ''}</span>
               </>
             )}

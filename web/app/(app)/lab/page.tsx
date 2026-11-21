@@ -79,36 +79,75 @@ function Batch() {
   );
 }
 
+type R = Record<string, unknown>;
+const num = (v: unknown) => (typeof v === 'number' ? v : undefined);
+const PERT: Record<string, string> = {
+  duplicate: 'duplikaty', drop_screenshot: 'bez zrzutu', drop_har: 'bez HAR', drop_html: 'bez HTML', swap_domain: 'zmiana domeny',
+  rotate_tracking: 'nowe piksele', error_502: 'strona 502', full_rotation: 'pełna rotacja',
+};
+
 export default function LabPage() {
   const m = useApi<LabMetrics>('/lab/metrics').data;
   const base = useApi<LabMetrics>('/lab/metrics?view=baselines').data;
+  const loco = useApi<LabMetrics>('/lab/metrics?view=loco').data;
   const abl = useApi<{ layer: string; delta_f1: number }[]>('/lab/ablation').data;
-  const d = (m?.data ?? {}) as Record<string, unknown>;
+  const d = (m?.data ?? {}) as R;
+  // real `trop eval` shape: {n, avglink_tau5:{b3_F1, ARI, pair_P, pair_R, hardneg_viol, …}, pair_auc, loco:{…}}
+  const al = (d.avglink_tau5 ?? {}) as R;
+  const lc = ((d.loco ?? (loco?.data as R | undefined)?.loco) ?? {}) as R;
+  const cards: [string, string][] = d.avglink_tau5 ? [
+    [fmt(al.b3_F1), 'B³ F1 (kampanie)'], [fmt(al.ARI), 'ARI'], [fmt(al.pair_P), 'precyzja par'], [fmt(al.pair_R), 'czułość par'],
+    [String(al.hardneg_viol ?? '—'), 'błędne połączenia (twarde negatywy)'], [fmt(d.pair_auc), 'AUC par'],
+  ] : METRICS.map(([k, l]) => [fmt(d[k]), l]);
+  const grid = ((base?.data as R | undefined)?.avglink_grid ?? []) as R[];
   const rows = ((base?.data as { rows?: { model: string; bcubed_f1: number }[] } | undefined)?.rows) ?? [];
+  const rob = Object.entries(((loco?.data as R | undefined)?.robustness ?? {}) as Record<string, R>);
   return (
     <Page>
       <h1 className="text-[36px] sm:text-[42px] font-semibold tracking-[-0.04em] leading-none pt-3">Lab · metodologia</h1>
-      <p className="text-[15px] text-tx2 -mt-2">Model {m?.model_version ?? '…'}{d.sample ? ' · przykładowe wartości, do podmiany z eval/' : ''}</p>
+      <p className="text-[15px] text-tx2 -mt-2">
+        Model {m?.model_version ?? '…'}{num(d.n) ? ` · ocena na ${d.n} materiałach z etykietami` : ''}{d.sample ? ' · przykładowe wartości' : d.source ? ' · liczby z trop eval' : ''}
+      </p>
+      {!m && <Empty>Ładuję wyniki oceny…</Empty>}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        {METRICS.map(([k, l]) => <div key={k} className="rounded-[18px] border border-line1 p-4"><b className="block text-[28px] font-semibold tracking-[-0.03em]">{fmt(d[k])}</b><span className="text-[12.5px] text-tx3">{l}</span></div>)}
+        {cards.map(([v, l]) => <div key={l} className="rounded-[18px] border border-line1 p-4"><b className="block text-[28px] font-semibold tracking-[-0.03em]">{v}</b><span className="text-[12.5px] text-tx3">{l}</span></div>)}
       </div>
+      {d.loco != null || loco ? (
+        <p className="text-[14px] text-tx2">
+          Leave-one-campaign-out: {fmt(lc.should_link_acc)} poprawnie dołączonych, {fmt(lc.should_not_link_acc)} poprawnie odrzuconych, {String(lc.wrong_assign ?? '—')} błędnych przypisań.
+        </p>
+      ) : null}
       {d.conformal_target != null && <p className="text-[13.5px] text-tx2">Kalibracja: błąd {fmt(d.conformal_achieved)} przy celu {fmt(d.conformal_target)}.</p>}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card title="Porównanie metod">
+        <Card title={grid.length ? 'Próg τ: jakość przy różnych progach' : 'Porównanie metod'}>
+          {grid.map((r) => (
+            <div key={String(r.tau)} className="py-2"><span className="flex justify-between text-[14px]"><span>τ = {String(r.tau)}{r.tau === 5 ? ' (wybrany)' : ''}</span><b className="font-mono">F1 {p2(num(r.b3_F1))} · błędne {String(r.hardneg_viol ?? '—')}</b></span>
+              <span className="block h-2 mt-1 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-tx1 rounded-full" style={{ width: `${(num(r.b3_F1) ?? 0) * 100}%` }} /></span></div>
+          ))}
           {rows.map((r) => (
             <div key={r.model} className="py-2"><span className="flex justify-between text-[14px]"><span>{r.model}</span><b className="font-mono">{p2(r.bcubed_f1)}</b></span>
               <span className="block h-2 mt-1 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-tx1 rounded-full" style={{ width: `${r.bcubed_f1 * 100}%` }} /></span></div>
           ))}
-          {!rows.length && <Empty>Brak danych.</Empty>}
+          {!rows.length && !grid.length && <Empty>Brak danych.</Empty>}
         </Card>
-        <Card title="Ablacja: co się dzieje bez warstwy">
-          {(abl ?? []).map((r) => (
-            <div key={r.layer} className="flex items-center gap-3 py-1.5 text-[14px]"><span className="w-24">{r.layer}</span>
-              <span className="flex-1 h-2 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-state-red rounded-full" style={{ width: `${Math.min(100, Math.abs(r.delta_f1) * 400)}%` }} /></span>
-              <b className="font-mono w-14 text-right">{r.delta_f1.toFixed(2)}</b></div>
-          ))}
-          {!abl?.length && <Empty>Brak danych.</Empty>}
-        </Card>
+        {rob.length > 0 ? (
+          <Card title="Stres-test: co gdy czegoś brakuje">
+            {rob.map(([k, r]) => (
+              <div key={k} className="flex items-center gap-3 py-1.5 text-[14px]"><span className="w-32">{PERT[k] ?? k}</span>
+                <span className="flex-1 h-2 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-tx1 rounded-full" style={{ width: `${(num(r.acc) ?? 0) * 100}%` }} /></span>
+                <b className="font-mono w-28 text-right">{p2(num(r.acc))} · {String(r.wrong_assign ?? 0)} błędnych</b></div>
+            ))}
+          </Card>
+        ) : (
+          <Card title="Ablacja: co się dzieje bez warstwy">
+            {(abl ?? []).map((r) => (
+              <div key={r.layer} className="flex items-center gap-3 py-1.5 text-[14px]"><span className="w-24">{r.layer}</span>
+                <span className="flex-1 h-2 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-state-red rounded-full" style={{ width: `${Math.min(100, Math.abs(r.delta_f1) * 400)}%` }} /></span>
+                <b className="font-mono w-14 text-right">{r.delta_f1.toFixed(2)}</b></div>
+            ))}
+            {!abl?.length && <Empty>Brak danych.</Empty>}
+          </Card>
+        )}
       </div>
       <Batch />
     </Page>

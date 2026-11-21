@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo } from 'react';
 import type { CampaignSummary, Operator, OraclePrediction } from '@/lib/contracts';
 import { useApi } from '@/lib/api';
-import { n, p2 } from '@/lib/copy';
-import { campaignTitle } from '@/lib/graph';
+import { n, p2, plOnly } from '@/lib/copy';
+import { campaignTitle, personName } from '@/lib/graph';
 import { Initials, Loading, Page, Sparkline } from '@/components/ui';
 import { IChevR } from '@/components/icons';
 
@@ -77,12 +77,12 @@ function Kampanie() {
         <section aria-label="Oracle" className="rounded-[22px] border border-[#E9E3FF] bg-[#FAF8FF] p-5 flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill bg-white border border-[#DDD3FF] text-state-violet">Oracle · dziś w nocy</span>
-            <b className="text-[16px] font-semibold">{predicted.length} nowe domeny pasują do znanych kampanii, zanim pojawiła się reklama</b>
+            <b className="text-[16px] font-semibold">{predicted.length} nowe domeny pasują do znanych kampanii lub ich zestawów, zanim pojawiła się reklama</b>
           </div>
           <div className="flex flex-wrap gap-2">
             {predicted.map((o) => (
               <Link key={o.domain} href={`/slad/domena/${o.domain}`} className="inline-flex items-center gap-2 h-10 px-3 rounded-xl border border-line1 bg-white font-mono text-[13px] hover:border-line3">
-                {o.domain} <span className="text-tx4">→</span> <b className="text-state-violet font-semibold">{o.campaign_id} · {p2(o.dna_score)}</b>
+                {o.domain} <span className="text-tx4">→</span> <b className="text-state-violet font-semibold">{all.some((c) => c.id === o.campaign_id) ? o.campaign_id : `rodzina ${o.campaign_id ?? '?'}`} · {p2(o.dna_score)}</b>
               </Link>
             ))}
           </div>
@@ -107,7 +107,7 @@ function Kampanie() {
             <span className="text-[13px] text-tx3 mr-1">Kogo udają</span>
             {persons.map(([p, k]) => (
               <button key={p} type="button" className="chip !pl-1" aria-pressed={osoba === p} onClick={() => set('osoba', osoba === p ? null : p)}>
-                <Initials name={p} />{p} <span className="text-[11px] opacity-70">{k}</span>
+                <Initials name={personName(p)} />{personName(p)} <span className="text-[11px] opacity-70">{k}</span>
               </button>
             ))}
           </div>
@@ -133,7 +133,7 @@ function Kampanie() {
                 const hint = mergeHint(c, all);
                 return (
                   <tr key={c.id} className="border-b border-line1 hover:bg-bg2 cursor-pointer" onClick={() => router.push(`/kampanie/${c.id}`)}>
-                    <td className="py-3.5 px-2"><Link href={`/kampanie/${c.id}`} className="block text-[16px] font-semibold tracking-[-0.01em]" onClick={(e) => e.stopPropagation()}>{c.id} {campaignTitle(c)}</Link><span className="text-[13px] text-tx3">{c.narrative}</span></td>
+                    <td className="py-3.5 px-2"><Link href={`/kampanie/${c.id}`} className="block text-[16px] font-semibold tracking-[-0.01em]" onClick={(e) => e.stopPropagation()}>{c.id} {campaignTitle(c)}</Link><span className="text-[13px] text-tx3">{plOnly(c.narrative)}</span></td>
                     <td className="px-2"><Sparkline data={c.heat?.series_14d ?? []} dashedEmpty label={`Materiały w 14 dni: ${(c.heat?.series_14d ?? []).join(', ')}`} /></td>
                     <td className="px-2"><b className="block text-[18px] font-semibold">{n(c.n_incidents)}</b>
                       <span className={'text-[12.5px] ' + (c.status === 'candidate' && !c.operator_id ? 'text-state-cyan' : t > 5 ? 'text-state-red' : 'text-tx3')}>{c.status === 'candidate' ? (c.operator_id ? 'od wczoraj' : 'nowa dziś') : t > 0 ? `+${Math.round(t)}% w 48 h` : t < 0 ? `${Math.round(t)}% w tygodniu` : 'bez zmian'}</span></td>

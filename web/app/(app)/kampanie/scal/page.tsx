@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import type { CampaignSummary, MergePreview } from '@/lib/contracts';
 import { apiPost, useApi } from '@/lib/api';
-import { botColor, botName, LAYER_LABEL, n } from '@/lib/copy';
+import { botColor, botName, LAYER_LABEL, n, prettyDisplay } from '@/lib/copy';
 import { campaignTitle } from '@/lib/graph';
 import { Bot, JellyRoot } from '@/components/jelly';
 import { ReportHeader } from '@/components/analysis/report';
@@ -72,7 +72,7 @@ function Scal() {
               return (
                 <div key={i} className={'min-h-16 flex items-center gap-3 pl-3.5 pr-4 py-2.5 border rounded-[18px] ' + (diff ? 'border-dashed border-line1 bg-bg2' : 'border-line1 bg-bg1 shadow-soft')}>
                   <Bot color={botColor(e.bot)} size={34} />
-                  <span className="flex-1 min-w-0"><b className={'block text-[14.5px] font-semibold ' + (diff ? 'text-tx2' : '')}>{e.display}</b><span className="text-[12.5px] text-tx3">{botName(e.bot)} · {LAYER_LABEL[e.type].toLowerCase()}{diff ? ' · jedyna różnica' : ''}</span></span>
+                  <span className="flex-1 min-w-0"><b className={'block text-[14.5px] font-semibold ' + (diff ? 'text-tx2' : '')}>{prettyDisplay(e.display)}</b><span className="text-[12.5px] text-tx3">{botName(e.bot)} · {LAYER_LABEL[e.type].toLowerCase()}{diff ? ' · jedyna różnica' : ''}</span></span>
                   {!diff && e.N ? <b className="font-mono text-[14px]">{(e.N ?? 0) <= 200 ? `${e.df} z ${e.N}` : `${n(e.df ?? 0)}/${n(e.N)}`}</b> : null}
                 </div>
               );

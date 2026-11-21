@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useMemo, useState } from 'react';
 import type { Campaign, Event, Investigation, InvestigationNode, InvestigationStep } from '@/lib/contracts';
-import { apiPost, useApi } from '@/lib/api';
+import { apiPost, isOffline, useApi } from '@/lib/api';
 import { BOT_BY_KEY, botName, n } from '@/lib/copy';
 import { useEventStream } from '@/lib/stream';
 import { investigationEvents } from '@/lib/mock/kampanie';
@@ -18,7 +18,7 @@ const BRANCHES = [
   { k: 'urlscan', label: 'urlscan', sub: 'ten sam kit', bot: 'tropiciel' },
   { k: 'adlib', label: 'Ad Library', sub: 'ci sami reklamodawcy', bot: 'zwiadowca' },
   { k: 'certpl', label: 'CERT PL', sub: 'lista ostrzeżeń', bot: 'notariusz' },
-  { k: 'db', label: 'nasza baza', sub: 'już w kampanii', bot: 'archiwista' },
+  { k: 'db', label: 'nasza baza', sub: 'podobne materiały w bazie', bot: 'archiwista' },
   { k: 'content', label: 'treść', sub: 'czyta nowe strony', bot: 'czytelnik' },
 ] as const;
 const TOOL_BOT: Record<string, string> = { crtsh: 'notariusz', dns: 'notariusz', certpl: 'notariusz', urlscan: 'tropiciel', adlibrary: 'zwiadowca', db: 'archiwista', engine: 'czytelnik', oracle: 'archiwista' };
@@ -50,9 +50,11 @@ function Sledztwo() {
   const id = decodeURIComponent(raw);
   const sp = useSearchParams();
   const router = useRouter();
-  const replay = sp.get('replay') === 'demo';
+  const replay = sp.get('replay') || undefined;
   const fast = sp.get('koniec') === '1';
-  const inv = useApi<Investigation>(`/investigations/${encodeURIComponent(id)}`).data;
+  // a freshly started investigation may 404 for a moment: retry the stream (and re-read it) a few times
+  const [attempt, setAttempt] = useState(0);
+  const inv = useApi<Investigation>(`/investigations/${encodeURIComponent(id)}`, [attempt]).data;
   const cid = inv?.campaign_id ?? sp.get('kampania') ?? null;
   const camp = useApi<Campaign>(cid ? `/campaigns/${encodeURIComponent(cid)}` : null).data;
   const [s, setS] = useState<S>({ nodes: [], steps: [], decision: null, done: null, text: '' });
@@ -77,7 +79,9 @@ function Sledztwo() {
       return p;
     });
   }, []);
-  useEventStream({ path: `/investigations/${encodeURIComponent(id)}/stream`, replay, simulate: () => investigationEvents(id), local: id === 'INV-7' && !replay, speed: fast ? 40 : 1, onEvent });
+  const [failed, setFailed] = useState(false);
+  const onFail = useCallback(() => { if (attempt < 5) setTimeout(() => setAttempt((a) => a + 1), 1500); else setFailed(true); }, [attempt]);
+  useEventStream({ path: `/investigations/${encodeURIComponent(id)}/stream${attempt ? `?retry=${attempt}` : ''}`, replay, simulate: () => investigationEvents(id), local: isOffline() && !replay, speed: fast ? 40 : 1, onEvent, onFail });
 
   const last = s.steps[s.steps.length - 1];
   const activeBot = last ? (last.bot ?? TOOL_BOT[String(last.tool).split('.')[0]] ?? 'sedzia') : 'sedzia';
@@ -109,6 +113,22 @@ function Sledztwo() {
 
   const crumbs = <Crumbs items={cid ? [{ label: 'Kampanie', href: '/kampanie' }, { label: cid, href: `/kampanie/${cid}` }, { label: 'Śledztwo' }] : [{ label: 'Śledztwa', href: '/sledztwa' }, { label: id }]} />;
 
+  if (failed && !s.nodes.length && !s.done) {
+    return (
+      <Page>
+        {crumbs}
+        <div className="rounded-[22px] border border-dashed border-line2 bg-bg2 p-8 text-center flex flex-col items-center gap-2">
+          <b className="text-[17px]">Nie udało się połączyć ze śledztwem {id}</b>
+          <span className="text-[14px] text-tx3 max-w-[520px]">Agent mógł już skończyć albo serwer nie odpowiada. {inv?.status === 'done' ? 'Wyniki są zapisane: ' : ''}Spróbuj ponownie albo zacznij nowe śledztwo.</span>
+          <div className="flex gap-2 mt-2">
+            <a className="btn-sec btn-sm" href={`/sledztwa/${encodeURIComponent(id)}?replay=live`}>Odtwórz zapis</a>
+            <a className="btn-pri btn-sm" href="/sledztwa">Nowe śledztwo</a>
+          </div>
+        </div>
+      </Page>
+    );
+  }
+
   // ------------------------------------------------------------------ board 10 · finished
   if (s.done) {
     const shown = uniqNew.slice(0, 6);
@@ -118,10 +138,10 @@ function Sledztwo() {
     const c = camp?.counts ?? {};
     const add = uniqNew.filter((x) => !unchecked[x.id]).length;
     const before: [string, number, number][] = [
-      ['domeny', camp?.n_domains ?? 19, (camp?.n_domains ?? 19) + add],
-      ['materiały', camp?.n_incidents ?? 46, (camp?.n_incidents ?? 46) + (ads && !unchecked[ads.id] ? adsN : 0)],
-      ['reklamodawcy', c.advertisers ?? 11, (c.advertisers ?? 11) + (ads && !unchecked[ads.id] ? 2 : 0)],
-      ['domeny poza listą CERT PL', (camp?.n_domains ?? 19) - (c.certpl_listed ?? 5), (camp?.n_domains ?? 19) - (c.certpl_listed ?? 5) + add],
+      ['domeny', camp?.n_domains ?? 0, (camp?.n_domains ?? 0) + add],
+      ['materiały', camp?.n_incidents ?? 0, (camp?.n_incidents ?? 0) + (ads && !unchecked[ads.id] ? adsN : 0)],
+      ['reklamodawcy', c.advertisers ?? 0, c.advertisers ?? 0],
+      ['domeny poza listą CERT PL', (camp?.n_domains ?? 0) - (c.certpl_listed ?? 0), (camp?.n_domains ?? 0) - (c.certpl_listed ?? 0) + add],
     ];
     return (
       <Page>
@@ -130,7 +150,7 @@ function Sledztwo() {
           title={`Znaleźliśmy ${uniqNew.length} nowych domen${adsN ? ` i ${adsN} reklam` : ''}`}
           lead={`${certNight ? `${certNight === 1 ? 'Jedna domena dostała' : `${['', '', 'Dwie', 'Trzy', 'Cztery'][certNight] ?? certNight} domeny dostały`} certyfikat tej nocy. ` : ''}Żadnej z nowych nie ma jeszcze na liście CERT PL.`}
           meta={`${id} · start ${seed} · ${stepN} kroków`}
-          primary={<button type="button" className="btn-pri" onClick={promote} disabled={busy}>{busy ? 'Dodaję…' : 'Dodaj do kampanii'}<IArrow /></button>}
+          primary={cid ? <button type="button" className="btn-pri" onClick={promote} disabled={busy}>{busy ? 'Dodaję…' : 'Dodaj do kampanii'}<IArrow /></button> : <Link className="btn-pri" href="/kampanie">Wybierz kampanię<IArrow /></Link>}
           secondary={cid ? <Link className="lnk" href={`/kampanie/${cid}/zgloszenie`}>albo zgłoś od razu</Link> : undefined}
         />
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
@@ -148,8 +168,8 @@ function Sledztwo() {
                 </label>
               );
             })}
-            {rest > 0 && <span className="text-[13.5px] text-tx2 underline decoration-line2 underline-offset-4 px-1">i {rest} kolejne domeny z tym samym kitem</span>}
-            {ads && (
+            {rest > 0 && <span className="text-[13.5px] text-tx2 underline decoration-line2 underline-offset-4 px-1">i {rest} {rest === 1 ? 'kolejna domena' : 'kolejne domeny'}</span>}
+            {ads && adsN > 0 && (
               <label className="min-h-16 flex items-center gap-3 px-4 py-2.5 border border-line1 rounded-[18px] bg-bg1 shadow-soft cursor-pointer mt-3">
                 <input type="checkbox" checked={!unchecked[ads.id]} onChange={(e) => setUnchecked({ ...unchecked, [ads.id]: !e.target.checked })} className="w-[18px] h-[18px] accent-black" />
                 <Bot color="#2563EB" size={30} />
@@ -159,9 +179,9 @@ function Sledztwo() {
             )}
           </section>
           <div className="flex flex-col gap-4">
-            <Card title="Kampania po dodaniu">
+            {camp && <Card title={`${camp.id} po dodaniu`}>
               {before.map(([l, a, b]) => <div key={l} className="flex justify-between py-2.5 border-b border-bg4 last:border-0 text-[14px]"><span>{l}</span><span className="font-mono"><span className="text-tx4">{n(a)} → </span><b>{n(b)}</b></span></div>)}
-            </Card>
+            </Card>}
             <Card title="Pominięte">
               {skippedNodes.map((x) => <div key={x.id} className="py-2.5 border-b border-bg4"><b className="block font-mono text-[13.5px] font-medium text-tx2">{x.label}</b><span className="text-[12.5px] text-tx3">{x.status === 'skipped' ? 'pominięta przez ciebie' : 'bez decyzji'} · {(x.meta as { why?: string })?.why ?? ''}</span></div>)}
               {inCamp.length > 0 && <div className="py-2.5"><b className="block font-mono text-[13.5px] font-medium text-tx2">{[...new Set(inCamp.map((x) => x.label))].join(', ')}</b><span className="text-[12.5px] text-tx3">już były w tej kampanii</span></div>}

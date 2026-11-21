@@ -16,10 +16,12 @@ export function useElapsed(start: number, stop: boolean) {
   return (now - start) / 1000;
 }
 
+const kindOf = (s: string) => (/\.zip\b/i.test(s) ? 'ZIP' : /\.har\b/i.test(s) ? 'HAR' : /\.(png|jpe?g|webp|gif)\b/i.test(s) ? 'zrzut' : /\.(mp4|mov|webm)\b/i.test(s) ? 'wideo' : /^https?:|\.[a-z]{2,}\//i.test(s) ? 'link' : 'materiał');
+
 export function MaterialBar({ input, incidentId, note, status, onCancel }: { input: string; incidentId?: string | null; note?: string | null; status: React.ReactNode; onCancel?: () => void }) {
   return (
     <section className="card !rounded-[18px] py-2.5 pl-2.5 pr-3.5 flex items-center gap-3.5" aria-label="Sprawdzany materiał">
-      <span className="ph-img w-[72px] h-[54px] flex-none hidden sm:grid">zrzut</span>
+      <span className="ph-img w-[72px] h-[54px] flex-none hidden sm:grid">{kindOf(input)}</span>
       <span className="flex-1 min-w-0 flex flex-col gap-[3px]">
         <span className="font-mono text-[14px] font-medium truncate">{input}</span>
         <span className="text-[13px] text-tx3 truncate">{[incidentId, note].filter(Boolean).join(' · ') || 'nowy materiał'}</span>
@@ -67,27 +69,31 @@ export function BotStrip({ steps }: { steps: JobStep[] }) {
 const HL_COLOR: Partial<Record<Layer, string>> = { tracking: '#F97316', kit: '#F97316', content: '#14B8A6', persons: '#14B8A6', infra: '#8B5CF6', visual: '#14B8A6' };
 
 /** Stylised captured page with each finding outlined where it was found. */
-export function CapturedPage({ url, headline, evidence, capturing, failed }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean }) {
+export function CapturedPage({ url, headline, evidence, capturing, failed, captureNote }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean; captureNote?: string | null }) {
   const has = (t: Layer) => evidence.some((e) => e.type === t && e.state !== 'missing' && e.state !== 'zero');
   const box = (t: Layer) => ({ boxShadow: `0 0 0 2px ${has(t) ? HL_COLOR[t] : 'transparent'}` });
   const tag = (t: Layer, label: string, extra = '') => (
     <span className={'tagc ' + extra} style={{ background: HL_COLOR[t], opacity: has(t) ? 1 : 0 }}>{label}</span>
   );
-  const capi = evidence.find((e) => e.type === 'tracking');
+  const trk = evidence.find((e) => e.type === 'tracking');
   const cert = evidence.find((e) => e.type === 'infra' && e.state !== 'zero');
-  const host = url.replace(/^https?:\/\//, '');
+  const isUrl = /^https?:\/\//i.test(url) || /^[\w.-]+\.[a-z]{2,}(\/|$)/i.test(url);
+  const host = isUrl ? url.replace(/^https?:\/\//, '') : '';
+  const brand = evidence.find((e) => e.field === 'brands' || e.field === 'brand')?.value;
+  const masthead = (brand || host.split('/')[0] || 'przechwycona strona').toUpperCase();
+  const kit = evidence.find((e) => e.type === 'kit');
   return (
     <div className="relative h-[560px] border border-line1 rounded-[18px] overflow-hidden bg-bg1">
       <div className="h-[30px] flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
         {[0, 1, 2].map((i) => <i key={i} className="w-[7px] h-[7px] rounded-full bg-line2" />)}
-        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host}</span>
+        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host || url}</span>
       </div>
       <div className="pt-4 px-3.5 flex flex-col gap-3">
         <div className="flex justify-between items-center border-b-2 border-tx1 pb-1.5">
-          <b className="text-[15px] font-extrabold tracking-[.12em]">KURIER DNIA</b><span className="text-[10px] text-tx4">21.11.2026</span>
+          <b className="text-[15px] font-extrabold tracking-[.12em] truncate">{masthead}</b>
         </div>
         <p className="hl m-0 px-1.5 py-1 text-[16px] font-bold leading-tight tracking-[-0.01em]" style={box('content')}>
-          {headline || 'PILNE: Jan Kowalski przerywa milczenie po napaści'}{tag('content', 'Treść')}
+          {headline || (capturing ? 'Czytam nagłówek…' : <span className="text-tx4 font-medium">nagłówek strony</span>)}{tag('content', 'Treść')}
         </p>
         <div className="flex gap-2.5">
           <span className="hl w-[92px] h-[92px] flex-none rounded-[10px] bg-bg4 grid place-items-center font-mono text-[10px] text-tx4" style={box('persons')}>
@@ -99,17 +105,17 @@ export function CapturedPage({ url, headline, evidence, capturing, failed }: { u
         </div>
         <span className="flex flex-col gap-[7px]">{[100, 94, 80].map((w, i) => <span key={i} className="gb" style={{ width: `${w}%` }} />)}</span>
         <div className="hl p-2.5 border border-line1 flex flex-col gap-[7px]" style={box('kit')}>
-          <span className="text-[11.5px] font-semibold">Zostaw numer, doradca oddzwoni</span>
+          <span className="text-[11.5px] font-semibold truncate">{kit ? kit.display : 'Formularz na stronie'}</span>
           <span className="h-[22px] rounded-md border border-line1" /><span className="h-[22px] rounded-md border border-line1" />
-          <span className="h-[26px] rounded-md bg-tx1 text-white text-[11px] font-semibold grid place-items-center">Zarejestruj się</span>
+          <span className="h-[26px] rounded-md bg-tx1 text-white text-[11px] font-semibold grid place-items-center">wyślij</span>
           {tag('kit', 'Kit')}
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 px-3 py-2.5 bg-bg2 border-t border-bg4 flex flex-col gap-1.5 font-mono text-[10.5px] leading-tight text-tx2">
-        <span className="font-sans font-semibold text-[11px] text-tx1">Sieć · {has('tracking') ? '212 żądań' : 'zbieram…'}</span>
-        <span>GET {host.split('/')[0]}/ · {failed ? '502' : '200'}</span>
-        <span className="hl px-1 py-0.5" style={box('tracking')}>POST {capi ? capi.value.slice(0, 12) + '…/events' : 'cg-…/events'} · 204{tag('tracking', 'Tracking', '!-top-[9px]')}</span>
-        <span className="hl px-1 py-0.5" style={box('infra')}>TLS · {cert ? cert.display : 'certyfikat'}{tag('infra', 'Infra', '!-top-[9px]')}</span>
+        <span className="font-sans font-semibold text-[11px] text-tx1 truncate">Sieć{captureNote ? ` · ${captureNote.split('\n')[0]}` : capturing ? ' · zbieram…' : ''}</span>
+        {host && <span className="truncate">GET {host.split('/')[0]}/{failed ? ' · brak odpowiedzi' : ''}</span>}
+        <span className="hl px-1 py-0.5" style={box('tracking')}><span className="block truncate">{trk ? trk.display : 'piksele i bramki konwersji'}</span>{tag('tracking', 'Tracking', '!-top-[9px]')}</span>
+        <span className="hl px-1 py-0.5" style={box('infra')}><span className="block truncate">{cert ? cert.display : 'domena i certyfikat'}</span>{tag('infra', 'Infra', '!-top-[9px]')}</span>
       </div>
       <div className="fadeN absolute inset-x-0 bottom-0 top-[30px] bg-white/90 flex flex-col items-center justify-center gap-3 pointer-events-none" style={{ opacity: capturing ? 1 : 0 }}>
         <span className="spin" /><span className="text-[14px] text-tx2">Otwieram stronę w piaskownicy…</span>
@@ -137,7 +143,7 @@ export function FoundCard({ e }: { e: EvidenceItem }) {
         </span>
         <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + (zero ? ' line-through' : '')}>{e.display}</span>
         <span className="text-[12.5px] text-tx3">
-          {zero ? `ma go ${n(e.df ?? 0)} niepowiązanych spraw` : miss ? 'brak w materiale' : e.N ? `${n(e.df ?? 0)} z ${n(e.N)} materiałów ma ten ślad` : ''}
+          {zero ? `ma go ${n(e.df ?? 0)} niepowiązanych spraw` : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
         </span>
       </span>
       <span className="flex-none w-[92px] flex flex-col items-end gap-1.5">

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FORCE_MOCK, useHealth } from '@/lib/api';
+import { useHealth } from '@/lib/api';
 
 const TABS = [
   { href: '/', label: 'Sprawdź', match: (p: string) => p === '/' || p.startsWith('/analiza') || p.startsWith('/slad') },
@@ -18,12 +18,11 @@ export function Logo() {
 }
 
 export function ModePill() {
-  const { health, offline } = useHealth();
-  const demo = FORCE_MOCK || offline || health?.mode === 'mock';
-  if (!health && !offline) return <span className="w-[120px]" aria-hidden="true" />;
-  if (!demo) return <span className="pill bg-state-gdim text-state-g" title="Połączono z API"><span className="w-2 h-2 rounded-full bg-[#22C55E]" />na żywo</span>;
+  const { health, offline, demo, down } = useHealth();
+  if (down) return <span className="pill bg-state-rdim text-state-red" role="status"><span className="w-2 h-2 rounded-full bg-state-red" />API niedostępne</span>;
+  if (!health || !demo) return <span className="w-[120px]" aria-hidden="true" />;
   return (
-    <span className="pill bg-state-adim text-state-amber" title={offline ? 'API niedostępne: dane z lokalnych fikstur' : 'API w trybie mock'}>
+    <span className="pill bg-state-adim text-state-amber" title={offline ? 'Tryb offline: lokalne dane demonstracyjne' : 'API w trybie demonstracyjnym'}>
       <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />demo · dane fikcyjne{offline ? ' · offline' : ''}
     </span>
   );
@@ -55,13 +54,12 @@ export function Header() {
 }
 
 export function Footer() {
-  const { health, offline } = useHealth();
-  const demo = FORCE_MOCK || offline || health?.mode === 'mock';
+  const { demo } = useHealth();
   return (
     <footer className="relative z-[4] mt-auto border-t border-bg4">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-5 flex flex-wrap gap-x-6 gap-y-1 justify-between text-[12.5px] text-tx3">
         <span>TROP · follow the fake · HackNation 2026 · zadanie NASK „Kolekcjoner fejków”</span>
-        <span>{demo ? 'Tryb demo: wszystkie dane są fikcyjne.' : 'Nic nie jest wysyłane bez Twojego potwierdzenia.'}</span>
+        <span>{demo ? 'Tryb demo: wszystkie dane są fikcyjne.' : 'TROP niczego nie wysyła sam: zgłoszenia przygotowujesz i eksportujesz Ty.'}</span>
       </div>
     </footer>
   );
