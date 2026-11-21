@@ -202,3 +202,13 @@ def test_build_messages_mentions_pending_decision():
     ctx.case.decision("d-x", "Q?", ["Dołącz", "Pomiń"])
     m = build_messages(ctx, [], ["focus on certs"], 5, 0.5)
     assert "Pending analyst decision" in m[1]["content"] and "focus on certs" in m[1]["content"]
+
+
+def test_unused_hash_pivots_are_suggested_to_the_model():
+    from trop.agent.loop import suggested_pivots
+    h = [{"tool": "db_search", "args": {"query": SEED}, "view": {"traces": [
+        {"type": "asset_sha256", "value": "b" * 64, "level": "platform"},
+        {"type": "asset_sha256", "value": "a" * 64, "level": "campaign"}]}}]
+    assert suggested_pivots(h) == ["hash:" + "a" * 64, "hash:" + "b" * 64]
+    h.append({"tool": "urlscan_search", "args": {"query": "hash:" + "a" * 64}, "view": {}})
+    assert suggested_pivots(h) == ["hash:" + "b" * 64]

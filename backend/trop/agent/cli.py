@@ -12,7 +12,6 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -42,8 +41,8 @@ def run_cmd(seed: str, budget: int = typer.Option(20, help="step budget (tool ca
             offline: bool = typer.Option(False, help="cache-only: no network, cached LLM + enrichment"),
             planner: str = typer.Option("auto", help="auto (LLM, heuristic fallback) | llm | heuristic"),
             model: str = typer.Option("pro", help="pro | flash | <model id>"),
-            campaign: Optional[str] = typer.Option(None, help="campaign the seed belongs to (statuses 'in_campaign')"),
-            record: Optional[Path] = typer.Option(None, help="also write the SSE replay here (data/replay/*.jsonl format)"),
+            campaign: str | None = typer.Option(None, help="campaign the seed belongs to (statuses 'in_campaign')"),
+            record: Path | None = typer.Option(None, help="also write the SSE replay here (data/replay/*.jsonl format)"),
             captures: int = typer.Option(1, help="sandbox capture budget"),
             verbose: bool = typer.Option(False, "-v")) -> None:
     """Investigate from one seed domain and print the steps live."""

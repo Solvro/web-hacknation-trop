@@ -12,9 +12,9 @@ from __future__ import annotations
 import json
 import logging
 import time
-from typing import Any, Callable, Iterator
+from collections.abc import Callable, Iterator
 
-from .case import LEVEL_RANK, Case, dom_id
+from .case import LEVEL_RANK, dom_id
 from .tools import Ctx, ToolResult, _apex, query_of, run_tool, specs
 
 log = logging.getLogger("trop.agent.loop")
@@ -34,8 +34,10 @@ Evidence levels (strongest first):
 
 Method: start with db_search on the seed (our corpus), pivot on its RAREST operator/campaign traces; pivot outward with
 urlscan_search 'hash:<sha256>' on a rare asset (and on a kit-wide asset only to enumerate kit siblings, which are
-platform-level); crtsh/rdap/dns_ns confirm registration/cert batches and the NS pair; certpl_check tells which domains
-still need reporting; adlib_search finds ads promoting them. Call propose_link to state your judgement (needs_decision
+platform-level); crtsh/rdap/dns_ns confirm registration/cert batches and the NS pair; certpl_check (one call checks
+every candidate: run it AFTER your pivots, before finishing) tells which domains still need reporting; oracle_lookup tells which ones our Oracle predicted. adlib_search is a KEYWORD search over ad texts
+(not links): search once or twice with a distinctive brand/platform word from the page titles, never domain by domain,
+and treat only `domains_with_ads` as proof that a domain is promoted. Call propose_link to state your judgement (needs_decision
 when a candidate matches the kit but conflicts on certificate/hosting or fits another campaign), then finish with 2-4
 conclusions. Be efficient: do not repeat a query, 1-3 tool calls per turn, stay within the step budget.
 Every tool call takes a `why`: one short sentence in Polish. Conclusions are in Polish. Never invent domains or numbers:
@@ -97,6 +99,19 @@ def _state(ctx: Ctx) -> dict:
     }
 
 
+def suggested_pivots(history: list[dict], n: int = 3) -> list[str]:
+    """Rare asset hashes seen in db_search results that no urlscan query has used yet (campaign-level first)."""
+    used = " ".join(str(h["args"].get("query", "")) for h in history if h["tool"] == "urlscan_search")
+    out: list[tuple[int, str]] = []
+    for h in history:
+        if h["tool"] != "db_search":
+            continue
+        for t in (h.get("view") or {}).get("traces") or []:
+            if t.get("type") == "asset_sha256" and t.get("value") and t["value"] not in used:
+                out.append((0 if t.get("level") != "platform" else 1, f"hash:{t['value']}"))
+    return [q for _, q in sorted(dict.fromkeys(out), key=lambda x: x[0])][:n]
+
+
 def build_messages(ctx: Ctx, history: list[dict], notes: list[str], steps_left: int, usd_left: float) -> list[dict]:
     inv = ctx.case.inv
     log_lines = []
@@ -106,10 +121,12 @@ def build_messages(ctx: Ctx, history: list[dict], notes: list[str], steps_left: 
             line += "\n   result: " + json.dumps(h["view"], ensure_ascii=False, default=str)[:3000]
         log_lines.append(line)
     pending = inv.pending_decision
+    sugg = suggested_pivots(history)
     body = (
         f"Seed: {ctx.seed}\nCampaign: {ctx.campaign_id or 'none given'}\n"
         f"Budget left: {steps_left} tool calls, ${usd_left:.2f}.\n"
         f"Case graph now: {json.dumps(_state(ctx), ensure_ascii=False)}\n"
+        + (f"Unused pivots from our corpus (rarest first; try urlscan_search on them): {json.dumps(sugg)}\n" if sugg else "")
         + (f"Pending analyst decision: {json.dumps(pending, ensure_ascii=False)}\n" if pending else "")
         + ("Analyst notes (follow them):\n- " + "\n- ".join(notes) + "\n" if notes else "")
         + ("Tool log:\n" + "\n".join(log_lines) if log_lines else "No tool calls yet.")

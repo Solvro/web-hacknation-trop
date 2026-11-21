@@ -8,9 +8,9 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable
 
 from trop.schema import Event, Investigation, InvestigationNode, InvestigationStep
 
@@ -30,7 +30,7 @@ LEVEL_RANK = {"operator": 3, "campaign": 2, "infra": 1, "platform": 0}
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="milliseconds")
+    return datetime.now(UTC).isoformat(timespec="milliseconds")
 
 
 def dom_id(fqdn: str) -> str:

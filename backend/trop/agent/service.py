@@ -18,9 +18,10 @@ from __future__ import annotations
 
 import json
 import threading
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from trop.config import settings
 from trop.schema import Investigation, InvestigationCreate
@@ -81,7 +82,7 @@ def run_investigation(body: InvestigationCreate | dict | str, emit: Emit | None 
                         budget={"steps": float(b.budget_steps), "used": 0.0, "usd": usd_cap, "usd_used": 0.0},
                         model={"pro": settings.gemini_pro_model, "flash": settings.gemini_flash_model}.get(model, model),
                         tools=tools or [t for t in TOOL_NAMES if t not in ("propose_link", "finish")],
-                        started_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+                        started_at=datetime.now(UTC).isoformat(timespec="seconds"))
     rec = Recorder(record or d / "events.jsonl")
     if record:   # also keep the per-investigation copy
         rec2 = Recorder(d / "events.jsonl")
@@ -116,7 +117,7 @@ def start_investigation(body: InvestigationCreate | dict | str, emit: Emit | Non
     _RUNNING[iid] = (t, control)
     inv = Investigation(id=iid, seed=_apex(b.seed) or b.seed, campaign_id=b.campaign_id, status="running",
                         budget={"steps": float(b.budget_steps), "used": 0.0, "usd": kw.get("usd_cap", 1.0), "usd_used": 0.0},
-                        started_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+                        started_at=datetime.now(UTC).isoformat(timespec="seconds"))
     _save(inv)
     t.start()
     return inv
@@ -127,7 +128,7 @@ def _control(iid: str, cmd: dict) -> dict:
     if not d.exists():
         return {"ok": False, "detail": "investigation not found"}
     with (d / "control.jsonl").open("a", encoding="utf-8") as f:
-        f.write(json.dumps({**cmd, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}, ensure_ascii=False) + "\n")
+        f.write(json.dumps({**cmd, "at": datetime.now(UTC).isoformat(timespec="seconds")}, ensure_ascii=False) + "\n")
     try:
         inv = get_investigation(iid)
         running = inv.status in ("running", "paused")
@@ -193,7 +194,7 @@ def _json_sink(campaign_id: str, investigation_id: str, items: list[dict]) -> in
     with (root() / "promotions.jsonl").open("a", encoding="utf-8") as f:
         for it in items:
             f.write(json.dumps({"campaign_id": campaign_id, "investigation_id": investigation_id, **it,
-                                "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}, ensure_ascii=False) + "\n")
+                                "at": datetime.now(UTC).isoformat(timespec="seconds")}, ensure_ascii=False) + "\n")
     return len(items)
 
 

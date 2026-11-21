@@ -11,7 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -49,8 +49,9 @@ def load_campaign(campaign_id: str) -> dict[str, Any]:
 
 # ============================================================================== real data (labels / DB)
 def _labels_members(cid: str) -> tuple[str, list[str], dict]:
-    from trop.agent.db import experiments_dir
     import yaml
+
+    from trop.agent.db import experiments_dir
     letter = cid.split("-")[-1] if cid.upper().startswith(("LAB-", "KMP-")) else cid
     exp = experiments_dir()
     if exp is None:
@@ -175,7 +176,7 @@ def _merge_promotions(d: dict) -> None:
 def fictional_kmp017() -> dict[str, Any]:
     """Deterministic FICTIONAL dossier: 46 ads, 11 advertisers, 29 domains (19 + 10 from the agent run), 5 on CERT PL."""
     rnd = random.Random(17)
-    base = datetime(2026, 11, 21, 8, 50, tzinfo=timezone.utc)
+    base = datetime(2026, 11, 21, 8, 50, tzinfo=UTC)
     advertisers = ["Ogród i Pasja 24", "Puzzle Mania PL", "Lena Kwiatkowska Sklep", "Domowe Okazje 365", "Kwiaciarnia Pod Lipą",
                    "Rowerowy Zakątek", "Akwarystyka Nemo", "Moda Basi", "Słodkie Wypieki Ewy", "Zoo Market Pruszków",
                    "Antyki u Marka"]

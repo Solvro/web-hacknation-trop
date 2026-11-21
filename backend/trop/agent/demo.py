@@ -10,16 +10,16 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from trop.schema import Investigation
 
-from .case import Case, Recorder
+from .case import Case
 from .loop import Control, run
 from .tools import Ctx
 
-NOW = datetime(2026, 11, 21, 8, 50, tzinfo=timezone.utc)
+NOW = datetime(2026, 11, 21, 8, 50, tzinfo=UTC)
 SEED = "velmoria.click"
 CAMPAIGN = "KMP-017"
 # KMP-017 has 19 domains; these are the ones the investigation touches

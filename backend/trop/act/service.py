@@ -14,9 +14,10 @@ from __future__ import annotations
 
 import json
 import threading
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from trop.config import settings
 from trop.schema import ActPackage, ActPackageCreate, Rule, RuleTest
@@ -57,7 +58,7 @@ def _new_id() -> str:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return datetime.now(UTC).isoformat(timespec="seconds")
 
 
 def _certpl_domains(d: dict, check: Callable[[str], dict] | None) -> list[dict]:
@@ -86,7 +87,7 @@ def create_package(body: ActPackageCreate | dict, *, use_llm: bool = True,
     d = dossier or load_campaign(b.campaign_id)
     if certpl_check is None and not d.get("fictional"):
         try:
-            from trop.enrich.tools import certpl_check as certpl_check  # noqa: PLW0127
+            from trop.enrich.tools import certpl_check as certpl_check
         except Exception:  # noqa: BLE001
             certpl_check = None
     unlisted = _certpl_domains(d, certpl_check)

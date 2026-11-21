@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -17,7 +16,7 @@ app = typer.Typer(help="Act — one takedown package per campaign (DSA art. 16, 
 
 @app.command("package")
 def package(campaign_id: str, kind: str = typer.Option("bundle"), no_llm: bool = typer.Option(False, "--no-llm"),
-            out: Optional[Path] = typer.Option(None, help="also write pdf/json/stix/misp/csv/certpl here"),
+            out: Path | None = typer.Option(None, help="also write pdf/json/stix/misp/csv/certpl here"),
             submit: bool = typer.Option(False, help="mark as 'sent' (prepared + exported + logged; NOTHING is sent)")) -> None:
     """Build the package for a campaign (KMP-017 = fictional demo; LAB-A / A = real labelled campaign A)."""
     from trop.schema import ActPackageCreate
@@ -64,6 +63,6 @@ def rules_cmd(campaign_id: str, test: bool = typer.Option(True)) -> None:
 
 
 @app.command("test-rule")
-def test_rule_cmd(kind: str, body: str, campaign: Optional[str] = typer.Option(None)) -> None:
+def test_rule_cmd(kind: str, body: str, campaign: str | None = typer.Option(None)) -> None:
     from . import service as S
     typer.echo(S.test_rule(kind, body, campaign).model_dump_json())

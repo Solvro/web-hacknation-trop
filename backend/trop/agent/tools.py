@@ -12,9 +12,10 @@ from __future__ import annotations
 import hashlib
 import logging
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
-from typing import Any, Callable
+from datetime import UTC, datetime, timedelta
+from typing import Any
 
 from . import db as _db
 from .case import Case, dom_id
@@ -49,7 +50,7 @@ class Ctx:
     ext: Any = None                          # module/object with crtsh, rdap, dns_ns, urlscan_search, certpl_check, ...
     dbm: Any = _db
     captures_left: int = 1
-    now: Callable[[], datetime] = lambda: datetime.now(timezone.utc)
+    now: Callable[[], datetime] = lambda: datetime.now(UTC)
     _known: dict[str, bool] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
@@ -207,7 +208,7 @@ def _tonight(ctx: Ctx, ts: str | None) -> bool:
         return False
     try:
         t = datetime.fromisoformat(ts.replace("Z", "+00:00"))
-        t = t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+        t = t if t.tzinfo else t.replace(tzinfo=UTC)
         return ctx.now() - t <= timedelta(hours=24)
     except ValueError:
         return False
@@ -412,7 +413,8 @@ def t_oracle(a: dict, ctx: Ctx) -> ToolResult:
             if dom_id(d) in ctx.case.nodes:
                 ctx.case.node(dom_id(d), "domain", d, meta={"oracle": f})
                 ctx.case.edge(oid, dom_id(d), "przewidziana")
-    names = ", ".join(f"{d.split('.')[0]} {str(f.get('seen_at'))[8:10]}.{str(f.get('seen_at'))[5:7]}" for d, f in sorted(flags.items()))
+    names = ", ".join(f"{d.split('.')[0]} {str(f.get('seen_at'))[8:10]}.{str(f.get('seen_at'))[5:7]}" for d, f in sorted(flags.items())[:4])
+    names += f" i {len(flags) - 4} innych" if len(flags) > 4 else ""
     return ToolResult({"checked": len(doms), "flagged": flags},
                       f"Oracle oznaczył wcześniej {len(flags)} z {len(doms)} domen" + (f" ({names})." if flags else "."), produced)
 
@@ -521,7 +523,7 @@ def run_tool(name: str, args: dict, ctx: Ctx) -> ToolResult:
         return ToolResult({"error": f"unknown tool {name}"}, f"Nieznane narzędzie {name}.")
     try:
         return fn(dict(args or {}), ctx)
-    except Exception as e:  # noqa: BLE001  (a failing source must not end the investigation)
+    except Exception as e:
         log.exception("tool %s failed", name)
         return ToolResult({"error": f"{type(e).__name__}: {str(e)[:200]}"}, f"{name}: błąd ({type(e).__name__}).")
 

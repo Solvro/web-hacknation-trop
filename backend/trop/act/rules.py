@@ -51,7 +51,7 @@ def _norm_benign() -> list[dict]:
 
 # ============================================================================== generation
 def _value_shape(v: str) -> str:
-    if re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", v, re.I):
+    if re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", v, re.IGNORECASE):
         return "[0-9a-f-]{36}"
     if re.fullmatch(r"[A-Za-z0-9]+", v):
         return "[A-Za-z0-9]{%d}" % len(v) if len(v) >= 6 else "[A-Za-z0-9]+"

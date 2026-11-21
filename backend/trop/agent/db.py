@@ -30,7 +30,7 @@ LEVEL = {
     "ip": "infra", "asn": "infra", "nameserver": "infra", "registrar": "infra",
 }
 PIVOT_TYPES = tuple(LEVEL)
-DOMAIN_RE = re.compile(r"^(?=.{4,253}$)([a-z0-9-]{1,63}\.)+[a-z]{2,63}$", re.I)
+DOMAIN_RE = re.compile(r"^(?=.{4,253}$)([a-z0-9-]{1,63}\.)+[a-z]{2,63}$", re.IGNORECASE)
 
 
 def is_domain(q: str) -> bool:
