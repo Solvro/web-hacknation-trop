@@ -43,7 +43,7 @@ const SHORT: (e: EvidenceItem) => string = (e) => (e.state === 'zero' ? `${e.dis
 
 function FindCard({ e, graph, onClick }: { e: EvidenceItem; graph: boolean; onClick?: () => void }) {
   const zero = e.state === 'zero';
-  const cls = 'w-full h-16 flex items-center gap-3 pl-3.5 pr-4 border rounded-[18px] text-left ' +
+  const cls = 'w-full min-h-16 py-2 lg:py-0 lg:h-16 flex items-center gap-3 pl-3.5 pr-4 border rounded-[18px] text-left ' +
     (zero ? 'border-dashed border-line1 bg-bg2' : 'border-line1 bg-bg1 shadow-soft') + (onClick ? ' hover:border-line3 transition-colors' : '');
   const inner = (
     <>
@@ -51,7 +51,7 @@ function FindCard({ e, graph, onClick }: { e: EvidenceItem; graph: boolean; onCl
       <span className="flex-1 min-w-0 flex flex-col gap-0.5">
         {graph
           ? <><span className="font-mono text-[13px] font-medium truncate">{SHORT(e)}</span><span className="text-[12.5px] text-tx3 truncate">{botName(e.bot)}</span></>
-          : <><span className={'text-[15px] font-semibold tracking-[-0.01em] truncate ' + (zero ? 'text-tx3' : '')}>{evidenceSentence(e)}</span><span className="text-[12.5px] text-tx3 truncate">{evidenceMeta(e)}</span></>}
+          : <><span className={'text-[15px] font-semibold tracking-[-0.01em] line-clamp-2 break-words lg:block lg:truncate ' + (zero ? 'text-tx3' : '')}>{evidenceSentence(e)}</span><span className="text-[12.5px] text-tx3 truncate">{evidenceMeta(e)}</span></>}
       </span>
       <b className={'flex-none font-mono text-[15px] font-semibold ' + (zero ? 'text-line3' : '')}>{w1(e.weight)}</b>
     </>
@@ -115,14 +115,53 @@ export function MaterialStrip({ incident, incidentId, art }: { incident?: Materi
   );
 }
 
+type Adjudicator = { model?: string; verdict?: string; confidence?: number; rationale?: string[] | string };
+const VERDICT: Record<string, string> = { same: 'ta sama kampania', different: 'raczej inna kampania', unsure: 'nie rozstrzyga', uncertain: 'nie rozstrzyga' };
+const cut = (t: string, k = 150) => (t.length > k ? t.slice(0, k - 1).replace(/\s\S*$/, '') + '…' : t);
+
+/** Why the verdict is what it is: the thresholds (engine) and the language-model judge, at most 3 short bullets each. */
+function WhyPanel({ d }: { d: Decision }) {
+  const x = d as Decision & { adjudicator?: Adjudicator | null; why_not?: { campaign_id?: string; bullets?: string[] }[] | null };
+  const cid = d.campaign_id ?? d.candidate_campaign_id;
+  const engine = (x.why_not ?? []).filter((w) => !cid || w.campaign_id === cid).flatMap((w) => w.bullets ?? [])
+    .filter((b) => !/^Sędzia/i.test(b)).map((b) => b.replace(/\bnajbliższy: /, 'najbliższy materiał: ')).slice(0, 3);
+  const adj = x.adjudicator;
+  const rat = adj ? (Array.isArray(adj.rationale) ? adj.rationale : adj.rationale ? [adj.rationale] : []).flatMap((r) => r.split(/(?<=\.)\s+/)).filter(Boolean).slice(0, 3) : [];
+  if (!engine.length && !adj) return null;
+  return (
+    <section aria-label="Uzasadnienie" className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {engine.length > 0 && (
+        <div className="rounded-[18px] border border-line1 bg-bg1 p-4 min-w-0">
+          <h3 className="text-[15px] font-semibold pb-1.5">{d.decision === 'confirm' ? 'Dlaczego do potwierdzenia' : 'Progi decyzji'}</h3>
+          <ul className="m-0 pl-4 flex flex-col gap-1 text-[13.5px] text-tx2 break-words">{engine.map((b, i) => <li key={i}>{cut(b)}</li>)}</ul>
+        </div>
+      )}
+      {adj && (
+        <div className="rounded-[18px] bg-bg3 p-4 min-w-0 flex gap-3 items-start">
+          <Bot color="#0A0A0A" master size={30} />
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[15px] font-semibold">Uzasadnienie sędziego <span className="font-normal text-tx3 text-[13px]">(model językowy{adj.model ? ` ${adj.model}` : ''})</span></h3>
+            <p className="text-[13.5px] pt-0.5 pb-1.5"><b>{VERDICT[adj.verdict ?? ''] ?? adj.verdict ?? '—'}</b>{adj.confidence != null ? ` · pewność ${p2(adj.confidence)}` : ''}</p>
+            {rat.length > 0 && <ul className="m-0 pl-4 flex flex-col gap-1 text-[13px] text-tx2 break-words">{rat.map((b, i) => <li key={i} title={b}>{cut(b, 120)}</li>)}</ul>}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export function Report({ decision: d, campaign, incident, names, view, onView, onFocus, focusView }: ReportProps) {
   const art = useArtifacts(d.incident_id);
   const cid = d.campaign_id ?? d.candidate_campaign_id ?? '';
   const story = storyOf(campaign);
   const ev = (d.evidence ?? []).map(prettyEv).map((e) => restoreTemplateCase(e, incident)).filter((e) => e.state !== 'missing')
     .sort((a, b) => (b.state === 'zero' ? -1 : 0) - (a.state === 'zero' ? -1 : 0) || Math.abs(b.weight) - Math.abs(a.weight));
-  const cards = ev.slice(0, 6);
-  const rest = ev.slice(cards.length);
+  // counted evidence first; operator-level / shared-platform traces (weight not counted alone) go to their own muted group
+  const counted = ev.filter((e) => e.state !== 'zero');
+  const side = ev.filter((e) => e.state === 'zero');
+  const cards = (counted.length ? counted : side).slice(0, 6);
+  const rest = counted.slice(cards.length);
+  const sideRest = counted.length ? side : side.slice(cards.length);
   const isGraf = view === 'graf';
   const img = hasImages(art);
   const cloudRaw = useApi<GraphPayload>(isGraf && cid ? `/graph?scope=campaign&campaign=${encodeURIComponent(cid)}` : null).data;
@@ -241,10 +280,18 @@ export function Report({ decision: d, campaign, incident, names, view, onView, o
             ) : img ? <div className="pt-2"><MaterialImages art={art} url={incident?.domain ?? d.incident_id} height={380} /></div> : null}
           </div>
 
+          {!isGraf && <WhyPanel d={d} />}
           {!isGraf && rest.length > 0 && (
-            <div className="mt-8">
+            <div className="mt-8 min-w-0">
               <h3 className="text-[15px] font-semibold pb-2">Pozostałe dowody <span className="font-normal text-tx3 text-[13px]">· waga i rzadkość każdego śladu</span></h3>
-              <div className="flex flex-wrap gap-1.5">{rest.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => pick(e)} />)}</div>
+              <div className="flex flex-wrap gap-1.5 min-w-0">{rest.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => pick(e)} />)}</div>
+            </div>
+          )}
+          {!isGraf && sideRest.length > 0 && (
+            <div className="mt-8 min-w-0 rounded-[18px] bg-bg2 border border-dashed border-line1 p-4">
+              <h3 className="text-[15px] font-semibold">Ślady operatora i wspólnej platformy</h3>
+              <p className="text-[13px] text-tx3 pb-2.5">Nie liczą się do kampanii same z siebie: mają je też inne kampanie tego operatora albo wiele niezależnych stron. Wskazują operatora, a kampanię potwierdza dopiero zgodna treść.</p>
+              <div className="flex flex-wrap gap-1.5 min-w-0">{sideRest.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => pick(e)} />)}</div>
             </div>
           )}
         </>

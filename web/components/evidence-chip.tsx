@@ -1,14 +1,15 @@
 // X1 EvidenceChip [TYP][wartość][siła][waga][rzadkość] (rp.css `.ev`).
 import type { EvidenceItem } from '@/lib/contracts';
-import { LAYER_LABEL, botName, n, w1 } from '@/lib/copy';
+import { LAYER_HINT, LAYER_LABEL, SIDE_LEVEL, botName, n, w1 } from '@/lib/copy';
 
 export function EvidenceChip({ e, big, onClick }: { e: EvidenceItem; big?: boolean; onClick?: () => void }) {
   const cls = ['ev', `t-${e.type}`, big ? 'big' : '', e.state === 'conflict' ? 'conf' : '', e.state === 'missing' ? 'miss' : '', e.state === 'zero' ? 'zero' : ''].join(' ');
   const s = e.strength === 'H' ? 'h' : e.strength === 'M' ? 'm' : 'l';
-  const title = `${LAYER_LABEL[e.type]} · ${e.field} · ${e.value}${e.N ? ` · widziane w ${n(e.df ?? 0)} z ${n(e.N)}` : ''}${e.idf ? ` · idf ${e.idf.toFixed(2)}` : ''}${e.bot ? ` · znalazł ${botName(e.bot)}` : ''}`;
+  const lvl = (e as { level?: string | null }).level ?? '';
+  const title = `${LAYER_LABEL[e.type]} (${LAYER_HINT[e.type] ?? ''}) · ${e.display}${e.state === 'zero' ? ` · ${SIDE_LEVEL[lvl] ?? 'nie liczy się do kampanii'}` : ''}${e.N ? ` · widziane w ${n(e.df ?? 0)} z ${n(e.N)}` : ''}${e.idf ? ` · idf ${e.idf.toFixed(2)}` : ''}${e.bot ? ` · znalazł ${botName(e.bot)}` : ''}`;
   const body = (
     <>
-      <span className="t">{LAYER_LABEL[e.type]}</span>
+      <span className="t" title={LAYER_HINT[e.type]}>{LAYER_LABEL[e.type]}</span>
       <span className="v">{e.state === 'missing' ? 'brak' : e.display}</span>
       <span className={`sb ${s}`} aria-label={`siła ${e.strength}`}><i /><i /><i /></span>
       <span className="w">{e.state === 'missing' ? '—' : w1(e.weight)}</span>

@@ -2,7 +2,7 @@
 // Board 2 · Analiza: material bar, six bots, three live columns.
 import { useEffect, useState } from 'react';
 import type { CampaignScore, EvidenceItem, JobStep, Layer } from '@/lib/contracts';
-import { BOTS, BOT_BY_KEY, LAYER_LABEL, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
+import { BOTS, BOT_BY_KEY, LAYER_HINT, LAYER_LABEL, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
 import { Bot } from '../jelly';
 import type { JobState } from '@/lib/use-job';
 import type { Shot } from '@/lib/artifacts';
@@ -73,9 +73,9 @@ const HL_COLOR: Partial<Record<Layer, string>> = { tracking: '#F97316', kit: '#F
 
 /** Stylised captured page with each finding outlined where it was found. */
 const BOX_LAYER: Record<string, { t: Layer; label: string }> = {
-  headline: { t: 'content', label: 'Treść' }, text: { t: 'content', label: 'Treść' }, form: { t: 'kit', label: 'Kit' },
-  iframe: { t: 'kit', label: 'Kit' }, tracking: { t: 'tracking', label: 'Tracking' }, face: { t: 'persons', label: 'Osoby' },
-  person: { t: 'persons', label: 'Osoby' }, logo: { t: 'visual', label: 'Obraz' }, image: { t: 'visual', label: 'Obraz' }, cta: { t: 'kit', label: 'Kit' }, domain: { t: 'infra', label: 'Infra' },
+  headline: { t: 'content', label: 'Treść' }, text: { t: 'content', label: 'Treść' }, form: { t: 'kit', label: 'Zestaw strony' },
+  iframe: { t: 'kit', label: 'Zestaw strony' }, tracking: { t: 'tracking', label: 'Tracking' }, face: { t: 'persons', label: 'Osoby' },
+  person: { t: 'persons', label: 'Osoby' }, logo: { t: 'visual', label: 'Obraz' }, image: { t: 'visual', label: 'Obraz' }, cta: { t: 'kit', label: 'Zestaw strony' }, domain: { t: 'infra', label: 'Infra' },
 };
 
 /** The real rendered page with the findings outlined where they were found (scrollable, scaled to the column). */
@@ -146,7 +146,7 @@ export function CapturedPage({ url, headline, evidence, capturing, failed, captu
           <span className="text-[11.5px] font-semibold truncate">{kit ? kit.display : 'Formularz na stronie'}</span>
           <span className="h-[22px] rounded-md border border-line1" /><span className="h-[22px] rounded-md border border-line1" />
           <span className="h-[26px] rounded-md bg-tx1 text-white text-[11px] font-semibold grid place-items-center">wyślij</span>
-          {tag('kit', 'Kit')}
+          {tag('kit', 'Zestaw strony')}
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 px-3 py-2.5 bg-bg2 border-t border-bg4 flex flex-col gap-1.5 font-mono text-[10.5px] leading-tight text-tx2">
@@ -176,12 +176,12 @@ export function FoundCard({ e }: { e: EvidenceItem }) {
       <Bot color={c} master={e.bot === 'sedzia'} size={34} />
       <span className="flex-1 min-w-0 flex flex-col gap-[3px]">
         <span className="flex items-baseline gap-2">
-          <span className="text-[12px] font-semibold" style={{ color: c }}>{zero ? 'Wspólne' : LAYER_LABEL[e.type]}</span>
+          <span className="text-[12px] font-semibold" style={{ color: c }} title={LAYER_HINT[e.type]}>{zero ? 'Nie liczy się do kampanii' : LAYER_LABEL[e.type]}</span>
           <span className="text-[12px] text-tx4">znalazł {botName(e.bot)}</span>
         </span>
-        <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + (zero ? ' line-through' : '')}>{e.display}</span>
+        <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + ''}>{e.display}</span>
         <span className="text-[12.5px] text-tx3">
-          {zero ? `ma go ${n(e.df ?? 0)} niepowiązanych spraw` : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
+          {zero ? 'ślad operatora albo wspólnej platformy' : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
         </span>
       </span>
       <span className="flex-none w-[92px] flex flex-col items-end gap-1.5">
