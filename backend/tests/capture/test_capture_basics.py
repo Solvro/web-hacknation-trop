@@ -27,6 +27,18 @@ def test_politeness_budget_and_breaker(tmp_trop):
     assert politeness.acquire("other-zz.xyz")[0]
 
 
+def test_capture_mode_env(monkeypatch, tmp_trop):
+    from trop.capture import cli
+    monkeypatch.setenv("TROP_CAPTURE", "off")
+    assert cli.capture_mode(True) == "off"
+    assert cli.capture_url("https://x-zz.xyz/")["error"].startswith("live capture disabled")
+    monkeypatch.setenv("TROP_CAPTURE", "local")
+    assert cli.capture_mode(True) == "local"
+    monkeypatch.delenv("TROP_CAPTURE")
+    assert cli.capture_mode(None) == "sandbox" and cli.capture_mode(False) == "local"
+    assert not cli.capture_url("file:///etc/passwd", docker=False)["ok"]       # only http(s)
+
+
 def test_capture_url_respects_budget(tmp_trop):
     from trop.capture.cli import capture_url
     for _ in range(6):

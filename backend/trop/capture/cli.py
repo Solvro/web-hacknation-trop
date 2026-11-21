@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 import typer
+from urllib.parse import urlsplit
 
 from trop.config import settings
 
@@ -60,18 +61,41 @@ def _run_docker(url: str, out: Path, profiles: list[str], proxy: str | None, fas
     return subprocess.run(cmd).returncode
 
 
+LOCAL_NAV_S, LOCAL_HARD_S = 30, 45          # in-container mode: hard ~45 s per capture, one browser at a time
+
+
 def _run_local(url: str, out: Path, profiles: list[str], proxy: str | None, fast: bool, gap: float) -> int:
-    cmd = [sys.executable, "-m", "trop.capture.worker", url, "--out", str(out), "--gap", str(gap)]
+    """Chromium in a child process (own process group): memory returns to the OS when it exits; killed on timeout."""
+    import signal
+    out.mkdir(parents=True, exist_ok=True)
+    cmd = [sys.executable, "-m", "trop.capture.worker", url, "--out", str(out), "--gap", str(gap),
+           "--nav-timeout", str(LOCAL_NAV_S), "--hard-timeout", str(LOCAL_HARD_S)]
     for p in profiles:
         cmd += ["--profile", p]
     if proxy:
         cmd += ["--proxy", proxy]
     if fast:
         cmd.append("--fast")
-    return subprocess.run(cmd, cwd=BACKEND).returncode
+    p = subprocess.Popen(cmd, cwd=BACKEND, start_new_session=True)
+    try:
+        return p.wait(timeout=LOCAL_HARD_S * len(profiles) + 25)
+    except subprocess.TimeoutExpired:
+        os.killpg(p.pid, signal.SIGKILL)
+        p.wait()
+        return 124
 
 
-def capture_url(url: str, profile: str | list[str] = "fb_inapp_android_pl", docker: bool = True, out: Path | None = None,
+def capture_mode(docker: bool | None = None) -> str:
+    """TROP_CAPTURE=off|sandbox|local overrides; else docker flag (True -> sandbox, False -> local)."""
+    env = os.environ.get("TROP_CAPTURE", "").strip().lower()
+    if env in ("off", "sandbox", "local"):
+        return env
+    if os.environ.get("TROP_CAPTURE_LOCAL") == "1":
+        return "local"
+    return "sandbox" if docker in (None, True) else "local"
+
+
+def capture_url(url: str, profile: str | list[str] = "fb_inapp_android_pl", docker: bool | None = None, out: Path | None = None,
                 proxy: str | None = None, fast: bool = False, gap: float = 20.0, force: bool = False) -> dict[str, Any]:
     """Capture one URL. Enforces the per-eTLD+1 budget. Never submits forms / logs in. -> summary dict (JSON-safe)."""
     from .profiles import PROFILES
@@ -79,14 +103,19 @@ def capture_url(url: str, profile: str | list[str] = "fb_inapp_android_pl", dock
     bad = [p for p in profiles if p not in PROFILES]
     if bad:
         return {"ok": False, "url": url, "error": f"unknown profile {bad}; choose from {sorted(PROFILES)}"}
+    want = capture_mode(docker)
+    if want == "off":
+        return {"ok": False, "url": url, "error": "live capture disabled (TROP_CAPTURE=off)"}
+    if urlsplit(url).scheme not in ("http", "https"):
+        return {"ok": False, "url": url, "error": "only http(s) URLs can be captured"}
     site = etld1_of(host_of(url))
     if not force:
         ok, wait = politeness.acquire(site, cost=len(profiles))
         if not ok:
             return {"ok": False, "url": url, "error": f"politeness budget for {site}: retry in {wait:.0f}s", "retry_in_s": wait}
     out = out or captures_dir()
-    mode = "docker" if docker and docker_available() and ensure_image() else "local"
-    if docker and mode == "local":
+    mode = "docker" if want == "sandbox" and docker_available() and ensure_image() else "local"
+    if want == "sandbox" and mode == "local":
         print("warning: docker unavailable, capturing locally (not isolated)", file=sys.stderr)
     before = {p.name for p in out.glob("archive_*") if p.is_dir()} if out.exists() else set()
     rc = (_run_docker if mode == "docker" else _run_local)(url, out, profiles, proxy, fast, gap)
