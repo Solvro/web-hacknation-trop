@@ -1,0 +1,1 @@
+{"task": "llm:white_rabbit", "chain": ["gemini-pro-latest", "qwen/qwen3.8-27b"], "at": "2026-11-22T00:04:26", "result": {"model": "gemini-pro-latest", "usage": {"prompt_tokens": 4, "completion_tokens": 121}, "cost_usd": 0.00146, "text": "Ok."}}

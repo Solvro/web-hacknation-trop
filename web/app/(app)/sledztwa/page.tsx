@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import type { Investigation } from '@/lib/contracts';
 import { apiPost, useApi } from '@/lib/api';
-import { fmtDate } from '@/lib/copy';
+import { fmtDate, plural } from '@/lib/copy';
 import { Card, Empty, Loading, Page } from '@/components/ui';
 import { IArrow, IChevR } from '@/components/icons';
 
@@ -16,6 +16,11 @@ function Sledztwa() {
   const router = useRouter();
   const { data, loading } = useApi<Investigation[]>('/investigations');
   const [seed, setSeed] = useState(sp.get('seed') || '');
+  const [all, setAll] = useState(false);
+  // newest first; API self-tests (*.test seeds) are not investigations anyone started
+  const list = (data ?? []).filter((i) => !/(^|\.)test$/i.test(String(i.seed ?? '').trim()))
+    .sort((a, b) => String(b.started_at ?? '').localeCompare(String(a.started_at ?? '')) || String(b.id).localeCompare(String(a.id), undefined, { numeric: true }));
+  const shown = all ? list : list.slice(0, 12);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const started = useRef(false);
@@ -49,15 +54,16 @@ function Sledztwa() {
       {err && <p role="alert" className="text-[13.5px] text-state-red -mt-3">{err}</p>}
       <Card title="Ostatnie śledztwa">
         {loading && <Loading />}
-        {(data ?? []).map((i) => (
+        {shown.map((i) => (
           <Link key={i.id} href={`/sledztwa/${i.id}`} className="flex items-center gap-3 py-3 border-b border-bg4 last:border-0 hover:bg-bg2 -mx-2 px-2 rounded-lg">
             <b className="font-mono text-[14px] w-[72px]">{i.id}</b>
-            <span className="flex-1 min-w-0"><b className="block font-mono text-[14px] font-medium">{i.seed}</b><span className="text-[12.5px] text-tx3">{[i.campaign_id, `${i.nodes?.length ?? 0} węzłów`, fmtDate(i.started_at)].filter(Boolean).join(' · ')}</span></span>
+            <span className="flex-1 min-w-0"><b className="block font-mono text-[14px] font-medium truncate">{String(i.seed ?? '').replace(/^incident:/, 'materiał ')}</b><span className="text-[12.5px] text-tx3">{[i.campaign_id, plural(i.nodes?.length ?? 0, 'węzeł', 'węzły', 'węzłów'), fmtDate(i.started_at)].filter(Boolean).join(' · ')}</span></span>
             <span className={'pill ' + (i.status === 'running' ? 'bg-state-gdim text-state-g' : 'bg-bg3 text-tx2')}>{STATUS[i.status ?? ''] ?? i.status}</span>
             <IChevR className="text-tx4" />
           </Link>
         ))}
-        {!loading && !data?.length && <Empty>Jeszcze nic. Zacznij od domeny z raportu.</Empty>}
+        {!all && list.length > shown.length && <button type="button" className="lnk self-start mt-3" onClick={() => setAll(true)}>Pokaż wszystkie ({list.length})</button>}
+        {!loading && !list.length && <Empty>Jeszcze nic. Zacznij od domeny z raportu.</Empty>}
       </Card>
     </Page>
   );

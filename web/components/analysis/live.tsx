@@ -2,9 +2,10 @@
 // Board 2 · Analiza: material bar, six bots, three live columns.
 import { useEffect, useState } from 'react';
 import type { CampaignScore, EvidenceItem, JobStep, Layer } from '@/lib/contracts';
-import { BOTS, BOT_BY_KEY, LAYER_LABEL, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
+import { BOTS, BOT_BY_KEY, LAYER_HINT, LAYER_LABEL, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
 import { Bot } from '../jelly';
 import type { JobState } from '@/lib/use-job';
+import type { Shot } from '@/lib/artifacts';
 
 export function useElapsed(start: number, stop: boolean) {
   const [now, setNow] = useState(Date.now());
@@ -18,10 +19,12 @@ export function useElapsed(start: number, stop: boolean) {
 
 const kindOf = (s: string) => (/\.zip\b/i.test(s) ? 'ZIP' : /\.har\b/i.test(s) ? 'HAR' : /\.(png|jpe?g|webp|gif)\b/i.test(s) ? 'zrzut' : /\.(mp4|mov|webm)\b/i.test(s) ? 'wideo' : /^https?:|\.[a-z]{2,}\//i.test(s) ? 'link' : 'materiał');
 
-export function MaterialBar({ input, incidentId, note, status, onCancel }: { input: string; incidentId?: string | null; note?: string | null; status: React.ReactNode; onCancel?: () => void }) {
+export function MaterialBar({ input, incidentId, note, status, onCancel, thumb }: { input: string; incidentId?: string | null; note?: string | null; status: React.ReactNode; onCancel?: () => void; thumb?: string }) {
   return (
-    <section className="card !rounded-[18px] py-2.5 pl-2.5 pr-3.5 flex items-center gap-3.5" aria-label="Sprawdzany materiał">
-      <span className="ph-img w-[72px] h-[54px] flex-none hidden sm:grid">{kindOf(input)}</span>
+    <section className="card !rounded-[18px] py-2.5 pl-3.5 pr-3.5 flex items-center gap-3.5" aria-label="Sprawdzany materiał">
+      {thumb
+        ? <img src={thumb} alt="" className="w-[72px] h-[54px] flex-none hidden sm:block object-cover object-top rounded-[10px] border border-line1" />
+        : <span className="pill bg-bg3 text-tx2 flex-none hidden sm:inline-flex font-mono !text-[11.5px]">{kindOf(input)}</span>}
       <span className="flex-1 min-w-0 flex flex-col gap-[3px]">
         <span className="font-mono text-[14px] font-medium truncate">{input}</span>
         <span className="text-[13px] text-tx3 truncate">{[incidentId, note].filter(Boolean).join(' · ') || 'nowy materiał'}</span>
@@ -69,7 +72,45 @@ export function BotStrip({ steps }: { steps: JobStep[] }) {
 const HL_COLOR: Partial<Record<Layer, string>> = { tracking: '#F97316', kit: '#F97316', content: '#14B8A6', persons: '#14B8A6', infra: '#8B5CF6', visual: '#14B8A6' };
 
 /** Stylised captured page with each finding outlined where it was found. */
-export function CapturedPage({ url, headline, evidence, capturing, failed, captureNote }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean; captureNote?: string | null }) {
+const BOX_LAYER: Record<string, { t: Layer; label: string }> = {
+  headline: { t: 'content', label: 'Treść' }, text: { t: 'content', label: 'Treść' }, form: { t: 'kit', label: 'Zestaw strony' },
+  iframe: { t: 'kit', label: 'Zestaw strony' }, tracking: { t: 'tracking', label: 'Tracking' }, face: { t: 'persons', label: 'Osoby' },
+  person: { t: 'persons', label: 'Osoby' }, logo: { t: 'visual', label: 'Obraz' }, image: { t: 'visual', label: 'Obraz' }, cta: { t: 'kit', label: 'Zestaw strony' }, domain: { t: 'infra', label: 'Infra' },
+};
+
+/** The real rendered page with the findings outlined where they were found (scrollable, scaled to the column). */
+export function RealShot({ url, shot, height = 560 }: { url: string; shot: Shot; height?: number }) {
+  const [nat, setNat] = useState<{ w: number; h: number } | null>(shot.width && shot.height ? { w: shot.width, h: shot.height } : null);
+  const frac = shot.boxes.every((b) => b.x <= 1 && b.y <= 1 && b.w <= 1 && b.h <= 1);
+  const pct = (v: number, of: number | undefined) => (frac ? v * 100 : of ? (v / of) * 100 : 0);
+  return (
+    <div className="relative border border-line1 rounded-[18px] overflow-hidden bg-bg1 flex flex-col" style={{ height }}>
+      <div className="h-[30px] flex-none flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
+        {[0, 1, 2].map((i) => <i key={i} className="w-[7px] h-[7px] rounded-full bg-line2" />)}
+        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{url}</span>
+      </div>
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="relative">
+          <img src={shot.url} alt="Zrzut przechwyconej strony" className="block w-full h-auto"
+            onLoad={(e) => { if (!nat) setNat({ w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight }); }} />
+          {(frac || nat) && shot.boxes.map((b, i) => {
+            const L = BOX_LAYER[b.kind] ?? { t: 'content' as Layer, label: 'Dowód' };
+            const c = HL_COLOR[L.t] ?? '#525252';
+            return (
+              <span key={i} className="absolute rounded-[6px]" title={b.text ?? L.label}
+                style={{ left: `${pct(b.x, nat?.w)}%`, top: `${pct(b.y, nat?.h)}%`, width: `${pct(b.w, nat?.w)}%`, height: `${pct(b.h, nat?.h)}%`, boxShadow: `0 0 0 2px ${c}` }}>
+                <span className="tagc" style={{ background: c }}>{L.label}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CapturedPage({ url, headline, evidence, capturing, failed, captureNote, shot }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean; captureNote?: string | null; shot?: Shot }) {
+  if (shot) return <RealShot url={url} shot={shot} />;
   const has = (t: Layer) => evidence.some((e) => e.type === t && e.state !== 'missing' && e.state !== 'zero');
   const box = (t: Layer) => ({ boxShadow: `0 0 0 2px ${has(t) ? HL_COLOR[t] : 'transparent'}` });
   const tag = (t: Layer, label: string, extra = '') => (
@@ -86,19 +127,16 @@ export function CapturedPage({ url, headline, evidence, capturing, failed, captu
     <div className="relative h-[560px] border border-line1 rounded-[18px] overflow-hidden bg-bg1">
       <div className="h-[30px] flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
         {[0, 1, 2].map((i) => <i key={i} className="w-[7px] h-[7px] rounded-full bg-line2" />)}
-        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host || url}</span>
+        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host || url}</span><span className="ml-auto flex-none text-[10.5px] text-tx3">brak zrzutu strony · schemat</span>
       </div>
       <div className="pt-4 px-3.5 flex flex-col gap-3">
         <div className="flex justify-between items-center border-b-2 border-tx1 pb-1.5">
           <b className="text-[15px] font-extrabold tracking-[.12em] truncate">{masthead}</b>
         </div>
         <p className="hl m-0 px-1.5 py-1 text-[16px] font-bold leading-tight tracking-[-0.01em]" style={box('content')}>
-          {headline || (capturing ? 'Czytam nagłówek…' : <span className="text-tx4 font-medium">nagłówek strony</span>)}{tag('content', 'Treść')}
+          {headline || <span className="text-tx4 font-medium">{capturing ? 'Czytam stronę…' : 'brak zrzutu strony'}</span>}{tag('content', 'Treść')}
         </p>
         <div className="flex gap-2.5">
-          <span className="hl w-[92px] h-[92px] flex-none rounded-[10px] bg-bg4 grid place-items-center font-mono text-[10px] text-tx4" style={box('persons')}>
-            twarz{tag('persons', 'Osoby', '!right-auto left-1.5')}
-          </span>
           <span className="flex-1 flex flex-col gap-[7px] pt-1">
             {[100, 92, 96, 70, 86, 60].map((w, i) => <span key={i} className="gb" style={{ width: `${w}%` }} />)}
           </span>
@@ -108,7 +146,7 @@ export function CapturedPage({ url, headline, evidence, capturing, failed, captu
           <span className="text-[11.5px] font-semibold truncate">{kit ? kit.display : 'Formularz na stronie'}</span>
           <span className="h-[22px] rounded-md border border-line1" /><span className="h-[22px] rounded-md border border-line1" />
           <span className="h-[26px] rounded-md bg-tx1 text-white text-[11px] font-semibold grid place-items-center">wyślij</span>
-          {tag('kit', 'Kit')}
+          {tag('kit', 'Zestaw strony')}
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 px-3 py-2.5 bg-bg2 border-t border-bg4 flex flex-col gap-1.5 font-mono text-[10.5px] leading-tight text-tx2">
@@ -138,12 +176,12 @@ export function FoundCard({ e }: { e: EvidenceItem }) {
       <Bot color={c} master={e.bot === 'sedzia'} size={34} />
       <span className="flex-1 min-w-0 flex flex-col gap-[3px]">
         <span className="flex items-baseline gap-2">
-          <span className="text-[12px] font-semibold" style={{ color: c }}>{zero ? 'Wspólne' : LAYER_LABEL[e.type]}</span>
+          <span className="text-[12px] font-semibold" style={{ color: c }} title={LAYER_HINT[e.type]}>{zero ? 'Nie liczy się do kampanii' : LAYER_LABEL[e.type]}</span>
           <span className="text-[12px] text-tx4">znalazł {botName(e.bot)}</span>
         </span>
-        <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + (zero ? ' line-through' : '')}>{e.display}</span>
+        <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + ''}>{e.display}</span>
         <span className="text-[12.5px] text-tx3">
-          {zero ? `ma go ${n(e.df ?? 0)} niepowiązanych spraw` : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
+          {zero ? 'ślad operatora albo wspólnej platformy' : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
         </span>
       </span>
       <span className="flex-none w-[92px] flex flex-col items-end gap-1.5">

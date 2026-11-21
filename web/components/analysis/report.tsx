@@ -1,16 +1,20 @@
 'use client';
 // Boards 3 (Raport) and 4 (Graf): the same finding cards move from a list into a graph.
+// Raport = verdict (campaign links to its page) + the evidence that links it (with weights) + the real page / ad images
+// + the Graf switch + one quiet "Śledź dalej". Nothing else.
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import type { Campaign, Decision, EvidenceItem, GraphPayload, IncidentSummary, JobStep } from '@/lib/contracts';
-import { isPolish, prettyEv, BOT_BY_KEY, BOT_BY_STEP, LAYER_LABEL, botColor, botName, evidenceMeta, evidenceSentence, n, p2, secs, w1 } from '@/lib/copy';
-import { apiPost, useApi } from '@/lib/api';
+import { useMemo } from 'react';
+import type { Campaign, Decision, EvidenceItem, GraphPayload, JobStep } from '@/lib/contracts';
+import { isPolish, prettyEv, BOT_BY_KEY, botColor, botName, evidenceMeta, evidenceSentence, fmtDate, p2, w1 } from '@/lib/copy';
+import { useApi } from '@/lib/api';
 import { campaignTitle, focusIdOf as fid } from '@/lib/graph';
 import { Bot } from '../jelly';
 import { EvidenceChip } from '../evidence-chip';
 import { FollowButton } from '../follow-button';
+import { materialTitle, restoreTemplateCase, useArtifacts, type Artifacts, type Material } from '@/lib/artifacts';
 import { GraphCloud } from '../graph/cloud';
-import { IArrow, ICheck, IChev, IGraph, IList } from '../icons';
+import { RealShot } from './live';
+import { ICheck, IGraph, IList } from '../icons';
 
 export function storyOf(c?: Campaign | null): { h1: string; p: string } {
   const d = c?.description ?? '';
@@ -22,13 +26,13 @@ export function storyOf(c?: Campaign | null): { h1: string; p: string } {
   return { h1: c?.name ?? narrative, p: d && pl(d) && d !== c?.name ? d : '' };
 }
 
-export function ReportHeader({ title, lead, meta, primary, secondary }: { title: string; lead?: string; meta: string; primary?: React.ReactNode; secondary?: React.ReactNode }) {
+export function ReportHeader({ title, lead, meta, primary, secondary }: { title: React.ReactNode; lead?: string; meta?: string; primary?: React.ReactNode; secondary?: React.ReactNode }) {
   return (
     <section aria-labelledby="rp-verdict" className="flex flex-wrap items-end justify-between gap-x-7 gap-y-5">
       <div className="flex-[1_1_560px] min-w-0 flex flex-col gap-2.5">
-        <h1 id="rp-verdict" className="m-0 text-[30px] sm:text-[42px] leading-[1.05] tracking-[-0.04em] font-semibold">{title}</h1>
+        <h1 id="rp-verdict" className="m-0 text-[30px] sm:text-[42px] leading-[1.05] tracking-[-0.04em] font-semibold break-words">{title}</h1>
         {lead && <p className="m-0 max-w-[720px] text-[17px] leading-normal text-tx2">{lead}</p>}
-        <span className="font-mono text-[12.5px] text-tx4 break-words">{meta}</span>
+        {meta && <span className="font-mono text-[12.5px] text-tx4 break-words">{meta}</span>}
       </div>
       {(primary || secondary) && <div className="flex flex-col items-start sm:items-end gap-1">{primary}{secondary}</div>}
     </section>
@@ -39,7 +43,7 @@ const SHORT: (e: EvidenceItem) => string = (e) => (e.state === 'zero' ? `${e.dis
 
 function FindCard({ e, graph, onClick }: { e: EvidenceItem; graph: boolean; onClick?: () => void }) {
   const zero = e.state === 'zero';
-  const cls = 'w-full h-16 flex items-center gap-3 pl-3.5 pr-4 border rounded-[18px] text-left ' +
+  const cls = 'w-full min-h-16 py-2 lg:py-0 lg:h-16 flex items-center gap-3 pl-3.5 pr-4 border rounded-[18px] text-left ' +
     (zero ? 'border-dashed border-line1 bg-bg2' : 'border-line1 bg-bg1 shadow-soft') + (onClick ? ' hover:border-line3 transition-colors' : '');
   const inner = (
     <>
@@ -47,99 +51,18 @@ function FindCard({ e, graph, onClick }: { e: EvidenceItem; graph: boolean; onCl
       <span className="flex-1 min-w-0 flex flex-col gap-0.5">
         {graph
           ? <><span className="font-mono text-[13px] font-medium truncate">{SHORT(e)}</span><span className="text-[12.5px] text-tx3 truncate">{botName(e.bot)}</span></>
-          : <><span className={'text-[15px] font-semibold tracking-[-0.01em] truncate ' + (zero ? 'text-tx3' : '')}>{evidenceSentence(e)}</span><span className="text-[12.5px] text-tx3 truncate">{evidenceMeta(e)}</span></>}
+          : <><span className={'text-[15px] font-semibold tracking-[-0.01em] line-clamp-2 break-words lg:block lg:truncate ' + (zero ? 'text-tx3' : '')}>{evidenceSentence(e)}</span><span className="text-[12.5px] text-tx3 truncate">{evidenceMeta(e)}</span></>}
       </span>
       <b className={'flex-none font-mono text-[15px] font-semibold ' + (zero ? 'text-line3' : '')}>{w1(e.weight)}</b>
     </>
   );
-  return onClick ? <button type="button" className={cls} onClick={onClick} aria-label={`${evidenceSentence(e)}: rozwiń w grafie`}>{inner}</button> : <div className={cls}>{inner}</div>;
-}
-
-function Feedback({ incidentId }: { incidentId: string }) {
-  const [sent, setSent] = useState<string | null>(null);
-  const opts = ['Tak', 'Inna kampania', 'Nowa kampania', 'To nie oszustwo'];
-  async function send(v: string) {
-    setSent(v);
-    await apiPost('/feedback', { incident_id: incidentId, verdict_ok: v === 'Tak', correction: v === 'Tak' ? null : v }, () => ({ ok: true })).catch(() => null);
-  }
-  return (
-    <div role="group" aria-label="Ocena werdyktu" className="flex flex-wrap items-center gap-1.5">
-      <span className="text-[14px] font-semibold mr-1.5">Werdykt trafny?</span>
-      {opts.map((o) => <button key={o} type="button" className="chip" aria-pressed={sent === o} onClick={() => send(o)}>{o}</button>)}
-      {sent && <span role="status" className="basis-full text-[13px] text-tx3 pt-1">{sent === 'Tak' ? 'Dziękujemy, zapisane.' : 'Zapisane jako „To błąd — popraw”: trafi do triage i do kolejnego treningu.'}</span>}
-    </div>
-  );
-}
-
-function StepsPanel({ steps, total }: { steps: JobStep[]; total?: number }) {
-  const [sel, setSel] = useState<string | null>(steps.find((s) => s.status === 'warn')?.key ?? null);
-  const doneN = steps.filter((s) => s.status && s.status !== 'pending').length;
-  return (
-    <aside aria-labelledby="rp-sum" className="bg-[#F6F6F6] rounded-panel p-5 flex flex-col gap-1">
-      <div className="flex items-center gap-3 px-1 pb-2.5 pt-0.5">
-        <Bot color="#0A0A0A" master size={42} />
-        <div className="flex-1 flex flex-col gap-px">
-          <h2 id="rp-sum" className="m-0 text-[18px] font-semibold tracking-[-0.015em]">Jak pracowały boty</h2>
-          <span className="text-[13px] text-tx3">{doneN} z {steps.length} kroków{total ? ` · ${secs(total)}` : ''}</span>
-        </div>
-      </div>
-      {steps.map((s) => {
-        const open = sel === s.key;
-        const b = BOT_BY_STEP[s.key];
-        const [out, ...notes] = (s.detail ?? '').split('\n');
-        const warn = s.status === 'warn' || s.status === 'error';
-        return (
-          <div key={s.key} className={'rounded-[18px] overflow-hidden ' + (open ? 'bg-bg1' : '')}>
-            <button type="button" onClick={() => setSel(open ? null : s.key)} aria-expanded={open}
-              className="flex items-center gap-3 w-full min-h-[54px] px-3.5 py-2 text-left">
-              {warn ? <span className="okc !bg-[#EA580C]">!</span> : s.status === 'skip' ? <span className="okc !bg-line3">–</span> : <span className="okc"><ICheck width={11} height={11} /></span>}
-              <span className="flex-1 min-w-0 flex flex-col gap-0.5">
-                <span className="text-[15px] font-semibold">{b.stepName}</span>
-                <span className={'text-[13px] ' + (warn ? 'text-[#9A3412]' : 'text-tx2')}>{out || '—'}</span>
-              </span>
-              <span className="font-mono text-[12px] text-tx4">{secs(s.duration_ms)}</span>
-              <IChev className={'text-tx4 flex-none transition-transform ' + (open ? 'rotate-180' : '')} />
-            </button>
-            {open && (
-              <div className="px-3.5 pb-3.5 flex gap-2.5 items-start">
-                <Bot color={b.color} master={b.master} size={30} />
-                <span className="flex flex-col gap-1 min-w-0">
-                  <span className="text-[12px] text-tx3">{b.name}</span>
-                  {(notes.length ? notes : [s.detail ?? 'Bez uwag.']).map((t, i) => <span key={i} className="text-[14px] leading-[1.45] text-[#262626]">{t}</span>)}
-                  {s.warnings?.map((w, i) => <span key={'w' + i} className="text-[12.5px] text-[#9A3412]">{w}</span>)}
-                </span>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </aside>
-  );
-}
-
-function Layers({ d }: { d: Decision }) {
-  if (!d.layers?.length) return null;
-  const T: Record<string, string> = { available: 'jest', partial: 'częściowo', missing: 'brak', error: 'błąd' };
-  return (
-    <div className="card !rounded-[18px] p-4">
-      <h3 className="text-[15px] font-semibold pb-2">Szczegóły warstwa po warstwie <span className="font-normal text-tx3 text-[13px]">· pokrycie {p2(d.coverage)}</span></h3>
-      <ul className="grid grid-cols-2 sm:grid-cols-4 gap-2 m-0 p-0 list-none">
-        {d.layers.map((l) => (
-          <li key={l.layer} className={'rounded-xl border px-3 py-2 text-[13px] ' + (l.state === 'available' ? 'border-line1' : 'border-dashed border-line2 bg-bg2')}>
-            <b className={`block t-${l.layer}`} style={{ color: 'var(--c)' }}>{LAYER_LABEL[l.layer]}</b>
-            <span className="text-tx2">{T[l.state]}{l.reason ? `: ${l.reason}` : ''}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="text-[12.5px] text-tx3 pt-2">Brak wartości nie jest dowodem różnicy: brakujące warstwy nie obniżają wyniku.</p>
-    </div>
-  );
+  return onClick ? <button type="button" className={cls} onClick={onClick} aria-label={`${evidenceSentence(e)}: rozwiń w grafie`} title={evidenceSentence(e)}>{inner}</button> : <div className={cls}>{inner}</div>;
 }
 
 export interface ReportProps {
   decision: Decision;
   campaign?: Campaign | null;
-  incident?: IncidentSummary | null;
+  incident?: Material | null;
   steps?: JobStep[];
   names: Record<string, string>;
   view: 'raport' | 'graf';
@@ -148,14 +71,99 @@ export interface ReportProps {
   focusView?: React.ReactNode;
 }
 
+export const hasImages = (art: Artifacts) => !!(art.landing || art.adShot || art.frames.length);
 
-export function Report({ decision: d, campaign, incident, steps, names, view, onView, onFocus, focusView }: ReportProps) {
+/** Real images of the material: the rendered landing page (evidence outlined) and the ad / video frames. Nothing when there are none. */
+export function MaterialImages({ art, url, height = 420, adMax }: { art: Artifacts; url: string; height?: number; adMax?: string }) {
+  if (!hasImages(art)) return null;
+  const ad = art.adShot && !/keyframe|video/.test(art.adShot.role ?? '') && art.adShot.url !== art.landing?.url ? art.adShot : undefined;
+  return (
+    <section aria-label="Strona i reklama" className="flex flex-col gap-3 min-w-0">
+      {art.landing && (
+        <figure className="m-0 flex flex-col gap-1.5">
+          <figcaption className="text-[12.5px] text-tx3">Strona docelowa{art.landing.boxes.length ? ' · obrysy pokazują, gdzie boty znalazły dowody' : ''}</figcaption>
+          <RealShot url={url} shot={art.landing} height={height} />
+        </figure>
+      )}
+      {(ad || art.frames.length > 0) && (
+        <figure className="m-0 flex flex-col gap-1.5">
+          <figcaption className="text-[12.5px] text-tx3">{ad ? 'Reklama' : 'Klatki z nagrania reklamy'}</figcaption>
+          <div className="flex gap-2 overflow-x-auto">
+            {(ad ? [ad] : art.frames.slice(0, 4)).map((s) => (
+              <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="flex-none max-w-full">
+                <img src={s.url} alt={ad ? 'Zrzut reklamy' : 'Klatka nagrania'} className={(ad ? (adMax ?? (art.landing ? 'max-h-[150px]' : 'max-h-[400px]')) + ' max-w-full' : 'h-[96px]') + ' w-auto object-contain rounded-[12px] border border-line1 bg-bg2'} />
+              </a>
+            ))}
+          </div>
+        </figure>
+      )}
+    </section>
+  );
+}
+
+export function MaterialStrip({ incident, incidentId, art }: { incident?: Material | null; incidentId: string; art: Artifacts }) {
+  const title = materialTitle(incident, incidentId);
+  return (
+    <section aria-label="Sprawdzany materiał" className="mt-5 flex items-center gap-3.5 rounded-[18px] border border-line1 bg-bg1 py-2.5 px-4 max-w-[760px]">
+      {art.any && <a href={art.ad ?? art.any} target="_blank" rel="noopener noreferrer" className="flex-none -ml-1.5"><img src={art.ad ?? art.any} alt={`Zrzut materiału ${incidentId}`} className="w-[96px] h-[64px] object-cover object-top rounded-[10px] border border-line1" /></a>}
+      <span className="min-w-0 flex flex-col gap-0.5">
+        <span className="text-[12px] text-tx3">Sprawdzany materiał</span>
+        <b className="text-[14.5px] font-semibold leading-snug line-clamp-2 break-words">{title}</b>
+        <span className="font-mono text-[11.5px] text-tx3 truncate">{[incidentId !== title ? incidentId : null, incident?.domain && incident.domain !== title ? incident.domain : null, incident?.captured_at ? fmtDate(incident.captured_at) : null].filter(Boolean).join(' · ')}</span>
+      </span>
+    </section>
+  );
+}
+
+type Adjudicator = { model?: string; verdict?: string; confidence?: number; rationale?: string[] | string };
+const VERDICT: Record<string, string> = { same: 'ta sama kampania', different: 'raczej inna kampania', unsure: 'nie rozstrzyga', uncertain: 'nie rozstrzyga' };
+const cut = (t: string, k = 150) => (t.length > k ? t.slice(0, k - 1).replace(/\s\S*$/, '') + '…' : t);
+
+/** Why the verdict is what it is: the thresholds (engine) and the language-model judge, at most 3 short bullets each. */
+function WhyPanel({ d }: { d: Decision }) {
+  const x = d as Decision & { adjudicator?: Adjudicator | null; why_not?: { campaign_id?: string; bullets?: string[] }[] | null };
+  const cid = d.campaign_id ?? d.candidate_campaign_id;
+  const engine = (x.why_not ?? []).filter((w) => !cid || w.campaign_id === cid).flatMap((w) => w.bullets ?? [])
+    .filter((b) => !/^Sędzia/i.test(b)).map((b) => b.replace(/\bnajbliższy: /, 'najbliższy materiał: ')).slice(0, 3);
+  const adj = x.adjudicator;
+  const rat = adj ? (Array.isArray(adj.rationale) ? adj.rationale : adj.rationale ? [adj.rationale] : []).flatMap((r) => r.split(/(?<=\.)\s+/)).filter(Boolean).slice(0, 3) : [];
+  if (!engine.length && !adj) return null;
+  return (
+    <section aria-label="Uzasadnienie" className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {engine.length > 0 && (
+        <div className="rounded-[18px] border border-line1 bg-bg1 p-4 min-w-0">
+          <h3 className="text-[15px] font-semibold pb-1.5">{d.decision === 'confirm' ? 'Dlaczego do potwierdzenia' : 'Progi decyzji'}</h3>
+          <ul className="m-0 pl-4 flex flex-col gap-1 text-[13.5px] text-tx2 break-words">{engine.map((b, i) => <li key={i}>{cut(b)}</li>)}</ul>
+        </div>
+      )}
+      {adj && (
+        <div className="rounded-[18px] bg-bg3 p-4 min-w-0 flex gap-3 items-start">
+          <Bot color="#0A0A0A" master size={30} />
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[15px] font-semibold">Uzasadnienie sędziego <span className="font-normal text-tx3 text-[13px]">(model językowy{adj.model ? ` ${adj.model}` : ''})</span></h3>
+            <p className="text-[13.5px] pt-0.5 pb-1.5"><b>{VERDICT[adj.verdict ?? ''] ?? adj.verdict ?? '—'}</b>{adj.confidence != null ? ` · pewność ${p2(adj.confidence)}` : ''}</p>
+            {rat.length > 0 && <ul className="m-0 pl-4 flex flex-col gap-1 text-[13px] text-tx2 break-words">{rat.map((b, i) => <li key={i} title={b}>{cut(b, 120)}</li>)}</ul>}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+export function Report({ decision: d, campaign, incident, names, view, onView, onFocus, focusView }: ReportProps) {
+  const art = useArtifacts(d.incident_id);
   const cid = d.campaign_id ?? d.candidate_campaign_id ?? '';
   const story = storyOf(campaign);
-  const ev = (d.evidence ?? []).map(prettyEv).sort((a, b) => (b.state === 'zero' ? -1 : 0) - (a.state === 'zero' ? -1 : 0) || Math.abs(b.weight) - Math.abs(a.weight));
-  const cards = ev.slice(0, 6);
+  const ev = (d.evidence ?? []).map(prettyEv).map((e) => restoreTemplateCase(e, incident)).filter((e) => e.state !== 'missing')
+    .sort((a, b) => (b.state === 'zero' ? -1 : 0) - (a.state === 'zero' ? -1 : 0) || Math.abs(b.weight) - Math.abs(a.weight));
+  // counted evidence first; operator-level / shared-platform traces (weight not counted alone) go to their own muted group
+  const counted = ev.filter((e) => e.state !== 'zero');
+  const side = ev.filter((e) => e.state === 'zero');
+  const cards = (counted.length ? counted : side).slice(0, 6);
+  const rest = counted.slice(cards.length);
+  const sideRest = counted.length ? side : side.slice(cards.length);
   const isGraf = view === 'graf';
-  const total = steps?.reduce((a, s) => a + (s.duration_ms ?? 0), 0);
+  const img = hasImages(art);
   const cloudRaw = useApi<GraphPayload>(isGraf && cid ? `/graph?scope=campaign&campaign=${encodeURIComponent(cid)}` : null).data;
   const cloud = useMemo(() => {
     if (!cloudRaw) return undefined;
@@ -165,24 +173,28 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
   }, [cloudRaw, cid]);
   const op = d.operator_id ?? campaign?.operator_id;
   const ru = d.runner_up;
-  const stageH = Math.max(isGraf ? 600 : 620, 36 + cards.length * 76 + 90, isGraf ? 20 + cards.length * 96 + 20 : 0);
-  const metaLine = [cid, campaign && `${n(campaign.n_incidents)} materiałów`, campaign && `${n(campaign.n_domains)} domen`, d.incident_id, incident?.domain].filter(Boolean).join(' · ');
+  // raport: one column of cards next to the images, or two columns of cards when there are no images
+  const cols = img ? 1 : 2;
+  const listPos = (k: number) => (cols === 1 ? { left: 0, top: 36 + 76 * k, width: 700 } : { left: (k % 2) * 606, top: 36 + 76 * Math.floor(k / 2), width: 586 });
+  const listH = 36 + Math.ceil(cards.length / cols) * 76;
+  const imgH = (art.landing ? 470 : 0) + (art.adShot && !/keyframe|video/.test(art.adShot.role ?? '') && art.adShot.url !== art.landing?.url ? (art.landing ? 190 : 440) : art.frames.length ? 130 : 0);
+  const stageH = isGraf ? Math.max(600, 20 + cards.length * 96 + 20) : Math.max(listH, img ? imgH + 10 : 0);
+  const pick = (e: EvidenceItem) => { onView('graf'); onFocus(fid(e, incident?.domain)); };
+  const verdictTitle = story.h1 || names[cid] || cid;
 
   return (
     <main className="relative z-[1] w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 box-border">
       <ReportHeader
-        title={story.h1 || (names[cid] ?? cid)}
+        title={cid ? <Link href={`/kampanie/${encodeURIComponent(cid)}`} className="hover:underline decoration-2 underline-offset-[6px]">{verdictTitle}</Link> : verdictTitle}
         lead={story.p}
-        meta={metaLine}
-        primary={<div className="flex flex-wrap gap-2 sm:justify-end"><FollowButton incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} campaignId={cid} /><Link className="btn-sec" href={`/kampanie/${encodeURIComponent(cid)}`}>Otwórz kampanię</Link></div>}
-        secondary={<span className="text-[12.5px] text-tx3">agent poszuka reszty: domen, reklam i reklamodawców z tymi samymi śladami</span>}
       />
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span className="pill bg-state-gdim text-state-g !h-8 !text-[13.5px]"><ICheck width={12} height={12} />{d.decision === 'confirm' ? 'Dołącza do kampanii (do potwierdzenia)' : 'Dołącza do kampanii'} {cid} · pewność {p2(d.p)}</span>
+        <span className="pill bg-state-gdim text-state-g !h-auto min-h-8 py-1 !text-[13.5px] flex-wrap"><ICheck width={12} height={12} />{d.decision === 'confirm' ? 'Dołącza do kampanii (do potwierdzenia)' : 'Dołącza do kampanii'} <Link href={`/kampanie/${encodeURIComponent(cid)}`} className="underline decoration-[#86efac] underline-offset-4 hover:decoration-current">{cid}</Link> · pewność {p2(d.p)}</span>
         {op && <span className="pill bg-bg3 text-tx1 !h-8">operator {op}</span>}
         {ru && <span className="pill bg-bg3 text-tx2 !h-8">następna: {ru.campaign_id} {p2(ru.p)}{ru.same_operator ? ' · ten sam operator' : ''}</span>}
       </div>
 
+      <MaterialStrip incident={incident} incidentId={d.incident_id} art={art} />
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <div className="seg" role="group" aria-label="Widok wyniku">
           <button type="button" aria-pressed={!isGraf} onClick={() => onView('raport')}><IList width={15} height={15} />Raport</button>
@@ -195,7 +207,7 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
         <>
           {/* desktop stage: cards move between list and graph */}
           <div className="hidden lg:block relative mt-[18px]" role="group" aria-label={isGraf ? 'Graf: materiał, dowody i dopasowane kampanie' : 'Raport botów'} style={{ height: stageH }}>
-            <span className="mv absolute left-0 top-1.5 text-[13px] font-medium text-tx3" style={{ opacity: isGraf ? 0 : 1 }}>Co znalazły boty</span>
+            <span className="mv absolute left-0 top-1.5 text-[13px] font-medium text-tx3" style={{ opacity: isGraf ? 0 : 1 }}>Co łączy materiał z kampanią</span>
             <svg className="fadeN absolute left-0 top-0 pointer-events-none" width={1192} height={stageH} aria-hidden="true" style={{ opacity: isGraf ? 1 : 0, transitionDelay: isGraf ? '.3s' : '0s' }}>
               <g fill="none" strokeLinecap="round">
                 {cards.map((e, k) => {
@@ -214,22 +226,22 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
               <g fill="#FFFFFF" stroke="#171717" strokeWidth={1.5}><circle cx={240} cy={300} r={4} /><circle cx={660} cy={300} r={4} /></g>
             </svg>
             {/* this material */}
-            <div className="mv absolute bg-bg1 border border-line1 rounded-[18px] p-3.5 flex flex-col gap-2 shadow-soft" style={{ left: 0, top: 215, width: 240, height: 170, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
+            <div className="mv absolute bg-bg1 border border-line1 rounded-[18px] p-3.5 flex flex-col gap-2 shadow-soft" style={{ left: 0, top: 200, width: 240, height: 200, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
               <span className="text-[12px] font-medium text-tx3">Ten materiał</span>
-              <span className="ph-img h-14 text-[11px]">materiał</span>
-              <b className="text-[18px] font-semibold tracking-[-0.02em]">{d.incident_id}</b>
-              <span className="font-mono text-[12px] text-tx3 truncate">{incident?.domain ?? ''}</span>
+              {art.any && <img src={art.ad ?? art.any} alt={`Zrzut materiału ${d.incident_id}`} className="h-14 w-full flex-none object-cover object-top rounded-[10px] border border-line1" />}
+              <b className={(art.any ? 'text-[14px] line-clamp-3' : 'text-[15px] line-clamp-5') + ' flex-none font-semibold tracking-[-0.01em] leading-snug break-words'}>{materialTitle(incident, d.incident_id)}</b>
+              <span className="font-mono text-[11.5px] text-tx3 truncate mt-auto">{[d.incident_id, incident?.title ? incident?.domain : null].filter(Boolean).join(' · ')}</span>
             </div>
             {cards.map((e, k) => (
-              <div key={k} className="mv absolute" style={{ left: isGraf ? 300 : 0, top: isGraf ? 20 + 96 * k : 36 + 76 * k, width: isGraf ? 260 : 700 }}>
-                <FindCard e={e} graph={isGraf} onClick={() => { onView('graf'); onFocus(fid(e, incident?.domain)); }} />
+              <div key={k} className="mv absolute" style={isGraf ? { left: 300, top: 20 + 96 * k, width: 260 } : listPos(k)}>
+                <FindCard e={e} graph={isGraf} onClick={() => pick(e)} />
               </div>
             ))}
             {/* campaign */}
             <article aria-label={`Kampania ${cid}`} className="mv absolute bg-tx1 text-[#FAFAFA] rounded-[22px] p-5 flex flex-col gap-2.5 shadow-dark" style={{ left: 660, top: 190, width: 300, height: 220, opacity: isGraf ? 1 : 0, pointerEvents: isGraf ? 'auto' : 'none', transitionDelay: isGraf ? '.3s' : '0s' }}>
               <span className="text-[12px] font-medium text-line3">Kampania · dopasowanie {p2(d.p)}</span>
               {campaignTitle(campaign).length > 24
-                ? <h2 className="m-0 flex flex-col gap-1.5"><span className="text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}</span><span className="text-[15px] leading-snug font-semibold line-clamp-2">{campaignTitle(campaign)}</span></h2>
+                ? <h2 className="m-0 flex flex-col gap-1.5"><span className="text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}</span><span className="text-[15px] leading-snug font-semibold line-clamp-3">{campaignTitle(campaign)}</span></h2>
                 : <h2 className="m-0 text-[30px] leading-none tracking-[-0.045em] font-semibold">{cid}<br />{campaignTitle(campaign)}</h2>}
               {campaignTitle(campaign).length <= 24 && <p className="m-0 text-[13.5px] leading-[1.45] text-line2 line-clamp-2">{campaign?.narrative}</p>}
               <div className="mt-auto flex flex-wrap gap-1.5">
@@ -244,55 +256,49 @@ export function Report({ decision: d, campaign, incident, steps, names, view, on
                 <span className="text-[12.5px] text-tx3">{ru.same_operator ? `ten sam operator ${op ?? ''}` : 'inny operator'}</span>
               </div>
             )}
-            {isGraf && (
-              <>
-                <GraphCloud data={cloud} onPick={onFocus} className="!absolute left-[970px] top-[110px] w-[222px] h-[340px]" label={`Materiały kampanii ${cid}`} />
-                <span className="absolute left-[1000px] top-[462px] w-[190px] text-[12px] leading-[1.4] text-tx3">{campaign ? `${n(campaign.n_incidents)} materiałów i ${n(campaign.n_domains)} domen tej kampanii` : ''}</span>
-              </>
-            )}
-            {/* feedback + steps panel */}
-            <div className="mv absolute" style={{ left: 0, top: 36 + cards.length * 76 + 26, width: 700, opacity: isGraf ? 0 : 1, pointerEvents: isGraf ? 'none' : 'auto' }}>
-              <Feedback incidentId={d.incident_id} />
-            </div>
-            {steps && (
-              <div className="mv absolute" style={{ left: isGraf ? 800 : 740, top: 0, width: 452, opacity: isGraf ? 0 : 1, pointerEvents: isGraf ? 'none' : 'auto' }}>
-                <StepsPanel steps={steps} total={total} />
+            {isGraf && <GraphCloud data={cloud} onPick={onFocus} className="!absolute left-[970px] top-[110px] w-[222px] h-[340px]" label={`Materiały kampanii ${cid}`} />}
+            {img && (
+              <div className="mv absolute" style={{ left: 740, top: 0, width: 452, opacity: isGraf ? 0 : 1, pointerEvents: isGraf ? 'none' : 'auto' }}>
+                <MaterialImages art={art} url={incident?.domain ?? d.incident_id} height={440} />
               </div>
             )}
           </div>
 
           {/* phone / tablet: plain flow */}
           <div className="lg:hidden mt-5 flex flex-col gap-3">
-            {!isGraf && <span className="text-[13px] font-medium text-tx3">Co znalazły boty</span>}
+            {!isGraf && <span className="text-[13px] font-medium text-tx3">Co łączy materiał z kampanią</span>}
             {isGraf && (
-              <div className="rounded-[18px] border border-line1 p-3.5 flex items-center gap-3"><span className="ph-img w-12 h-12" /><span><b className="block">{d.incident_id}</b><span className="font-mono text-[12px] text-tx3">{incident?.domain}</span></span></div>
+              <div className="rounded-[18px] border border-line1 p-3.5 flex items-center gap-3">{art.any && <img src={art.ad ?? art.any} alt="" className="w-14 h-14 object-cover object-top rounded-lg border border-line1" />}<span className="min-w-0"><b className="block line-clamp-2 break-words">{materialTitle(incident, d.incident_id)}</b><span className="font-mono text-[12px] text-tx3">{[d.incident_id, incident?.domain].filter(Boolean).join(' · ')}</span></span></div>
             )}
-            {cards.map((e, k) => <FindCard key={k} e={e} graph={isGraf} onClick={() => { onView('graf'); onFocus(fid(e, incident?.domain)); }} />)}
+            {cards.map((e, k) => <FindCard key={k} e={e} graph={isGraf} onClick={() => pick(e)} />)}
             {isGraf ? (
               <article className="bg-tx1 text-[#FAFAFA] rounded-[22px] p-5 flex flex-col gap-2">
                 <span className="text-[12px] text-line3">Kampania · dopasowanie {p2(d.p)}</span>
                 <h2 className="text-[26px] font-semibold tracking-[-0.04em] leading-none">{cid} {campaignTitle(campaign)}</h2>
                 <Link className="tag !bg-white !text-tx1 self-start" href={`/kampanie/${cid}`}>Otwórz kampanię</Link>
               </article>
-            ) : (
-              <>
-                <Feedback incidentId={d.incident_id} />
-                {steps && <StepsPanel steps={steps} total={total} />}
-              </>
-            )}
+            ) : img ? <div className="pt-2"><MaterialImages art={art} url={incident?.domain ?? d.incident_id} height={380} /></div> : null}
           </div>
 
-          {!isGraf && (
-            <div className="mt-8 flex flex-col gap-4">
-              <div>
-                <h3 className="text-[15px] font-semibold pb-2">Dowody</h3>
-                <div className="flex flex-wrap gap-1.5">{ev.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => { onView('graf'); onFocus(fid(e, incident?.domain)); }} />)}</div>
-              </div>
-              <Layers d={d} />
+          {!isGraf && <WhyPanel d={d} />}
+          {!isGraf && rest.length > 0 && (
+            <div className="mt-8 min-w-0">
+              <h3 className="text-[15px] font-semibold pb-2">Pozostałe dowody <span className="font-normal text-tx3 text-[13px]">· waga i rzadkość każdego śladu</span></h3>
+              <div className="flex flex-wrap gap-1.5 min-w-0">{rest.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => pick(e)} />)}</div>
+            </div>
+          )}
+          {!isGraf && sideRest.length > 0 && (
+            <div className="mt-8 min-w-0 rounded-[18px] bg-bg2 border border-dashed border-line1 p-4">
+              <h3 className="text-[15px] font-semibold">Ślady operatora i wspólnej platformy</h3>
+              <p className="text-[13px] text-tx3 pb-2.5">Nie liczą się do kampanii same z siebie: mają je też inne kampanie tego operatora albo wiele niezależnych stron. Wskazują operatora, a kampanię potwierdza dopiero zgodna treść.</p>
+              <div className="flex flex-wrap gap-1.5 min-w-0">{sideRest.map((e, i) => <EvidenceChip key={i} e={e} onClick={() => pick(e)} />)}</div>
             </div>
           )}
         </>
       )}
+      <div className="mt-8 pt-5 border-t border-bg4 flex flex-wrap items-center gap-2">
+        <FollowButton variant="sec" incidentId={d.incident_id} evidence={d.evidence ?? []} domain={incident?.domain} campaignId={cid} />
+      </div>
     </main>
   );
 }

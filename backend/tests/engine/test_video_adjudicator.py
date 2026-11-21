@@ -106,6 +106,21 @@ def test_adjudicator_unavailable_is_silent(monkeypatch):
     assert note == "" or "adjudicator" in note
 
 
+def test_polish_rationale_parsing_keeps_verdict_rules():
+    from trop.media.adjudicator import build_prompt, to_adjudication
+    d = {"a": {}, "b": {}, "evidence": [], "engine_score": 2.0}
+    assert "IN POLISH" in build_prompt(d, "pl") and "IN POLISH" not in build_prompt(d)       # benchmark prompt unchanged
+    pl = {"json": {"same_campaign": False, "same_operator": True, "confidence": 0.85,
+                   "rationale": ["Inne produkty.", "Inne domeny."]}, "model": "m"}
+    en = {"json": {"same_campaign": False, "same_operator": True, "confidence": 0.85, "rationale": "Different."}, "model": "m"}
+    a, b = to_adjudication(pl, d), to_adjudication(en, d)
+    assert (a.verdict, a.confidence) == (b.verdict, b.confidence) == ("veto", 0.85)
+    assert a.rationale == ["Inne produkty.", "Inne domeny.", "ten sam operator"]
+    assert b.rationale == ["Different.", "same operator"]
+    same = to_adjudication({"json": {**pl["json"], "same_campaign": True, "confidence": 0.4}, "model": "m"}, d)
+    assert same.verdict == "unsure"
+
+
 def test_dossier_has_no_raw_text():
     from trop.engine.adjudicate import dossier
     inc = _inc("a", "tajny tekst strony")
