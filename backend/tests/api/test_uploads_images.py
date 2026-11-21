@@ -128,6 +128,19 @@ def test_live_capture_boxes_are_scaled_with_the_image(tmp_path):
     assert meta[0]["w"] == 1200 and meta[0]["boxes"][0] == {"kind": "form", "x": 120, "y": 50, "w": 240, "h": 25}
 
 
+def test_public_check_known_domain_is_scam_without_capture(live):  # noqa: F811
+    from trop.engine import service
+    corpus = service.Corpus.load()
+    inc = next(i for i in corpus.incidents if (i.get("landing") or {}).get("host") and corpus.campaign_of.get(i["id"]))
+    host = inc["landing"]["host"]
+    j = live.post(f"{P}/public/check", data={"url": f"https://{host}/"}).json()
+    assert j["verdict"] == "scam" and "domena znana z kampanii oszustwa" in j["public_campaign"]["reasons"]
+    assert "KMP" not in json_dump(j) and host not in json_dump(j)
+    m = live.post(f"{P}/public/extension/match", json={"cta_url": f"https://{host}/x"})
+    assert m.status_code == 200 and m.json()["match"] is True
+    assert live.post(f"{P}/public/check", data={"url": "https://zupelnie-nieznana-domena-xyz.pl/"}).json()["verdict"] == "unknown"
+
+
 def test_person_trace_facts_mock(client):
     t = client.get(f"{P}/traces/person/Jan Kowalski").json()
     assert t["facts"]["campaigns"] and t["facts"]["text"] and t["facts"]["captions"]
