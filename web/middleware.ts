@@ -17,5 +17,5 @@ export function middleware(req: NextRequest) {
 export const config = {
   runtime: 'nodejs',
   // everything except Next internals and public static files
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|vendor/).*)'],
+  matcher: ['/((?!api/|_next/static|_next/image|favicon.ico|vendor/).*)'],   // API proxy excluded: middleware clones/limits request bodies
 };
