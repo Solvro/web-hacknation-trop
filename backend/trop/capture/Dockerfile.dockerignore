@@ -1,0 +1,5 @@
+# BuildKit per-Dockerfile ignore: the build context is backend/, but only trop/capture may enter the image.
+*
+!trop/capture/
+**/__pycache__
+**/*.pyc
