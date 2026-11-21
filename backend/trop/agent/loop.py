@@ -217,11 +217,16 @@ def run(ctx: Ctx, *, llm: LLM | None = None, steps: int = 20, usd_cap: float = 1
         prev = case.nodes[nid].status if nid in case.nodes else None
         if nid in case.nodes and prev not in ("in_campaign", "in_progress", "skipped"):
             case.set_status(nid, "in_progress")
-        res = run_tool(name, args, ctx)
+        case.defer = True
+        try:
+            res = run_tool(name, args, ctx)
+        finally:
+            case.defer = False
         if nid in case.nodes and case.nodes[nid].status == "in_progress" and nid != seed_id:
             case.set_status(nid, prev or "new")
         why = str(args.get("why") or "")[:200]
         case.step(name, query_of(name, args), res.summary, why, res.produced, cost)
+        case.flush()
         history.append({"n": len(inv.steps), "tool": name, "args": {k: v for k, v in args.items() if k != "why"},
                         "summary": res.summary, "view": res.view})
         return res

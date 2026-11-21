@@ -300,6 +300,20 @@ def known_domains(domains: list[str]) -> set[str]:
     return {d for d in ds if d in have}
 
 
+def oracle_flags(domains: list[str]) -> dict[str, dict]:
+    """Oracle predictions (oracle_candidates) for these domains: {etld1: {score, seen_at, source, status}}."""
+    ds = sorted({etld1(d) for d in domains if d})
+    try:
+        if ds and PG.conn() is not None:
+            rows = PG.q("""SELECT DISTINCT ON (etld1) etld1, score, seen_at, source, status FROM oracle_candidates
+                            WHERE etld1 = ANY(%s) ORDER BY etld1, seen_at""", (ds,))
+            return {r["etld1"]: {"score": r["score"], "seen_at": str(r["seen_at"])[:19], "source": r["source"],
+                                 "status": r["status"]} for r in rows}
+    except Exception:  # noqa: BLE001
+        pass
+    return {}
+
+
 def observable_df(value: str) -> dict | None:
     """df / noise of one exact observable value (e.g. an asset sha256 used as a urlscan pivot)."""
     try:

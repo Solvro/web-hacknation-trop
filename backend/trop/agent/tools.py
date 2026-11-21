@@ -393,6 +393,25 @@ def t_capture(a: dict, ctx: Ctx) -> ToolResult:
     return ToolResult(view, f"Przechwycenie {_apex(url)}: {'ok' if r.get('ok') else 'nieudane'} · {str(b.get('title') or r.get('error') or '')[:50]}.", [nid])
 
 
+def t_oracle(a: dict, ctx: Ctx) -> ToolResult:
+    doms = a.get("domains") or [n.label for n in ctx.case.domains()]
+    doms = [d for d in dict.fromkeys(_apex(x) for x in (doms if isinstance(doms, list) else [doms])) if d]
+    flags = ctx.dbm.oracle_flags(doms) if hasattr(ctx.dbm, "oracle_flags") else {}
+    produced = []
+    if flags:
+        oid = "n-oracle"
+        ctx.case.node(oid, "oracle_flag", f"Oracle: wcześniej oznaczył {len(flags)} z {len(doms)}", branch="db",
+                      parent=_ensure_seed(ctx), edge_label="Oracle", meta={"flagged": len(flags), "domains": sorted(flags)})
+        produced.append(oid)
+        for d, f in flags.items():
+            if dom_id(d) in ctx.case.nodes:
+                ctx.case.node(dom_id(d), "domain", d, meta={"oracle": f})
+                ctx.case.edge(oid, dom_id(d), "przewidziana")
+    names = ", ".join(f"{d.split('.')[0]} {str(f.get('seen_at'))[8:10]}.{str(f.get('seen_at'))[5:7]}" for d, f in sorted(flags.items()))
+    return ToolResult({"checked": len(doms), "flagged": flags},
+                      f"Oracle oznaczył wcześniej {len(flags)} z {len(doms)} domen" + (f" ({names})." if flags else "."), produced)
+
+
 def t_propose(a: dict, ctx: Ctx) -> ToolResult:
     doms = a.get("domains") or ([a["domain"]] if a.get("domain") else [])
     conf = str(a.get("confidence") or "high")
@@ -464,6 +483,9 @@ SPECS: list[dict] = [
     {"name": "capture", "description": "Capture ONE landing page in the isolated headless sandbox (budget: 1 per investigation; "
      "never clicks, never submits). Use only when a candidate's kit/tenant cannot be confirmed otherwise.",
      "parameters": _s({"url": {"type": "string"}}, ["url"])},
+    {"name": "oracle_lookup", "description": "Did our Oracle (CT-stream domain-DNA scorer) flag these domains before any ad? "
+     "Pass domains or omit for every domain in the graph.",
+     "parameters": _s({"domains": {"type": "array", "items": {"type": "string"}}}, [])},
     {"name": "propose_link", "description": "Your judgement on candidate domains already in the graph: confidence high "
      "(operator/campaign-level evidence), medium, low (skip: only platform/infra noise), or needs_decision (conflicting "
      "evidence: ask the analyst, give a Polish question).",
@@ -479,7 +501,7 @@ SPECS: list[dict] = [
 EXEC: dict[str, Callable[[dict, Ctx], ToolResult]] = {
     "db_search": t_db_search, "incident_neighborhood": t_neighborhood, "crtsh": t_crtsh, "rdap": t_rdap, "dns_ns": t_dns,
     "urlscan_search": t_urlscan, "certpl_check": t_certpl, "wayback": t_wayback, "adlib_search": t_adlib,
-    "capture": t_capture, "propose_link": t_propose, "finish": t_finish,
+    "capture": t_capture, "oracle_lookup": t_oracle, "propose_link": t_propose, "finish": t_finish,
 }
 TOOL_NAMES = [s["name"] for s in SPECS]
 

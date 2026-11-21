@@ -19,12 +19,12 @@ Emit = Callable[[str, dict], None]
 TOOL_BOT = {
     "db_search": "archiwista", "incident_neighborhood": "archiwista", "crtsh": "notariusz", "rdap": "notariusz",
     "dns_ns": "notariusz", "certpl_check": "notariusz", "urlscan_search": "tropiciel", "adlib_search": "zwiadowca",
-    "wayback": "czytelnik", "capture": "czytelnik", "propose_link": "sedzia", "finish": "sedzia",
+    "wayback": "czytelnik", "capture": "czytelnik", "oracle_lookup": "notariusz", "propose_link": "sedzia", "finish": "sedzia",
 }
 TOOL_BRANCH = {
     "db_search": "db", "incident_neighborhood": "db", "crtsh": "crtsh", "rdap": "crtsh", "dns_ns": "crtsh",
     "certpl_check": "certpl", "urlscan_search": "urlscan", "adlib_search": "adlib", "wayback": "content",
-    "capture": "content", "propose_link": "db",
+    "capture": "content", "oracle_lookup": "db", "propose_link": "db",
 }
 LEVEL_RANK = {"operator": 3, "campaign": 2, "infra": 1, "platform": 0}
 
@@ -70,6 +70,8 @@ class Case:
         self.edges: set[tuple[str, str]] = {(e["a"], e["b"]) for e in inv.edges}
         self.events: list[Event] = []
         self.t_override: float | None = None      # scripted demo timing
+        self.defer = False                         # while a tool runs, Sędzia cards wait until its agent.step is out
+        self._deferred: list[dict] = []
 
     # ------------------------------------------------------------------ emit
     def emit(self, typ: str, data: dict) -> None:
@@ -160,9 +162,17 @@ class Case:
 
     def decision(self, node_id: str, question: str, options: list[str]) -> None:
         self.inv.pending_decision = {"node_id": node_id, "question": question, "options": options}
-        self.inv.status = self.inv.status if self.inv.status != "done" else "done"
-        self.emit("investigation.decision", {"node_id": node_id, "question": question, "options": options})
+        d = {"node_id": node_id, "question": question, "options": options}
+        if self.defer:
+            self._deferred.append(d)
+        else:
+            self.emit("investigation.decision", d)
         self.save()
+
+    def flush(self) -> None:
+        for d in self._deferred:
+            self.emit("investigation.decision", d)
+        self._deferred = []
 
     def conclude(self, text: str, refs: list[str] | None = None) -> None:
         self.inv.conclusions.append({"text": text, "evidence_refs": refs or []})
