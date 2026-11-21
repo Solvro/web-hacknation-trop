@@ -1,0 +1,5843 @@
+{
+ "$defs": {
+  "ActPackage": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "dsa",
+      "certpl",
+      "stix",
+      "misp",
+      "rules",
+      "bundle"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "status": {
+     "default": "draft",
+     "enum": [
+      "draft",
+      "ready",
+      "sent",
+      "exported"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "contents": {
+     "additionalProperties": {
+      "type": "integer"
+     },
+     "default": {},
+     "title": "Contents",
+     "type": "object"
+    },
+    "recipients": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Recipients",
+     "type": "array"
+    },
+    "parts": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Parts",
+     "type": "array"
+    },
+    "notice_text": {
+     "default": "",
+     "title": "Notice Text",
+     "type": "string"
+    },
+    "formats": {
+     "default": [
+      "pdf",
+      "json",
+      "stix"
+     ],
+     "items": {
+      "type": "string"
+     },
+     "title": "Formats",
+     "type": "array"
+    },
+    "created_at": {
+     "title": "Created At",
+     "type": "string"
+    },
+    "sent_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Sent At"
+    },
+    "outcome": {
+     "anyOf": [
+      {
+       "additionalProperties": {
+        "type": "integer"
+       },
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Outcome"
+    },
+    "disclaimer": {
+     "default": "Nic nie zostało wysłane — pakiet przygotowany i wyeksportowany.",
+     "title": "Disclaimer",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "kind",
+    "campaign_id",
+    "created_at"
+   ],
+   "title": "ActPackage",
+   "type": "object"
+  },
+  "ActPackageCreate": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "kind": {
+     "default": "bundle",
+     "enum": [
+      "dsa",
+      "certpl",
+      "stix",
+      "misp",
+      "rules",
+      "bundle"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "recipients": {
+     "default": [
+      "meta_dsa",
+      "certpl",
+      "google"
+     ],
+     "items": {
+      "enum": [
+       "meta_dsa",
+       "certpl",
+       "google",
+       "registrar"
+      ],
+      "type": "string"
+     },
+     "title": "Recipients",
+     "type": "array"
+    }
+   },
+   "required": [
+    "campaign_id"
+   ],
+   "title": "ActPackageCreate",
+   "type": "object"
+  },
+  "AdLayer": {
+   "additionalProperties": true,
+   "properties": {
+    "platform": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Platform"
+    },
+    "kind": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Kind"
+    },
+    "library_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Library Id"
+    },
+    "advertiser": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Advertiser"
+    },
+    "page_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page Id"
+    },
+    "text": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Text"
+    },
+    "overlay": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Overlay"
+    },
+    "display_link": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Display Link"
+    },
+    "cta": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cta"
+    },
+    "narrative": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Narrative"
+    },
+    "persons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Persons",
+     "type": "array"
+    },
+    "is_decoy": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Is Decoy"
+    },
+    "vertical": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Vertical"
+    },
+    "creative_phash": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Creative Phash"
+    },
+    "screenshot_path": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Screenshot Path"
+    },
+    "screenshots": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Screenshots",
+     "type": "array"
+    },
+    "video_path": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Video Path"
+    },
+    "video_title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Video Title"
+    },
+    "n_creatives": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "N Creatives"
+    },
+    "delivery": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Delivery",
+     "type": "object"
+    }
+   },
+   "title": "AdLayer",
+   "type": "object"
+  },
+  "Adjudication": {
+   "additionalProperties": false,
+   "properties": {
+    "model": {
+     "title": "Model",
+     "type": "string"
+    },
+    "verdict": {
+     "enum": [
+      "same",
+      "different",
+      "unsure",
+      "veto"
+     ],
+     "title": "Verdict",
+     "type": "string"
+    },
+    "confidence": {
+     "title": "Confidence",
+     "type": "number"
+    },
+    "rationale": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Rationale",
+     "type": "array"
+    }
+   },
+   "required": [
+    "model",
+    "verdict",
+    "confidence"
+   ],
+   "title": "Adjudication",
+   "type": "object"
+  },
+  "AnalyzeAccepted": {
+   "additionalProperties": false,
+   "properties": {
+    "job_id": {
+     "title": "Job Id",
+     "type": "string"
+    },
+    "incident_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Incident Id"
+    }
+   },
+   "required": [
+    "job_id"
+   ],
+   "title": "AnalyzeAccepted",
+   "type": "object"
+  },
+  "BatchResult": {
+   "additionalProperties": false,
+   "properties": {
+    "job_id": {
+     "title": "Job Id",
+     "type": "string"
+    },
+    "n_items": {
+     "title": "N Items",
+     "type": "integer"
+    },
+    "rows": {
+     "items": {
+      "$ref": "#/$defs/BatchRow"
+     },
+     "title": "Rows",
+     "type": "array"
+    },
+    "csv_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Csv Url"
+    },
+    "json_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Json Url"
+    }
+   },
+   "required": [
+    "job_id",
+    "n_items",
+    "rows"
+   ],
+   "title": "BatchResult",
+   "type": "object"
+  },
+  "BatchRow": {
+   "additionalProperties": false,
+   "description": "One row of results.csv (hidden-test hedge).",
+   "properties": {
+    "item": {
+     "title": "Item",
+     "type": "string"
+    },
+    "incident_id": {
+     "title": "Incident Id",
+     "type": "string"
+    },
+    "decision": {
+     "enum": [
+      "assign",
+      "confirm",
+      "ambiguous",
+      "new",
+      "insufficient"
+     ],
+     "title": "Decision",
+     "type": "string"
+    },
+    "campaign": {
+     "title": "Campaign",
+     "type": "string"
+    },
+    "campaign_score": {
+     "title": "Campaign Score",
+     "type": "number"
+    },
+    "campaign_p": {
+     "title": "Campaign P",
+     "type": "number"
+    },
+    "operator": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator"
+    },
+    "operation": {
+     "title": "Operation",
+     "type": "string"
+    },
+    "variant": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Variant"
+    },
+    "same_operator_as": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Same Operator As"
+    },
+    "duplicate_of": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Duplicate Of"
+    },
+    "coverage": {
+     "title": "Coverage",
+     "type": "number"
+    },
+    "top_evidence": {
+     "title": "Top Evidence",
+     "type": "string"
+    }
+   },
+   "required": [
+    "item",
+    "incident_id",
+    "decision",
+    "campaign",
+    "campaign_score",
+    "campaign_p",
+    "operation",
+    "coverage",
+    "top_evidence"
+   ],
+   "title": "BatchRow",
+   "type": "object"
+  },
+  "Campaign": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "narrative": {
+     "default": "",
+     "title": "Narrative",
+     "type": "string"
+    },
+    "vertical": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Vertical"
+    },
+    "status": {
+     "default": "active",
+     "enum": [
+      "active",
+      "fading",
+      "candidate",
+      "closed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "operator_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator Id"
+    },
+    "operation_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operation Id"
+    },
+    "heat": {
+     "$ref": "#/$defs/Heat",
+     "default": {
+      "series_48h": [],
+      "series_14d": [],
+      "trend_pct": 0.0
+     }
+    },
+    "n_incidents": {
+     "default": 0,
+     "title": "N Incidents",
+     "type": "integer"
+    },
+    "n_domains": {
+     "default": 0,
+     "title": "N Domains",
+     "type": "integer"
+    },
+    "new_domains_24h": {
+     "default": 0,
+     "title": "New Domains 24H",
+     "type": "integer"
+    },
+    "predicted_domains": {
+     "default": 0,
+     "title": "Predicted Domains",
+     "type": "integer"
+    },
+    "persons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Persons",
+     "type": "array"
+    },
+    "report_status": {
+     "default": "none",
+     "enum": [
+      "none",
+      "draft",
+      "sent",
+      "needs_update"
+     ],
+     "title": "Report Status",
+     "type": "string"
+    },
+    "merge_hint": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Merge Hint"
+    },
+    "description": {
+     "default": "",
+     "title": "Description",
+     "type": "string"
+    },
+    "level": {
+     "const": "L2",
+     "default": "L2",
+     "title": "Level",
+     "type": "string"
+    },
+    "counts": {
+     "$ref": "#/$defs/CampaignCounts",
+     "default": {
+      "incidents": 0,
+      "incidents_24h": 0,
+      "domains": 0,
+      "certs_tonight": 0,
+      "advertisers": 0,
+      "advertisers_removed": 0,
+      "persons": 0,
+      "certpl_listed": 0
+     }
+    },
+    "first_seen": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "First Seen"
+    },
+    "last_seen": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Seen"
+    },
+    "brands": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Brands",
+     "type": "array"
+    }
+   },
+   "required": [
+    "id",
+    "name"
+   ],
+   "title": "Campaign",
+   "type": "object"
+  },
+  "CampaignCounts": {
+   "additionalProperties": false,
+   "properties": {
+    "incidents": {
+     "default": 0,
+     "title": "Incidents",
+     "type": "integer"
+    },
+    "incidents_24h": {
+     "default": 0,
+     "title": "Incidents 24H",
+     "type": "integer"
+    },
+    "domains": {
+     "default": 0,
+     "title": "Domains",
+     "type": "integer"
+    },
+    "certs_tonight": {
+     "default": 0,
+     "title": "Certs Tonight",
+     "type": "integer"
+    },
+    "advertisers": {
+     "default": 0,
+     "title": "Advertisers",
+     "type": "integer"
+    },
+    "advertisers_removed": {
+     "default": 0,
+     "title": "Advertisers Removed",
+     "type": "integer"
+    },
+    "persons": {
+     "default": 0,
+     "title": "Persons",
+     "type": "integer"
+    },
+    "certpl_listed": {
+     "default": 0,
+     "title": "Certpl Listed",
+     "type": "integer"
+    }
+   },
+   "title": "CampaignCounts",
+   "type": "object"
+  },
+  "CampaignDNA": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "signature": {
+     "items": {
+      "$ref": "#/$defs/DnaRow"
+     },
+     "title": "Signature",
+     "type": "array"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "signature"
+   ],
+   "title": "CampaignDNA",
+   "type": "object"
+  },
+  "CampaignScore": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "score": {
+     "title": "Score",
+     "type": "number"
+    },
+    "score_operator": {
+     "default": 0.0,
+     "title": "Score Operator",
+     "type": "number"
+    },
+    "p": {
+     "default": 0.0,
+     "title": "P",
+     "type": "number"
+    },
+    "p_value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "P Value"
+    },
+    "in_set": {
+     "default": false,
+     "title": "In Set",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "score"
+   ],
+   "title": "CampaignScore",
+   "type": "object"
+  },
+  "CampaignSummary": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "narrative": {
+     "default": "",
+     "title": "Narrative",
+     "type": "string"
+    },
+    "vertical": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Vertical"
+    },
+    "status": {
+     "default": "active",
+     "enum": [
+      "active",
+      "fading",
+      "candidate",
+      "closed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "operator_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator Id"
+    },
+    "operation_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operation Id"
+    },
+    "heat": {
+     "$ref": "#/$defs/Heat",
+     "default": {
+      "series_48h": [],
+      "series_14d": [],
+      "trend_pct": 0.0
+     }
+    },
+    "n_incidents": {
+     "default": 0,
+     "title": "N Incidents",
+     "type": "integer"
+    },
+    "n_domains": {
+     "default": 0,
+     "title": "N Domains",
+     "type": "integer"
+    },
+    "new_domains_24h": {
+     "default": 0,
+     "title": "New Domains 24H",
+     "type": "integer"
+    },
+    "predicted_domains": {
+     "default": 0,
+     "title": "Predicted Domains",
+     "type": "integer"
+    },
+    "persons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Persons",
+     "type": "array"
+    },
+    "report_status": {
+     "default": "none",
+     "enum": [
+      "none",
+      "draft",
+      "sent",
+      "needs_update"
+     ],
+     "title": "Report Status",
+     "type": "string"
+    },
+    "merge_hint": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Merge Hint"
+    }
+   },
+   "required": [
+    "id",
+    "name"
+   ],
+   "title": "CampaignSummary",
+   "type": "object"
+  },
+  "CheckResult": {
+   "additionalProperties": false,
+   "properties": {
+    "verdict": {
+     "enum": [
+      "scam",
+      "unknown"
+     ],
+     "title": "Verdict",
+     "type": "string"
+    },
+    "public_campaign": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/PublicCampaign"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "advice": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Advice",
+     "type": "array"
+    }
+   },
+   "required": [
+    "verdict"
+   ],
+   "title": "CheckResult",
+   "type": "object"
+  },
+  "Content": {
+   "additionalProperties": true,
+   "properties": {
+    "headline_template": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Headline Template"
+    },
+    "h1_template": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "H1 Template"
+    },
+    "persons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Persons",
+     "type": "array"
+    },
+    "comment_names": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Comment Names",
+     "type": "array"
+    },
+    "brands": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Brands",
+     "type": "array"
+    },
+    "products": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Products",
+     "type": "array"
+    },
+    "vertical": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Vertical"
+    },
+    "vertical_scores": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "default": {},
+     "title": "Vertical Scores",
+     "type": "object"
+    },
+    "lang": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Lang"
+    },
+    "ad_name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ad Name"
+    },
+    "narrative": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Narrative"
+    },
+    "keywords": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Keywords",
+     "type": "array"
+    },
+    "contacts": {
+     "additionalProperties": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "default": {},
+     "title": "Contacts",
+     "type": "object"
+    }
+   },
+   "title": "Content",
+   "type": "object"
+  },
+  "Counterfactual": {
+   "additionalProperties": false,
+   "properties": {
+    "change": {
+     "title": "Change",
+     "type": "string"
+    },
+    "p_new": {
+     "title": "P New",
+     "type": "number"
+    },
+    "decision_new": {
+     "title": "Decision New",
+     "type": "string"
+    }
+   },
+   "required": [
+    "change",
+    "p_new",
+    "decision_new"
+   ],
+   "title": "Counterfactual",
+   "type": "object"
+  },
+  "Decision": {
+   "additionalProperties": false,
+   "description": "GET /incidents/{id}/decision. RESULTS §4 states; p = isotonic/Platt calibration of score_campaign.",
+   "properties": {
+    "incident_id": {
+     "title": "Incident Id",
+     "type": "string"
+    },
+    "decision": {
+     "enum": [
+      "assign",
+      "confirm",
+      "ambiguous",
+      "new",
+      "insufficient"
+     ],
+     "title": "Decision",
+     "type": "string"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "candidate_campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Candidate Campaign Id"
+    },
+    "score": {
+     "default": 0.0,
+     "title": "Score",
+     "type": "number"
+    },
+    "margin": {
+     "default": 0.0,
+     "title": "Margin",
+     "type": "number"
+    },
+    "p": {
+     "default": 0.0,
+     "title": "P",
+     "type": "number"
+    },
+    "tau": {
+     "default": 5.0,
+     "title": "Tau",
+     "type": "number"
+    },
+    "delta": {
+     "default": 1.0,
+     "title": "Delta",
+     "type": "number"
+    },
+    "confirm_floor": {
+     "default": 1.0,
+     "title": "Confirm Floor",
+     "type": "number"
+    },
+    "operator_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator Id"
+    },
+    "operation_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operation Id"
+    },
+    "same_operator_as": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Same Operator As"
+    },
+    "duplicate_of": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Duplicate Of"
+    },
+    "scores": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/CampaignScore"
+     },
+     "title": "Scores",
+     "type": "array"
+    },
+    "runner_up": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/RunnerUp"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "coverage": {
+     "default": 0.0,
+     "title": "Coverage",
+     "type": "number"
+    },
+    "layers": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/LayerCoverage"
+     },
+     "title": "Layers",
+     "type": "array"
+    },
+    "evidence": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Evidence",
+     "type": "array"
+    },
+    "why_not": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/WhyNot"
+     },
+     "title": "Why Not",
+     "type": "array"
+    },
+    "adjudicator": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Adjudication"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "alpha": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Alpha"
+    },
+    "conformal_tau": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Conformal Tau"
+    },
+    "set": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Set",
+     "type": "array"
+    },
+    "calibration": {
+     "anyOf": [
+      {
+       "additionalProperties": {
+        "type": "number"
+       },
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Calibration"
+    },
+    "model_version": {
+     "default": "engine@1",
+     "title": "Model Version",
+     "type": "string"
+    }
+   },
+   "required": [
+    "incident_id",
+    "decision"
+   ],
+   "title": "Decision",
+   "type": "object"
+  },
+  "DnaRow": {
+   "additionalProperties": false,
+   "properties": {
+    "layer": {
+     "enum": [
+      "tracking",
+      "kit",
+      "infra",
+      "content",
+      "persons",
+      "visual",
+      "ad",
+      "media"
+     ],
+     "title": "Layer",
+     "type": "string"
+    },
+    "field": {
+     "title": "Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    },
+    "display": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Display"
+    },
+    "members_with": {
+     "title": "Members With",
+     "type": "integer"
+    },
+    "members_total": {
+     "title": "Members Total",
+     "type": "integer"
+    },
+    "strength": {
+     "enum": [
+      "H",
+      "M",
+      "L"
+     ],
+     "title": "Strength",
+     "type": "string"
+    },
+    "bot": {
+     "anyOf": [
+      {
+       "enum": [
+        "zwiadowca",
+        "tropiciel",
+        "czytelnik",
+        "notariusz",
+        "archiwista",
+        "sedzia"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Bot"
+    }
+   },
+   "required": [
+    "layer",
+    "field",
+    "value",
+    "members_with",
+    "members_total",
+    "strength"
+   ],
+   "title": "DnaRow",
+   "type": "object"
+  },
+  "DomainDNA": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "grammar": {
+     "title": "Grammar",
+     "type": "string"
+    },
+    "examples": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Examples",
+     "type": "array"
+    },
+    "tld_dist": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "default": {},
+     "title": "Tld Dist",
+     "type": "object"
+    },
+    "length_hist": {
+     "additionalProperties": {
+      "type": "integer"
+     },
+     "default": {},
+     "title": "Length Hist",
+     "type": "object"
+    },
+    "registrars": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Registrars",
+     "type": "array"
+    },
+    "issuance_hours": {
+     "default": [],
+     "items": {
+      "type": "integer"
+     },
+     "title": "Issuance Hours",
+     "type": "array"
+    },
+    "asns": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Asns",
+     "type": "array"
+    },
+    "model": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Model",
+     "type": "object"
+    },
+    "threshold": {
+     "default": 0.6,
+     "title": "Threshold",
+     "type": "number"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "grammar"
+   ],
+   "title": "DomainDNA",
+   "type": "object"
+  },
+  "DomainIndicator": {
+   "additionalProperties": false,
+   "properties": {
+    "fqdn": {
+     "title": "Fqdn",
+     "type": "string"
+    },
+    "cert_issued_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cert Issued At"
+    },
+    "registered_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Registered At"
+    },
+    "oracle_predicted_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Oracle Predicted At"
+    },
+    "on_certpl": {
+     "default": false,
+     "title": "On Certpl",
+     "type": "boolean"
+    },
+    "online": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "enum": [
+        "502",
+        "unknown"
+       ],
+       "type": "string"
+      }
+     ],
+     "default": "unknown",
+     "title": "Online"
+    },
+    "ads_seen": {
+     "default": 0,
+     "title": "Ads Seen",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "fqdn"
+   ],
+   "title": "DomainIndicator",
+   "type": "object"
+  },
+  "DomainInfo": {
+   "additionalProperties": true,
+   "properties": {
+    "fqdn": {
+     "title": "Fqdn",
+     "type": "string"
+    },
+    "etld1": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Etld1"
+    },
+    "tld": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Tld"
+    },
+    "sld_label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Sld Label"
+    },
+    "ips": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Ips",
+     "type": "array"
+    },
+    "cdn": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Cdn",
+     "type": "array"
+    },
+    "asn": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Asn"
+    },
+    "cert": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cert"
+    },
+    "enrich": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Enrich",
+     "type": "object"
+    }
+   },
+   "required": [
+    "fqdn"
+   ],
+   "title": "DomainInfo",
+   "type": "object"
+  },
+  "Event": {
+   "additionalProperties": false,
+   "description": "SSE envelope. `event:` line = type, `data:` line = this JSON.",
+   "properties": {
+    "type": {
+     "enum": [
+      "incident.created",
+      "incident.attributed",
+      "campaign.updated",
+      "alert.created",
+      "triage.created",
+      "triage.updated",
+      "job.step",
+      "job.evidence",
+      "job.finding",
+      "job.ranking",
+      "job.done",
+      "job.error",
+      "agent.step",
+      "graph.node_added",
+      "graph.edge_added",
+      "casefile.delta",
+      "investigation.decision",
+      "investigation.done",
+      "oracle.match",
+      "hunter.capture",
+      "extension.report",
+      "act.submitted",
+      "model.updated"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "at": {
+     "title": "At",
+     "type": "string"
+    },
+    "data": {
+     "additionalProperties": true,
+     "title": "Data",
+     "type": "object"
+    }
+   },
+   "required": [
+    "type",
+    "at",
+    "data"
+   ],
+   "title": "Event",
+   "type": "object"
+  },
+  "EvidenceItem": {
+   "additionalProperties": false,
+   "description": "One chip. `type` is the UI layer; `field` the engine feature type (e.g. 'fb_pixel', 'kit_tenant').",
+   "properties": {
+    "type": {
+     "enum": [
+      "tracking",
+      "kit",
+      "infra",
+      "content",
+      "persons",
+      "visual",
+      "ad",
+      "media"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "field": {
+     "title": "Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    },
+    "display": {
+     "title": "Display",
+     "type": "string"
+    },
+    "strength": {
+     "enum": [
+      "H",
+      "M",
+      "L"
+     ],
+     "title": "Strength",
+     "type": "string"
+    },
+    "weight": {
+     "title": "Weight",
+     "type": "number"
+    },
+    "level": {
+     "default": "campaign",
+     "enum": [
+      "campaign",
+      "operator_only",
+      "platform"
+     ],
+     "title": "Level",
+     "type": "string"
+    },
+    "df": {
+     "default": 0,
+     "title": "Df",
+     "type": "integer"
+    },
+    "N": {
+     "default": 0,
+     "title": "N",
+     "type": "integer"
+    },
+    "idf": {
+     "default": 0.0,
+     "title": "Idf",
+     "type": "number"
+    },
+    "state": {
+     "default": "match",
+     "enum": [
+      "match",
+      "conflict",
+      "missing",
+      "zero"
+     ],
+     "title": "State",
+     "type": "string"
+    },
+    "sides": {
+     "anyOf": [
+      {
+       "additionalProperties": {
+        "type": "string"
+       },
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Sides"
+    },
+    "bot": {
+     "anyOf": [
+      {
+       "enum": [
+        "zwiadowca",
+        "tropiciel",
+        "czytelnik",
+        "notariusz",
+        "archiwista",
+        "sedzia"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Bot"
+    },
+    "shap": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Shap"
+    }
+   },
+   "required": [
+    "type",
+    "field",
+    "value",
+    "display",
+    "strength",
+    "weight"
+   ],
+   "title": "EvidenceItem",
+   "type": "object"
+  },
+  "EvidenceValue": {
+   "additionalProperties": false,
+   "properties": {
+    "type": {
+     "enum": [
+      "tracking",
+      "kit",
+      "infra",
+      "content",
+      "persons",
+      "visual",
+      "ad",
+      "media"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "field": {
+     "title": "Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    },
+    "df": {
+     "title": "Df",
+     "type": "integer"
+    },
+    "N": {
+     "title": "N",
+     "type": "integer"
+    },
+    "idf": {
+     "title": "Idf",
+     "type": "number"
+    },
+    "first_seen": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "First Seen"
+    },
+    "last_seen": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Seen"
+    },
+    "weekly": {
+     "default": [],
+     "items": {
+      "type": "integer"
+     },
+     "title": "Weekly",
+     "type": "array"
+    },
+    "campaigns": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Campaigns",
+     "type": "array"
+    },
+    "operator_hint": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator Hint"
+    },
+    "incidents": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/IncidentSummary"
+     },
+     "title": "Incidents",
+     "type": "array"
+    }
+   },
+   "required": [
+    "type",
+    "field",
+    "value",
+    "df",
+    "N",
+    "idf"
+   ],
+   "title": "EvidenceValue",
+   "type": "object"
+  },
+  "ExtensionMatch": {
+   "additionalProperties": false,
+   "properties": {
+    "match": {
+     "title": "Match",
+     "type": "boolean"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "public_campaign": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/PublicCampaign"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "reasons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Reasons",
+     "type": "array"
+    }
+   },
+   "required": [
+    "match"
+   ],
+   "title": "ExtensionMatch",
+   "type": "object"
+  },
+  "ExtensionPost": {
+   "additionalProperties": false,
+   "properties": {
+    "advertiser": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Advertiser"
+    },
+    "caption": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Caption"
+    },
+    "cta_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cta Url"
+    },
+    "creative_phash": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Creative Phash"
+    },
+    "page_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page Url"
+    },
+    "install_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Install Id"
+    }
+   },
+   "title": "ExtensionPost",
+   "type": "object"
+  },
+  "FaceHit": {
+   "additionalProperties": true,
+   "properties": {
+    "identity": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Identity"
+    },
+    "person_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Person Id"
+    },
+    "score": {
+     "default": 0.0,
+     "title": "Score",
+     "type": "number"
+    },
+    "lead": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Lead"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source"
+    },
+    "deepfake": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Deepfake"
+    }
+   },
+   "title": "FaceHit",
+   "type": "object"
+  },
+  "Finding": {
+   "additionalProperties": false,
+   "description": "A finding outlined on the captured page (Sprawdź-2 left column).",
+   "properties": {
+    "evidence": {
+     "$ref": "#/$defs/EvidenceItem"
+    },
+    "where": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Where"
+    },
+    "selector": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Selector"
+    },
+    "bbox": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "number"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Bbox"
+    }
+   },
+   "required": [
+    "evidence"
+   ],
+   "title": "Finding",
+   "type": "object"
+  },
+  "GraphEdge": {
+   "additionalProperties": false,
+   "properties": {
+    "a": {
+     "title": "A",
+     "type": "string"
+    },
+    "b": {
+     "title": "B",
+     "type": "string"
+    },
+    "type": {
+     "anyOf": [
+      {
+       "enum": [
+        "tracking",
+        "kit",
+        "infra",
+        "content",
+        "persons",
+        "visual",
+        "ad",
+        "media"
+       ],
+       "type": "string"
+      },
+      {
+       "enum": [
+        "member",
+        "operator",
+        "operation"
+       ],
+       "type": "string"
+      }
+     ],
+     "title": "Type"
+    },
+    "weight": {
+     "default": 1.0,
+     "title": "Weight",
+     "type": "number"
+    },
+    "level": {
+     "anyOf": [
+      {
+       "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Level"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    }
+   },
+   "required": [
+    "a",
+    "b",
+    "type"
+   ],
+   "title": "GraphEdge",
+   "type": "object"
+  },
+  "GraphNode": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "incident",
+      "domain",
+      "campaign",
+      "operator",
+      "operation",
+      "person",
+      "trace",
+      "cert",
+      "advertiser"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "size": {
+     "default": 1.0,
+     "title": "Size",
+     "type": "number"
+    },
+    "first_seen": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "First Seen"
+    },
+    "meta": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Meta",
+     "type": "object"
+    }
+   },
+   "required": [
+    "id",
+    "kind",
+    "label"
+   ],
+   "title": "GraphNode",
+   "type": "object"
+  },
+  "GraphPayload": {
+   "additionalProperties": false,
+   "properties": {
+    "nodes": {
+     "items": {
+      "$ref": "#/$defs/GraphNode"
+     },
+     "title": "Nodes",
+     "type": "array"
+    },
+    "edges": {
+     "items": {
+      "$ref": "#/$defs/GraphEdge"
+     },
+     "title": "Edges",
+     "type": "array"
+    },
+    "hulls": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Hulls",
+     "type": "array"
+    },
+    "focus": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Focus"
+    },
+    "panel": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Panel"
+    }
+   },
+   "required": [
+    "nodes",
+    "edges"
+   ],
+   "title": "GraphPayload",
+   "type": "object"
+  },
+  "Heat": {
+   "additionalProperties": false,
+   "properties": {
+    "series_48h": {
+     "default": [],
+     "items": {
+      "type": "integer"
+     },
+     "title": "Series 48H",
+     "type": "array"
+    },
+    "series_14d": {
+     "default": [],
+     "items": {
+      "type": "integer"
+     },
+     "title": "Series 14D",
+     "type": "array"
+    },
+    "trend_pct": {
+     "default": 0.0,
+     "title": "Trend Pct",
+     "type": "number"
+    }
+   },
+   "title": "Heat",
+   "type": "object"
+  },
+  "HunterRun": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "source_id": {
+     "title": "Source Id",
+     "type": "string"
+    },
+    "started_at": {
+     "title": "Started At",
+     "type": "string"
+    },
+    "finished_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Finished At"
+    },
+    "status": {
+     "default": "running",
+     "enum": [
+      "running",
+      "ok",
+      "error"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "found": {
+     "default": 0,
+     "title": "Found",
+     "type": "integer"
+    },
+    "captured": {
+     "default": 0,
+     "title": "Captured",
+     "type": "integer"
+    },
+    "attributed": {
+     "default": 0,
+     "title": "Attributed",
+     "type": "integer"
+    },
+    "incident_ids": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Incident Ids",
+     "type": "array"
+    },
+    "error": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Error"
+    }
+   },
+   "required": [
+    "id",
+    "source_id",
+    "started_at"
+   ],
+   "title": "HunterRun",
+   "type": "object"
+  },
+  "HunterSource": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "meta_adlibrary",
+      "google_ads_transparency",
+      "certpl",
+      "urlscan",
+      "ct",
+      "extension",
+      "manual"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "label": {
+     "default": "",
+     "title": "Label",
+     "type": "string"
+    },
+    "schedule": {
+     "default": "manual",
+     "title": "Schedule",
+     "type": "string"
+    },
+    "status": {
+     "default": "ok",
+     "enum": [
+      "ok",
+      "degraded",
+      "error",
+      "disabled"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "last_run_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Run At"
+    },
+    "new_24h": {
+     "default": 0,
+     "title": "New 24H",
+     "type": "integer"
+    },
+    "errors_24h": {
+     "default": 0,
+     "title": "Errors 24H",
+     "type": "integer"
+    },
+    "enabled": {
+     "default": true,
+     "title": "Enabled",
+     "type": "boolean"
+    },
+    "credentials_status": {
+     "default": "not_needed",
+     "enum": [
+      "set",
+      "missing",
+      "not_needed"
+     ],
+     "title": "Credentials Status",
+     "type": "string"
+    },
+    "config": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Config",
+     "type": "object"
+    }
+   },
+   "required": [
+    "id",
+    "kind"
+   ],
+   "title": "HunterSource",
+   "type": "object"
+  },
+  "Incident": {
+   "additionalProperties": true,
+   "description": "The engine's unit. `IncidentDraft` is the same shape before it has a DB id.",
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "source": {
+     "$ref": "#/$defs/IncidentSource",
+     "default": {
+      "type": "manual",
+      "path": null,
+      "ref": null,
+      "captured_at": null
+     }
+    },
+    "ad": {
+     "$ref": "#/$defs/AdLayer",
+     "default": {
+      "platform": null,
+      "kind": null,
+      "library_id": null,
+      "advertiser": null,
+      "page_id": null,
+      "text": null,
+      "overlay": null,
+      "display_link": null,
+      "cta": null,
+      "narrative": null,
+      "persons": [],
+      "is_decoy": null,
+      "vertical": null,
+      "creative_phash": null,
+      "screenshot_path": null,
+      "screenshots": [],
+      "video_path": null,
+      "video_title": null,
+      "n_creatives": null,
+      "delivery": {}
+     }
+    },
+    "landing": {
+     "$ref": "#/$defs/Landing",
+     "default": {
+      "entry_url": null,
+      "final_url": null,
+      "host": null,
+      "etld1": null,
+      "status": null,
+      "title": null,
+      "text": null,
+      "lang": null,
+      "h1": [],
+      "dom_paths": [],
+      "css_classes": [],
+      "page_role": null,
+      "redirect_chain": [],
+      "chain_urls": [],
+      "chain_titles": [],
+      "n_hars": 0,
+      "n_pages": 0,
+      "screenshot_path": null,
+      "screenshot_phash": null,
+      "favicon_mmh3": null,
+      "forms": [],
+      "outlinks": []
+     }
+    },
+    "tracking": {
+     "$ref": "#/$defs/Tracking",
+     "default": {
+      "fb_pixels": [],
+      "capi_gateways": [],
+      "google_ads": [],
+      "ga4": [],
+      "gtm": [],
+      "tiktok_pixels": [],
+      "snap_pixels": [],
+      "kit_tenants": [],
+      "lander_ids": [],
+      "landing_type_ids": [],
+      "video_hosts": [],
+      "kit_endpoints": [],
+      "url_param_schema": null,
+      "chain_param_schemas": [],
+      "entry_path_template": null,
+      "path_shapes": [],
+      "third_party": [],
+      "asset_hashes": [],
+      "brand_asset_hashes": []
+     }
+    },
+    "infra": {
+     "$ref": "#/$defs/Infra",
+     "default": {
+      "domains": [],
+      "ips": [],
+      "cdn": [],
+      "origin_ips": [],
+      "on_certpl_list": null
+     }
+    },
+    "content": {
+     "$ref": "#/$defs/Content",
+     "default": {
+      "headline_template": null,
+      "h1_template": null,
+      "persons": [],
+      "comment_names": [],
+      "brands": [],
+      "products": [],
+      "vertical": null,
+      "vertical_scores": {},
+      "lang": null,
+      "ad_name": null,
+      "narrative": null,
+      "keywords": [],
+      "contacts": {}
+     }
+    },
+    "media": {
+     "$ref": "#/$defs/Media",
+     "default": {
+      "faces": [],
+      "video": null,
+      "asr_text": null,
+      "asr_model": null,
+      "voice_id": null,
+      "voice_embedding_ref": null
+     }
+    },
+    "quality": {
+     "$ref": "#/$defs/Quality",
+     "default": {
+      "available": [],
+      "missing": [],
+      "errors": []
+     }
+    },
+    "emb": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Emb",
+     "type": "object"
+    }
+   },
+   "required": [
+    "id"
+   ],
+   "title": "Incident",
+   "type": "object"
+  },
+  "IncidentDraft": {
+   "additionalProperties": true,
+   "properties": {
+    "id": {
+     "default": "",
+     "title": "Id",
+     "type": "string"
+    },
+    "source": {
+     "$ref": "#/$defs/IncidentSource",
+     "default": {
+      "type": "manual",
+      "path": null,
+      "ref": null,
+      "captured_at": null
+     }
+    },
+    "ad": {
+     "$ref": "#/$defs/AdLayer",
+     "default": {
+      "platform": null,
+      "kind": null,
+      "library_id": null,
+      "advertiser": null,
+      "page_id": null,
+      "text": null,
+      "overlay": null,
+      "display_link": null,
+      "cta": null,
+      "narrative": null,
+      "persons": [],
+      "is_decoy": null,
+      "vertical": null,
+      "creative_phash": null,
+      "screenshot_path": null,
+      "screenshots": [],
+      "video_path": null,
+      "video_title": null,
+      "n_creatives": null,
+      "delivery": {}
+     }
+    },
+    "landing": {
+     "$ref": "#/$defs/Landing",
+     "default": {
+      "entry_url": null,
+      "final_url": null,
+      "host": null,
+      "etld1": null,
+      "status": null,
+      "title": null,
+      "text": null,
+      "lang": null,
+      "h1": [],
+      "dom_paths": [],
+      "css_classes": [],
+      "page_role": null,
+      "redirect_chain": [],
+      "chain_urls": [],
+      "chain_titles": [],
+      "n_hars": 0,
+      "n_pages": 0,
+      "screenshot_path": null,
+      "screenshot_phash": null,
+      "favicon_mmh3": null,
+      "forms": [],
+      "outlinks": []
+     }
+    },
+    "tracking": {
+     "$ref": "#/$defs/Tracking",
+     "default": {
+      "fb_pixels": [],
+      "capi_gateways": [],
+      "google_ads": [],
+      "ga4": [],
+      "gtm": [],
+      "tiktok_pixels": [],
+      "snap_pixels": [],
+      "kit_tenants": [],
+      "lander_ids": [],
+      "landing_type_ids": [],
+      "video_hosts": [],
+      "kit_endpoints": [],
+      "url_param_schema": null,
+      "chain_param_schemas": [],
+      "entry_path_template": null,
+      "path_shapes": [],
+      "third_party": [],
+      "asset_hashes": [],
+      "brand_asset_hashes": []
+     }
+    },
+    "infra": {
+     "$ref": "#/$defs/Infra",
+     "default": {
+      "domains": [],
+      "ips": [],
+      "cdn": [],
+      "origin_ips": [],
+      "on_certpl_list": null
+     }
+    },
+    "content": {
+     "$ref": "#/$defs/Content",
+     "default": {
+      "headline_template": null,
+      "h1_template": null,
+      "persons": [],
+      "comment_names": [],
+      "brands": [],
+      "products": [],
+      "vertical": null,
+      "vertical_scores": {},
+      "lang": null,
+      "ad_name": null,
+      "narrative": null,
+      "keywords": [],
+      "contacts": {}
+     }
+    },
+    "media": {
+     "$ref": "#/$defs/Media",
+     "default": {
+      "faces": [],
+      "video": null,
+      "asr_text": null,
+      "asr_model": null,
+      "voice_id": null,
+      "voice_embedding_ref": null
+     }
+    },
+    "quality": {
+     "$ref": "#/$defs/Quality",
+     "default": {
+      "available": [],
+      "missing": [],
+      "errors": []
+     }
+    },
+    "emb": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Emb",
+     "type": "object"
+    }
+   },
+   "title": "IncidentDraft",
+   "type": "object"
+  },
+  "IncidentSource": {
+   "additionalProperties": true,
+   "properties": {
+    "type": {
+     "default": "manual",
+     "enum": [
+      "sample_dir",
+      "bundle",
+      "capture_tool",
+      "url",
+      "upload",
+      "har",
+      "screenshot",
+      "video",
+      "adlibrary",
+      "urlscan",
+      "extension",
+      "hunter",
+      "manual"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "path": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Path"
+    },
+    "ref": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ref"
+    },
+    "captured_at": {
+     "anyOf": [
+      {
+       "format": "date-time",
+       "type": "string"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Captured At"
+    }
+   },
+   "title": "IncidentSource",
+   "type": "object"
+  },
+  "IncidentSummary": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "captured_at": {
+     "anyOf": [
+      {
+       "format": "date-time",
+       "type": "string"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Captured At"
+    },
+    "source": {
+     "title": "Source",
+     "type": "string"
+    },
+    "domain": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Domain"
+    },
+    "title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Title"
+    },
+    "person": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Person"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "decision": {
+     "anyOf": [
+      {
+       "enum": [
+        "assign",
+        "confirm",
+        "ambiguous",
+        "new",
+        "insufficient"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Decision"
+    },
+    "p": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "P"
+    },
+    "coverage": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Coverage"
+    }
+   },
+   "required": [
+    "id",
+    "source"
+   ],
+   "title": "IncidentSummary",
+   "type": "object"
+  },
+  "Indicators": {
+   "additionalProperties": false,
+   "properties": {
+    "domains": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/DomainIndicator"
+     },
+     "title": "Domains",
+     "type": "array"
+    },
+    "tracking": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Tracking",
+     "type": "array"
+    },
+    "kit": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Kit",
+     "type": "array"
+    },
+    "persons": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Persons",
+     "type": "array"
+    },
+    "advertisers": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Advertisers",
+     "type": "array"
+    }
+   },
+   "title": "Indicators",
+   "type": "object"
+  },
+  "Infra": {
+   "additionalProperties": true,
+   "properties": {
+    "domains": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/DomainInfo"
+     },
+     "title": "Domains",
+     "type": "array"
+    },
+    "ips": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Ips",
+     "type": "array"
+    },
+    "cdn": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Cdn",
+     "type": "array"
+    },
+    "origin_ips": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Origin Ips",
+     "type": "array"
+    },
+    "on_certpl_list": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "On Certpl List"
+    }
+   },
+   "title": "Infra",
+   "type": "object"
+  },
+  "Investigation": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "seed": {
+     "title": "Seed",
+     "type": "string"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "status": {
+     "default": "running",
+     "enum": [
+      "running",
+      "paused",
+      "done",
+      "stopped",
+      "error"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "budget": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "default": {
+      "steps": 20,
+      "used": 0,
+      "usd": 0.5,
+      "usd_used": 0.0
+     },
+     "title": "Budget",
+     "type": "object"
+    },
+    "model": {
+     "default": "gemini-pro-latest",
+     "title": "Model",
+     "type": "string"
+    },
+    "tools": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Tools",
+     "type": "array"
+    },
+    "started_at": {
+     "title": "Started At",
+     "type": "string"
+    },
+    "nodes": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/InvestigationNode"
+     },
+     "title": "Nodes",
+     "type": "array"
+    },
+    "edges": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Edges",
+     "type": "array"
+    },
+    "steps": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/InvestigationStep"
+     },
+     "title": "Steps",
+     "type": "array"
+    },
+    "conclusions": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Conclusions",
+     "type": "array"
+    },
+    "pending_decision": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Pending Decision"
+    }
+   },
+   "required": [
+    "id",
+    "seed",
+    "started_at"
+   ],
+   "title": "Investigation",
+   "type": "object"
+  },
+  "InvestigationCreate": {
+   "additionalProperties": false,
+   "properties": {
+    "seed": {
+     "title": "Seed",
+     "type": "string"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "budget_steps": {
+     "default": 20,
+     "title": "Budget Steps",
+     "type": "integer"
+    },
+    "offline": {
+     "default": false,
+     "title": "Offline",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "seed"
+   ],
+   "title": "InvestigationCreate",
+   "type": "object"
+  },
+  "InvestigationNode": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "domain",
+      "cert",
+      "ip",
+      "query_result",
+      "ad",
+      "list_status",
+      "oracle_flag",
+      "incident",
+      "source"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "meta": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Meta",
+     "type": "object"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "enum": [
+        "new",
+        "in_campaign",
+        "to_decide",
+        "in_progress",
+        "skipped"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Status"
+    },
+    "is_new": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Is New"
+    },
+    "branch": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Branch"
+    }
+   },
+   "required": [
+    "id",
+    "kind",
+    "label"
+   ],
+   "title": "InvestigationNode",
+   "type": "object"
+  },
+  "InvestigationStep": {
+   "additionalProperties": false,
+   "properties": {
+    "n": {
+     "title": "N",
+     "type": "integer"
+    },
+    "tool": {
+     "title": "Tool",
+     "type": "string"
+    },
+    "query": {
+     "title": "Query",
+     "type": "string"
+    },
+    "result_summary": {
+     "title": "Result Summary",
+     "type": "string"
+    },
+    "why": {
+     "default": "",
+     "title": "Why",
+     "type": "string"
+    },
+    "produced": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Produced",
+     "type": "array"
+    },
+    "at": {
+     "title": "At",
+     "type": "string"
+    },
+    "bot": {
+     "anyOf": [
+      {
+       "enum": [
+        "zwiadowca",
+        "tropiciel",
+        "czytelnik",
+        "notariusz",
+        "archiwista",
+        "sedzia"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Bot"
+    },
+    "cost_usd": {
+     "default": 0.0,
+     "title": "Cost Usd",
+     "type": "number"
+    }
+   },
+   "required": [
+    "n",
+    "tool",
+    "query",
+    "result_summary",
+    "at"
+   ],
+   "title": "InvestigationStep",
+   "type": "object"
+  },
+  "Job": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "status": {
+     "default": "queued",
+     "enum": [
+      "queued",
+      "running",
+      "done",
+      "error"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "input": {
+     "$ref": "#/$defs/JobInput"
+    },
+    "incident_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Incident Id"
+    },
+    "decision": {
+     "anyOf": [
+      {
+       "enum": [
+        "assign",
+        "confirm",
+        "ambiguous",
+        "new",
+        "insufficient"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Decision"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "total_ms": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Total Ms"
+    },
+    "steps": {
+     "items": {
+      "$ref": "#/$defs/JobStep"
+     },
+     "title": "Steps",
+     "type": "array"
+    },
+    "error": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Error"
+    }
+   },
+   "required": [
+    "id",
+    "input"
+   ],
+   "title": "Job",
+   "type": "object"
+  },
+  "JobInput": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "enum": [
+      "url",
+      "file",
+      "zip",
+      "folder",
+      "trace",
+      "batch"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "kind",
+    "name"
+   ],
+   "title": "JobInput",
+   "type": "object"
+  },
+  "JobStep": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "enum": [
+      "capture",
+      "tracking",
+      "content",
+      "infra",
+      "compare",
+      "verdict"
+     ],
+     "title": "Key",
+     "type": "string"
+    },
+    "bot": {
+     "enum": [
+      "zwiadowca",
+      "tropiciel",
+      "czytelnik",
+      "notariusz",
+      "archiwista",
+      "sedzia"
+     ],
+     "title": "Bot",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "status": {
+     "default": "pending",
+     "enum": [
+      "pending",
+      "run",
+      "done",
+      "warn",
+      "skip",
+      "error"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "started_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Started At"
+    },
+    "duration_ms": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Duration Ms"
+    },
+    "detail": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Detail"
+    },
+    "warnings": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Warnings",
+     "type": "array"
+    }
+   },
+   "required": [
+    "key",
+    "bot",
+    "label"
+   ],
+   "title": "JobStep",
+   "type": "object"
+  },
+  "LabMetrics": {
+   "additionalProperties": false,
+   "properties": {
+    "view": {
+     "default": "summary",
+     "title": "View",
+     "type": "string"
+    },
+    "model_version": {
+     "default": "engine@1",
+     "title": "Model Version",
+     "type": "string"
+    },
+    "data": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Data",
+     "type": "object"
+    }
+   },
+   "title": "LabMetrics",
+   "type": "object"
+  },
+  "Landing": {
+   "additionalProperties": true,
+   "properties": {
+    "entry_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Entry Url"
+    },
+    "final_url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Final Url"
+    },
+    "host": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Host"
+    },
+    "etld1": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Etld1"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Status"
+    },
+    "title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Title"
+    },
+    "text": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Text"
+    },
+    "lang": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Lang"
+    },
+    "h1": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "H1",
+     "type": "array"
+    },
+    "dom_paths": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Dom Paths",
+     "type": "array"
+    },
+    "css_classes": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Css Classes",
+     "type": "array"
+    },
+    "page_role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page Role"
+    },
+    "redirect_chain": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Redirect Chain",
+     "type": "array"
+    },
+    "chain_urls": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Chain Urls",
+     "type": "array"
+    },
+    "chain_titles": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Chain Titles",
+     "type": "array"
+    },
+    "n_hars": {
+     "default": 0,
+     "title": "N Hars",
+     "type": "integer"
+    },
+    "n_pages": {
+     "default": 0,
+     "title": "N Pages",
+     "type": "integer"
+    },
+    "screenshot_path": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Screenshot Path"
+    },
+    "screenshot_phash": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Screenshot Phash"
+    },
+    "favicon_mmh3": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Favicon Mmh3"
+    },
+    "forms": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Forms",
+     "type": "array"
+    },
+    "outlinks": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Outlinks",
+     "type": "array"
+    }
+   },
+   "title": "Landing",
+   "type": "object"
+  },
+  "LayerCoverage": {
+   "additionalProperties": false,
+   "properties": {
+    "layer": {
+     "enum": [
+      "tracking",
+      "kit",
+      "infra",
+      "content",
+      "persons",
+      "visual",
+      "ad",
+      "media"
+     ],
+     "title": "Layer",
+     "type": "string"
+    },
+    "state": {
+     "enum": [
+      "available",
+      "partial",
+      "missing",
+      "error"
+     ],
+     "title": "State",
+     "type": "string"
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reason"
+    }
+   },
+   "required": [
+    "layer",
+    "state"
+   ],
+   "title": "LayerCoverage",
+   "type": "object"
+  },
+  "LinkExplanation": {
+   "additionalProperties": false,
+   "properties": {
+    "a": {
+     "title": "A",
+     "type": "string"
+    },
+    "b": {
+     "title": "B",
+     "type": "string"
+    },
+    "score_campaign": {
+     "title": "Score Campaign",
+     "type": "number"
+    },
+    "score_operator": {
+     "title": "Score Operator",
+     "type": "number"
+    },
+    "p": {
+     "title": "P",
+     "type": "number"
+    },
+    "tau": {
+     "default": 5.0,
+     "title": "Tau",
+     "type": "number"
+    },
+    "delta": {
+     "default": 1.0,
+     "title": "Delta",
+     "type": "number"
+    },
+    "decision": {
+     "enum": [
+      "linked",
+      "not_linked",
+      "triage"
+     ],
+     "title": "Decision",
+     "type": "string"
+    },
+    "shared_level": {
+     "anyOf": [
+      {
+       "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Shared Level"
+    },
+    "operator_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operator Id"
+    },
+    "layers_independent": {
+     "default": 0,
+     "title": "Layers Independent",
+     "type": "integer"
+    },
+    "layers_required": {
+     "default": 2,
+     "title": "Layers Required",
+     "type": "integer"
+    },
+    "coverage": {
+     "default": 0.0,
+     "title": "Coverage",
+     "type": "number"
+    },
+    "summary": {
+     "default": "",
+     "title": "Summary",
+     "type": "string"
+    },
+    "contributions": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Contributions",
+     "type": "array"
+    },
+    "evidence": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Evidence",
+     "type": "array"
+    },
+    "missing": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Missing",
+     "type": "array"
+    },
+    "conflicts": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Conflicts",
+     "type": "array"
+    },
+    "zeroed": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Zeroed",
+     "type": "array"
+    },
+    "counterfactuals": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Counterfactual"
+     },
+     "title": "Counterfactuals",
+     "type": "array"
+    },
+    "adjudicator": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Adjudication"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "a",
+    "b",
+    "score_campaign",
+    "score_operator",
+    "p",
+    "decision"
+   ],
+   "title": "LinkExplanation",
+   "type": "object"
+  },
+  "Media": {
+   "additionalProperties": true,
+   "properties": {
+    "faces": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/FaceHit"
+     },
+     "title": "Faces",
+     "type": "array"
+    },
+    "video": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/VideoInfo"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "asr_text": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Asr Text"
+    },
+    "asr_model": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Asr Model"
+    },
+    "voice_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Voice Id"
+    },
+    "voice_embedding_ref": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Voice Embedding Ref"
+    }
+   },
+   "title": "Media",
+   "type": "object"
+  },
+  "Member": {
+   "additionalProperties": false,
+   "properties": {
+    "incident_id": {
+     "title": "Incident Id",
+     "type": "string"
+    },
+    "captured_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Captured At"
+    },
+    "source": {
+     "title": "Source",
+     "type": "string"
+    },
+    "domain": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Domain"
+    },
+    "person": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Person"
+    },
+    "level": {
+     "default": "L2",
+     "enum": [
+      "L0",
+      "L1",
+      "L2",
+      "L3"
+     ],
+     "title": "Level",
+     "type": "string"
+    },
+    "variant_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Variant Id"
+    },
+    "parent_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Parent Id"
+    },
+    "score": {
+     "default": 0.0,
+     "title": "Score",
+     "type": "number"
+    },
+    "p": {
+     "default": 0.0,
+     "title": "P",
+     "type": "number"
+    },
+    "top_evidence": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Top Evidence",
+     "type": "array"
+    },
+    "layers": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/LayerCoverage"
+     },
+     "title": "Layers",
+     "type": "array"
+    }
+   },
+   "required": [
+    "incident_id",
+    "source"
+   ],
+   "title": "Member",
+   "type": "object"
+  },
+  "MergePreview": {
+   "additionalProperties": false,
+   "properties": {
+    "a": {
+     "$ref": "#/$defs/CampaignSummary"
+    },
+    "b": {
+     "$ref": "#/$defs/CampaignSummary"
+    },
+    "shared": {
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Shared",
+     "type": "array"
+    },
+    "before": {
+     "additionalProperties": {
+      "type": "integer"
+     },
+     "title": "Before",
+     "type": "object"
+    },
+    "after": {
+     "additionalProperties": {
+      "type": "integer"
+     },
+     "title": "After",
+     "type": "object"
+    },
+    "undo_token": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Undo Token"
+    }
+   },
+   "required": [
+    "a",
+    "b",
+    "shared",
+    "before",
+    "after"
+   ],
+   "title": "MergePreview",
+   "type": "object"
+  },
+  "MergeRequest": {
+   "additionalProperties": false,
+   "properties": {
+    "other_id": {
+     "title": "Other Id",
+     "type": "string"
+    },
+    "keep": {
+     "default": "self",
+     "enum": [
+      "self",
+      "other"
+     ],
+     "title": "Keep",
+     "type": "string"
+    }
+   },
+   "required": [
+    "other_id"
+   ],
+   "title": "MergeRequest",
+   "type": "object"
+  },
+  "Operation": {
+   "additionalProperties": false,
+   "description": "Shared funnel across operators/campaigns (DANE finding: A + C + K).",
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "campaigns": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Campaigns",
+     "type": "array"
+    },
+    "operators": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Operators",
+     "type": "array"
+    },
+    "funnel": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Funnel",
+     "type": "array"
+    },
+    "shared": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Shared",
+     "type": "array"
+    }
+   },
+   "required": [
+    "id",
+    "name",
+    "campaigns"
+   ],
+   "title": "Operation",
+   "type": "object"
+  },
+  "Operator": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "codename": {
+     "title": "Codename",
+     "type": "string"
+    },
+    "campaigns": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Campaigns",
+     "type": "array"
+    },
+    "shared": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Shared",
+     "type": "array"
+    },
+    "narratives": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Narratives",
+     "type": "array"
+    },
+    "operation_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Operation Id"
+    }
+   },
+   "required": [
+    "id",
+    "codename"
+   ],
+   "title": "Operator",
+   "type": "object"
+  },
+  "OracleMetrics": {
+   "additionalProperties": false,
+   "properties": {
+    "flagged_24h": {
+     "default": 0,
+     "title": "Flagged 24H",
+     "type": "integer"
+    },
+    "confirmed": {
+     "default": 0,
+     "title": "Confirmed",
+     "type": "integer"
+    },
+    "precision_at_20": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Precision At 20"
+    },
+    "median_lead_h": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Median Lead H"
+    },
+    "ct_rate_per_h": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ct Rate Per H"
+    },
+    "false_alarms_24h": {
+     "default": 0,
+     "title": "False Alarms 24H",
+     "type": "integer"
+    },
+    "backtest": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Backtest",
+     "type": "array"
+    }
+   },
+   "title": "OracleMetrics",
+   "type": "object"
+  },
+  "OraclePrediction": {
+   "additionalProperties": false,
+   "properties": {
+    "domain": {
+     "title": "Domain",
+     "type": "string"
+    },
+    "issued_at": {
+     "title": "Issued At",
+     "type": "string"
+    },
+    "issuer": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Issuer"
+    },
+    "dna_score": {
+     "title": "Dna Score",
+     "type": "number"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "status": {
+     "default": "predicted",
+     "enum": [
+      "predicted",
+      "confirmed",
+      "below_threshold",
+      "dismissed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "first_ad_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "First Ad At"
+    },
+    "lead_time_h": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Lead Time H"
+    },
+    "reasons": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Reasons",
+     "type": "array"
+    }
+   },
+   "required": [
+    "domain",
+    "issued_at",
+    "dna_score"
+   ],
+   "title": "OraclePrediction",
+   "type": "object"
+  },
+  "PromoteRequest": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "node_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Node Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "node_ids"
+   ],
+   "title": "PromoteRequest",
+   "type": "object"
+  },
+  "PublicCampaign": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "seen_count": {
+     "title": "Seen Count",
+     "type": "integer"
+    },
+    "since": {
+     "title": "Since",
+     "type": "string"
+    },
+    "reasons": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Reasons",
+     "type": "array"
+    }
+   },
+   "required": [
+    "name",
+    "seen_count",
+    "since",
+    "reasons"
+   ],
+   "title": "PublicCampaign",
+   "type": "object"
+  },
+  "PublicReport": {
+   "additionalProperties": false,
+   "properties": {
+    "url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Url"
+    },
+    "post": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/ExtensionPost"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "title": "PublicReport",
+   "type": "object"
+  },
+  "Quality": {
+   "additionalProperties": true,
+   "properties": {
+    "available": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Available",
+     "type": "array"
+    },
+    "missing": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Missing",
+     "type": "array"
+    },
+    "errors": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Errors",
+     "type": "array"
+    }
+   },
+   "title": "Quality",
+   "type": "object"
+  },
+  "Rule": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "urlscan",
+      "url_regex",
+      "html_signature",
+      "yara"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "body": {
+     "title": "Body",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "campaign_id",
+    "kind",
+    "body"
+   ],
+   "title": "Rule",
+   "type": "object"
+  },
+  "RuleTest": {
+   "additionalProperties": false,
+   "properties": {
+    "hits": {
+     "title": "Hits",
+     "type": "integer"
+    },
+    "tp": {
+     "title": "Tp",
+     "type": "integer"
+    },
+    "needs_review": {
+     "title": "Needs Review",
+     "type": "integer"
+    },
+    "benign_hits": {
+     "title": "Benign Hits",
+     "type": "integer"
+    },
+    "benign_total": {
+     "title": "Benign Total",
+     "type": "integer"
+    },
+    "precision": {
+     "title": "Precision",
+     "type": "number"
+    }
+   },
+   "required": [
+    "hits",
+    "tp",
+    "needs_review",
+    "benign_hits",
+    "benign_total",
+    "precision"
+   ],
+   "title": "RuleTest",
+   "type": "object"
+  },
+  "RunnerUp": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "score": {
+     "title": "Score",
+     "type": "number"
+    },
+    "p": {
+     "default": 0.0,
+     "title": "P",
+     "type": "number"
+    },
+    "same_operator": {
+     "default": false,
+     "title": "Same Operator",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "score"
+   ],
+   "title": "RunnerUp",
+   "type": "object"
+  },
+  "SearchHit": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "enum": [
+      "incident",
+      "campaign",
+      "operator",
+      "domain",
+      "tracking",
+      "person",
+      "trace"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "href": {
+     "title": "Href",
+     "type": "string"
+    }
+   },
+   "required": [
+    "kind",
+    "id",
+    "label",
+    "href"
+   ],
+   "title": "SearchHit",
+   "type": "object"
+  },
+  "StatsOverview": {
+   "additionalProperties": false,
+   "properties": {
+    "window": {
+     "default": "24h",
+     "title": "Window",
+     "type": "string"
+    },
+    "incidents": {
+     "default": 0,
+     "title": "Incidents",
+     "type": "integer"
+    },
+    "incidents_new": {
+     "default": 0,
+     "title": "Incidents New",
+     "type": "integer"
+    },
+    "campaigns_active": {
+     "default": 0,
+     "title": "Campaigns Active",
+     "type": "integer"
+    },
+    "operators": {
+     "default": 0,
+     "title": "Operators",
+     "type": "integer"
+    },
+    "domains_new": {
+     "default": 0,
+     "title": "Domains New",
+     "type": "integer"
+    },
+    "oracle_flagged": {
+     "default": 0,
+     "title": "Oracle Flagged",
+     "type": "integer"
+    },
+    "triage_open": {
+     "default": 0,
+     "title": "Triage Open",
+     "type": "integer"
+    },
+    "N": {
+     "default": 0,
+     "title": "N",
+     "type": "integer"
+    }
+   },
+   "title": "StatsOverview",
+   "type": "object"
+  },
+  "TemplateDiff": {
+   "additionalProperties": false,
+   "properties": {
+    "text": {
+     "additionalProperties": {
+      "items": {
+       "$ref": "#/$defs/Tok"
+      },
+      "type": "array"
+     },
+     "title": "Text",
+     "type": "object"
+    },
+    "dom": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Dom",
+     "type": "object"
+    },
+    "assets": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Assets",
+     "type": "array"
+    },
+    "visual": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Visual",
+     "type": "object"
+    },
+    "metrics": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Metrics",
+     "type": "object"
+    }
+   },
+   "required": [
+    "text"
+   ],
+   "title": "TemplateDiff",
+   "type": "object"
+  },
+  "Timeline": {
+   "additionalProperties": false,
+   "properties": {
+    "days": {
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Days",
+     "type": "array"
+    },
+    "events": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/TimelineEvent"
+     },
+     "title": "Events",
+     "type": "array"
+    }
+   },
+   "required": [
+    "days"
+   ],
+   "title": "Timeline",
+   "type": "object"
+  },
+  "TimelineEvent": {
+   "additionalProperties": false,
+   "properties": {
+    "at": {
+     "title": "At",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "domain_registered",
+      "cert_batch",
+      "oracle_predicted",
+      "act_sent",
+      "incident",
+      "hunter_capture"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "ref": {
+     "title": "Ref",
+     "type": "string"
+    }
+   },
+   "required": [
+    "at",
+    "kind",
+    "ref"
+   ],
+   "title": "TimelineEvent",
+   "type": "object"
+  },
+  "Tok": {
+   "additionalProperties": false,
+   "properties": {
+    "t": {
+     "title": "T",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "same",
+      "ins",
+      "del",
+      "slot"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "slot": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Slot"
+    }
+   },
+   "required": [
+    "t",
+    "kind"
+   ],
+   "title": "Tok",
+   "type": "object"
+  },
+  "Tracking": {
+   "additionalProperties": true,
+   "properties": {
+    "fb_pixels": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Fb Pixels",
+     "type": "array"
+    },
+    "capi_gateways": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Capi Gateways",
+     "type": "array"
+    },
+    "google_ads": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Google Ads",
+     "type": "array"
+    },
+    "ga4": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Ga4",
+     "type": "array"
+    },
+    "gtm": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Gtm",
+     "type": "array"
+    },
+    "tiktok_pixels": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Tiktok Pixels",
+     "type": "array"
+    },
+    "snap_pixels": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Snap Pixels",
+     "type": "array"
+    },
+    "kit_tenants": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Kit Tenants",
+     "type": "array"
+    },
+    "lander_ids": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Lander Ids",
+     "type": "array"
+    },
+    "landing_type_ids": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Landing Type Ids",
+     "type": "array"
+    },
+    "video_hosts": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Video Hosts",
+     "type": "array"
+    },
+    "kit_endpoints": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Kit Endpoints",
+     "type": "array"
+    },
+    "url_param_schema": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Url Param Schema"
+    },
+    "chain_param_schemas": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Chain Param Schemas",
+     "type": "array"
+    },
+    "entry_path_template": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Entry Path Template"
+    },
+    "path_shapes": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Path Shapes",
+     "type": "array"
+    },
+    "third_party": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Third Party",
+     "type": "array"
+    },
+    "asset_hashes": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Asset Hashes",
+     "type": "array"
+    },
+    "brand_asset_hashes": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Brand Asset Hashes",
+     "type": "array"
+    }
+   },
+   "title": "Tracking",
+   "type": "object"
+  },
+  "TriageCandidate": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "score": {
+     "title": "Score",
+     "type": "number"
+    },
+    "p": {
+     "default": 0.0,
+     "title": "P",
+     "type": "number"
+    },
+    "for": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "For",
+     "type": "array"
+    },
+    "against": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Against",
+     "type": "array"
+    },
+    "missing": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Missing",
+     "type": "array"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "score"
+   ],
+   "title": "TriageCandidate",
+   "type": "object"
+  },
+  "TriageDecision": {
+   "additionalProperties": false,
+   "properties": {
+    "action": {
+     "enum": [
+      "accept",
+      "reassign",
+      "reject",
+      "new_campaign",
+      "skip"
+     ],
+     "title": "Action",
+     "type": "string"
+    },
+    "campaign_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Campaign Id"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "required": [
+    "action"
+   ],
+   "title": "TriageDecision",
+   "type": "object"
+  },
+  "TriageItem": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "type": {
+     "enum": [
+      "uncertain",
+      "new_campaign",
+      "oracle",
+      "hunter",
+      "extension",
+      "merge"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "subject_id": {
+     "title": "Subject Id",
+     "type": "string"
+    },
+    "suggestion": {
+     "title": "Suggestion",
+     "type": "string"
+    },
+    "score": {
+     "default": 0.0,
+     "title": "Score",
+     "type": "number"
+    },
+    "priority": {
+     "default": 0,
+     "title": "Priority",
+     "type": "integer"
+    },
+    "status": {
+     "default": "open",
+     "enum": [
+      "open",
+      "closed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "version": {
+     "default": 1,
+     "title": "Version",
+     "type": "integer"
+    },
+    "created_at": {
+     "title": "Created At",
+     "type": "string"
+    },
+    "candidates": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/TriageCandidate"
+     },
+     "title": "Candidates",
+     "type": "array"
+    },
+    "adjudicator": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Adjudication"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "id",
+    "type",
+    "subject_id",
+    "suggestion",
+    "created_at"
+   ],
+   "title": "TriageItem",
+   "type": "object"
+  },
+  "Variant": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "members": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Members",
+     "type": "array"
+    },
+    "template": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Template"
+    }
+   },
+   "required": [
+    "id",
+    "campaign_id",
+    "label",
+    "members"
+   ],
+   "title": "Variant",
+   "type": "object"
+  },
+  "VideoInfo": {
+   "additionalProperties": true,
+   "properties": {
+    "path": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Path"
+    },
+    "duration_s": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Duration S"
+    },
+    "keyframes": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Keyframes",
+     "type": "array"
+    },
+    "gemini": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Gemini",
+     "type": "object"
+    }
+   },
+   "title": "VideoInfo",
+   "type": "object"
+  },
+  "WhyNot": {
+   "additionalProperties": false,
+   "properties": {
+    "campaign_id": {
+     "title": "Campaign Id",
+     "type": "string"
+    },
+    "bullets": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Bullets",
+     "type": "array"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "bullets"
+   ],
+   "title": "WhyNot",
+   "type": "object"
+  }
+ },
+ "title": "TROP contracts"
+}

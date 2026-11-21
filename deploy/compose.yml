@@ -1,0 +1,73 @@
+# TROP local stack (home PC / judges). Project name `trop`; ports bound to 127.0.0.1 (override TROP_BIND=10.8.0.3).
+#   docker compose -f deploy/compose.yml up -d --build          # offline mode works without any key
+#   docker compose -f deploy/compose.yml --profile full up -d   # + capture (Playwright) + oracle stream
+# Images/Dockerfiles: deploy/Dockerfile.api (api+worker), web/Dockerfile (web). Owner: WS2.
+# NOTE (home PC): the dev DB `redpill-db-postgres-1` already holds 55432, so this stack publishes Postgres on
+# ${TROP_PG_PORT:-55433}. Inside the stack services talk over the network (postgres:5432, redis:6379).
+name: trop
+
+x-backend-env: &backend-env
+  DATABASE_URL: postgresql://trop:${POSTGRES_PASSWORD:-trop_dev}@postgres:5432/trop
+  REDIS_URL: redis://redis:6379/0
+  TROP_MODE: ${TROP_MODE:-offline}
+  DATA_DIR: /data
+  ARTIFACT_DIR: /data/artifacts
+  CACHE_DIR: /data/cache
+  MODELS_DIR: /data/models
+  REPLAY_DIR: /data/replay
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: trop
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-trop_dev}
+      POSTGRES_DB: trop
+    command: postgres -c shared_buffers=512MB -c work_mem=32MB -c jit=off
+    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_PG_PORT:-55433}:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    mem_limit: 1536m
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U trop -d trop"], interval: 5s, timeout: 3s, retries: 30}
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru --save ""
+    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_REDIS_PORT:-56379}:6379"]
+    mem_limit: 256m
+    restart: unless-stopped
+
+  api:
+    build: {context: .., dockerfile: deploy/Dockerfile.api}
+    command: ["trop", "serve", "--host", "0.0.0.0", "--port", "8000"]
+    env_file: [{path: ../.env, required: false}]
+    environment: *backend-env
+    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_API_PORT:-18000}:8000"]
+    volumes: [trop-data:/data, ../data/seed:/seed:ro]
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_started}}
+    mem_limit: 1g
+    restart: unless-stopped
+
+  worker:
+    build: {context: .., dockerfile: deploy/Dockerfile.api}
+    command: ["trop", "worker"]
+    env_file: [{path: ../.env, required: false}]
+    environment: *backend-env
+    volumes: [trop-data:/data]
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_started}}
+    mem_limit: 1536m
+    restart: unless-stopped
+
+  web:
+    build: {context: ../web, dockerfile: Dockerfile}
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      NEXT_PUBLIC_API_BASE: /api/v1
+    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_WEB_PORT:-13000}:3000"]
+    depends_on: [api]
+    mem_limit: 512m
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  trop-data:

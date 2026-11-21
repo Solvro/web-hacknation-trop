@@ -1,0 +1,69 @@
+[project]
+name = "trop"
+version = "0.1.0"
+description = "TROP — follow the fake: scam-ad campaign attribution (HackNation 2026, NASK)"
+requires-python = ">=3.12,<3.13"
+# Contract rule: workstreams may ADD dependencies (one per line, keep alphabetical inside your block).
+dependencies = [
+  # core / contracts
+  "pydantic>=2.8",
+  "pydantic-settings>=2.4",
+  "typer>=0.12",
+  "pyyaml",
+  "orjson",
+  # engine (WS1)
+  "numpy",
+  "scipy",
+  "scikit-learn>=1.5",
+  "networkx>=3.3",
+  "datasketch",
+  "rapidfuzz",
+  "unidecode",
+  "mmh3",
+  "tldextract",
+  "beautifulsoup4",
+  "lxml",
+  "imagehash",
+  "pillow",
+  # store (WS1)
+  "psycopg[binary,pool]>=3.2",
+  # api / worker (WS2)
+  "fastapi>=0.115",
+  "uvicorn[standard]",
+  "sse-starlette",
+  "python-multipart",
+  "arq",
+  "redis>=5",
+  # sources (WS5)
+  "httpx",
+  "dnspython",
+  "apscheduler>=3.10,<4",
+  # media / llm (WS4, WS6)
+  "google-genai",
+  "openai",
+  "opencv-python-headless",
+  "imageio-ffmpeg",
+]
+
+[project.optional-dependencies]
+capture = ["playwright"]
+ml = ["faster-whisper", "easyocr"]
+dev = ["pytest", "pytest-asyncio", "ruff"]
+
+[project.scripts]
+trop = "trop.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["trop"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 120
