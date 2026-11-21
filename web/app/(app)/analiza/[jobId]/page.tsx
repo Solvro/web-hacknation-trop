@@ -68,7 +68,7 @@ function Analysis() {
   };
   // chip / card ids (`ev:<field>:<value>`) are resolved against the real graph before asking for the focus view
   const full = useApi<GraphPayload>(focus && !isOffline() ? '/graph' : null);
-  const incList = useApi<IncidentSummary[] | { items: IncidentSummary[] }>(focus && !isOffline() ? '/incidents?limit=1000' : null).data;
+  const incList = useApi<IncidentSummary[] | { items: IncidentSummary[] }>(focus && !isOffline() ? '/incidents?limit=500' : null).data;
   const incById = useMemo(() => new Map((Array.isArray(incList) ? incList : incList?.items ?? []).map((i) => [i.id, i])), [incList]);
   const resolved = !focus ? null : isOffline() ? focus : full.data ? resolveNodeId(full.data, focus, incident?.domain) : null;
   const focusRaw = useApi<GraphPayload>(resolved ? `/graph?focus=${encodeURIComponent(resolved)}&origin=${encodeURIComponent(decision?.incident_id ?? '')}` : null);

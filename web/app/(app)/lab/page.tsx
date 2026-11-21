@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { BatchResult, LabMetrics } from '@/lib/contracts';
 import { API, apiGet, apiPost, isOffline, useApi } from '@/lib/api';
 import { DECISION_LABEL, p2 } from '@/lib/copy';
+import { needsChunks, uploadChunked } from '@/lib/upload';
 import { Card, Empty, Page } from '@/components/ui';
 import { IDownload, IUpload } from '@/components/icons';
 
@@ -16,21 +17,34 @@ function fmt(v: unknown) { return typeof v === 'number' ? (v <= 1 ? p2(v) : Stri
 
 function Batch() {
   const input = useRef<HTMLInputElement>(null);
+  const dir = useRef<HTMLInputElement | null>(null);
   const [job, setJob] = useState<string | null>(null);
   const [res, setRes] = useState<BatchResult | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState<number | null>(null);
 
   async function upload(files: FileList | null) {
     if (!files?.length) return;
     setErr(null); setRes(null); setBusy(true);
-    const fd = new FormData();
-    for (const f of Array.from(files)) fd.append('files', f, (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name);
+    const items = Array.from(files).map((f) => ({ file: f, name: (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name }));
     try {
-      const r = await apiPost<{ job_id: string }>('/batch', fd);
-      setJob(r.job_id);
-    } catch {
-      setErr('Import wymaga działającego API (POST /api/v1/batch). W trybie offline nie ma czego liczyć.');
+      if (needsChunks(items) && !isOffline()) {
+        // large sets go in 8 MiB chunks (one request must not outlive the proxy timeout)
+        const r = await uploadChunked(items, 'batch', setProgress);
+        setProgress(null);
+        const id = r.job_id ?? ((r.batch as { job_id?: string } | undefined)?.job_id ?? null);
+        if (!id) throw new Error('no job');
+        setJob(id);
+      } else {
+        const fd = new FormData();
+        for (const it of items) fd.append('files', it.file, it.name);
+        const r = await apiPost<{ job_id: string }>('/batch', fd);
+        setJob(r.job_id);
+      }
+    } catch (e) {
+      setProgress(null);
+      setErr(isOffline() ? 'Import wymaga działającego API (POST /api/v1/batch). W trybie offline nie ma czego liczyć.' : `Nie udało się wysłać zbioru: ${(e as Error).message}`);
       setBusy(false);
     }
   }
@@ -53,9 +67,12 @@ function Batch() {
     <Card title="Importuj zbiór" action={job && res?.rows?.length ? <a className="btn-sec btn-sm" href={res.csv_url ?? `${API}/batch/${encodeURIComponent(job)}/results.csv`} download><IDownload />results.csv</a> : undefined}>
       <p className="text-[13.5px] text-tx2 pb-3">Wrzuć ZIP albo folder z materiałami (zrzuty, HAR, wideo). Każdy materiał dostaje kampanię, operację i najważniejsze dowody, jak w <span className="font-mono">results.csv</span>.</p>
       <div className="flex flex-wrap gap-2">
-        <button type="button" className="btn-pri btn-sm" onClick={() => input.current?.click()} disabled={busy}><IUpload />{busy ? 'Liczę…' : 'Wybierz ZIP lub pliki'}</button>
+        <button type="button" className="btn-pri btn-sm" onClick={() => input.current?.click()} disabled={busy}><IUpload />{progress != null ? `Wysyłanie ${Math.round(progress * 100)}%` : busy ? 'Liczę…' : 'Wybierz ZIP lub pliki'}</button>
         <input ref={input} type="file" multiple accept=".zip,.har,.json,image/*,video/*" className="hidden" aria-label="Pliki do importu" onChange={(e) => upload(e.target.files)} />
+        <button type="button" className="btn-sec btn-sm" onClick={() => dir.current?.click()} disabled={busy}>Wybierz folder</button>
+        <input ref={(el) => { dir.current = el; if (el) { el.setAttribute('webkitdirectory', ''); el.setAttribute('directory', ''); } }} type="file" multiple className="hidden" aria-label="Folder do importu" onChange={(e) => upload(e.target.files)} />
       </div>
+      {progress != null && <div role="progressbar" aria-label="Wysyłanie" aria-valuenow={Math.round(progress * 100)} className="mt-3 h-1.5 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-tx1 transition-[width] duration-300" style={{ width: `${Math.round(progress * 100)}%` }} /></div>}
       {err && <p role="alert" className="text-[13px] text-state-red pt-2">{err}</p>}
       {isOffline() && !err && <p className="text-[12.5px] text-tx3 pt-2">API jest teraz niedostępne: import ruszy, gdy wróci.</p>}
       {res && (

@@ -36,7 +36,7 @@ export default function KampaniaPage() {
   const oracle = useApi<OraclePrediction[]>(`/oracle/predictions?campaign=${encodeURIComponent(id)}`).data;
   const pk = useApi<ActPackage[]>(`/act/packages?campaign_id=${encodeURIComponent(id)}`).data;
   const all = useApi<CampaignSummary[]>('/campaigns').data;
-  const incs = useApi<IncidentSummary[] | { items: IncidentSummary[] }>('/incidents?limit=1000').data;
+  const incs = useApi<IncidentSummary[] | { items: IncidentSummary[] }>('/incidents?limit=500').data;
   const mats = (Array.isArray(incs) ? incs : incs?.items ?? []).filter((m) => m.campaign_id === id)
     .sort((a, b) => String(b.captured_at ?? '').localeCompare(String(a.captured_at ?? '')));
   const [confirmed, setConfirmed] = useState(false);

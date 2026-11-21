@@ -2,7 +2,8 @@
 // The Sprawdź field (board 1, reused on board 14): link, file or a single trace.
 import { useRouter } from 'next/navigation';
 import { useRef, useState, type DragEvent } from 'react';
-import { analyze } from '@/lib/api';
+import { analyze, isOffline } from '@/lib/api';
+import { needsChunks, uploadChunked } from '@/lib/upload';
 import { IArrow, IFile, IImage, ISearch, IX } from './icons';
 import { useTraceExamples } from '@/lib/examples';
 
@@ -61,6 +62,7 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [drag, setDrag] = useState(false);
+  const [progress, setProgress] = useState<number | null>(null);
   const inputs = useRef<Record<string, HTMLInputElement | null>>({});
   const ta = useRef<HTMLTextAreaElement>(null);
   const examples = useTraceExamples();
@@ -77,9 +79,13 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
     setBusy(true);
     onWake?.();
     try {
+      const items = files.map((f) => ({ file: f.file, name: f.path }));
+      // large uploads (> 20 MB) go in 8 MiB chunks so no single request outlives the proxy timeout
+      const big = items.length > 0 && needsChunks(items) && !isOffline();
       const [res] = await Promise.all([
         // files win: never send the text field along with an upload
-        analyze(files.length ? { files: files.map((f) => f.file), names: files.map((f) => f.path) } : { url: (parsed as { url: string }).url }),
+        big ? uploadChunked(items, 'analyze', setProgress)
+          : analyze(files.length ? { files: files.map((f) => f.file), names: files.map((f) => f.path) } : { url: (parsed as { url: string }).url }),
         new Promise((r) => setTimeout(r, 900)),
       ]);
       if (!res.job_id) { router.push(`/slad/domena/${encodeURIComponent(text.trim())}`); return; }
@@ -89,7 +95,7 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
       router.push(`/analiza/${encodeURIComponent(res.job_id)}?${q}`);
     } catch (e) {
       setErr('Nie udało się wysłać materiału: ' + (e as Error).message);
-      setBusy(false);
+      setBusy(false); setProgress(null);
     }
   }
 
@@ -168,9 +174,14 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
           </button>
         </div>
         <button type="submit" className="btn-pri" disabled={busy}>
-          {busy ? 'Budzę boty…' : 'Sprawdź'}<IArrow />
+          {progress != null && progress < 1 ? `Wysyłanie ${Math.round(progress * 100)}%` : busy ? 'Budzę boty…' : 'Sprawdź'}<IArrow />
         </button>
       </div>
+      {progress != null && (
+        <div role="progressbar" aria-label="Wysyłanie" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} className="h-1.5 rounded-full bg-bg4 overflow-hidden">
+          <i className="block h-full bg-tx1 transition-[width] duration-300" style={{ width: `${Math.round(progress * 100)}%` }} />
+        </div>
+      )}
       {err && <p id="rp-err" role="alert" className="text-[13px] text-state-red">{err}</p>}
     </form>
   );
