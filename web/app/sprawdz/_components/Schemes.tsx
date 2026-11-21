@@ -12,14 +12,17 @@ export function Schemes() {
     <div className={s.grid}>
       {items.map((c) => (
         <article key={c.name} className={s.card}>
-          <div className={s.row} style={{ flexWrap: 'nowrap' }}>
-            <span className={s.sil} aria-hidden="true">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="9" r="4.5" /><path d="M3 24c1-5.5 4.5-8 9-8s8 2.5 9 8z" /></svg>
-            </span>
-            <h3>{c.name}</h3>
+          <div className={s.cnt}>
+            <span className={s.num}>{c.seen_count}</span>
+            <span className={s.numl}>{c.seen_count === 1 ? 'zgłoszona reklama' : 'zgłoszonych reklam'}<br />od {c.since}</span>
           </div>
-          <p><b style={{ color: 'var(--tx)' }}>Skala:</b> {c.seen_count} reklam od {c.since}.</p>
-          {c.reasons.length > 0 && <p><b style={{ color: 'var(--tx)' }}>Jak rozpoznać:</b> {c.reasons.join('; ')}.</p>}
+          <h3>{c.name}</h3>
+          {c.reasons.length > 0 && (
+            <>
+              <p><b style={{ color: 'var(--tx)' }}>Dlaczego łączymy te reklamy</b></p>
+              <ul className={s.rs}>{c.reasons.map((r) => <li key={r}>{r}</li>)}</ul>
+            </>
+          )}
         </article>
       ))}
     </div>

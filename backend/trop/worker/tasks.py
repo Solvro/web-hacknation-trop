@@ -94,25 +94,69 @@ enrich = _placeholder("enrich", "trop.enrich.service", "enrich")
 act = _placeholder("act", "trop.act.service", "build_package")
 
 
-async def agent(ctx: dict, inv_id: str, body: dict, hints: list[str] | None = None) -> dict:
-    """White Rabbit run (blocking trop.agent.service.run_investigation in a thread). Events are published on `inv:<id>`."""
-    from trop.agent import service as svc
+AGENT_DEADLINE_S = 840          # arq job_timeout of `agent` is 900: we always finish (and tell the analyst) before arq cancels us
+_AGENT_POOL = None
 
-    def emit(typ: str, data: dict) -> None:
-        bus.publish_sync(f"inv:{inv_id}", typ, {"investigation_id": inv_id, **data})
 
-    from trop.agent.loop import Control
-    control = Control(svc._dir(inv_id) / "control.jsonl")
-    for h in hints or []:                           # pivots of the incident the investigation was started from (analyst notes, budget cap unchanged)
-        control.put({"type": "steer", "message": h})
-    loop = asyncio.get_running_loop()
+def _agent_pool():
+    global _AGENT_POOL
+    if _AGENT_POOL is None:
+        from concurrent.futures import ThreadPoolExecutor
+        _AGENT_POOL = ThreadPoolExecutor(max_workers=4, thread_name_prefix="white-rabbit")     # own pool: other tasks can never starve an investigation
+    return _AGENT_POOL
+
+
+def _agent_fail(inv_id: str, why: str, exc: BaseException | None = None) -> None:
+    """Never hang silently: mark the investigation as error and emit investigation.done with a Polish message."""
+    msg = f"Śledztwo przerwane: {why}"
+    if exc is not None:
+        msg += f" ({type(exc).__name__}: {str(exc)[:160]})"
     try:
-        res = await loop.run_in_executor(None, lambda: svc.run_investigation(body, emit, investigation_id=inv_id, control=control))
+        from trop.agent import service as svc
+        inv = svc.get_investigation(inv_id)
+        inv.status = "error"
+        svc._save(inv)
+    except Exception:  # noqa: BLE001
+        log.warning("could not persist error state of %s", inv_id)
+    try:
+        bus.publish_sync(f"inv:{inv_id}", "investigation.done", {"investigation_id": inv_id, "status": "error", "summary": {"error": msg, "steps": 0}})
+    except Exception:  # noqa: BLE001
+        log.exception("could not publish investigation.done for %s", inv_id)
+
+
+async def agent(ctx: dict, inv_id: str, body: dict, hints: list[str] | None = None) -> dict:
+    """White Rabbit run (blocking trop.agent.service.run_investigation in a thread). Events are published on `inv:<id>`.
+    Any internal error ends with investigation.done (status error, Polish message)."""
+    try:
+        from trop.agent import service as svc
+        from trop.agent.loop import Control
+
+        def emit(typ: str, data: dict) -> None:
+            bus.publish_sync(f"inv:{inv_id}", typ, {"investigation_id": inv_id, **data})
+
+        emit("casefile.delta", {"step_n": 0, "text_delta": "_Robotnik przyjął śledztwo, zaczynam od bazy…_\n\n"})
+        control = Control(svc._dir(inv_id) / "control.jsonl")
+        for h in hints or []:                           # pivots of the incident the investigation was started from (analyst notes, budget cap unchanged)
+            control.put({"type": "steer", "message": h})
+        loop = asyncio.get_running_loop()
+        fut = loop.run_in_executor(_agent_pool(), lambda: svc.run_investigation(body, emit, investigation_id=inv_id, control=control))
+        try:
+            res = await asyncio.wait_for(asyncio.shield(fut), AGENT_DEADLINE_S)
+        except asyncio.TimeoutError:
+            try:
+                svc.stop(inv_id)
+            except Exception:  # noqa: BLE001
+                pass
+            _agent_fail(inv_id, f"przekroczono limit czasu {AGENT_DEADLINE_S // 60} min")
+            return {"investigation_id": inv_id, "error": "deadline exceeded"}
         return {"investigation_id": inv_id, "status": res.get("status")}
+    except asyncio.CancelledError:
+        _agent_fail(inv_id, "zadanie zostało anulowane przez robotnika (limit czasu)")
+        raise
     except Exception as e:  # noqa: BLE001
         log.exception("agent failed")
-        bus.publish_sync(f"inv:{inv_id}", "investigation.done", {"investigation_id": inv_id, "summary": {"error": str(e)[:300]}})
-        return {"investigation_id": inv_id, "error": str(e)}
+        _agent_fail(inv_id, "błąd wewnętrzny", e)
+        return {"investigation_id": inv_id, "error": f"{type(e).__name__}: {str(e)[:200]}"}
 
 
 HUNT_RUNNERS = {"meta_adlibrary": "run_meta", "certpl": "run_certpl", "urlscan": "run_urlscan", "google_ads_transparency": "run_google"}

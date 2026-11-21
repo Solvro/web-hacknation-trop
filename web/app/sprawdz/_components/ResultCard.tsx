@@ -37,7 +37,13 @@ export function ResultCard({ result, source }: { result: CheckResult; source: st
 
   const status = (
     <>
-      {state === 'done' && <span className={s.ack} role="status">Dziękujemy, zgłoszenie przyjęte ({id}).</span>}
+      {state === 'busy' && <span className={s.dim} role="status">Wysyłanie zgłoszenia…</span>}
+      {state === 'done' && (
+        <div className={s.done} role="status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3BF07E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" /></svg>
+          <div><b>Dziękujemy, zgłoszenie przyjęte</b><span>Numer zgłoszenia: {id}. Zgłoszenia pomagają wykryć całą kampanię, a nie tylko jedną reklamę.</span></div>
+        </div>
+      )}
       {state === 'error' && <p className={s.err} role="alert">Nie udało się wysłać zgłoszenia. Spróbuj ponownie.</p>}
     </>
   );
@@ -69,7 +75,7 @@ export function ResultCard({ result, source }: { result: CheckResult; source: st
           </div>
         </div>
         <div className={s.row}>
-          <button type="button" className={`${s.btn} ${s.btnp}`} disabled={state === 'busy' || state === 'done'} onClick={() => send('web: to wygląda na znane oszustwo')}>Zgłoś tę reklamę</button>
+          <button type="button" className={`${s.btn} ${s.btnp}`} disabled={state === 'busy' || state === 'done'} onClick={() => send('web: to wygląda na znane oszustwo')}>{state === 'done' ? 'Zgłoszono' : 'Zgłoś tę reklamę'}</button>
           {status}
         </div>
       </article>

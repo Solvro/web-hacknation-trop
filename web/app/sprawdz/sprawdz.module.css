@@ -63,7 +63,6 @@
 .card { background: var(--bg1); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .card h3 { font: 600 17px/1.3 var(--head); margin: 0; }
 .card p { margin: 0; font-size: 14px; color: var(--tx2); }
-.sil { width: 48px; height: 48px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--line2); display: grid; place-items: center; color: var(--tx3); flex: none; }
 .step { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .stepn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--g); color: var(--g); display: grid; place-items: center; font: 600 16px var(--mono); }
 .step h3 { font: 600 17px var(--head); margin: 0; }
@@ -85,3 +84,10 @@
 .res ol { list-style: decimal; }
 .res ul { list-style: disc; }
 .res ul.chk { list-style: none; }
+.cnt { display: flex; align-items: center; gap: 12px; }
+.num { font: 700 36px/1 var(--head); color: #ffb3bb; }
+.numl { font-size: 13px; color: var(--tx2); line-height: 1.35; }
+.rs { margin: 0; padding-left: 20px; list-style: disc; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--tx2); }
+.done { display: flex; align-items: flex-start; gap: 10px; background: rgba(59,240,126,.08); border: 1px solid rgba(59,240,126,.4); border-radius: 10px; padding: 12px 14px; flex: 1 1 280px; }
+.done b { color: var(--g); display: block; }
+.done span { color: var(--tx2); font-size: 14px; }

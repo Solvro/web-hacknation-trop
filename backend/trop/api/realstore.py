@@ -97,6 +97,12 @@ def _nf(what: str) -> HTTPException:
     return HTTPException(404, f"{what} not found")
 
 
+def _host_of(url: str) -> str:
+    from urllib.parse import urlsplit
+    u = (url or "").strip()
+    return (urlsplit(u if "//" in u else "//" + u).hostname or "").lower().strip(".")
+
+
 class RealStore:
     mode = "live"
 
@@ -141,7 +147,7 @@ class RealStore:
         self.N = len(c.incidents)
 
     def reload(self) -> None:
-        self._corpus, self._dec = None, {}
+        self._corpus, self._dec, self._dom_idx_src = None, {}, None
 
     def _camp_name(self, cid: str) -> str:
         return (CAMPAIGNS_PL.get(cid) or {}).get("name") or PL_NAMES.get(cid) or self.corpus.campaigns.get(cid, {}).get("name") or cid
@@ -919,8 +925,65 @@ class RealStore:
         d, _ = service.analyze_incident(inc, self.corpus)
         return d
 
+    # -- known-domain shortcut for bare links: the corpus (landing host, infra domains, ad link) + the CERT PL list; no capture, no model
+    def _domain_index(self) -> dict[str, list[dict]]:
+        if getattr(self, "_dom_idx_src", None) is not self.corpus:
+            idx: dict[str, list[dict]] = defaultdict(list)
+            for inc in self.corpus.incidents:
+                lan, ad, inf = inc.get("landing") or {}, inc.get("ad") or {}, inc.get("infra") or {}
+                hosts = {lan.get("host"), lan.get("etld1"), ad.get("link_host")}
+                for u in (lan.get("entry_url"), lan.get("final_url"), ad.get("link"), ad.get("cta_url")):
+                    if u:
+                        hosts.add(_host_of(u))
+                for d in inf.get("domains") or []:
+                    hosts.update((d.get("fqdn"), d.get("etld1")) if isinstance(d, dict) else (d,))
+                for h in {(x or "").lower().strip(".") for x in hosts if x}:
+                    idx[h].append(inc)
+            self._dom_idx, self._dom_idx_src = idx, self.corpus
+        return self._dom_idx
+
+    def _known_domain(self, url: str):
+        """-> (PublicCampaign | None) for a link whose host (or eTLD+1) is a domain of a known campaign."""
+        from trop.agent.db import etld1
+        from trop.schema import PublicCampaign
+        host = _host_of(url)
+        if not host:
+            return None
+        idx = self._domain_index()
+        hits = idx.get(host) or idx.get(etld1(host)) or []
+        camps = Counter(self._camp_of(i["id"]) for i in hits if self._camp_of(i["id"]))
+        if not camps:
+            return None
+        cid = camps.most_common(1)[0][0]
+        mem = self._members(cid)
+        seen = sorted(str((i.get("source") or {}).get("captured_at") or "")[:10] for i in mem if (i.get("source") or {}).get("captured_at"))
+        vert = (self.corpus.campaigns[cid].get("vertical") or "").split(" ")[0] if cid in self.corpus.campaigns else ""
+        reasons = ["domena znana z kampanii oszustwa"]
+        on_list = any((i.get("infra") or {}).get("on_certpl_list") for i in hits)
+        if not on_list:
+            try:
+                from trop.enrich.tools import certpl_check
+                on_list = bool(certpl_check(etld1(host)).get("listed"))
+            except Exception:  # noqa: BLE001
+                on_list = False
+        if on_list:
+            reasons.append("domena jest na liście ostrzeżeń CERT Polska")
+        return PublicCampaign(name=self.PUBLIC_NAME.get(vert, "Znana kampania oszustwa reklamowego"), seen_count=len(mem),
+                                      since=seen[0] if seen else "2026", reasons=reasons)
+
     async def public_check(self, url, text):
+        try:
+            return await asyncio.wait_for(self._public_check(url, text), 25)
+        except asyncio.TimeoutError:
+            from trop.schema import CheckResult
+            return CheckResult(verdict="unknown", advice=["Sprawdzanie trwało zbyt długo — spróbuj ponownie.", "Zachowaj ostrożność; możesz stronę zgłosić."])
+
+    async def _public_check(self, url, text):
         from trop.schema import CheckResult
+        if url and not text:
+            pc = await asyncio.to_thread(self._known_domain, url)
+            if pc:
+                return CheckResult(verdict="scam", public_campaign=pc, advice=["Nie klikaj w link i nie podawaj danych.", "Zgłoś reklamę platformie i na incydent.cert.pl."])
         inc: dict = {}
         if url:
             from urllib.parse import urlsplit
@@ -940,6 +1003,10 @@ class RealStore:
 
     async def public_match(self, p):
         from trop.schema import ExtensionMatch
+        if p.cta_url and not (p.advertiser or p.caption or p.creative_phash):          # link-only: known-domain lookup first
+            pc = await asyncio.to_thread(self._known_domain, p.cta_url)
+            if pc:
+                return ExtensionMatch(match=True, label="Pasuje do znanej kampanii oszustwa", public_campaign=pc, reasons=pc.reasons)
         inc = {"ad": {"advertiser": p.advertiser, "text": p.caption, "creative_phash": p.creative_phash},
                "landing": {"entry_url": p.cta_url, "text": p.caption}}
         d = await asyncio.to_thread(self._quick_decision, inc)
