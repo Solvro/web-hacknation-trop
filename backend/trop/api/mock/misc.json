@@ -1,0 +1,458 @@
+{
+ "model": "dict",
+ "data": {
+  "persons": [
+   {
+    "id": "P-01",
+    "name": "Jan Kowalski",
+    "role": "przedsiębiorca",
+    "count": 61,
+    "trend_pct": 38.0,
+    "campaigns": [
+     {
+      "id": "KMP-017",
+      "count": 28
+     },
+     {
+      "id": "KMP-043",
+      "count": 4
+     }
+    ],
+    "face_match": 0.91,
+    "deepfake_score": 0.82,
+    "voice_score": null,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 8
+     },
+     {
+      "week": "2026-W41",
+      "count": 9
+     },
+     {
+      "week": "2026-W42",
+      "count": 7
+     },
+     {
+      "week": "2026-W43",
+      "count": 8
+     },
+     {
+      "week": "2026-W44",
+      "count": 9
+     },
+     {
+      "week": "2026-W45",
+      "count": 7
+     },
+     {
+      "week": "2026-W46",
+      "count": 8
+     },
+     {
+      "week": "2026-W47",
+      "count": 9
+     }
+    ],
+    "narratives": [
+     "Fałszywy news o napaści"
+    ],
+    "sample_incidents": [
+     "INC-24702",
+     "INC-24525",
+     "INC-24817"
+    ]
+   },
+   {
+    "id": "P-02",
+    "name": "Anna Nowak",
+    "role": "dziennikarka",
+    "count": 24,
+    "trend_pct": 20.0,
+    "campaigns": [
+     {
+      "id": "KMP-017",
+      "count": 11
+     }
+    ],
+    "face_match": 0.88,
+    "deepfake_score": null,
+    "voice_score": null,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 4
+     },
+     {
+      "week": "2026-W41",
+      "count": 5
+     },
+     {
+      "week": "2026-W42",
+      "count": 3
+     },
+     {
+      "week": "2026-W43",
+      "count": 4
+     },
+     {
+      "week": "2026-W44",
+      "count": 5
+     },
+     {
+      "week": "2026-W45",
+      "count": 3
+     },
+     {
+      "week": "2026-W46",
+      "count": 4
+     },
+     {
+      "week": "2026-W47",
+      "count": 5
+     }
+    ],
+    "narratives": [
+     "Fałszywy news o napaści"
+    ],
+    "sample_incidents": [
+     "INC-24702",
+     "INC-24525",
+     "INC-24817"
+    ]
+   },
+   {
+    "id": "P-03",
+    "name": "Tomasz Lewandowski",
+    "role": "dziennikarz",
+    "count": 18,
+    "trend_pct": 5.0,
+    "campaigns": [
+     {
+      "id": "KMP-017",
+      "count": 7
+     }
+    ],
+    "face_match": 0.86,
+    "deepfake_score": null,
+    "voice_score": null,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 3
+     },
+     {
+      "week": "2026-W41",
+      "count": 4
+     },
+     {
+      "week": "2026-W42",
+      "count": 2
+     },
+     {
+      "week": "2026-W43",
+      "count": 3
+     },
+     {
+      "week": "2026-W44",
+      "count": 4
+     },
+     {
+      "week": "2026-W45",
+      "count": 2
+     },
+     {
+      "week": "2026-W46",
+      "count": 3
+     },
+     {
+      "week": "2026-W47",
+      "count": 4
+     }
+    ],
+    "narratives": [
+     "Fałszywy news o napaści"
+    ],
+    "sample_incidents": [
+     "INC-24702",
+     "INC-24525",
+     "INC-24817"
+    ]
+   },
+   {
+    "id": "P-04",
+    "name": "dr Piotr Wiśniewski",
+    "role": "lekarz (persona)",
+    "count": 43,
+    "trend_pct": -4.0,
+    "campaigns": [
+     {
+      "id": "KMP-022",
+      "count": 31
+     },
+     {
+      "id": "KMP-034",
+      "count": 12
+     }
+    ],
+    "face_match": 0.9,
+    "deepfake_score": 0.79,
+    "voice_score": 0.87,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 6
+     },
+     {
+      "week": "2026-W41",
+      "count": 7
+     },
+     {
+      "week": "2026-W42",
+      "count": 5
+     },
+     {
+      "week": "2026-W43",
+      "count": 6
+     },
+     {
+      "week": "2026-W44",
+      "count": 7
+     },
+     {
+      "week": "2026-W45",
+      "count": 5
+     },
+     {
+      "week": "2026-W46",
+      "count": 6
+     },
+     {
+      "week": "2026-W47",
+      "count": 7
+     }
+    ],
+    "narratives": [
+     "Fałszywa rekomendacja produktu/inwestycji"
+    ],
+    "sample_incidents": [
+     "INC-24685",
+     "INC-24793",
+     "INC-24587"
+    ]
+   },
+   {
+    "id": "P-05",
+    "name": "Marek Zieliński",
+    "role": "sportowiec",
+    "count": 52,
+    "trend_pct": 3.0,
+    "campaigns": [
+     {
+      "id": "KMP-031",
+      "count": 40
+     },
+     {
+      "id": "KMP-036",
+      "count": 12
+     }
+    ],
+    "face_match": 0.89,
+    "deepfake_score": 0.74,
+    "voice_score": null,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 7
+     },
+     {
+      "week": "2026-W41",
+      "count": 8
+     },
+     {
+      "week": "2026-W42",
+      "count": 6
+     },
+     {
+      "week": "2026-W43",
+      "count": 7
+     },
+     {
+      "week": "2026-W44",
+      "count": 8
+     },
+     {
+      "week": "2026-W45",
+      "count": 6
+     },
+     {
+      "week": "2026-W46",
+      "count": 7
+     },
+     {
+      "week": "2026-W47",
+      "count": 8
+     }
+    ],
+    "narratives": [
+     "Fałszywa rekomendacja produktu/inwestycji"
+    ],
+    "sample_incidents": [
+     "INC-24588",
+     "INC-24621",
+     "INC-24677"
+    ]
+   },
+   {
+    "id": "P-06",
+    "name": "Katarzyna Wójcik",
+    "role": "prezenterka",
+    "count": 33,
+    "trend_pct": 2.0,
+    "campaigns": [
+     {
+      "id": "KMP-031",
+      "count": 33
+     }
+    ],
+    "face_match": 0.87,
+    "deepfake_score": 0.7,
+    "voice_score": null,
+    "weekly": [
+     {
+      "week": "2026-W40",
+      "count": 5
+     },
+     {
+      "week": "2026-W41",
+      "count": 6
+     },
+     {
+      "week": "2026-W42",
+      "count": 4
+     },
+     {
+      "week": "2026-W43",
+      "count": 5
+     },
+     {
+      "week": "2026-W44",
+      "count": 6
+     },
+     {
+      "week": "2026-W45",
+      "count": 4
+     },
+     {
+      "week": "2026-W46",
+      "count": 5
+     },
+     {
+      "week": "2026-W47",
+      "count": 6
+     }
+    ],
+    "narratives": [
+     "Fałszywa rekomendacja produktu/inwestycji"
+    ],
+    "sample_incidents": [
+     "INC-24588",
+     "INC-24621",
+     "INC-24677"
+    ]
+   }
+  ],
+  "brands": [
+   {
+    "name": "Kurier Dnia",
+    "kind": "portal (podszycie)",
+    "count": 46,
+    "campaigns": [
+     "KMP-017",
+     "KMP-043"
+    ]
+   },
+   {
+    "name": "TV Info24",
+    "kind": "stacja (podszycie)",
+    "count": 31,
+    "campaigns": [
+     "KMP-031",
+     "KMP-029"
+    ]
+   },
+   {
+    "name": "Bank Przykładowy",
+    "kind": "bank (podszycie)",
+    "count": 22,
+    "campaigns": [
+     "KMP-011",
+     "KMP-031"
+    ]
+   }
+  ],
+  "alerts": [
+   {
+    "id": "ALR-1",
+    "kind": "hunter",
+    "severity": "hot",
+    "title": "Hunter: nowa domena morvanta.click dołączona do KMP-017 (INC-24817)",
+    "subject_id": "INC-24817",
+    "created_at": "2026-11-21T02:31:00Z",
+    "status": "open"
+   },
+   {
+    "id": "ALR-2",
+    "kind": "oracle",
+    "severity": "warn",
+    "title": "Oracle: plessuro.live (0.88) — cert 00:47, brak jeszcze reklam",
+    "subject_id": "plessuro.live",
+    "created_at": "2026-11-21T00:48:00Z",
+    "status": "open"
+   },
+   {
+    "id": "ALR-3",
+    "kind": "campaign",
+    "severity": "hot",
+    "title": "KMP-017 «Zamach»: +38% w 48 h",
+    "subject_id": "KMP-017",
+    "created_at": "2026-11-21T07:00:00Z",
+    "status": "open"
+   },
+   {
+    "id": "ALR-4",
+    "kind": "triage",
+    "severity": "info",
+    "title": "Kandydat nowej kampanii: bon energetyczny (KMP-040)",
+    "subject_id": "KMP-040",
+    "created_at": "2026-11-21T06:10:00Z",
+    "status": "open"
+   }
+  ],
+  "stats": {
+   "24h": {
+    "window": "24h",
+    "incidents": 1284,
+    "incidents_new": 37,
+    "campaigns_active": 41,
+    "operators": 6,
+    "domains_new": 23,
+    "oracle_flagged": 5,
+    "triage_open": 23,
+    "N": 1284
+   },
+   "night": {
+    "window": "night",
+    "incidents": 1284,
+    "incidents_new": 14,
+    "campaigns_active": 41,
+    "operators": 6,
+    "domains_new": 9,
+    "oracle_flagged": 4,
+    "triage_open": 23,
+    "N": 1284
+   }
+  }
+ }
+}

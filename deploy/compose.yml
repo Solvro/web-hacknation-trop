@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.2-alpine
     command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru --save ""
     ports: ["${TROP_BIND:-127.0.0.1}:${TROP_REDIS_PORT:-56379}:6379"]
     mem_limit: 256m

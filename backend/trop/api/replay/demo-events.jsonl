@@ -1,0 +1,8 @@
+{"t": 1.0, "type": "incident.created", "event": {"type": "incident.created", "at": "2026-11-21T08:50:00.000+00:00", "data": {"incident_id": "INC-24850", "source": "hunter"}}}
+{"t": 5.0, "type": "incident.attributed", "event": {"type": "incident.attributed", "at": "2026-11-21T08:50:00.000+00:00", "data": {"incident_id": "INC-24850", "decision": "assign", "campaign_id": "KMP-017", "p": 0.93}}}
+{"t": 9.0, "type": "campaign.updated", "event": {"type": "campaign.updated", "at": "2026-11-21T08:50:00.000+00:00", "data": {"campaign_id": "KMP-017", "counts": {"incidents": 47, "incidents_24h": 6, "domains": 19}, "heat": {"trend_pct": 39.0}}}}
+{"t": 13.0, "type": "alert.created", "event": {"type": "alert.created", "at": "2026-11-21T08:50:00.000+00:00", "data": {"id": "ALR-5", "kind": "oracle", "severity": "warn", "title": "Oracle: tranvello.click (0.71)", "subject_id": "tranvello.click", "created_at": "2026-11-21T08:50:00.000+00:00", "status": "open"}}}
+{"t": 17.0, "type": "triage.created", "event": {"type": "triage.created", "at": "2026-11-21T08:50:00.000+00:00", "data": {"item_id": "TRI-24", "type": "uncertain"}}}
+{"t": 21.0, "type": "hunter.capture", "event": {"type": "hunter.capture", "at": "2026-11-21T08:50:00.000+00:00", "data": {"source_id": "SRC-meta", "incident_id": "INC-24851"}}}
+{"t": 25.0, "type": "oracle.match", "event": {"type": "oracle.match", "at": "2026-11-21T08:50:00.000+00:00", "data": {"domain": "brustia.click", "issued_at": "2026-11-21T08:50:00.000+00:00", "issuer": "R10", "dna_score": 0.42, "campaign_id": "KMP-017", "status": "below_threshold", "reasons": ["tylko tld"]}}}
+{"t": 29.0, "type": "extension.report", "event": {"type": "extension.report", "at": "2026-11-21T08:50:00.000+00:00", "data": {"incident_id": "INC-24852"}}}

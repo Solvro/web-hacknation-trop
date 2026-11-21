@@ -1,0 +1,318 @@
+{
+ "model": "dict[str,list[Variant]]",
+ "data": {
+  "KMP-017": [
+   {
+    "id": "V2",
+    "campaign_id": "KMP-017",
+    "label": "V2 — PILNE: {PER} przerywa milczenie po napaści…",
+    "members": [
+     "INC-24702",
+     "INC-24817",
+     "INC-24782",
+     "INC-24577",
+     "INC-24609",
+     "INC-24687",
+     "INC-24798",
+     "INC-24717",
+     "INC-24546",
+     "INC-24519",
+     "INC-24665",
+     "INC-24548",
+     "INC-24524",
+     "INC-24714",
+     "INC-24544",
+     "INC-24529",
+     "INC-24535",
+     "INC-24759",
+     "INC-24774",
+     "INC-24537",
+     "INC-24623",
+     "INC-24722"
+    ],
+    "template": "PILNE: {PER} przerywa milczenie po napaści…"
+   },
+   {
+    "id": "V1",
+    "campaign_id": "KMP-017",
+    "label": "V1 — «Wiem, kto to zrobił»: atak na {PER}",
+    "members": [
+     "INC-24525",
+     "INC-24799",
+     "INC-24531",
+     "INC-24648",
+     "INC-24573",
+     "INC-24776",
+     "INC-24563",
+     "INC-24560",
+     "INC-24821",
+     "INC-24785",
+     "INC-24614",
+     "INC-24795",
+     "INC-24703",
+     "INC-24568",
+     "INC-24814",
+     "INC-24530",
+     "INC-24789",
+     "INC-24523",
+     "INC-24613"
+    ],
+    "template": "«Wiem, kto to zrobił»: atak na {PER}"
+   },
+   {
+    "id": "V3",
+    "campaign_id": "KMP-017",
+    "label": "V3 — nagranie wideo (deepfake)",
+    "members": [
+     "INC-24552",
+     "INC-24596",
+     "INC-24786",
+     "INC-24657",
+     "INC-24592"
+    ],
+    "template": "nagranie wideo (deepfake)"
+   }
+  ],
+  "KMP-034": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-034",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24780",
+     "INC-24660",
+     "INC-24605",
+     "INC-24772",
+     "INC-24532",
+     "INC-24754",
+     "INC-24866",
+     "INC-24549",
+     "INC-24690",
+     "INC-24808",
+     "INC-24718",
+     "INC-24738"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-022": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-022",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24685",
+     "INC-24793",
+     "INC-24587",
+     "INC-24787",
+     "INC-24732",
+     "INC-24750",
+     "INC-24646",
+     "INC-24642",
+     "INC-24541",
+     "INC-24729",
+     "INC-24624",
+     "INC-24584",
+     "INC-24653",
+     "INC-24671",
+     "INC-24790",
+     "INC-24828",
+     "INC-24627",
+     "INC-24580",
+     "INC-24746",
+     "INC-24825",
+     "INC-24510",
+     "INC-24753",
+     "INC-24647",
+     "INC-24771",
+     "INC-24724",
+     "INC-24827",
+     "INC-24695",
+     "INC-24764",
+     "INC-24709",
+     "INC-24675",
+     "INC-24607"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-031": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-031",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24588",
+     "INC-24621",
+     "INC-24677",
+     "INC-24806",
+     "INC-24792",
+     "INC-24683",
+     "INC-24797",
+     "INC-24505",
+     "INC-24704",
+     "INC-24678",
+     "INC-24542",
+     "INC-24791",
+     "INC-24820",
+     "INC-24751",
+     "INC-24516",
+     "INC-24533",
+     "INC-24710",
+     "INC-24520",
+     "INC-24569",
+     "INC-24572",
+     "INC-24689",
+     "INC-24784",
+     "INC-24726",
+     "INC-24640",
+     "INC-24822",
+     "INC-24610",
+     "INC-24601",
+     "INC-24618",
+     "INC-24691",
+     "INC-24600",
+     "INC-24606",
+     "INC-24626",
+     "INC-24696",
+     "INC-24656",
+     "INC-24805",
+     "INC-24652",
+     "INC-24579",
+     "INC-24598",
+     "INC-24715",
+     "INC-24762",
+     "INC-24515",
+     "INC-24813",
+     "INC-24590",
+     "INC-24680",
+     "INC-24616",
+     "INC-24824",
+     "INC-24602",
+     "INC-24543",
+     "INC-24555",
+     "INC-24670",
+     "INC-24571",
+     "INC-24679",
+     "INC-24829",
+     "INC-24674",
+     "INC-24794",
+     "INC-24517",
+     "INC-24589",
+     "INC-24770"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-040": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-040",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24903",
+     "INC-24902",
+     "INC-24901"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-043": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-043",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24559",
+     "INC-24720",
+     "INC-24591",
+     "INC-24597"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-011": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-011",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24809",
+     "INC-24567",
+     "INC-24768",
+     "INC-24636",
+     "INC-24545",
+     "INC-24761",
+     "INC-24777",
+     "INC-24745",
+     "INC-24757",
+     "INC-24650",
+     "INC-24503",
+     "INC-24668",
+     "INC-24781",
+     "INC-24811",
+     "INC-24538",
+     "INC-24644",
+     "INC-24501",
+     "INC-24594",
+     "INC-24521",
+     "INC-24581",
+     "INC-24708",
+     "INC-24778"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-029": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-029",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24513",
+     "INC-24526",
+     "INC-24692",
+     "INC-24651",
+     "INC-24553",
+     "INC-24735",
+     "INC-24705",
+     "INC-24631",
+     "INC-24697",
+     "INC-24643",
+     "INC-24812",
+     "INC-24766",
+     "INC-24823",
+     "INC-24698",
+     "INC-24612",
+     "INC-24734",
+     "INC-24767"
+    ],
+    "template": null
+   }
+  ],
+  "KMP-036": [
+   {
+    "id": "V1",
+    "campaign_id": "KMP-036",
+    "label": "V1 — wariant główny",
+    "members": [
+     "INC-24506",
+     "INC-24500",
+     "INC-24518",
+     "INC-24801",
+     "INC-24654",
+     "INC-24528",
+     "INC-24661",
+     "INC-24564",
+     "INC-24593",
+     "INC-24676",
+     "INC-24635",
+     "INC-24742",
+     "INC-24649",
+     "INC-24796"
+    ],
+    "template": null
+   }
+  ]
+ }
+}

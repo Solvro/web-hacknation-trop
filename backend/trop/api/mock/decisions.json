@@ -1,0 +1,598 @@
+{
+ "model": "dict[str,Decision]",
+ "data": {
+  "INC-24817": {
+   "incident_id": "INC-24817",
+   "decision": "assign",
+   "campaign_id": "KMP-017",
+   "candidate_campaign_id": null,
+   "score": 11.4,
+   "margin": 0.53,
+   "p": 0.94,
+   "tau": 5.0,
+   "delta": 1.0,
+   "confirm_floor": 1.0,
+   "operator_id": "OP-03",
+   "operation_id": "OPN-01",
+   "same_operator_as": null,
+   "duplicate_of": null,
+   "scores": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 11.4,
+     "score_operator": 11.4,
+     "p": 0.94,
+     "p_value": 0.62,
+     "in_set": true
+    },
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.6,
+     "score_operator": 6.4,
+     "p": 0.41,
+     "p_value": 0.03,
+     "in_set": false
+    },
+    {
+     "campaign_id": "KMP-043",
+     "score": 2.9,
+     "score_operator": 6.0,
+     "p": 0.18,
+     "p_value": 0.01,
+     "in_set": false
+    }
+   ],
+   "runner_up": {
+    "campaign_id": "KMP-034",
+    "score": 3.6,
+    "p": 0.41,
+    "same_operator": true
+   },
+   "coverage": 0.78,
+   "layers": [
+    {
+     "layer": "tracking",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "kit",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "infra",
+     "state": "partial",
+     "reason": "RDAP timeout — brak danych rejestratora"
+    },
+    {
+     "layer": "content",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "persons",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "visual",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "ad",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "media",
+     "state": "missing",
+     "reason": "brak wideo/ASR w tym materiale"
+    }
+   ],
+   "evidence": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "content",
+     "field": "headline_template",
+     "value": "PILNE: {PER} przerywa milczenie po napaści…",
+     "display": "szablon „PILNE: {PER}…”",
+     "strength": "H",
+     "weight": 2.2,
+     "level": "campaign",
+     "df": 22,
+     "N": 1284,
+     "idf": 4.07,
+     "state": "match",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "cert_batch",
+     "value": "LE-R11 2026-11-21T00:47Z..02:31Z",
+     "display": "cert batch LE R11 00:47–02:31",
+     "strength": "M",
+     "weight": 1.4,
+     "level": "campaign",
+     "df": 6,
+     "N": 1284,
+     "idf": 5.37,
+     "state": "match",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    },
+    {
+     "type": "visual",
+     "field": "landing_phash",
+     "value": "d4:phash<=4",
+     "display": "landing pHash Δ4",
+     "strength": "M",
+     "weight": 0.9,
+     "level": "campaign",
+     "df": 9,
+     "N": 1284,
+     "idf": 4.96,
+     "state": "match",
+     "sides": null,
+     "bot": "zwiadowca",
+     "shap": null
+    },
+    {
+     "type": "persons",
+     "field": "face_identity",
+     "value": "Jan Kowalski",
+     "display": "Jan Kowalski (twarz 0.91 + NER)",
+     "strength": "M",
+     "weight": 0.8,
+     "level": "campaign",
+     "df": 61,
+     "N": 1284,
+     "idf": 3.05,
+     "state": "match",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "ad",
+     "field": "creative_decoy",
+     "value": "decoy:landscape/animal",
+     "display": "kreacja-wabik (krajobraz/zwierzę)",
+     "strength": "L",
+     "weight": 0.3,
+     "level": "campaign",
+     "df": 140,
+     "N": 1284,
+     "idf": 2.22,
+     "state": "match",
+     "sides": null,
+     "bot": "zwiadowca",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "ip_range",
+     "value": "203.0.113.0/24",
+     "display": "Cloudflare 203.0.113.0/24",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 512,
+     "N": 1284,
+     "idf": 0.92,
+     "state": "zero",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    },
+    {
+     "type": "media",
+     "field": "asr_text",
+     "value": "",
+     "display": "brak ścieżki audio (ASR)",
+     "strength": "M",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 0,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "rdap_registrar",
+     "value": "",
+     "display": "RDAP — timeout (częściowe)",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 0,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "why_not": [
+    {
+     "campaign_id": "KMP-034",
+     "bullets": [
+      "Wspólne: bramka CAPI i relay kit → ten sam operator OP-03, nie ta sama kampania.",
+      "Inny szablon nagłówka (zdrowie vs. napaść) i inna persona (dr Piotr Wiśniewski).",
+      "Brak wspólnych domen i partii certyfikatów."
+     ]
+    },
+    {
+     "campaign_id": "KMP-043",
+     "bullets": [
+      "Tylko wariant V3 (deepfake) — ten materiał to wariant V2 z tekstem.",
+      "Kandydat scalenia z KMP-017."
+     ]
+    }
+   ],
+   "adjudicator": {
+    "model": "qwen/qwen3.8-27b",
+    "verdict": "same",
+    "confidence": 0.93,
+    "rationale": [
+     "Ta sama bramka CAPI i ścieżka relay/lead",
+     "Szablon nagłówka V2 identyczny z członkami KMP-017",
+     "Partia certyfikatów LE R11 z tej samej nocy"
+    ]
+   },
+   "alpha": 0.05,
+   "conformal_tau": 0.55,
+   "set": [
+    "KMP-017"
+   ],
+   "calibration": {
+    "target": 0.05,
+    "achieved": 0.041,
+    "n_cal": 412.0
+   },
+   "model_version": "engine@mock"
+  },
+  "INC-24901": {
+   "incident_id": "INC-24901",
+   "decision": "new",
+   "campaign_id": null,
+   "candidate_campaign_id": "KMP-040",
+   "score": 0.7,
+   "margin": 0.0,
+   "p": 0.07,
+   "tau": 5.0,
+   "delta": 1.0,
+   "confirm_floor": 1.0,
+   "operator_id": null,
+   "operation_id": null,
+   "same_operator_as": null,
+   "duplicate_of": null,
+   "scores": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 0.7,
+     "score_operator": 0.9,
+     "p": 0.07,
+     "p_value": 0.004,
+     "in_set": false
+    },
+    {
+     "campaign_id": "KMP-029",
+     "score": 0.6,
+     "score_operator": 0.6,
+     "p": 0.05,
+     "p_value": 0.003,
+     "in_set": false
+    }
+   ],
+   "runner_up": null,
+   "coverage": 0.71,
+   "layers": [
+    {
+     "layer": "tracking",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "kit",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "infra",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "content",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "persons",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "visual",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "ad",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "media",
+     "state": "missing",
+     "reason": null
+    }
+   ],
+   "evidence": [
+    {
+     "type": "content",
+     "field": "narrative",
+     "value": "gov-subsidy:bon-energetyczny",
+     "display": "przynęta: bon energetyczny",
+     "strength": "M",
+     "weight": 0.7,
+     "level": "campaign",
+     "df": 3,
+     "N": 1284,
+     "idf": 6.06,
+     "state": "match",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "ip_range",
+     "value": "203.0.113.0/24",
+     "display": "Cloudflare 203.0.113.0/24",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 512,
+     "N": 1284,
+     "idf": 0.92,
+     "state": "zero",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "why_not": [
+    {
+     "campaign_id": "KMP-029",
+     "bullets": [
+      "Podobna przynęta rządowa, ale brak wspólnej infrastruktury i kitu."
+     ]
+    }
+   ],
+   "adjudicator": null,
+   "alpha": 0.05,
+   "conformal_tau": 0.55,
+   "set": [],
+   "calibration": {
+    "target": 0.05,
+    "achieved": 0.041,
+    "n_cal": 412.0
+   },
+   "model_version": "engine@mock"
+  },
+  "INC-24866": {
+   "incident_id": "INC-24866",
+   "decision": "confirm",
+   "campaign_id": null,
+   "candidate_campaign_id": "KMP-034",
+   "score": 3.9,
+   "margin": 0.1,
+   "p": 0.52,
+   "tau": 5.0,
+   "delta": 1.0,
+   "confirm_floor": 1.0,
+   "operator_id": "OP-03",
+   "operation_id": "OPN-01",
+   "same_operator_as": null,
+   "duplicate_of": null,
+   "scores": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "score_operator": 6.8,
+     "p": 0.52,
+     "p_value": 0.21,
+     "in_set": true
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "score_operator": 6.8,
+     "p": 0.42,
+     "p_value": 0.16,
+     "in_set": true
+    }
+   ],
+   "runner_up": {
+    "campaign_id": "KMP-017",
+    "score": 3.7,
+    "p": 0.42,
+    "same_operator": true
+   },
+   "coverage": 0.78,
+   "layers": [
+    {
+     "layer": "tracking",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "kit",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "infra",
+     "state": "partial",
+     "reason": "RDAP timeout — brak danych rejestratora"
+    },
+    {
+     "layer": "content",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "persons",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "visual",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "ad",
+     "state": "available",
+     "reason": null
+    },
+    {
+     "layer": "media",
+     "state": "missing",
+     "reason": "brak wideo/ASR w tym materiale"
+    }
+   ],
+   "evidence": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "ip_range",
+     "value": "203.0.113.0/24",
+     "display": "Cloudflare 203.0.113.0/24",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 512,
+     "N": 1284,
+     "idf": 0.92,
+     "state": "zero",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "why_not": [
+    {
+     "campaign_id": "KMP-034",
+     "bullets": [
+      "Wspólne: bramka CAPI i relay kit → ten sam operator OP-03, nie ta sama kampania.",
+      "Inny szablon nagłówka (zdrowie vs. napaść) i inna persona (dr Piotr Wiśniewski).",
+      "Brak wspólnych domen i partii certyfikatów."
+     ]
+    },
+    {
+     "campaign_id": "KMP-043",
+     "bullets": [
+      "Tylko wariant V3 (deepfake) — ten materiał to wariant V2 z tekstem.",
+      "Kandydat scalenia z KMP-017."
+     ]
+    }
+   ],
+   "adjudicator": {
+    "model": "qwen/qwen3.8-27b",
+    "verdict": "same",
+    "confidence": 0.93,
+    "rationale": [
+     "Ta sama bramka CAPI i ścieżka relay/lead",
+     "Szablon nagłówka V2 identyczny z członkami KMP-017",
+     "Partia certyfikatów LE R11 z tej samej nocy"
+    ]
+   },
+   "alpha": 0.05,
+   "conformal_tau": 0.55,
+   "set": [
+    "KMP-034",
+    "KMP-017"
+   ],
+   "calibration": {
+    "target": 0.05,
+    "achieved": 0.041,
+    "n_cal": 412.0
+   },
+   "model_version": "engine@mock"
+  }
+ }
+}

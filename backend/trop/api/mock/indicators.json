@@ -1,0 +1,977 @@
+{
+ "model": "dict[str,Indicators]",
+ "data": {
+  "KMP-017": {
+   "domains": [
+    {
+     "fqdn": "morvanta.click",
+     "cert_issued_at": "2026-11-21T02:31:00Z",
+     "registered_at": "2026-11-21T00:00:00Z",
+     "oracle_predicted_at": "2026-11-19T19:28:00Z",
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 4
+    },
+    {
+     "fqdn": "orvinta.click",
+     "cert_issued_at": "2026-11-21T01:12:00Z",
+     "registered_at": "2026-11-21T00:00:00Z",
+     "oracle_predicted_at": "2026-11-20T21:40:00Z",
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "plessuro.live",
+     "cert_issued_at": "2026-11-21T00:47:00Z",
+     "registered_at": "2026-11-21T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 0
+    },
+    {
+     "fqdn": "velmoria.click",
+     "cert_issued_at": "2026-11-18T01:03:00Z",
+     "registered_at": "2026-11-18T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": true,
+     "online": true,
+     "ads_seen": 7
+    },
+    {
+     "fqdn": "trastino.live",
+     "cert_issued_at": "2026-11-17T00:22:00Z",
+     "registered_at": "2026-11-17T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": true,
+     "online": true,
+     "ads_seen": 5
+    },
+    {
+     "fqdn": "quorvex.click",
+     "cert_issued_at": "2026-11-16T02:10:00Z",
+     "registered_at": "2026-11-16T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": true,
+     "online": true,
+     "ads_seen": 6
+    },
+    {
+     "fqdn": "ambrelio.live",
+     "cert_issued_at": "2026-11-15T01:45:00Z",
+     "registered_at": "2026-11-15T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 3
+    },
+    {
+     "fqdn": "dunvarra.click",
+     "cert_issued_at": "2026-11-14T02:02:00Z",
+     "registered_at": "2026-11-14T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 4
+    },
+    {
+     "fqdn": "selqueno.live",
+     "cert_issued_at": "2026-11-13T00:31:00Z",
+     "registered_at": "2026-11-13T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": "502",
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "tranvello.click",
+     "cert_issued_at": "2026-11-20T02:48:00Z",
+     "registered_at": "2026-11-20T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 1
+    },
+    {
+     "fqdn": "korvelta.click",
+     "cert_issued_at": "2026-11-12T01:18:00Z",
+     "registered_at": "2026-11-12T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 3
+    },
+    {
+     "fqdn": "mandurex.live",
+     "cert_issued_at": "2026-11-12T00:55:00Z",
+     "registered_at": "2026-11-12T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "vistorra.click",
+     "cert_issued_at": "2026-11-11T02:20:00Z",
+     "registered_at": "2026-11-11T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 5
+    },
+    {
+     "fqdn": "plenvaro.live",
+     "cert_issued_at": "2026-11-11T01:07:00Z",
+     "registered_at": "2026-11-11T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 1
+    },
+    {
+     "fqdn": "sarmelto.click",
+     "cert_issued_at": "2026-11-10T00:40:00Z",
+     "registered_at": "2026-11-10T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 3
+    },
+    {
+     "fqdn": "dolvinex.click",
+     "cert_issued_at": "2026-11-10T02:33:00Z",
+     "registered_at": "2026-11-10T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "kervanta.live",
+     "cert_issued_at": "2026-11-09T01:51:00Z",
+     "registered_at": "2026-11-09T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 1
+    },
+    {
+     "fqdn": "ormalto.click",
+     "cert_issued_at": "2026-11-09T00:14:00Z",
+     "registered_at": "2026-11-09T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": true,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "brenvilo.live",
+     "cert_issued_at": "2026-11-08T02:05:00Z",
+     "registered_at": "2026-11-08T00:00:00Z",
+     "oracle_predicted_at": null,
+     "on_certpl": true,
+     "online": true,
+     "ads_seen": 1
+    }
+   ],
+   "tracking": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "kit": [
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "Jan Kowalski",
+     "count": 28
+    },
+    {
+     "id": "P-02",
+     "name": "Anna Nowak",
+     "count": 11
+    },
+    {
+     "id": "P-03",
+     "name": "Tomasz Lewandowski",
+     "count": 7
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Ogród i Pasja 24",
+     "page_id": "104200113345001",
+     "removed": true
+    },
+    {
+     "name": "Puzzle Mania PL",
+     "page_id": "104200113345002",
+     "removed": true
+    },
+    {
+     "name": "Lena Kwiatkowska Sklep",
+     "page_id": "104200113345003",
+     "removed": true
+    },
+    {
+     "name": "Domek Ogrodnika",
+     "page_id": "104200113345004",
+     "removed": false
+    },
+    {
+     "name": "Koty i Psy Sklep",
+     "page_id": "104200113345005",
+     "removed": false
+    },
+    {
+     "name": "Pan Wędkarz 24",
+     "page_id": "104200113345006",
+     "removed": true
+    },
+    {
+     "name": "Ekstra Okazje Shop",
+     "page_id": "104200113345007",
+     "removed": false
+    },
+    {
+     "name": "Rower Dla Każdego",
+     "page_id": "104200113345008",
+     "removed": false
+    },
+    {
+     "name": "Hobby Zakątek PL",
+     "page_id": "104200113345009",
+     "removed": false
+    },
+    {
+     "name": "Mała Księgarnia Online",
+     "page_id": "104200113345010",
+     "removed": false
+    },
+    {
+     "name": "Dom i Wnętrza Plus",
+     "page_id": "104200113345011",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-034": {
+   "domains": [
+    {
+     "fqdn": "glikonor-pl.shop",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "kelvaro.live",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "glikonor-oferta.shop",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a… (wspólna z KMP-017)",
+     "strength": "H",
+     "weight": 2.0,
+     "level": "campaign",
+     "df": 10,
+     "N": 1284,
+     "idf": 4.86,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "kit": [
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v1/relay/lead/{uuid}/",
+     "display": "relay kit v1",
+     "strength": "H",
+     "weight": 2.0,
+     "level": "campaign",
+     "df": 11,
+     "N": 1284,
+     "idf": 4.76,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "dr Piotr Wiśniewski",
+     "count": 5
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 3",
+     "page_id": "104200113340003",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-022": {
+   "domains": [
+    {
+     "fqdn": "artovita-forte.shop",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "zdrowestawy-pl.store",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "stawy-bez-bolu.store",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "artovita-oferta.shop",
+     "cert_issued_at": "2026-11-13T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "lekarz-stawy.store",
+     "cert_issued_at": "2026-11-14T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "forte-stawy.shop",
+     "cert_issued_at": "2026-11-15T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [
+    {
+     "type": "tracking",
+     "field": "fb_pixel",
+     "value": "870011223344556",
+     "display": "FB pixel 8700…556",
+     "strength": "H",
+     "weight": 2.0,
+     "level": "campaign",
+     "df": 29,
+     "N": 1284,
+     "idf": 3.79,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "kit": [
+    {
+     "type": "kit",
+     "field": "url_param_schema",
+     "value": "clickid/key/pixel_fb",
+     "display": "parametry Keitaro clickid/key/pixel_fb",
+     "strength": "M",
+     "weight": 2.0,
+     "level": "campaign",
+     "df": 27,
+     "N": 1284,
+     "idf": 3.86,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "dr Piotr Wiśniewski",
+     "count": 5
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 3",
+     "page_id": "104200113340003",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 4",
+     "page_id": "104200113340004",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 5",
+     "page_id": "104200113340005",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 6",
+     "page_id": "104200113340006",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-031": {
+   "domains": [
+    {
+     "fqdn": "quantapl-invest.top",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "ai-zysk.top",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "platforma-ai24.top",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "invest-ai-pl.top",
+     "cert_issued_at": "2026-11-13T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "zyskpl-ai.top",
+     "cert_issued_at": "2026-11-14T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "quantapl-pro.top",
+     "cert_issued_at": "2026-11-15T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "aibroker-pl.top",
+     "cert_issued_at": "2026-11-16T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "inwestuj-ai.top",
+     "cert_issued_at": "2026-11-17T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "quantapl-live.top",
+     "cert_issued_at": "2026-11-18T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [
+    {
+     "type": "tracking",
+     "field": "google_ads",
+     "value": "AW-11122233344",
+     "display": "Google Ads AW-11122233344",
+     "strength": "H",
+     "weight": 2.0,
+     "level": "campaign",
+     "df": 50,
+     "N": 1284,
+     "idf": 3.25,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "kit": [],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "Marek Zieliński",
+     "count": 5
+    },
+    {
+     "id": "P-02",
+     "name": "Katarzyna Wójcik",
+     "count": 6
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 3",
+     "page_id": "104200113340003",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 4",
+     "page_id": "104200113340004",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 5",
+     "page_id": "104200113340005",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 6",
+     "page_id": "104200113340006",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 7",
+     "page_id": "104200113340007",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 8",
+     "page_id": "104200113340008",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-040": {
+   "domains": [
+    {
+     "fqdn": "bonenergetyczny24.site",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "ddoplata-energia.info",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [],
+   "kit": [],
+   "persons": [],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-043": {
+   "domains": [
+    {
+     "fqdn": "zamach-nagranie.click",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "kurier-wideo.live",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [],
+   "kit": [],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "Jan Kowalski",
+     "count": 5
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-011": {
+   "domains": [
+    {
+     "fqdn": "kredyt-szybki.online",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "bez-bik-pl.online",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "pozyczka-24h.online",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "bank-przyklad-kredyt.online",
+     "cert_issued_at": "2026-11-13T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "kredyt-ok.online",
+     "cert_issued_at": "2026-11-14T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [],
+   "kit": [],
+   "persons": [],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 3",
+     "page_id": "104200113340003",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 4",
+     "page_id": "104200113340004",
+     "removed": true
+    }
+   ]
+  },
+  "KMP-029": {
+   "domains": [
+    {
+     "fqdn": "bon-paliwowy.site",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "paliwo-doplata.site",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "ankieta-paliwo.site",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "bon-stacja.site",
+     "cert_issued_at": "2026-11-13T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [],
+   "kit": [],
+   "persons": [],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 3",
+     "page_id": "104200113340003",
+     "removed": false
+    }
+   ]
+  },
+  "KMP-036": {
+   "domains": [
+    {
+     "fqdn": "autoprofit-bot.io",
+     "cert_issued_at": "2026-11-10T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "crypto-zysk.io",
+     "cert_issued_at": "2026-11-11T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "bot-handlowy.io",
+     "cert_issued_at": "2026-11-12T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    },
+    {
+     "fqdn": "autoprofit-pl.io",
+     "cert_issued_at": "2026-11-13T01:00:00Z",
+     "registered_at": null,
+     "oracle_predicted_at": null,
+     "on_certpl": false,
+     "online": true,
+     "ads_seen": 2
+    }
+   ],
+   "tracking": [],
+   "kit": [],
+   "persons": [
+    {
+     "id": "P-01",
+     "name": "Marek Zieliński",
+     "count": 5
+    }
+   ],
+   "advertisers": [
+    {
+     "name": "Sklep Mock 0",
+     "page_id": "104200113340000",
+     "removed": true
+    },
+    {
+     "name": "Sklep Mock 1",
+     "page_id": "104200113340001",
+     "removed": false
+    },
+    {
+     "name": "Sklep Mock 2",
+     "page_id": "104200113340002",
+     "removed": false
+    }
+   ]
+  }
+ }
+}

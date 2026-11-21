@@ -1,0 +1,750 @@
+{
+ "model": "GraphPayload",
+ "data": {
+  "nodes": [
+   {
+    "id": "OP-03",
+    "kind": "operator",
+    "label": "OP-03 «Kestrel»",
+    "campaign_id": null,
+    "size": 4.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "OPN-01",
+    "kind": "operation",
+    "label": "OPN-01 lejek relay",
+    "campaign_id": null,
+    "size": 3.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "KMP-017",
+    "kind": "campaign",
+    "label": "KMP-017 Zamach",
+    "campaign_id": "KMP-017",
+    "size": 4.3,
+    "first_seen": "2026-11-08",
+    "meta": {}
+   },
+   {
+    "id": "KMP-034",
+    "kind": "campaign",
+    "label": "KMP-034 Cukrzyca",
+    "campaign_id": "KMP-034",
+    "size": 2.6,
+    "first_seen": "2026-11-02",
+    "meta": {}
+   },
+   {
+    "id": "KMP-043",
+    "kind": "campaign",
+    "label": "KMP-043 Zamach",
+    "campaign_id": "KMP-043",
+    "size": 2.2,
+    "first_seen": "2026-11-17",
+    "meta": {}
+   },
+   {
+    "id": "KMP-022",
+    "kind": "campaign",
+    "label": "KMP-022 Stawy",
+    "campaign_id": "KMP-022",
+    "size": 3.55,
+    "first_seen": "2026-10-14",
+    "meta": {}
+   },
+   {
+    "id": "OP-07",
+    "kind": "operator",
+    "label": "OP-07",
+    "campaign_id": null,
+    "size": 3.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "KMP-031",
+    "kind": "campaign",
+    "label": "KMP-031 Platforma AI",
+    "campaign_id": "KMP-031",
+    "size": 4.9,
+    "first_seen": "2026-09-29",
+    "meta": {}
+   },
+   {
+    "id": "OP-05",
+    "kind": "operator",
+    "label": "OP-05",
+    "campaign_id": null,
+    "size": 3.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "morvanta.click",
+    "kind": "domain",
+    "label": "morvanta.click",
+    "campaign_id": "KMP-017",
+    "size": 2.333333333333333,
+    "first_seen": "2026-11-21",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "orvinta.click",
+    "kind": "domain",
+    "label": "orvinta.click",
+    "campaign_id": "KMP-017",
+    "size": 1.6666666666666665,
+    "first_seen": "2026-11-21",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "plessuro.live",
+    "kind": "domain",
+    "label": "plessuro.live",
+    "campaign_id": "KMP-017",
+    "size": 1.0,
+    "first_seen": "2026-11-21",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "velmoria.click",
+    "kind": "domain",
+    "label": "velmoria.click",
+    "campaign_id": "KMP-017",
+    "size": 3.3333333333333335,
+    "first_seen": "2026-11-18",
+    "meta": {
+     "certpl": true
+    }
+   },
+   {
+    "id": "trastino.live",
+    "kind": "domain",
+    "label": "trastino.live",
+    "campaign_id": "KMP-017",
+    "size": 2.666666666666667,
+    "first_seen": "2026-11-17",
+    "meta": {
+     "certpl": true
+    }
+   },
+   {
+    "id": "quorvex.click",
+    "kind": "domain",
+    "label": "quorvex.click",
+    "campaign_id": "KMP-017",
+    "size": 3.0,
+    "first_seen": "2026-11-16",
+    "meta": {
+     "certpl": true
+    }
+   },
+   {
+    "id": "ambrelio.live",
+    "kind": "domain",
+    "label": "ambrelio.live",
+    "campaign_id": "KMP-017",
+    "size": 2.0,
+    "first_seen": "2026-11-15",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "dunvarra.click",
+    "kind": "domain",
+    "label": "dunvarra.click",
+    "campaign_id": "KMP-017",
+    "size": 2.333333333333333,
+    "first_seen": "2026-11-14",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "selqueno.live",
+    "kind": "domain",
+    "label": "selqueno.live",
+    "campaign_id": "KMP-017",
+    "size": 1.6666666666666665,
+    "first_seen": "2026-11-13",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "tranvello.click",
+    "kind": "domain",
+    "label": "tranvello.click",
+    "campaign_id": "KMP-017",
+    "size": 1.3333333333333333,
+    "first_seen": "2026-11-20",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "korvelta.click",
+    "kind": "domain",
+    "label": "korvelta.click",
+    "campaign_id": "KMP-017",
+    "size": 2.0,
+    "first_seen": "2026-11-12",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "mandurex.live",
+    "kind": "domain",
+    "label": "mandurex.live",
+    "campaign_id": "KMP-017",
+    "size": 1.6666666666666665,
+    "first_seen": "2026-11-12",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "vistorra.click",
+    "kind": "domain",
+    "label": "vistorra.click",
+    "campaign_id": "KMP-017",
+    "size": 2.666666666666667,
+    "first_seen": "2026-11-11",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "plenvaro.live",
+    "kind": "domain",
+    "label": "plenvaro.live",
+    "campaign_id": "KMP-017",
+    "size": 1.3333333333333333,
+    "first_seen": "2026-11-11",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "sarmelto.click",
+    "kind": "domain",
+    "label": "sarmelto.click",
+    "campaign_id": "KMP-017",
+    "size": 2.0,
+    "first_seen": "2026-11-10",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "dolvinex.click",
+    "kind": "domain",
+    "label": "dolvinex.click",
+    "campaign_id": "KMP-017",
+    "size": 1.6666666666666665,
+    "first_seen": "2026-11-10",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "kervanta.live",
+    "kind": "domain",
+    "label": "kervanta.live",
+    "campaign_id": "KMP-017",
+    "size": 1.3333333333333333,
+    "first_seen": "2026-11-09",
+    "meta": {
+     "certpl": false
+    }
+   },
+   {
+    "id": "ormalto.click",
+    "kind": "domain",
+    "label": "ormalto.click",
+    "campaign_id": "KMP-017",
+    "size": 1.6666666666666665,
+    "first_seen": "2026-11-09",
+    "meta": {
+     "certpl": true
+    }
+   },
+   {
+    "id": "brenvilo.live",
+    "kind": "domain",
+    "label": "brenvilo.live",
+    "campaign_id": "KMP-017",
+    "size": 1.3333333333333333,
+    "first_seen": "2026-11-08",
+    "meta": {
+     "certpl": true
+    }
+   },
+   {
+    "id": "glikonor-pl.shop",
+    "kind": "domain",
+    "label": "glikonor-pl.shop",
+    "campaign_id": "KMP-034",
+    "size": 1.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "kelvaro.live",
+    "kind": "domain",
+    "label": "kelvaro.live",
+    "campaign_id": "KMP-034",
+    "size": 1.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "glikonor-oferta.shop",
+    "kind": "domain",
+    "label": "glikonor-oferta.shop",
+    "campaign_id": "KMP-034",
+    "size": 1.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "person:Jan Kowalski",
+    "kind": "person",
+    "label": "Jan Kowalski",
+    "campaign_id": null,
+    "size": 1.5,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "person:Anna Nowak",
+    "kind": "person",
+    "label": "Anna Nowak",
+    "campaign_id": null,
+    "size": 1.5,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "person:Tomasz Lewandowski",
+    "kind": "person",
+    "label": "Tomasz Lewandowski",
+    "campaign_id": null,
+    "size": 1.5,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "trace:capi",
+    "kind": "trace",
+    "label": "CAPI cg-7f3a…",
+    "campaign_id": null,
+    "size": 2.5,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "trace:kit",
+    "kind": "trace",
+    "label": "relay/lead kit",
+    "campaign_id": null,
+    "size": 2.5,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "cert:le-r11-night",
+    "kind": "cert",
+    "label": "LE R11 00:47–02:31",
+    "campaign_id": null,
+    "size": 2.0,
+    "first_seen": null,
+    "meta": {}
+   },
+   {
+    "id": "INC-24817",
+    "kind": "incident",
+    "label": "INC-24817",
+    "campaign_id": "KMP-017",
+    "size": 1.5,
+    "first_seen": "2026-11-21",
+    "meta": {}
+   }
+  ],
+  "edges": [
+   {
+    "a": "OPN-01",
+    "b": "OP-03",
+    "type": "operation",
+    "weight": 2.0,
+    "level": null,
+    "label": null
+   },
+   {
+    "a": "KMP-017",
+    "b": "OP-03",
+    "type": "operator",
+    "weight": 3.0,
+    "level": "L3",
+    "label": null
+   },
+   {
+    "a": "KMP-034",
+    "b": "OP-03",
+    "type": "operator",
+    "weight": 3.0,
+    "level": "L3",
+    "label": null
+   },
+   {
+    "a": "KMP-043",
+    "b": "OP-03",
+    "type": "operator",
+    "weight": 3.0,
+    "level": "L3",
+    "label": null
+   },
+   {
+    "a": "KMP-022",
+    "b": "OP-07",
+    "type": "operator",
+    "weight": 3.0,
+    "level": "L3",
+    "label": null
+   },
+   {
+    "a": "KMP-031",
+    "b": "OP-05",
+    "type": "operator",
+    "weight": 3.0,
+    "level": "L3",
+    "label": null
+   },
+   {
+    "a": "morvanta.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "orvinta.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "plessuro.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "velmoria.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "trastino.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "quorvex.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "ambrelio.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "dunvarra.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "selqueno.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "tranvello.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "korvelta.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "mandurex.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "vistorra.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "plenvaro.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "sarmelto.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "dolvinex.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "kervanta.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "ormalto.click",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "brenvilo.live",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "glikonor-pl.shop",
+    "b": "KMP-034",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "kelvaro.live",
+    "b": "KMP-034",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "glikonor-oferta.shop",
+    "b": "KMP-034",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "person:Jan Kowalski",
+    "b": "KMP-017",
+    "type": "persons",
+    "weight": 1.5,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "person:Anna Nowak",
+    "b": "KMP-017",
+    "type": "persons",
+    "weight": 1.5,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "person:Tomasz Lewandowski",
+    "b": "KMP-017",
+    "type": "persons",
+    "weight": 1.5,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "trace:capi",
+    "b": "KMP-017",
+    "type": "tracking",
+    "weight": 3.1,
+    "level": "L3",
+    "label": "wspólna bramka CAPI"
+   },
+   {
+    "a": "trace:kit",
+    "b": "KMP-017",
+    "type": "kit",
+    "weight": 2.7,
+    "level": "L3",
+    "label": "wspólny relay kit"
+   },
+   {
+    "a": "trace:capi",
+    "b": "KMP-034",
+    "type": "tracking",
+    "weight": 3.1,
+    "level": "L3",
+    "label": "wspólna bramka CAPI"
+   },
+   {
+    "a": "trace:kit",
+    "b": "KMP-034",
+    "type": "kit",
+    "weight": 2.7,
+    "level": "L3",
+    "label": "wspólny relay kit"
+   },
+   {
+    "a": "cert:le-r11-night",
+    "b": "morvanta.click",
+    "type": "infra",
+    "weight": 1.4,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "cert:le-r11-night",
+    "b": "orvinta.click",
+    "type": "infra",
+    "weight": 1.4,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "cert:le-r11-night",
+    "b": "plessuro.live",
+    "type": "infra",
+    "weight": 1.4,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "INC-24817",
+    "b": "morvanta.click",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   },
+   {
+    "a": "INC-24817",
+    "b": "KMP-017",
+    "type": "member",
+    "weight": 1.0,
+    "level": "L2",
+    "label": null
+   }
+  ],
+  "hulls": [
+   {
+    "id": "OP-03",
+    "kind": "operator",
+    "members": [
+     "KMP-017",
+     "KMP-034",
+     "KMP-043"
+    ],
+    "label": "OP-03 «Kestrel»"
+   },
+   {
+    "id": "KMP-017",
+    "kind": "campaign",
+    "members": [
+     "morvanta.click",
+     "orvinta.click",
+     "plessuro.live",
+     "velmoria.click",
+     "trastino.live",
+     "quorvex.click",
+     "ambrelio.live",
+     "dunvarra.click",
+     "selqueno.live",
+     "tranvello.click",
+     "korvelta.click",
+     "mandurex.live",
+     "vistorra.click",
+     "plenvaro.live",
+     "sarmelto.click",
+     "dolvinex.click",
+     "kervanta.live",
+     "ormalto.click",
+     "brenvilo.live",
+     "INC-24817"
+    ],
+    "label": "KMP-017 «Zamach»"
+   }
+  ],
+  "focus": null,
+  "panel": null
+ }
+}

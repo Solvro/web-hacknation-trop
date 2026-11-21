@@ -1,0 +1,460 @@
+{
+ "model": "dict[str,CampaignDNA]",
+ "data": {
+  "KMP-017": {
+   "campaign_id": "KMP-017",
+   "signature": [
+    {
+     "layer": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "members_with": 41,
+     "members_total": 46,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "members_with": 40,
+     "members_total": 46,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "PILNE: {PER} przerywa milczenie po napaści…",
+     "display": "szablon V2 „PILNE: {PER}…”",
+     "members_with": 22,
+     "members_total": 46,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "«Wiem, kto to zrobił»: atak na {PER}",
+     "display": "szablon V1 „Wiem, kto to zrobił”",
+     "members_with": 19,
+     "members_total": 46,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "kit",
+     "field": "url_param_schema",
+     "value": "utm×5+utm_visit=uuidv7",
+     "display": "gramatyka URL: utm×5 + utm_visit",
+     "members_with": 44,
+     "members_total": 46,
+     "strength": "M",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "infra",
+     "field": "cert_batch",
+     "value": "LE-R11 nocne partie 00:00–03:00 UTC",
+     "display": "LE R11 nocne partie",
+     "members_with": 33,
+     "members_total": 46,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64500",
+     "display": "origin AS64500 za Cloudflare",
+     "members_with": 36,
+     "members_total": 46,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "persons",
+     "field": "face_identity",
+     "value": "Jan Kowalski",
+     "display": "Jan Kowalski",
+     "members_with": 28,
+     "members_total": 46,
+     "strength": "M",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-cluster-k17",
+     "display": "landing pHash (klon «Kurier Dnia»)",
+     "members_with": 39,
+     "members_total": 46,
+     "strength": "M",
+     "bot": "zwiadowca"
+    },
+    {
+     "layer": "ad",
+     "field": "creative_decoy",
+     "value": "decoy:landscape/animal",
+     "display": "kreacje-wabiki",
+     "members_with": 31,
+     "members_total": 46,
+     "strength": "L",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-034": {
+   "campaign_id": "KMP-034",
+   "signature": [
+    {
+     "layer": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a… (wspólna z KMP-017)",
+     "members_with": 10,
+     "members_total": 12,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v1/relay/lead/{uuid}/",
+     "display": "relay kit v1",
+     "members_with": 11,
+     "members_total": 12,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "persons",
+     "field": "face_identity",
+     "value": "dr Piotr Wiśniewski",
+     "display": "dr Piotr Wiśniewski (deepfake)",
+     "members_with": 12,
+     "members_total": 12,
+     "strength": "M",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-034",
+     "display": "szablon nagłówka KMP-034",
+     "members_with": 9,
+     "members_total": 12,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64510",
+     "display": "hosting wspólny",
+     "members_with": 8,
+     "members_total": 12,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-034",
+     "display": "landing pHash",
+     "members_with": 9,
+     "members_total": 12,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-022": {
+   "campaign_id": "KMP-022",
+   "signature": [
+    {
+     "layer": "tracking",
+     "field": "fb_pixel",
+     "value": "870011223344556",
+     "display": "FB pixel 8700…556",
+     "members_with": 29,
+     "members_total": 31,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "kit",
+     "field": "url_param_schema",
+     "value": "clickid/key/pixel_fb",
+     "display": "parametry Keitaro clickid/key/pixel_fb",
+     "members_with": 27,
+     "members_total": 31,
+     "strength": "M",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "media",
+     "field": "voice_id",
+     "value": "voice-syn-0.87",
+     "display": "głos syntetyczny 0.87",
+     "members_with": 18,
+     "members_total": 31,
+     "strength": "M",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-022",
+     "display": "szablon nagłówka KMP-022",
+     "members_with": 24,
+     "members_total": 31,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64510",
+     "display": "hosting wspólny",
+     "members_with": 21,
+     "members_total": 31,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-022",
+     "display": "landing pHash",
+     "members_with": 23,
+     "members_total": 31,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-031": {
+   "campaign_id": "KMP-031",
+   "signature": [
+    {
+     "layer": "tracking",
+     "field": "google_ads",
+     "value": "AW-11122233344",
+     "display": "Google Ads AW-11122233344",
+     "members_with": 50,
+     "members_total": 58,
+     "strength": "H",
+     "bot": "tropiciel"
+    },
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-031",
+     "display": "szablon nagłówka KMP-031",
+     "members_with": 46,
+     "members_total": 58,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64507",
+     "display": "hosting wspólny",
+     "members_with": 40,
+     "members_total": 58,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-031",
+     "display": "landing pHash",
+     "members_with": 43,
+     "members_total": 58,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-040": {
+   "campaign_id": "KMP-040",
+   "signature": [
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-040",
+     "display": "szablon nagłówka KMP-040",
+     "members_with": 2,
+     "members_total": 3,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64504",
+     "display": "hosting wspólny",
+     "members_with": 2,
+     "members_total": 3,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-040",
+     "display": "landing pHash",
+     "members_with": 2,
+     "members_total": 3,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-043": {
+   "campaign_id": "KMP-043",
+   "signature": [
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-043",
+     "display": "szablon nagłówka KMP-043",
+     "members_with": 3,
+     "members_total": 4,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64507",
+     "display": "hosting wspólny",
+     "members_with": 2,
+     "members_total": 4,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-043",
+     "display": "landing pHash",
+     "members_with": 3,
+     "members_total": 4,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-011": {
+   "campaign_id": "KMP-011",
+   "signature": [
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-011",
+     "display": "szablon nagłówka KMP-011",
+     "members_with": 17,
+     "members_total": 22,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64511",
+     "display": "hosting wspólny",
+     "members_with": 15,
+     "members_total": 22,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-011",
+     "display": "landing pHash",
+     "members_with": 16,
+     "members_total": 22,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-029": {
+   "campaign_id": "KMP-029",
+   "signature": [
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-029",
+     "display": "szablon nagłówka KMP-029",
+     "members_with": 13,
+     "members_total": 17,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64505",
+     "display": "hosting wspólny",
+     "members_with": 11,
+     "members_total": 17,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-029",
+     "display": "landing pHash",
+     "members_with": 12,
+     "members_total": 17,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  },
+  "KMP-036": {
+   "campaign_id": "KMP-036",
+   "signature": [
+    {
+     "layer": "content",
+     "field": "headline_template",
+     "value": "szablon KMP-036",
+     "display": "szablon nagłówka KMP-036",
+     "members_with": 11,
+     "members_total": 14,
+     "strength": "H",
+     "bot": "czytelnik"
+    },
+    {
+     "layer": "infra",
+     "field": "asn",
+     "value": "AS64500",
+     "display": "hosting wspólny",
+     "members_with": 9,
+     "members_total": 14,
+     "strength": "M",
+     "bot": "notariusz"
+    },
+    {
+     "layer": "visual",
+     "field": "landing_phash",
+     "value": "phash-KMP-036",
+     "display": "landing pHash",
+     "members_with": 10,
+     "members_total": 14,
+     "strength": "M",
+     "bot": "zwiadowca"
+    }
+   ]
+  }
+ }
+}
