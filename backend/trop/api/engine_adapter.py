@@ -92,31 +92,90 @@ class StubAdapter:
         return dec
 
 
+_CORPUS = None
+
+
+def worker_corpus():
+    """Corpus loaded once per process (DB first, JSON fallback)."""
+    global _CORPUS
+    if _CORPUS is None:
+        from trop.engine import service
+        try:
+            _CORPUS = service.Corpus.load(source="db")
+        except Exception:  # noqa: BLE001
+            _CORPUS = service.Corpus.load()
+    return _CORPUS
+
+
+def capture_available() -> bool:
+    import importlib.util
+    from trop.config import settings
+    return (settings.trop_mode == "live" and os.environ.get("TROP_NO_LIVE") != "1"
+            and importlib.util.find_spec("trop.capture.capture") is not None)
+
+
 class ServiceAdapter:
-    """Real engine (WS1): ingest material -> Incident -> trop.engine.service.analyze_incident (engine/contract.py)."""
+    """Real engine (WS1): `service.analyze_path` runs the six bot steps; events get a job_id and are forwarded 1:1."""
 
     def __init__(self):
         self.service = importlib.import_module("trop.engine.service")
 
-    def _build_incident(self, material: Material, em: StepEmitter) -> Incident:
-        """WIRING POINT (lead, gate G2): capture (WS5) + extract (WS1 ingest) emitting steps capture/tracking/content/infra
-        through `em`, returning the Incident. Until then raise so the worker reports job.error."""
-        raise NotImplementedError("trop.ingest -> Incident wiring pending (G2)")
-
     def analyze(self, material: Material, emit: Emit) -> Decision:
-        em = StepEmitter(material.job_id, emit)
-        inc = self._build_incident(material, em)
-        em.run("compare")
-        corpus = self.service.Corpus.load()
-        dec, findings = self.service.analyze_incident(inc, corpus)
+        jid = material.job_id
+        held: list[tuple[str, dict]] = []
+
+        def cb(typ: str, data: dict) -> None:
+            data = {"job_id": jid, **data}
+            if typ == "job.done":          # job.done must be the LAST event (findings first)
+                held.append((typ, data))
+            else:
+                emit(typ, data)
+
+        if material.kind == "url" and not capture_available():
+            from trop.engine.progress import Steps
+            st = Steps(cb)
+            st.start("capture")
+            st.done("capture", status="error", detail="Strona niedostępna dla przechwytywania (moduł capture nie jest włączony)",
+                    warnings=["capture unavailable"])
+            emit("job.error", {"job_id": jid, "step": "capture",
+                               "message": "Nie udało się pobrać strony: przechwytywanie na żywo jest niedostępne w tym trybie. "
+                                          "Wgraj zrzut/HAR/ZIP zamiast adresu URL."})
+            raise CaptureUnavailable(material.name)
+        src = material.name if material.kind == "url" else (material.paths[0] if len(material.paths) == 1 else str(_common_dir(material.paths)))
+        inc_id = "INC-U" + jid.rsplit("-", 1)[-1][:6]
+        dec, inc, findings = self.service.analyze_path(src, worker_corpus(), emit=cb, inc_id=inc_id)
         for f in findings:
-            em.finding(f)
-        em.ranking(dec.scores)
-        em.done("compare")
-        em.run("verdict")
-        em.done("verdict")
-        em.finish(dec)
+            emit("job.finding", {"job_id": jid, "finding": f.model_dump(mode="json")})
+        _remember(inc, dec)
+        for typ, data in held:
+            emit(typ, data)
         return dec
+
+
+class CaptureUnavailable(RuntimeError):
+    """Raised after job.error was emitted (the worker must not emit a second one)."""
+
+
+def _common_dir(paths: list[str]):
+    from pathlib import Path
+    return Path(paths[0]).parent
+
+
+def _remember(inc: dict, dec: Decision) -> None:
+    """Keep the analysed incident + decision for GET /incidents/{id} (Redis 7 days; DB best effort)."""
+    import json
+    try:
+        import redis
+        from trop.config import settings
+        r = redis.Redis.from_url(settings.redis_url)
+        r.set(f"trop:incident:{dec.incident_id}", json.dumps({"incident": inc, "decision": dec.model_dump(mode="json")}, default=str), ex=7 * 86400)
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        from trop.store.corpus import save_decision
+        save_decision(dec, inc)
+    except Exception:  # noqa: BLE001
+        pass
 
 
 def get_adapter() -> EngineAdapter:
