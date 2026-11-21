@@ -240,8 +240,27 @@ class RealStore:
                 pass
         return out
 
-    def job_events(self, jid: str) -> AsyncIterator[Event]:
-        return bus.subscribe(bus.client(), f"job:{jid}")
+    async def job_events(self, jid: str) -> AsyncIterator[Event]:
+        """History + live events; ends right after job.done / job.error, or when the job state says it is finished and nothing arrives."""
+        r = bus.client()
+        it = bus.subscribe(r, f"job:{jid}").__aiter__()
+        try:
+            while True:
+                try:
+                    ev = await asyncio.wait_for(it.__anext__(), 3.0)
+                except StopAsyncIteration:
+                    return
+                except asyncio.TimeoutError:
+                    st = await bus.get_state(r, jid)
+                    if st and st.get("status") in ("done", "error"):
+                        return
+                    continue
+                yield ev
+                if ev.type in ("job.done", "job.error"):
+                    return
+        finally:
+            await it.aclose()
+            await r.aclose()
 
     def channel_events(self, name: str) -> AsyncIterator[Event]:
         return bus.subscribe(bus.client(), name, history=False, stop_on_terminal=False)
@@ -494,6 +513,9 @@ class RealStore:
         return M.CampaignSummaryText(campaign_id=cid, text=f"{c.name}. {c.n_incidents} incydentów, {c.n_domains} domen.",
                                      bullets=[f"Operator: {c.operator_id or 'nieustalony'}", f"Operacja: {c.operation_id or '—'}"], generated_by="engine")
 
+    def operators(self) -> list[Operator]:
+        return [self.operator(o) for o in sorted(self.corpus.operators)]
+
     def operator(self, oid: str) -> Operator:
         o = self.corpus.operators.get(oid)
         if o is None:
@@ -526,8 +548,14 @@ class RealStore:
         return MergePreview(a=sa, b=sb, shared=[self._item(*t) for t in sh], before={cid: a.n_incidents, other: b.n_incidents}, after={cid: a.n_incidents + b.n_incidents})
 
     # ------------------------------------------------------------------------------------------ graph
-    def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None, origin=None) -> GraphPayload:
+    async def graph(self, scope=None, layers=None, level=None, min_weight=0.0, focus=None, origin=None) -> GraphPayload:
         c = self.corpus
+        extra: dict[str, dict] = {}                 # freshly analysed incidents (not in the corpus) referenced by focus/origin
+        for x in (focus, origin):
+            if x and x.startswith("INC-") and x not in self._by_id:
+                st = await self._stored(x)
+                if st:
+                    extra[x] = st["incident"]
         nodes: dict[str, GraphNode] = {}
         edges: list[GraphEdge] = []
         ls = set(layers.split(",")) if layers else None
@@ -546,11 +574,27 @@ class RealStore:
             if host:
                 nodes.setdefault(f"d:{host}", GraphNode(id=f"d:{host}", kind="domain", label=host, campaign_id=cid, size=1))
                 edges.append(GraphEdge(a=f"d:{host}", b=iid, type="member", weight=1, level="L2"))
-        for (layer, key, val), ids in self.holders.items():
-            if layer in ("tracking", "kit") and 2 <= len(ids) <= max(3, self.N // 2) and (ls is None or layer in ls):
+        holders = {k: list(v) for k, v in self.holders.items()}
+        for xid, xinc in extra.items():
+            lan = xinc.get("landing") or {}
+            nodes[xid] = GraphNode(id=xid, kind="incident", label=xid, size=1.5)
+            if lan.get("host"):
+                nodes.setdefault(f"d:{lan['host']}", GraphNode(id=f"d:{lan['host']}", kind="domain", label=lan["host"], size=1))
+                edges.append(GraphEdge(a=f"d:{lan['host']}", b=xid, type="member", weight=1, level="L2"))
+            for t in _triples(xinc):
+                holders.setdefault(t, []).append(xid)
+            for cdn in _s((xinc.get("infra") or {}).get("cdn")):
+                holders.setdefault(("infra", "cdn", cdn), []).append(xid)
+        for inc in c.incidents:                                                  # the CDN (Cloudflare) is a weak, platform-level trace
+            for cdn in _s((inc.get("infra") or {}).get("cdn")):
+                holders.setdefault(("infra", "cdn", cdn), []).append(inc["id"])
+        for (layer, key, val), ids in holders.items():
+            fresh = any(i in extra for i in ids)
+            if (layer in ("tracking", "kit") or key == "cdn") and (fresh or 2 <= len(ids) <= max(3, self.N // 2) or key == "cdn") and (ls is None or layer in ls):
                 tid = f"trace:{key}:{val}"
-                it = self._item(layer, key, val)
-                nodes[tid] = GraphNode(id=tid, kind="trace", label=f"{key}: {val[:28]}", size=2)
+                it = self._item(layer, key, val, len(ids)) if key != "cdn" else self._item("infra", "cdn", val, len(ids))
+                nodes[tid] = GraphNode(id=tid, kind="trace", label=f"{key}: {val[:28]}", size=2,
+                                       meta={"field": key, "value": val, "layer": layer, **({"weak": True} if key == "cdn" else {})})
                 edges += [GraphEdge(a=tid, b=i, type=layer, weight=max(it.weight, 0.1), level="L2") for i in ids]
         if scope and scope.startswith("campaign:"):
             cid = scope.split(":", 1)[1]
@@ -566,11 +610,42 @@ class RealStore:
                 if pid not in nodes:
                     g.nodes.append(GraphNode(id=pid, kind="person", label=p, size=1.5))
                     g.edges += [GraphEdge(a=pid, b=i["id"], type="persons", weight=1.5, level="L2") for i in c.incidents if p in _s((i.get("content") or {}).get("persons"))]
+            focus = self._alias_focus(g, focus, origin)
             try:
                 return focus_view(g, focus, origin)
             except KeyError:
                 raise _nf("node")
         return g
+
+    KIT_FIELDS = {"kit_tenants", "lander_ids", "landing_type_ids", "kit_endpoints", "path_shapes", "chain_param_schemas"}
+
+    def _alias_focus(self, g: GraphPayload, focus: str, origin: str | None) -> str:
+        """Ids the web derives from chips (web/lib/graph.ts): trace:kit | trace:capi | trace:cdn | trace:pixel:<v> | trace:content:<v> |
+        trace:<field>:<value> | bare domain | cert:... -> real node ids (`trace:<field>:<value>`, `d:<host>`)."""
+        ids = {n.id for n in g.nodes}
+        if focus in ids:
+            return focus
+        near = {e.b if e.a == origin else e.a for e in g.edges if origin and origin in (e.a, e.b)}
+        trace_nodes = [n for n in g.nodes if n.kind == "trace"]
+
+        def best(cands):
+            cands = sorted(cands, key=lambda n: (n.id not in near, -(n.size or 0), n.id))
+            return cands[0].id if cands else None
+        if focus.startswith("trace:"):
+            parts = focus.split(":", 2)
+            if len(parts) == 2:
+                fields = {"kit": self.KIT_FIELDS, "capi": {"capi_gateways"}, "cdn": {"cdn"}}.get(parts[1], {parts[1]})
+                hit = best([n for n in trace_nodes if n.meta.get("field") in fields])
+            else:
+                key, val = parts[1], parts[2]
+                field = {"pixel": "fb_pixels", "content": "headline_template"}.get(key, key)
+                hit = best([n for n in trace_nodes if n.meta.get("value") == val and n.meta.get("field") in (field, key, None)]
+                           or [n for n in trace_nodes if n.meta.get("value") == val])
+            if hit:
+                return hit
+        elif "." in focus and ":" not in focus and f"d:{focus}" in ids:         # bare domain
+            return f"d:{focus}"
+        return focus
 
     # ------------------------------------------------------------------------------------------ batch
     async def batch(self, names: list[str], path: str | None = None) -> M.BatchAccepted:
@@ -621,7 +696,12 @@ class RealStore:
         from arq import create_pool
         from arq.connections import RedisSettings
         from trop.agent import service as svc
+        from datetime import datetime, timezone
+        from trop.schema import Investigation
         iid = svc.new_investigation_id()
+        svc._save(Investigation(id=iid, seed=body.seed, campaign_id=body.campaign_id, status="running",       # visible to GET at once (no 404 race)
+                                budget={"steps": float(body.budget_steps), "used": 0.0, "usd": 1.0, "usd_used": 0.0},
+                                started_at=datetime.now(timezone.utc).isoformat(timespec="seconds")))
         pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
         try:
             await pool.enqueue_job("agent", iid, body.model_dump(), _job_id=iid)
@@ -838,28 +918,62 @@ class RealStore:
         return M.ReportsMine(submitted=int(n), matched=0)
 
     # ------------------------------------------------------------------------------------------ lab (from `trop eval`)
-    async def lab_metrics(self, view: str) -> LabMetrics:
-        path = Path(settings.cache_dir) / "lab_eval.json"
+    async def _eval_json(self, name: str, *args: str) -> dict:
+        """cache_dir/<name>.json written by `trop eval <args> --json`; computed once when missing (cache dir must be writable then)."""
+        path = Path(settings.cache_dir) / f"{name}.json"
         if not path.exists():
             path.parent.mkdir(parents=True, exist_ok=True)
-            proc = await asyncio.create_subprocess_exec(sys.executable, "-m", "trop.cli", "eval", "--json", str(path), stdout=asyncio.subprocess.DEVNULL,
-                                                        stderr=asyncio.subprocess.DEVNULL)
+            proc = await asyncio.create_subprocess_exec(sys.executable, "-m", "trop.cli", "eval", *args, "--json", str(path),
+                                                        stdout=asyncio.subprocess.DEVNULL, stderr=asyncio.subprocess.DEVNULL)
             try:
                 await asyncio.wait_for(proc.wait(), 300)
             except asyncio.TimeoutError:
                 proc.kill()
                 raise HTTPException(504, "eval did not finish in time")
-        res = json.loads(path.read_text())
-        pre = res.get("precomputed") or next(iter(res.values()))
-        views = {
-            "summary": {"source": "trop eval", "n": pre.get("n"), "avglink_tau5": pre.get("avglink_tau5"), "pair_auc": pre.get("pair_auc"),
-                        "loco": pre.get("loco"), "operator_avglink": pre.get("operator_avglink"), "gate_failures": pre.get("gate_failures")},
-            "baselines": {"avglink_grid": pre.get("avglink_grid"), "components_tau5": pre.get("components_tau5"), "louvain_tau5": pre.get("louvain_tau5")},
-            "loco": {"loco": pre.get("loco"), "misses": pre.get("loco_misses"), "robustness": pre.get("robustness")},
-        }
+        try:
+            res = json.loads(path.read_text())
+        except (OSError, ValueError):
+            raise HTTPException(503, f"{name}.json unavailable")
+        return res.get("precomputed") or next(iter(res.values()))
+
+    async def _lab_all(self) -> dict:
+        pre = await self._eval_json("lab_eval")
+        dane = await self._eval_json("lab_eval_dane", "--dane")
+        abl = await self._eval_json("lab_eval_ablation", "--ablation")
+        return {"sample": pre, "dane": dane, "ablation": abl.get("ablation") or []}
+
+    async def lab_metrics(self, view: str) -> LabMetrics:
         if view not in ("summary", "baselines", "loco", "conformal", "models", "layer_compare"):
             raise HTTPException(404, f"unknown view {view}")
+        a = await self._lab_all()
+        pre, dane, abl = a["sample"], a["dane"], a["ablation"]
+        t5, lo = pre.get("avglink_tau5") or {}, pre.get("loco") or {}
+        osr = dane.get("open_set") or {}
+        rows = osr.get("rows") or []
+        new_rows = [r for r in rows if r.get("expected") == "new"]
+        wrong = int(osr.get("wrong_links") or 0) + int(lo.get("wrong_assign") or 0) + sum(int(v.get("wrong_assign") or 0) for v in (pre.get("robustness") or {}).values())
+        drop_infra = next((r for r in abl if r.get("setting") == "drop infra"), None)
+        summary = {
+            "source": "trop eval", "n": pre.get("n"), "bcubed_f1": t5.get("b3_F1"), "ari": t5.get("ARI"), "pairwise_precision": t5.get("pair_P"),
+            "pair_auc": pre.get("pair_auc"), "open_set_accuracy": (osr["correct"] / osr["n"]) if osr.get("n") else None,
+            "dane_open_set": {"correct": osr.get("correct"), "n": osr.get("n"), "wrong_links": osr.get("wrong_links")},
+            "new_campaign_precision": (sum(1 for r in new_rows if r.get("assigned") == "new") / len(new_rows)) if new_rows else None,
+            "wrong_links": wrong, "loco_link": lo.get("should_link_acc"), "loco_not_link": lo.get("should_not_link_acc"),
+            "operator_f1": ((pre.get("operator_avglink") or [{}])[0]).get("b3_F1"),
+            "m2_infra_blind_f1": drop_infra.get("b3_F1") if drop_infra else None, "gate_failures": pre.get("gate_failures"),
+            "raw": {"sample": pre, "dane": dane, "ablation": abl},
+        }
+        mk = lambda name, d: {"model": name, "bcubed_f1": (d or {}).get("b3_F1")}  # noqa: E731
+        views = {
+            "summary": summary,
+            "baselines": {"source": "trop eval", "rows": [r for r in (mk("TROP: średnie wiązanie (τ=5)", t5), mk("Składowe spójne (τ=5)", pre.get("components_tau5")),
+                                                                      mk("Louvain (τ=5)", pre.get("louvain_tau5"))) if r["bcubed_f1"] is not None],
+                          "avglink_grid": pre.get("avglink_grid")},
+            "loco": {"source": "trop eval", "loco": lo, "misses": pre.get("loco_misses"), "robustness": pre.get("robustness")},
+        }
         return LabMetrics(view=view, model_version="engine@1", data=views.get(view, {"available": False, "note": "not computed by trop eval"}))
 
-    def lab_ablation(self) -> list[dict]:
-        return []
+    async def lab_ablation(self) -> list[dict]:
+        abl = (await self._lab_all())["ablation"]
+        return [{"layer": r["setting"].split(" ", 1)[1], "delta_f1": round(r["b3_F1"] - 1.0, 3), "b3_F1": r["b3_F1"], "ari": r.get("ARI"), "pair_auc": r.get("pair_auc"),
+                 "loco_link": r.get("loco_link"), "wrong": r.get("wrong")} for r in abl if r["setting"].startswith("drop ")]
