@@ -62,8 +62,8 @@ services:
     mem_limit: 1g
 
   worker:      # runs analyses (incl. URL capture): TROP_WORKER_DOCKERFILE=deploy/Dockerfile.worker (api image + Chromium/Playwright, WS5)
-    build: {context: ., dockerfile: "${TROP_WORKER_DOCKERFILE:-deploy/Dockerfile.api}"}
-    shm_size: 256m
+    build: {context: ., dockerfile: "${TROP_WORKER_DOCKERFILE:-deploy/Dockerfile.worker}"}
+    shm_size: 512m
     command: ["trop", "worker"]
     healthcheck: {disable: true}
     environment:

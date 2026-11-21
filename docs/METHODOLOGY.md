@@ -84,6 +84,12 @@ Batch view (the hidden-test mode, `trop batch` / „Importuj zbiór”): average
 
 Explanations: every link shows its evidence chips (type, value, strength, weight, rarity df/N), what was missing on either side, conflicts, values zeroed for being too common (Cloudflare, facebook.net, jQuery CDNs), and a "why not" view against the best other candidate (e.g. tenant f141c307 ≠ 007e0023).
 
+### 4.1 Adjudicator veto and video evidence
+
+In the confirm band (1 ≤ best campaign score < 5), and only there, an LLM adjudicator (Gemini Flash, cached) reads a features-only dossier of the query and its best candidate: identifiers, templates, infrastructure metadata and the evidence list, no page text or screenshots. It may veto or annotate a candidate link but can never create one. Its verdict and rationale are shown with the decision; without a key or a cached answer the engine skips it. On the 105-pair benchmark Gemini Flash made 0 false links (accuracy 0.98–1.00 across runs). On DANE it vetoes d47 and d61 and calls d48 "different"; all three are labelled new campaigns.
+
+Video ads are folded into the same evidence model. The Gemini video pass and ASR give a transcript and on-screen text, which are compared by MinHash with the same strength as landing-page text. Persons in videos come only from keyframe faces matched against the gallery, never from model-named people. A recurring voice (speaker-embedding cluster) and domains named in the video are operator-level signals: they count toward a campaign link only when content or ad evidence agrees, so a shared voice alone never links two ads. The video-only DANE item 5 now has a full media layer (847-word transcript) and is correctly a new campaign; item 14 drops from a weak confirm to new because its video's vertical (health) conflicts with the candidate's (investment).
+
 ## 5. Evaluation
 
 Data: sample_v1 (15 incidents, 9 campaigns) and DANE (10 official incidents, held out; 9 labelled queries: 3 should link to a sample campaign, 6 are new). 25 incidents, 14 campaigns. Labels: `experiments/labels.yaml`, `experiments/labels_dane.yaml`.

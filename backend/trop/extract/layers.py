@@ -60,6 +60,68 @@ def face_hits_to_faces(hits: list, source: str = "ad_screenshot") -> list[dict]:
     return out
 
 
+# ------------------------------------------------------------------------------------- video / ASR (WS4 output)
+# Domains named in a video that say nothing about the operator (platforms, impersonated real media brands)
+VIDEO_DOMAIN_NOISE = {"facebook.com", "fb.me", "instagram.com", "youtube.com", "youtu.be", "tiktok.com", "google.com",
+                      "interia.pl", "onet.pl", "wp.pl", "gazeta.pl", "tvn24.pl", "tvn.pl", "polsatnews.pl", "polsat.pl",
+                      "rmf24.pl", "tvp.info", "tvp.pl", "money.pl", "bankier.pl", "businessinsider.com.pl", "fakt.pl"}
+
+
+def apply_video(inc: dict, res: dict) -> dict:
+    """Fold trop.media.pipeline.analyze_video() output into the incident:
+    media.video (+gemini), asr_text, voice_id, faces from keyframes (gallery rule; Gemini persons_hint IGNORED);
+    content: brands (gazetteer regex over transcript + on-screen text), vertical (only when the page gave none),
+    contacts (spoken phones/urls), video_domains (eTLD+1 of named urls minus platform/media-brand noise).
+    Returns a summary of what was added."""
+    import re
+
+    from .rules import BRANDS, COMMON_ETLD1
+    m = res.get("media") or {}
+    vid = dict(m.get("video") or {})
+    if inc["ad"].get("video_path"):
+        vid["path"] = inc["ad"]["video_path"]
+    vid.pop("keyframes", None) if not vid.get("keyframes") else None
+    media = inc.setdefault("media", {})
+    media["video"] = vid
+    for k in ("asr_text", "asr_model", "voice_id", "voice_embedding_ref"):
+        if m.get(k):
+            media[k] = m[k]
+    added_faces = []
+    have = {f.get("identity") for f in media.get("faces") or []}
+    for f in m.get("faces") or []:
+        cos, lead = float(f.get("score") or 0), float(f.get("lead") or 0)
+        if f.get("identity") and cos >= FACE_COS and lead >= FACE_LEAD and f["identity"] not in have:
+            media.setdefault("faces", []).append({"identity": f["identity"], "person_id": f.get("person_id"),
+                                                  "score": round(cos, 3), "lead": round(lead, 3), "source": "video_frame"})
+            added_faces.append(f["identity"])
+    gem = vid.get("gemini") or {}
+    text = " ".join([media.get("asr_text") or gem.get("transcript") or ""] + [str(x) for x in gem.get("on_screen_text") or []])
+    c = inc["content"]
+    low = text.lower()
+    brands = sorted(b for b, rx in BRANDS.items() if re.search(rx, low, re.I))
+    c["brands"] = sorted(set(c.get("brands") or []) | set(brands))
+    if c.get("vertical") in (None, "other") and gem.get("vertical") in ("health", "investment"):
+        c["vertical"] = gem["vertical"]
+    if not c.get("lang") or c.get("lang") == "unk":
+        c["lang"] = gem.get("language") if gem.get("language") in ("pl", "en") else c.get("lang")
+    contacts = dict(c.get("contacts") or {})
+    if gem.get("phones"):
+        contacts["phones"] = sorted(set(contacts.get("phones", [])) | {re.sub(r"[^\d+]", "", p) for p in gem["phones"]})
+    if gem.get("urls"):
+        contacts["urls"] = sorted(set(contacts.get("urls", [])) | set(gem["urls"]))
+    c["contacts"] = contacts
+    doms = set()
+    for u in gem.get("urls") or []:
+        h = re.sub(r"^[a-z]+://", "", str(u).lower()).split("/")[0].split(":")[0]
+        e1 = etld1(h) if "." in h else ""
+        if e1 and e1 not in VIDEO_DOMAIN_NOISE and e1 not in COMMON_ETLD1:
+            doms.add(e1)
+    c["video_domains"] = sorted(doms)
+    c["video_narrative"] = gem.get("narrative")          # hint for analysts / UI only, never evidence
+    return {"faces": added_faces, "brands": brands, "video_domains": sorted(doms), "voice_id": media.get("voice_id"),
+            "n_words": len(text.split())}
+
+
 # ------------------------------------------------------------------------------------- creative pHash (rp/media.py)
 def creative_bbox(img) -> tuple[int, int, int, int]:
     """Largest 'busy' block = the creative. Row/col gradient projection (experiments/rp/media.py, unchanged)."""

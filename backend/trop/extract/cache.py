@@ -168,6 +168,58 @@ def face_hits(path: str) -> tuple[list | None, str]:
     return None, "none"
 
 
+# ------------------------------------------------------------------------------------------------ video / ASR
+def _video_key(path: str) -> tuple[str, int] | None:
+    try:
+        p = Path(path)
+        return (p.name, p.stat().st_size)
+    except OSError:
+        return None
+
+
+@lru_cache(maxsize=1)
+def _video_table() -> dict:
+    """(file name, size) -> WS4 analyze_video() result, from data/experiments/*/media_gemini.json + cache_dir/media/."""
+    from trop.eval.data import fix_path
+    out: dict = {}
+    files = [_data() / "experiments" / c / "media_gemini.json" for c in ("dane", "sample_v1")]
+    files += sorted((_cache() / "media").glob("*.json")) if (_cache() / "media").is_dir() else []
+    for f in files:
+        t = _load(f)
+        if not isinstance(t, dict):
+            continue
+        entries = t.values() if "media" not in t else [t]
+        for e in entries:
+            vp = ((e.get("media") or {}).get("video") or {}).get("path") or (e.get("ad_hints") or {}).get("video_path")
+            k = _video_key(fix_path(vp)) if vp else None
+            if k:
+                out[k] = e
+    return out
+
+
+def video_media(path: str) -> tuple[dict | None, str]:
+    """-> (analyze_video()-shaped dict {media, content_hints, ad_hints}, provenance)."""
+    k = _video_key(path)
+    if k and k in _video_table():
+        return _video_table()[k], "experiments"
+    if _live_enabled():
+        try:
+            from trop.media.pipeline import analyze_video  # WS4: Gemini video pass (cached) + keyframe faces + voice
+        except ImportError:
+            return None, "none"
+        try:
+            res = analyze_video(path)
+            if res and (res.get("media") or {}).get("video"):
+                (_cache() / "media").mkdir(parents=True, exist_ok=True)
+                sha = hashlib.sha256(f"{k}".encode()).hexdigest()[:24]
+                json.dump(res, open(_cache() / "media" / f"{sha}.json", "w"), ensure_ascii=False, default=str)
+                _video_table.cache_clear()
+                return res, "live"
+        except Exception as e:  # noqa: BLE001
+            log.warning("analyze_video failed for %s: %s", path, e)
+    return None, "none"
+
+
 # ------------------------------------------------------------------------------------------------ infra
 @lru_cache(maxsize=1)
 def _infra_table() -> dict:
@@ -183,7 +235,12 @@ def infra_record(etld1: str) -> dict | None:
     return _infra_table().get(etld1)
 
 
+def offline() -> bool:
+    return not _live_enabled()
+
+
 def clear() -> None:
+    _video_table.cache_clear()
     _experiment_index.cache_clear()
     _exp_file.cache_clear()
     _infra_table.cache_clear()

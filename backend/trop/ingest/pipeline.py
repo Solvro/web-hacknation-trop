@@ -28,6 +28,7 @@ SOURCE_TYPE = {"archive_bundle": "bundle", "sample_dir": "sample_dir", "capture_
 class IngestOptions:
     ad_model: str = cache.AD_MODEL
     ad_layer: bool = True          # VLM ad fields (cache / live gateway)
+    video: bool = True             # video pass + ASR + voice + keyframe faces (WS4 cache / live)
     phash: str = "compute"         # compute | cache_only (cache_only = exact experiments reproduction)
     faces: str = "gallery"         # gallery | none
     infra: bool = True             # enrichment cache
@@ -132,8 +133,17 @@ def build_incident(src: str | Path | Item, inc_id: str | None = None, *, emit=No
         inc.setdefault("media", {}).setdefault("faces", [])
         if inc["ad"].get("video_path"):
             inc["media"]["video"] = {"path": inc["ad"]["video_path"]}
+            if opts.video:
+                res, prov = cache.video_media(inc["ad"]["video_path"])
+                q["provenance"]["video"] = prov
+                if res:
+                    added = layers.apply_video(inc, res)
+                    q["available"] = sorted(set(q["available"]) | {"video_pass"} | ({"asr"} if inc["media"].get("asr_text") else set()))
+                    steps.done_detail = f"wideo: {added['n_words']} słów, głos {added['voice_id'] or '-'}, twarze {added['faces'] or '-'}"
+                else:
+                    warn.append("wideo bez analizy (brak cache / tryb offline)")
         steps.material(inc, "content")
-        steps.done("content", status="warn" if warn else "done", warnings=warn)
+        steps.done("content", status="warn" if warn else "done", warnings=warn, detail=getattr(steps, "done_detail", None))
 
         # ---------------- infra (notariusz): enrichment cache (DNS/RDAP/crt.sh)
         steps.start("infra")

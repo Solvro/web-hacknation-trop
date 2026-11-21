@@ -28,10 +28,13 @@ def test_constants_identical():
     rp_ev, rp_cl = _rp()
     if rp_ev is None:
         pytest.skip("experiments/rp not importable")
-    assert evidence.STRENGTH == rp_ev.STRENGTH
+    # the only additions are the video/ASR types (absent from every RESULTS input)
+    added = {"media_text", "voice_id"}
+    assert {k: v for k, v in evidence.STRENGTH.items() if k not in added} == rp_ev.STRENGTH
+    assert evidence.STRENGTH["media_text"] == rp_ev.STRENGTH["text_minhash"] and evidence.STRENGTH["voice_id"] == 4.0
     assert evidence.NEG == rp_ev.NEG
-    assert evidence.LAYER == rp_ev.LAYER
-    assert evidence.OPERATOR_ONLY == rp_ev.OPERATOR_ONLY
+    assert {k: v for k, v in evidence.LAYER.items() if k not in added} == rp_ev.LAYER
+    assert evidence.OPERATOR_ONLY - {"voice_id"} == rp_ev.OPERATOR_ONLY and "voice_id" in evidence.OPERATOR_ONLY
     assert evidence.IDENTIFIER_TYPES == rp_ev.IDENTIFIER_TYPES
     assert evidence.HIGH == rp_ev.HIGH and evidence.CONJUNCTION is True
     assert cluster.AGG == rp_cl.AGG == "max"

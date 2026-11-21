@@ -27,5 +27,9 @@
 
 - 23:40 trop.b.solvro.pl answers (mock build; 502 was Traefik picking the image's EXPOSE 13000 → fixed, web listens on 3000). **Dawid decided: production = real data, no mocks, jury clicks through; login optional.** WS2 is bundling the derived data (seed dump, corpus, models, caches ≈ 120 MB) into the image; WS3 removes every fixture from real-mode paths and adds env-gated basic auth (off). Coolify env now has GEMINI/OPENROUTER/URLSCAN keys + LLM_BUDGET_USD=10 (live LLM features; capture off on the server). WS7 (extension + /sprawdz) merged. docs/INSTALL.md written. QA agent running G-E2E on a clean clone.
 
+- 23:00 **Production build merged & redeploying** (WS2): data bundle in the image (127 MB: seed dump, corpus, models, caches, real replays), entrypoint seeding, no mock defaults; Coolify env: live LLM with LLM_BUDGET_USD=10, capture `local` in the new Chromium worker image (WS5: example.com 13.6 s / 222 MiB, real scam landing 15 s / 800 MiB within the 1.5 GB limit; Meta Hunter runs inside the image).
+- 23:00 **QA G-E2E (clean clone)**: API PASS (seed → DANE 1 → assign KMP-001 p 0.99 in 0.6 s); **G-BATCH PASS** (10 folders 2.0 s, 10 zips 3.8 s, 13 columns). Web: blocking bug (prefilled demo URL overrides an uploaded zip), file-attach drop, /operators 404, investigation start race → fixture fallback, graph focus 404 → fixture fallback, /lab shape mismatch, SSE not closing after job.done. All assigned (WS2 API side, WS3 web side).
+- Organizer materials through the real API (each folder zipped): DANE 1, 2 → KMP-001; 3 → KMP-003; 10, 36 → new; 48, 61 → confirm toward A/C (batch: one new campaign K, same operation); 14 → confirm on a degenerate ad-name `x` (weak); 47 → confirm KMP-007 (should be new); 5 → insufficient (video not wired yet). WS1 is wiring the adjudicator veto (confirm band only) + video/ASR evidence.
+
 ## Needs Dawid
 - Deadline assumed 22.11 ~11:00.
