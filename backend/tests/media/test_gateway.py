@@ -1,6 +1,5 @@
 """Gateway: cache replay offline, missing-flag semantics, person stripping, budget stop. No network."""
 import json
-from pathlib import Path
 
 import pytest
 from PIL import Image

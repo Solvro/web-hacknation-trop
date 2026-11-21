@@ -85,7 +85,7 @@ def parse_json(raw: str) -> Any:
         return {}
     s = raw.strip()
     s = re.sub(r"^```(?:json)?\s*|\s*```$", "", s)
-    m = re.search(r"\{.*\}", s, re.S) or re.search(r"\[.*\]", s, re.S)
+    m = re.search(r"\{.*\}", s, re.DOTALL) or re.search(r"\[.*\]", s, re.DOTALL)
     for cand in (s, m.group(0) if m else None):
         if not cand:
             continue
@@ -363,7 +363,7 @@ class ModelGateway:
         except Exception:  # noqa: BLE001
             return None
         blob = "\n".join(lines)
-        lib = re.search(r"(?:identyfikator biblioteki|library id)\D{0,5}(\d{10,})", blob, re.I)
+        lib = re.search(r"(?:identyfikator biblioteki|library id)\D{0,5}(\d{10,})", blob, re.IGNORECASE)
         return norm_ad({"kind": "adlibrary" if "szczegóły reklamy" in blob.lower() else "feed", "text": blob,
                         "library_id": lib[1] if lib else None}, "easyocr")
 
@@ -435,7 +435,14 @@ class ModelGateway:
     def _upload(self, path: str, mime: str):
         from google.genai import types
         client = self._gemini()
-        f = self._retry(lambda: client.files.upload(file=str(path), config=types.UploadFileConfig(mime_type=mime)), "gemini upload")
+        ascii_dir = Path(tempfile.mkdtemp(prefix="trop_up_"))
+        link = ascii_dir / ("upload" + (Path(path).suffix.lower() if Path(path).suffix.isascii() else ""))
+        try:  # the SDK puts the file name into an HTTP header: non-ASCII names (organizer data) must not reach it
+            link.symlink_to(Path(path).resolve())
+        except OSError:
+            import shutil
+            shutil.copyfile(path, link)
+        f = self._retry(lambda: client.files.upload(file=str(link), config=types.UploadFileConfig(mime_type=mime)), "gemini upload")
         t0 = time.time()
         while getattr(f.state, "name", str(f.state)) == "PROCESSING":
             if time.time() - t0 > 600:
@@ -463,8 +470,10 @@ class ModelGateway:
             return {"missing": True, "error": "no such file"}
         gmodel = settings.gemini_pro_model if model == "pro" else settings.gemini_flash_model
         chain = [gmodel, "ffmpeg-keyframes+asr"]
-        key = self.cache_key("video_pass", chain, file_sha256(p))
-        hit = self.cache_get(key)
+        sha = file_sha256(p)
+        key = self.cache_key("video_pass", chain, sha)
+        key_fb = self.cache_key("video_pass_fallback", chain, sha)   # never shadows a later Gemini answer
+        hit = self.cache_get(key) or (None if self.has_gemini() else self.cache_get(key_fb))
         if hit:
             return {**hit["result"], "_cached": True}
         errors: list[str] = []
@@ -479,7 +488,7 @@ class ModelGateway:
                 log.warning("gemini video pass failed: %s", e)
         res = self._video_fallback(p)
         if res:
-            self.cache_put(key, "video_pass", chain, res)
+            self.cache_put(key_fb, "video_pass_fallback", chain, res)
             return {**res, "_cached": False}
         return {"missing": True, "error": "; ".join(errors) or "no provider available and no cache entry"}
 

@@ -24,10 +24,11 @@ def video(path: str, model: str = typer.Option("flash", help="flash | pro"), no_
 @app.command()
 def asr(path: str) -> None:
     """Transcribe an audio/video file (gemini-3.5-transcribe -> faster-whisper)."""
-    from trop.media.gateway import gateway
-    from trop.media import video as V
     import tempfile
     from pathlib import Path
+
+    from trop.media import video as V
+    from trop.media.gateway import gateway
     p = Path(path)
     if p.suffix.lower() in (".mp4", ".mov", ".mkv", ".webm"):
         a = V.extract_audio(p, Path(tempfile.mkdtemp()) / "a.mp3", max_s=900)

@@ -14,8 +14,7 @@ MODEL = "qwen36-35b-a3b"
 def _resolve(p: str) -> Path | None:
     """Incident JSON stores Windows-style paths relative to experiments/ ('../data/raw/...')."""
     s = p.replace("\\", "/")
-    if s.startswith("../data/"):
-        s = s[len("../data/"):]
+    s = s.removeprefix("../data/")
     q = Path(settings.data_dir) / s
     return q if q.exists() else None
 
