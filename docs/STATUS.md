@@ -17,6 +17,10 @@
 
 - 22:24 **WS1 complete & merged**: isotonic calibration (276 pairs; p=0.54 at score 5, 0.99 at ~8), all ingest shapes (zip, capture-tool dir, file, URL, video-only), `trop analyze|ingest|batch|engine|db|export`, migration 0013 applied to dev DB (backup in data/backup/), judge seed `data/seed/trop_seed.dump`. 58 tests pass. WS2 resumed for G2 real-mode wiring.
 
+- 22:36 **WS5 merged**: enrich (FS cache, replays offline; cache rebuilt from DB after the wipe), capture sandbox image `trop-capture` (read-only, caps dropped, no forms), Hunter Meta run pulled 67 real PL ads → 6 snapshots → 1 landing captured; CERT PL diff; Google ATC enabled (queries scan 6–35 GB, capped). **Oracle is weak** (backtest AUC 0.54 by time split, 0.78 random split; precision@20 0.55) — present honestly.
+- 22:38 **WS6 merged**: White Rabbit live run from a kit-A domain found **50 sibling domains (23 new to our data)** in 9 steps for $0.07; fictional velmoria demo replay; Act: DSA art. 16 PDF/JSON (Polish notice by Gemini Flash), CERT PL draft, STIX 2.1, MISP, CSV, rules with dataset test (campaign A: precision 1.0, 0/42 benign). Nothing is ever sent.
+- 22:45 **G2 core met (WS2)**: real-mode API on :18001 (offline, no keys): DANE folder 1 zip → six bots → `assign` KMP-001 p 0.99 in ~2 s. Mock API on :18000. Postgres image now pg17 (seed dump made with pg17). 111 tests pass. WS7 (extension + /sprawdz) started.
+
 ## Needs Dawid
 - (optional) BigQuery ADC (`gcloud auth application-default login`) for Google Ads Transparency — skipped for now.
 - Deadline assumed 22.11 ~11:00.
