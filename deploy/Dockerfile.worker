@@ -1,0 +1,35 @@
+# TROP worker image WITH headless Chromium for live URL capture (no Docker-in-Docker on Coolify). Build context: repo root.
+#   docker build -f deploy/Dockerfile.worker -t trop-worker .
+# Same python/uv layout as Dockerfile.api + Playwright's chromium-headless-shell (smaller than full Chromium) and its apt deps.
+# Run with:  TROP_CAPTURE=local  shm_size: 512m  mem_limit >= 1536m  (--disable-dev-shm-usage is passed by trop.capture anyway).
+# Runs as non-root user `trop`; Chromium's own sandbox is off inside a container, the container is the isolation boundary
+# (read-only rootfs is possible: writable paths are /data and /tmp only).
+FROM python:3.12-slim AS build
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never
+WORKDIR /app/backend
+COPY backend/pyproject.toml backend/uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project --extra capture
+COPY backend/trop ./trop
+RUN uv sync --frozen --no-dev --extra capture
+
+FROM python:3.12-slim
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libglib2.0-0 ca-certificates curl \
+ && rm -rf /var/lib/apt/lists/*
+WORKDIR /app/backend
+COPY --from=build /app/backend /app/backend
+ENV PATH="/app/backend/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
+    DATA_DIR=/data ARTIFACT_DIR=/data/artifacts CACHE_DIR=/data/cache MODELS_DIR=/data/models REPLAY_DIR=/data/replay \
+    TROP_CAPTURE=local
+# chromium-headless-shell only (no full browser, no ffmpeg) + the system libraries it needs (+ Liberation fonts for PL text)
+RUN playwright install --with-deps chromium-headless-shell \
+ && rm -rf /var/lib/apt/lists/* /root/.cache
+RUN useradd -m -u 1000 trop \
+ && mkdir -p /data/artifacts /data/cache /data/models /data/replay /data/captures \
+ && chown -R trop:trop /data \
+ && chmod -R a+rX /ms-playwright
+USER trop
+ENV HOME=/home/trop
+CMD ["trop", "worker"]

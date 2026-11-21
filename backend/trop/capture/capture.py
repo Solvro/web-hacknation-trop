@@ -34,6 +34,7 @@ CHALLENGE_RE = re.compile(r"just a moment|attention required|verify you are huma
                           r"|checking your browser|ddos-guard", re.I)
 META_REFRESH_RE = re.compile(r"<meta[^>]+http-equiv=[\"']?refresh[\"']?[^>]*content=[\"']?\s*\d+\s*;\s*url=([^\"'>\s]+)", re.I)
 MAX_MEDIA = 60 * 1024 * 1024
+MEDIA_EXT = (".mp4", ".webm", ".m3u8", ".ts", ".m4s", ".mov", ".mkv", ".mp3", ".aac")   # skipped in fast/local mode (memory)
 
 
 def tls_info(host: str, port: int = 443, timeout: float = 8.0) -> dict:
@@ -146,7 +147,7 @@ def _json(path: Path, obj) -> None:
 
 async def capture(url: str, out_root: Path, profile: Profile, *, referer: str | None = None, timeout_s: int = 45,
                   settle_s: float = 5.0, proxy: str | None = None, pdf: bool = True, zip_bundle: bool = True,
-                  mhtml: bool = True, idle_ms: int = 15000) -> Path:
+                  mhtml: bool = True, idle_ms: int = 15000, skip_media: bool = False) -> Path:
     started = datetime.now(timezone.utc)
     host = host_of(url)
     bundle = out_root / f"archive_{host}_{started:%Y%m%d_%H%M%S}_{profile.name}"
@@ -163,7 +164,8 @@ async def capture(url: str, out_root: Path, profile: Profile, *, referer: str | 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(
             headless=True, proxy={"server": proxy} if proxy else None, chromium_sandbox=not in_container,
-            args=["--disable-blink-features=AutomationControlled", "--no-first-run", "--no-default-browser-check",
+            args=["--disable-blink-features=AutomationControlled", "--no-first-run", "--no-default-browser-check", "--disable-dev-shm-usage", "--disable-gpu", "--disable-extensions",
+                  "--disable-background-networking", "--renderer-process-limit=1", "--js-flags=--max-old-space-size=384",
                   "--disable-features=Translate,OptimizationHints,MediaRouter", "--mute-audio"])
         ctx_kwargs = dict(
             viewport={"width": profile.viewport[0], "height": profile.viewport[1]},
@@ -178,7 +180,7 @@ async def capture(url: str, out_root: Path, profile: Profile, *, referer: str | 
 
         async def guard(route):
             u = route.request.url.lower().split("?")[0]
-            if u.endswith(BLOCKED_EXT):
+            if u.endswith(BLOCKED_EXT) or (skip_media and (route.request.resource_type == "media" or u.endswith(MEDIA_EXT))):
                 rec.blocked.append(route.request.url)
                 await route.abort()
             else:
@@ -365,7 +367,7 @@ async def capture(url: str, out_root: Path, profile: Profile, *, referer: str | 
 
 
 async def run(urls: list[str], out: Path, profiles: list[str], referer: str | None = None, proxy: str | None = None,
-              concurrency: int = 1, gap_s: float = 20.0, fast: bool = False) -> list[Path]:
+              concurrency: int = 1, gap_s: float = 20.0, fast: bool = False, nav_timeout: int = 45, hard_timeout: int = 240) -> list[Path]:
     """Parallel across different sites (<= concurrency), one at a time per eTLD+1 with gap_s between profiles."""
     from collections import defaultdict
     sem = asyncio.Semaphore(max(1, concurrency))
@@ -382,8 +384,9 @@ async def run(urls: list[str], out: Path, profiles: list[str], referer: str | No
                     try:
                         b = await asyncio.wait_for(
                             capture(url, out, PROFILES[pname], referer=referer, proxy=proxy,
-                                    **({"pdf": False, "mhtml": False, "settle_s": 2.0, "idle_ms": 6000} if fast else {})),
-                            timeout=240)
+                                    timeout_s=nav_timeout,
+                                    **({"pdf": False, "mhtml": False, "zip_bundle": False, "settle_s": 2.0, "idle_ms": 6000, "skip_media": True} if fast else {})),
+                            timeout=hard_timeout)
                     except Exception as e:  # one hostile page must not kill the batch
                         print(f"  {pname:<20} FAILED {url[:80]}: {type(e).__name__}: {str(e)[:150]}", flush=True)
                         continue
@@ -407,6 +410,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--concurrency", type=int, default=1)
     ap.add_argument("--gap", type=float, default=20.0, help="seconds between two profiles on the same site")
     ap.add_argument("--fast", action="store_true", help="no PDF/MHTML, shorter settle")
+    ap.add_argument("--nav-timeout", type=int, default=45, help="seconds for the navigation itself")
+    ap.add_argument("--hard-timeout", type=int, default=240, help="hard cap per capture (seconds)")
     args = ap.parse_args(argv)
     urls = list(args.urls)
     if args.file:
@@ -415,10 +420,20 @@ def main(argv: list[str] | None = None) -> int:
     if not urls:
         ap.error("no URLs")
     bundles = asyncio.run(run(urls, args.out, args.profile or ["fb_inapp_android_pl"], args.referer, args.proxy,
-                              args.concurrency, args.gap, args.fast))
+                              args.concurrency, args.gap, args.fast, args.nav_timeout, args.hard_timeout))
     print(json.dumps({"bundles": [b.name for b in bundles]}))
     return 0 if bundles else 1
 
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def capture_url(url: str, out_dir: str | None = None, **kw):
+    """Sync entry point used by trop.ingest.pipeline (`capture_url(url, out_dir=...)` -> bundle dir path)."""
+    from pathlib import Path as _P
+
+    from .cli import capture_url as _cap
+    kw.setdefault("fast", True)
+    r = _cap(url, out=_P(out_dir) if out_dir else None, **kw)
+    return r.get("bundle")

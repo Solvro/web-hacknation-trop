@@ -37,7 +37,9 @@ async def _render(ad_ids: list[str], token: str, shots_dir: Path, gap_s: float) 
     from playwright.async_api import async_playwright
     out: dict[str, dict] = {}
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True, chromium_sandbox=True)
+        in_container = Path("/.dockerenv").exists()      # the container is the isolation layer there (no userns for Chromium's)
+        browser = await pw.chromium.launch(headless=True, chromium_sandbox=not in_container,
+                                           args=["--disable-dev-shm-usage", "--disable-gpu"])
         ctx = await browser.new_context(locale="pl-PL", viewport={"width": 600, "height": 1000})
         for ad_id in ad_ids:
             page = await ctx.new_page()
