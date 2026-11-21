@@ -25,6 +25,7 @@
 - 23:08 **Coolify**: created environment `hacknation-2026-trop` in project "Hackatony" and ONE compose application `trop` (uuid ss4xttwzy13a9ufyvslnpujo, branch main, `deploy/compose.coolify.yml`, domain https://trop.b.solvro.pl). First deploy queued.
   - **Decision: the public URL runs in MOCK mode (fictional universe only).** Real mode would serve organizer-derived identifiers (domains, pixel/tenant ids, captions) on a public URL, which the data rule forbids. Real data runs on the home PC (http://10.8.0.3:13000 once bound) and via `docker compose` for judges. See "Needs Dawid".
 
+- 23:40 trop.b.solvro.pl answers (mock build; 502 was Traefik picking the image's EXPOSE 13000 → fixed, web listens on 3000). **Dawid decided: production = real data, no mocks, jury clicks through; login optional.** WS2 is bundling the derived data (seed dump, corpus, models, caches ≈ 120 MB) into the image; WS3 removes every fixture from real-mode paths and adds env-gated basic auth (off). Coolify env now has GEMINI/OPENROUTER/URLSCAN keys + LLM_BUDGET_USD=10 (live LLM features; capture off on the server). WS7 (extension + /sprawdz) merged. docs/INSTALL.md written. QA agent running G-E2E on a clean clone.
+
 ## Needs Dawid
-- **Public real-data demo?** If you want trop.b.solvro.pl to show the real campaigns, decide: (a) keep mock publicly + real on the home PC (current), or (b) real mode behind basic auth on Coolify (needs shipping the corpus/models to the server — a data bundle not in git).
 - Deadline assumed 22.11 ~11:00.

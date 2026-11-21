@@ -1,0 +1,908 @@
+{
+ "acrosscommunities.live": {
+  "A": [
+   "104.21.28.194",
+   "172.67.147.105"
+  ],
+  "AAAA": [
+   "2606:4700:3035::6815:1cc2",
+   "2606:4700:3037::ac43:9369"
+  ],
+  "NS": [
+   "cartman.ns.cloudflare.com.",
+   "fish.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.28.194": {
+    "asn": "13335",
+    "prefix": "104.21.16.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.147.105": {
+    "asn": "13335",
+    "prefix": "172.67.144.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot Inc",
+   "created": "2026-10-08T18:20:08.697Z",
+   "expires": "2027-10-08T18:20:08.697Z",
+   "updated": "2026-10-13T18:21:06.159Z",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-10-08T00:00:00",
+    "names": [
+     "*.acrosscommunities.live",
+     "acrosscommunities.live"
+    ],
+    "id": 29886565706
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-10-08T00:00:00",
+    "names": [
+     "*.acrosscommunities.live",
+     "acrosscommunities.live"
+    ],
+    "id": 29886963499
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-10-08T00:00:00",
+    "names": [
+     "*.acrosscommunities.live",
+     "acrosscommunities.live"
+    ],
+    "id": 29712767118
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-08T17:44:04",
+    "names": [
+     "*.acrosscommunities.live",
+     "acrosscommunities.live"
+    ],
+    "id": 29972555585
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-08T17:44:04",
+    "names": [
+     "*.acrosscommunities.live",
+     "acrosscommunities.live"
+    ],
+    "id": 29886754698
+   }
+  ],
+  "t": 20.9
+ },
+ "civicdaybook.live": {
+  "A": [
+   "1.1.1.1"
+  ],
+  "AAAA": [
+   "ERR:NoAnswer"
+  ],
+  "NS": [
+   "ns1.dyna-ns.net.",
+   "ns2.dyna-ns.net."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "1.1.1.1": {
+    "asn": "13335",
+    "prefix": "1.1.1.0/24",
+    "cc": "AU",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Dynadot Inc",
+   "created": "2026-10-08T18:18:20.349Z",
+   "expires": "2027-10-08T18:18:20.349Z",
+   "updated": "2026-10-19T13:08:21.877Z",
+   "ns": [
+    "ns1.dyna-ns.net",
+    "ns2.dyna-ns.net"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2026-10-08T00:00:00",
+    "names": [
+     "*.civicdaybook.live",
+     "civicdaybook.live"
+    ],
+    "id": 29712577224
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+    "not_before": "2026-10-08T17:44:00",
+    "names": [
+     "*.civicdaybook.live",
+     "civicdaybook.live"
+    ],
+    "id": 29994353715
+   }
+  ],
+  "t": 26.1
+ },
+ "glowpixel.org": {
+  "A": [
+   "104.21.92.107",
+   "172.67.191.234"
+  ],
+  "AAAA": [
+   "2606:4700:3030::6815:5c6b",
+   "2606:4700:3037::ac43:bfea"
+  ],
+  "NS": [
+   "ed.ns.cloudflare.com.",
+   "hadlee.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.92.107": {
+    "asn": "13335",
+    "prefix": "104.21.80.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.191.234": {
+    "asn": "13335",
+    "prefix": "172.67.176.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameSilo, LLC",
+   "created": "2026-09-11T11:22:14.49Z",
+   "expires": "2027-09-11T11:22:14.49Z",
+   "updated": "2026-09-16T11:22:45.576Z",
+   "ns": [
+    "ed.ns.cloudflare.com",
+    "hadlee.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:07:48",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 18437635762
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:07:48",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 18437710874
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-05-16T06:15:12",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 18437719215
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:15:25",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 18437722357
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:15:25",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 18437716648
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-05-16T06:16:36",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 18437743467
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:16:51",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 18437743369
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-05-16T06:16:51",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 18437738128
+   },
+   {
+    "issuer": "US, O=\"CLOUDFLARE, INC.\", CN=Cloudflare TLS Issuing ECC CA 1",
+    "not_before": "2025-05-16T23:22:52",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 18450112317
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-07-14T06:34:40",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 19652735368
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-07-14T06:34:54",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 19652740997
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-07-14T06:34:54",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 19653636758
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-07-14T10:12:49",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 19656138619
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-07-14T11:29:40",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 19657308415
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-07-14T11:34:14",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 19657377566
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-07-14T11:34:24",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 19657389114
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-07-14T11:34:24",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 19699193909
+   },
+   {
+    "issuer": "US, O=\"CLOUDFLARE, INC.\", CN=Cloudflare TLS Issuing RSA CA 1",
+    "not_before": "2025-07-16T03:11:05",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 19699194604
+   },
+   {
+    "issuer": "US, O=\"CLOUDFLARE, INC.\", CN=Cloudflare TLS Issuing ECC CA 1",
+    "not_before": "2025-07-20T13:52:40",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 19796045219
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-09-11T07:07:37",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 20940199087
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-09-11T07:07:56",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 20940205874
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-09-11T07:07:56",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 20941908756
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-09-11T17:25:54",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 20950164453
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-09-11T20:50:29",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 20953747555
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-09-11T20:55:24",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 20953823199
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-09-11T20:55:42",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 20953824029
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-09-11T20:55:42",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 20956646874
+   },
+   {
+    "issuer": "US, O=\"CLOUDFLARE, INC.\", CN=Cloudflare TLS Issuing RSA CA 1",
+    "not_before": "2025-09-27T07:22:55",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 21310380488
+   },
+   {
+    "issuer": "US, O=\"CLOUDFLARE, INC.\", CN=Cloudflare TLS Issuing ECC CA 1",
+    "not_before": "2025-10-16T11:29:29",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 21759016945
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-11-09T07:25:45",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 22331562801
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-11-09T07:25:59",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 22331591465
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-11-09T07:25:59",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 22331591953
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-11-09T21:42:08",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 22345426395
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-11-10T02:06:28",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 22349582507
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2025-11-10T02:11:04",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 22349671462
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-11-10T02:11:17",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 22349672755
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2025-11-10T02:11:17",
+    "names": [
+     "glowpixel.org"
+    ],
+    "id": 22349678551
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2025-12-07T00:00:00",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 22975950401
+   },
+   {
+    "issuer": "o Limited, CN=Sectigo Public Server Authentication CA DV E36",
+    "not_before": "2025-12-07T00:00:00",
+    "names": [
+     "*.glowpixel.org",
+     "glowpixel.org"
+    ],
+    "id": 22975951711
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WR1",
+    "not_before": "2026-01-07T07:41:46",
+    "names": [
+     "www.glowpixel.org"
+    ],
+    "id": 23605186081
+   }
+  ],
+  "t": 32.4
+ },
+ "healthlinkq.pro": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "braelyn.ns.cloudflare.com.",
+   "kurt.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NICENIC INTERNATIONAL GROUP CO., LIMITED",
+   "created": "2026-10-08T16:42:32.97Z",
+   "expires": "2027-10-08T16:42:32.97Z",
+   "updated": "2026-10-13T16:43:16.907Z",
+   "ns": [
+    "braelyn.ns.cloudflare.com",
+    "kurt.ns.cloudflare.com"
+   ],
+   "status": [
+    "client delete prohibited",
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "err": "The read operation timed out"
+   }
+  ],
+  "t": 42.0
+ },
+ "ineptsolidoval.top": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "deborah.ns.cloudflare.com.",
+   "miguel.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "Namecheap Inc.",
+   "created": "2026-08-02T16:00:58.0Z",
+   "expires": "2027-08-02T16:00:58.0Z",
+   "updated": "2026-08-02T16:01:18.0Z",
+   "ns": [
+    "deborah.ns.cloudflare.com.",
+    "miguel.ns.cloudflare.com."
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-08-02T15:09:55",
+    "names": [
+     "*.ineptsolidoval.top",
+     "ineptsolidoval.top"
+    ],
+    "id": 28465565291
+   },
+   {
+    "issuer": "C=US, O=Google Trust Services, CN=WE1",
+    "not_before": "2026-08-02T15:09:55",
+    "names": [
+     "*.ineptsolidoval.top",
+     "ineptsolidoval.top"
+    ],
+    "id": 28465570568
+   },
+   {
+    "issuer": "C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 4",
+    "not_before": "2026-08-02T15:55:46",
+    "names": [
+     "*.ineptsolidoval.top",
+     "ineptsolidoval.top"
+    ],
+    "id": 28465433007
+   }
+  ],
+  "t": 6.1
+ },
+ "meroporepufulo.life": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "nelci.ns.cloudflare.com.",
+   "rex.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-01-04T11:37:57.201Z",
+   "expires": "2027-01-04T11:37:57.201Z",
+   "updated": "2026-10-13T12:24:23.6Z",
+   "ns": [
+    "nelci.ns.cloudflare.com",
+    "rex.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [
+   {
+    "issuer": "OU=www.digicert.com, CN=Encryption Everywhere DV TLS CA - G2",
+    "not_before": "2026-01-07T00:00:00",
+    "names": [
+     "www.meroporepufulo.life"
+    ],
+    "id": 23615029521
+   },
+   {
+    "issuer": "OU=www.digicert.com, CN=Encryption Everywhere DV TLS CA - G2",
+    "not_before": "2026-01-07T00:00:00",
+    "names": [
+     "www.meroporepufulo.life"
+    ],
+    "id": 23615022515
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-01-11T21:47:05",
+    "names": [
+     "meroporepufulo.life"
+    ],
+    "id": 23708679817
+   },
+   {
+    "issuer": "C=US, O=Let's Encrypt, CN=E7",
+    "not_before": "2026-01-11T21:47:05",
+    "names": [
+     "meroporepufulo.life"
+    ],
+    "id": 23708684236
+   }
+  ],
+  "t": 5.3
+ },
+ "novumfy.com": {
+  "A": [
+   "188.114.96.11",
+   "188.114.97.11"
+  ],
+  "AAAA": [
+   "2a06:98c1:3120::b",
+   "2a06:98c1:3121::b"
+  ],
+  "NS": [
+   "adam.ns.cloudflare.com.",
+   "nancy.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "188.114.96.11": {
+    "asn": "13335",
+    "prefix": "188.114.96.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "188.114.97.11": {
+    "asn": "13335",
+    "prefix": "188.114.97.0/24",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameSilo, LLC",
+   "created": "2026-10-27T06:10:28Z",
+   "expires": "2027-10-27T06:10:28Z",
+   "updated": "2026-10-27T06:26:43Z",
+   "ns": [
+    "adam.ns.cloudflare.com",
+    "nancy.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 4.9
+ },
+ "shop-77vault.xyz": {
+  "A": [
+   "104.21.82.70",
+   "172.67.197.188"
+  ],
+  "AAAA": [
+   "2606:4700:3035::ac43:c5bc",
+   "2606:4700:3037::6815:5246"
+  ],
+  "NS": [
+   "liz.ns.cloudflare.com.",
+   "shane.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.82.70": {
+    "asn": "13335",
+    "prefix": "104.21.80.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.197.188": {
+    "asn": "13335",
+    "prefix": "172.67.192.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "NameCheap, Inc.",
+   "created": "2026-06-18T11:10:06.0Z",
+   "expires": "2027-06-18T23:59:59.0Z",
+   "updated": "2026-07-01T08:17:15.0Z",
+   "ns": [
+    "liz.ns.cloudflare.com",
+    "shane.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 6.4
+ },
+ "shryxla-mynx.icu": {
+  "A": [
+   "104.21.39.144",
+   "172.67.170.205"
+  ],
+  "AAAA": [
+   "2606:4700:3030::6815:2790",
+   "2606:4700:3033::ac43:aacd"
+  ],
+  "NS": [
+   "coraline.ns.cloudflare.com.",
+   "noah.ns.cloudflare.com."
+  ],
+  "MX": [
+   "ERR:NoAnswer"
+  ],
+  "TXT": [
+   "ERR:NoAnswer"
+  ],
+  "asn": {
+   "104.21.39.144": {
+    "asn": "13335",
+    "prefix": "104.21.32.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   },
+   "172.67.170.205": {
+    "asn": "13335",
+    "prefix": "172.67.160.0/20",
+    "cc": "US",
+    "name": "CLOUDFLARENET - Cloudflare, Inc., US"
+   }
+  },
+  "rdap": {
+   "status_code": 200,
+   "registrar": "PDR Ltd. d/b/a PublicDomainRegistry.com",
+   "created": "2026-02-26T08:52:09.0Z",
+   "expires": "2027-02-26T23:59:59.0Z",
+   "updated": "2026-04-23T14:01:45.0Z",
+   "ns": [
+    "coraline.ns.cloudflare.com",
+    "noah.ns.cloudflare.com"
+   ],
+   "status": [
+    "client transfer prohibited"
+   ]
+  },
+  "crtsh": [],
+  "t": 4.3
+ }
+}

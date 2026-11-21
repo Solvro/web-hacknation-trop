@@ -23,7 +23,8 @@ def create_app(mode: str | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_: FastAPI):
         try:
-            ensure_replay_files()
+            if mode == "mock":      # the canned recordings are fictional: never copied in real mode
+                ensure_replay_files()
         except OSError:
             pass
         yield

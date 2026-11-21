@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:hrinvest-app.com", "status": "ok", "fetched_at": 1795295466.6163638, "error": null, "http_status": null, "seeded": true}, "data": {"name": "hrinvest-app.com", "A": ["104.21.6.95", "172.67.134.169"], "AAAA": ["2606:4700:3032::6815:65f", "2606:4700:3032::ac43:86a9"], "NS": ["harley.ns.cloudflare.com", "tessa.ns.cloudflare.com"], "MX": [], "TXT": []}}

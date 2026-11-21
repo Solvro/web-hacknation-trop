@@ -1,0 +1,242 @@
+{
+ "p1": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO | Aleje Jerozolimskie | WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "mateusz morawiecki"
+  ],
+  "is_decoy": true,
+  "vertical": "politics_news",
+  "brands": [
+   "Range Rover"
+  ],
+  "narrative": "Reklama sugeruje, że w Warszawie doszło do dramatycznego wydarzenia z udziałem premiera, co ma przyciągnąć uwagę widzów do transmisji na żywo.",
+  "_parsed": true
+ },
+ "p10": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "James Brandt Mosese Mena Jnr",
+  "library_id": null,
+  "text": "Dowiedz się więcej",
+  "overlay": "udarem, na pewno",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznany lekarz"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że istnieje sposób na natychmiastowe obniżenie ciśnienia, co może zapobiec udarowi.",
+  "_parsed": true
+ },
+ "p11": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Nguyen Bao",
+  "library_id": null,
+  "text": "SKANDAL DYPLMATYCZNY: SIKORSKI PUBLICZNIE PONIŻYŁ ZELEŃSKIEGO PRZECZYTAJ ARTYKUŁ 👇",
+  "overlay": "SKANDAL DYPLMATYCZNY: SIKORSKI PUBLICZNIE PONIŻYŁ ZELEŃSKIEGO PRZECZYTAJ ARTYKUŁ 👇",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "ryszard sikorski",
+   "wołodymyr zełenski"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "BELSAT TV"
+  ],
+  "narrative": "Reklama sugeruje, że Ryszard Sikorski publicznie poniżył Wołodymyra Zełenskiego, co ma być skandalem dyplomatycznym.",
+  "_parsed": true
+ },
+ "p12": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Vital Leaf",
+  "library_id": null,
+  "text": "Wyświetl szczegóły",
+  "overlay": "WYŚCIGOWYCH",
+  "cta": null,
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna w garniturze"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że produkt Vital Leaf jest związany z wyścigami, co może być elementem marketingowym mającym na celu przyciągnięcie uwagi poprzez nietypowe skojarzenie.",
+  "_parsed": true
+ },
+ "p13": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Giang Mỳ",
+  "library_id": "4181234142166922",
+  "text": "Od 19 maja ten preparat jest dostępny BEZPŁATNIE dla wszystkich obywateli Polski! Dla osób cierpiących na grzybicę paznokci lub stóp! Produkt ma zacząć zmniejszać obszar zakażenia grzybiczego już po 30 minutach, a",
+  "overlay": "Dr. Merritz",
+  "cta": null,
+  "display_link": null,
+  "persons": [],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że produkt Dr. Merritz jest dostępny całkowicie za darmo dla wszystkich Polaków i skutecznie walczy z grzybicą paznokci i stóp w krótkim czasie.",
+  "_parsed": true
+ },
+ "p14": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "portalpisosoficial",
+  "library_id": null,
+  "text": "🙏 I am so grateful now, that wealth flows to me effortlessly and abundantly, on a daily basis. ... więcej",
+  "overlay": "PAIN YOUR WORRIES",
+  "cta": null,
+  "display_link": null,
+  "persons": [
+   "jezus chrystus (posta biblijna)"
+  ],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że modlitwa i wiara przynoszą natychmiastowe bogactwo i ulgę od trosk, wykorzystując ikonografię religijną w celu wywołania emocjonalnego zaufania.",
+  "_parsed": true
+ },
+ "p15": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Formal Favorable",
+  "library_id": null,
+  "text": "Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, Wtorek, 20:10 - Warszawa",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "krzysztof bosak"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że Krzysztof Bosak komentuje wydarzenie w Warszawie, które miało miejsce w wtorek o godzinie 20:10.",
+  "_parsed": true
+ },
+ "p2": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO | Aleje Jerozolimskie | WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "mateusz morawiecki"
+  ],
+  "is_decoy": true,
+  "vertical": "politics_news",
+  "brands": [
+   "Range Rover"
+  ],
+  "narrative": "Reklama sugeruje, że w Warszawie doszło do dramatycznego wydarzenia z udziałem premiera, co ma przyciągnąć uwagę widzów do transmisji na żywo.",
+  "_parsed": true
+ },
+ "p3": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "2180909792525319",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": null,
+  "cta": "Learn More",
+  "display_link": "AMAZON.COM",
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że temat przedstawiony w kreacji (krajobraz z gry) jest szeroko omawiany w Polsce.",
+  "_parsed": true
+ },
+ "p4": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "4100374890267408",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": "",
+  "cta": "",
+  "display_link": null,
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że omawiany temat jest szeroko dyskutowany w Polsce, używając do tego celu atrakcyjnej grafiki z gry komputerowej.",
+  "_parsed": true
+ },
+ "p5": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "StarFlow",
+  "library_id": null,
+  "text": "Miliony Polaków tracą na lokatach, ratach i inflacji. Glapiński przez lata milczał. W \"Kropce nad i\" już nie mógł... więcej",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "grzegorz glapiński",
+   "nieznana kobieta"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że Grzegorz Glapiński, znany polityk, wreszcie reaguje na trudną sytuację ekonomiczną Polaków, oferując rozwiązanie w programie 'Kropka nad i'.",
+  "_parsed": true
+ },
+ "p7": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Letty Zaswer",
+  "library_id": null,
+  "text": "Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO | WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "mateusz morawiecki"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że wydarzenie z udziałem Mateusza Morawieckiego w Warszawie w wtorek o 20:10 będzie miało ogromny wpływ na całą Polskę.",
+  "_parsed": true
+ },
+ "p8": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Khuong Mien",
+  "library_id": null,
+  "text": "🔥 PILNE! Ta wiadomość wywołała burzliwą dyskusję wśród obywateli. Zobaczcie, co się dzieje 👇",
+  "overlay": null,
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "khuong mien"
+  ],
+  "is_decoy": true,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje szokującą treść i fałszywe poczucie pilności, by przyciągnąć uwagę do niezwiązanej z polityką grafiki ptaka.",
+  "_parsed": true
+ },
+ "p9": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Boss Stream",
+  "library_id": null,
+  "text": "Lekarze powiedzieli mi, że słuchu nie da się już odzyskać. „Proszę się przyzwyczaić, to już część pani życia”. Po 12... więcej",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznana kobieta"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że istnieją metody na poprawę słuchu nawet po diagnozie nieodwracalnej, kierując się emocjonalnym przekazem do osób starszych.",
+  "_parsed": true
+ }
+}

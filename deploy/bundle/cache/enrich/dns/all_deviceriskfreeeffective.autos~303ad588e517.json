@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:deviceriskfreeeffective.autos", "status": "ok", "fetched_at": 1795296245.8514519, "error": null, "http_status": null}, "data": {"name": "deviceriskfreeeffective.autos", "A": ["103.224.182.211"], "AAAA": [], "NS": ["ns15.abovedomains.com", "ns16.abovedomains.com"], "MX": ["10 park-mx.above.com."], "TXT": ["\"v=spf1 ip6:fdcf:abda:4154::/48 -all\""]}}

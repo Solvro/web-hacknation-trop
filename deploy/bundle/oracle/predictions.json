@@ -1,0 +1,196 @@
+{
+ "tigerdata.autos": {
+  "domain": "tigerdata.autos",
+  "issued_at": "2026-11-15T13:09:32.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.876,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.83: tld=autos (+2.10), cv_alt (+1.61), da (+0.33), ta$ (+0.26)",
+   "issuer YE1"
+  ]
+ },
+ "avito.autos": {
+  "domain": "avito.autos",
+  "issued_at": "2026-11-20T23:39:19.170Z",
+  "issuer": null,
+  "dna_score": 0.863,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.76: tld=autos (+2.10), cv_alt (+1.84), avit (+0.35), o$ (+0.28)",
+   "registrar NameCheap, Inc."
+  ]
+ },
+ "dubewyulity.autos": {
+  "domain": "dubewyulity.autos",
+  "issued_at": "2026-11-20T06:34:40.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.884,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.72: tld=autos (+2.10), cv_alt (+1.66), y$ (+0.28), lit (+0.26)",
+   "registrar NameCheap, Inc.",
+   "issuer YE1"
+  ]
+ },
+ "thrivecrestventures.com": {
+  "domain": "thrivecrestventures.com",
+  "issued_at": "2026-10-13T13:14:08.000Z",
+  "issuer": "YE2",
+  "dna_score": 0.879,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.71: cv_alt (+1.23), tld=com (+0.52), rive (+0.32), res$ (+0.28)",
+   "registrar NameSilo, LLC",
+   "issuer YE2"
+  ]
+ },
+ "runningrobots.autos": {
+  "domain": "runningrobots.autos",
+  "issued_at": "2026-10-16T07:07:46.000Z",
+  "issuer": "WE1",
+  "dna_score": 0.861,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.67: tld=autos (+2.10), cv_alt (+1.23), ^r (+0.23), ing (+0.20)",
+   "registrar NameCheap, Inc.",
+   "issuer WE1"
+  ]
+ },
+ "kuqaviujuro.autos": {
+  "domain": "kuqaviujuro.autos",
+  "issued_at": "2026-11-19T06:28:34.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.857,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.67: tld=autos (+2.10), cv_alt (+1.66), o$ (+0.23), ur (+0.21)",
+   "registrar NameCheap, Inc.",
+   "issuer YE1"
+  ]
+ },
+ "fowlercoaching.com": {
+  "domain": "fowlercoaching.com",
+  "issued_at": "2026-11-01T08:22:22.000Z",
+  "issuer": "WE1",
+  "dna_score": 0.718,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.63: cv_alt (+1.13), tld=com (+0.52), owl (+0.35), ing$ (+0.28)",
+   "issuer WE1"
+  ]
+ },
+ "merumuujohe.autos": {
+  "domain": "merumuujohe.autos",
+  "issued_at": "2026-11-19T13:17:27.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.837,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.63: tld=autos (+2.10), cv_alt (+1.66), oh (+0.35), um (+0.18)",
+   "registrar NameCheap, Inc.",
+   "issuer YE1"
+  ]
+ },
+ "qerosyyfabe.autos": {
+  "domain": "qerosyyfabe.autos",
+  "issued_at": "2026-11-19T08:01:22.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.834,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.63: tld=autos (+2.10), cv_alt (+1.66), be$ (+0.26), ^q (+0.19)",
+   "registrar NameCheap, Inc.",
+   "issuer YE1"
+  ]
+ },
+ "saqehoinunu.autos": {
+  "domain": "saqehoinunu.autos",
+  "issued_at": "2026-11-19T06:29:30.000Z",
+  "issuer": "YE2",
+  "dna_score": 0.965,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.55: tld=autos (+2.10), cv_alt (+1.66), nu (+0.28), eh (+0.27)",
+   "NS pair anna.ns.cloudflare.com|jakub.ns.cloudflare.com seen in campaign",
+   "registrar NameCheap, Inc.",
+   "issuer YE2"
+  ]
+ },
+ "dolesyehata.autos": {
+  "domain": "dolesyehata.autos",
+  "issued_at": "2026-11-06T06:29:12.000Z",
+  "issuer": "YE2",
+  "dna_score": 0.964,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.55: tld=autos (+2.10), cv_alt (+1.66), ta$ (+0.26), eh (+0.24)",
+   "NS pair anna.ns.cloudflare.com|jakub.ns.cloudflare.com seen in campaign",
+   "registrar NameCheap, Inc.",
+   "issuer YE2"
+  ]
+ },
+ "royalrussiaclub.xyz": {
+  "domain": "royalrussiaclub.xyz",
+  "issued_at": "2026-10-09T15:07:23.000Z",
+  "issuer": "WE1",
+  "dna_score": 0.782,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.54: cv_alt (+1.05), tld=xyz (+1.04), ^ro (+0.43), oy (+0.31)",
+   "registrar NameSilo, LLC",
+   "issuer WE1"
+  ]
+ },
+ "jitafaovana.autos": {
+  "domain": "jitafaovana.autos",
+  "issued_at": "2026-11-19T08:05:28.000Z",
+  "issuer": "YE1",
+  "dna_score": 0.777,
+  "campaign_id": "KIT-A",
+  "status": "predicted",
+  "first_ad_at": null,
+  "lead_time_h": null,
+  "reasons": [
+   "lexical 0.54: tld=autos (+2.10), cv_alt (+1.66), afa (+0.24), afao (+0.24)",
+   "registrar NameCheap, Inc.",
+   "issuer YE1"
+  ]
+ }
+}

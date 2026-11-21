@@ -1,0 +1,506 @@
+{
+ "precomputed": {
+  "n": 15,
+  "avglink_grid": [
+   {
+    "b3_P": 0.933,
+    "b3_R": 1.0,
+    "b3_F1": 0.966,
+    "ARI": 0.964,
+    "pair_P": 0.941,
+    "pair_R": 1.0,
+    "n_pred": 8,
+    "n_gold": 9,
+    "hardneg_viol": "1/9",
+    "hardpos_ok": "5/5",
+    "tau": 1
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 2
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 3
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 4
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 5
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 6
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 7
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 8
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 10
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 0.822,
+    "b3_F1": 0.902,
+    "ARI": 0.629,
+    "pair_P": 1.0,
+    "pair_R": 0.5,
+    "n_pred": 10,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "4/5",
+    "tau": 12
+   }
+  ],
+  "avglink_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 1.0,
+   "b3_F1": 1.0,
+   "ARI": 1.0,
+   "pair_P": 1.0,
+   "pair_R": 1.0,
+   "n_pred": 9,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "5/5",
+   "tau": 5
+  },
+  "pair_auc": 1.0,
+  "separation_margin": 0.07,
+  "components_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 1.0,
+   "b3_F1": 1.0,
+   "ARI": 1.0,
+   "pair_P": 1.0,
+   "pair_R": 1.0,
+   "n_pred": 9,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "5/5",
+   "tau": 5
+  },
+  "louvain_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 0.822,
+   "b3_F1": 0.902,
+   "ARI": 0.629,
+   "pair_P": 1.0,
+   "pair_R": 0.5,
+   "n_pred": 10,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "4/5",
+   "tau": 5
+  },
+  "loco": {
+   "should_link_acc": 1.0,
+   "should_not_link_acc": 1.0,
+   "wrong_assign": 0,
+   "n_link": 8,
+   "n_nolink": 15
+  },
+  "loco_misses": [],
+  "robustness": {
+   "duplicate": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_screenshot": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_har": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_html": {
+    "acc": 0.867,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "swap_domain": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "rotate_tracking": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "error_502": {
+    "acc": 0.867,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "full_rotation": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   }
+  },
+  "operator_avglink": [
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 7,
+    "n_gold": 7,
+    "tau": 3
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 0.933,
+    "b3_F1": 0.966,
+    "ARI": 0.966,
+    "pair_P": 1.0,
+    "pair_R": 0.944,
+    "n_pred": 8,
+    "n_gold": 7,
+    "tau": 5
+   }
+  ],
+  "gate_failures": [],
+  "seconds": 6.2
+ },
+ "extract": {
+  "n": 15,
+  "avglink_grid": [
+   {
+    "b3_P": 0.933,
+    "b3_R": 1.0,
+    "b3_F1": 0.966,
+    "ARI": 0.964,
+    "pair_P": 0.941,
+    "pair_R": 1.0,
+    "n_pred": 8,
+    "n_gold": 9,
+    "hardneg_viol": "1/9",
+    "hardpos_ok": "5/5",
+    "tau": 1
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 2
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 3
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 4
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 5
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 6
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 7
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 8
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 9,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "5/5",
+    "tau": 10
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 0.822,
+    "b3_F1": 0.902,
+    "ARI": 0.629,
+    "pair_P": 1.0,
+    "pair_R": 0.5,
+    "n_pred": 10,
+    "n_gold": 9,
+    "hardneg_viol": "0/9",
+    "hardpos_ok": "4/5",
+    "tau": 12
+   }
+  ],
+  "avglink_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 1.0,
+   "b3_F1": 1.0,
+   "ARI": 1.0,
+   "pair_P": 1.0,
+   "pair_R": 1.0,
+   "n_pred": 9,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "5/5",
+   "tau": 5
+  },
+  "pair_auc": 1.0,
+  "separation_margin": 0.07,
+  "components_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 1.0,
+   "b3_F1": 1.0,
+   "ARI": 1.0,
+   "pair_P": 1.0,
+   "pair_R": 1.0,
+   "n_pred": 9,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "5/5",
+   "tau": 5
+  },
+  "louvain_tau5": {
+   "b3_P": 1.0,
+   "b3_R": 0.822,
+   "b3_F1": 0.902,
+   "ARI": 0.629,
+   "pair_P": 1.0,
+   "pair_R": 0.5,
+   "n_pred": 10,
+   "n_gold": 9,
+   "hardneg_viol": "0/9",
+   "hardpos_ok": "4/5",
+   "tau": 5
+  },
+  "loco": {
+   "should_link_acc": 1.0,
+   "should_not_link_acc": 1.0,
+   "wrong_assign": 0,
+   "n_link": 8,
+   "n_nolink": 15
+  },
+  "loco_misses": [],
+  "robustness": {
+   "duplicate": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_screenshot": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_har": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "drop_html": {
+    "acc": 0.867,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "swap_domain": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "rotate_tracking": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "error_502": {
+    "acc": 0.867,
+    "wrong_assign": 0,
+    "n": 15
+   },
+   "full_rotation": {
+    "acc": 1.0,
+    "wrong_assign": 0,
+    "n": 15
+   }
+  },
+  "operator_avglink": [
+   {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 7,
+    "n_gold": 7,
+    "tau": 3
+   },
+   {
+    "b3_P": 1.0,
+    "b3_R": 0.933,
+    "b3_F1": 0.966,
+    "ARI": 0.966,
+    "pair_P": 1.0,
+    "pair_R": 0.944,
+    "n_pred": 8,
+    "n_gold": 7,
+    "tau": 5
+   }
+  ],
+  "gate_failures": [],
+  "seconds": 6.8
+ }
+}

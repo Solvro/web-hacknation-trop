@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:dernvoral.com", "status": "ok", "fetched_at": 1795295466.614139, "error": null, "http_status": null, "seeded": true}, "data": {"name": "dernvoral.com", "A": ["104.21.2.199", "172.67.129.155"], "AAAA": ["2606:4700:3031::ac43:819b", "2606:4700:3036::6815:2c7"], "NS": ["magdalena.ns.cloudflare.com", "stanley.ns.cloudflare.com"], "MX": [], "TXT": []}}

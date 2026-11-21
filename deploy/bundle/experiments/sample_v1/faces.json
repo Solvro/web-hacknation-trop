@@ -1,0 +1,222 @@
+{
+ "faces": {
+  "p1": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.92,
+    "bbox": [
+     511,
+     108,
+     55,
+     72
+    ],
+    "face_cluster": "face0"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.8,
+    "bbox": [
+     140,
+     279,
+     9,
+     12
+    ],
+    "face_cluster": "face1"
+   }
+  ],
+  "p2": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.92,
+    "bbox": [
+     511,
+     108,
+     55,
+     72
+    ],
+    "face_cluster": "face0"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.8,
+    "bbox": [
+     140,
+     279,
+     9,
+     12
+    ],
+    "face_cluster": "face1"
+   }
+  ],
+  "p3": [],
+  "p4": [],
+  "p5": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.89,
+    "bbox": [
+     420,
+     221,
+     27,
+     37
+    ],
+    "face_cluster": "face4"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.87,
+    "bbox": [
+     58,
+     45,
+     11,
+     14
+    ],
+    "face_cluster": "face5"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.81,
+    "bbox": [
+     299,
+     168,
+     30,
+     43
+    ],
+    "face_cluster": "face6"
+   }
+  ],
+  "p7": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.92,
+    "bbox": [
+     518,
+     119,
+     54,
+     71
+    ],
+    "face_cluster": "face0"
+   }
+  ],
+  "p8": [],
+  "p9": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.94,
+    "bbox": [
+     303,
+     157,
+     92,
+     113
+    ],
+    "face_cluster": "face8"
+   }
+  ],
+  "p10": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.94,
+    "bbox": [
+     238,
+     161,
+     232,
+     325
+    ],
+    "face_cluster": "face9"
+   }
+  ],
+  "p11": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.95,
+    "bbox": [
+     360,
+     176,
+     184,
+     243
+    ],
+    "face_cluster": "face10"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.93,
+    "bbox": [
+     115,
+     116,
+     134,
+     195
+    ],
+    "face_cluster": "face11"
+   },
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.85,
+    "bbox": [
+     54,
+     31,
+     14,
+     18
+    ],
+    "face_cluster": "face12"
+   }
+  ],
+  "p12": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.96,
+    "bbox": [
+     224,
+     131,
+     126,
+     173
+    ],
+    "face_cluster": "face13"
+   }
+  ],
+  "p13": [],
+  "p14": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.93,
+    "bbox": [
+     204,
+     162,
+     156,
+     216
+    ],
+    "face_cluster": "face14"
+   }
+  ],
+  "p15": [
+   {
+    "identity_top": null,
+    "cos": 0.0,
+    "det": 0.91,
+    "bbox": [
+     428,
+     108,
+     46,
+     58
+    ],
+    "face_cluster": "face0"
+   }
+  ]
+ },
+ "thr": 0.4,
+ "ms_per_image": 71.80372306278774
+}

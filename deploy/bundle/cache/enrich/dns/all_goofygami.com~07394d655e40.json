@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:goofygami.com", "status": "ok", "fetched_at": 1795296669.1577208, "error": null, "http_status": null}, "data": {"name": "goofygami.com", "A": ["61.19.250.48"], "AAAA": [], "NS": ["ns307.pathosting.com", "ns308.pathosting.com"], "MX": ["10 mail.goofygami.com."], "TXT": ["\"v=spf1 a mx ip4:61.19.250.48 include:_spf.lnwdns.com ~all\""]}}
