@@ -54,13 +54,12 @@ export function Header() {
 }
 
 export function Footer() {
+  // footer text removed on request; only the demo-mode notice remains (mock/offline builds)
   const { demo } = useHealth();
+  if (!demo) return null;
   return (
     <footer className="relative z-[4] mt-auto border-t border-bg4">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-5 flex flex-wrap gap-x-6 gap-y-1 justify-between text-[12.5px] text-tx3">
-        <span>TROP · follow the fake · HackNation 2026 · zadanie NASK „Kolekcjoner fejków”</span>
-        <span>{demo ? 'Tryb demo: wszystkie dane są fikcyjne.' : 'TROP niczego nie wysyła sam: zgłoszenia przygotowujesz i eksportujesz Ty.'}</span>
-      </div>
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-5 text-[12.5px] text-tx3">Tryb demo: wszystkie dane są fikcyjne.</div>
     </footer>
   );
 }
