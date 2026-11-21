@@ -1,0 +1,34 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 5722,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "section#home > div > div:nth-of-type(1) > h1",
+   "x": 60,
+   "y": 209,
+   "w": 517,
+   "h": 108,
+   "text": "Gdzie kapitał spotyka przyszłość Polski"
+  },
+  {
+   "kind": "image",
+   "selector": "section#home > div > div:nth-of-type(2) > img",
+   "x": 623,
+   "y": 172,
+   "w": 517,
+   "h": 319,
+   "text": "Warsaw business district",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/36/Poland%20Invest%20Summit%202026%20%E2%80%93%20Gdzie%20Kapita%C5%82%20Spotyka%20Przysz%C5%82o%C5%9B%C4%87_file"
+  }
+ ],
+ "markers": [],
+ "inline_markers": [],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/36/Poland Invest Summit 2026 – Gdzie Kapitał Spotyka Przyszłość.html"
+}

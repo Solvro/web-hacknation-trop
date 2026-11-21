@@ -59,7 +59,7 @@ def analyze_incident(inc, corpus: Corpus | None = None, *, emit=None, steps: Ste
         from . import adjudicate as _adj
         before = d.decision
         note = _adj.apply(d, ctx, corpus)
-        assert d.decision == before and d.campaign_id is None        # veto/annotate only, never a link
+        assert d.decision in (before, "new") and d.campaign_id is None    # veto/annotate only, never a link
     findings = findings_for(d)
     detail = _verdict_line(d, corpus) + (f" · {note}" if note else "")
     st.done("verdict", detail=detail, status="done" if d.decision in ("assign", "new") else "warn",

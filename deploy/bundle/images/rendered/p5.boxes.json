@@ -1,0 +1,50 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 17116,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "h1#article_title",
+   "x": 132,
+   "y": 212,
+   "w": 703,
+   "h": 78,
+   "text": "„Sam pan sobie podniósł premię!”: jak Monika Olejnik zmiażdżyła prezesa NBP na żywo"
+  },
+  {
+   "kind": "image",
+   "selector": "div#gazeta_article_body > section > figure:nth-of-type(1) > img",
+   "x": 132,
+   "y": 361,
+   "w": 703,
+   "h": 393,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p5/%E2%80%9ESam%20pan%20sobie%20podni%C3%B3s%C5%82%20premi%C4%99!%E2%80%9D_%20jak%20Monika%20Olejnik%20zmia%C5%BCd%C5%BCy%C5%82a%20prezesa"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./„Sam pan sobie podniósł premię!”_ jak Monika Olejnik zmiażdżyła prezesa NBP na żywo_files/fbevents.js.pobrane"
+  },
+  {
+   "marker": "facebook.com/tr",
+   "tag": "img",
+   "attr": "src",
+   "url": "https://www.facebook.com/tr?id=pfWE/hVO41kHJP02Pik5MfGw9cH6FYz23T9HDYNVnXVWpn Q5YNuoaWgYPVtZCAo&ev=PageView&noscript=1&eid={clickid}-PageView"
+  }
+ ],
+ "inline_markers": [
+  "facebook.com/tr",
+  "connect.facebook.net",
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p5/„Sam pan sobie podniósł premię!”_ jak Monika Olejnik zmiażdżyła prezesa NBP na żywo.html"
+}

@@ -186,6 +186,14 @@ class ServiceAdapter:
         for f in findings:
             emit("job.finding", {"job_id": jid, "finding": f.model_dump(mode="json")})
         _remember(inc, dec)
+        try:
+            from trop.api import images
+            meta = images.store(dec.incident_id, inc, src=src)          # downscaled screenshots for GET /incidents/{id}/artifacts
+            if not any(m["role"] == "landing_screenshot" for m in meta):  # saved HTML but no landing screenshot: render it (cached, never raises)
+                from trop.capture.render import ensure_landing_screenshot
+                ensure_landing_screenshot(src, dec.incident_id)
+        except Exception:  # noqa: BLE001
+            pass
         for typ, data in held:
             emit(typ, data)
         return dec

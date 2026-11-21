@@ -1,0 +1,70 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3419
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 3647,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "div > div:nth-of-type(1) > div > h1",
+   "x": 38,
+   "y": 1922,
+   "w": 697,
+   "h": 71,
+   "text": "Problemy ze słuchem można poprawić łatwiej, niż myślisz"
+  },
+  {
+   "kind": "input",
+   "selector": "div#my-chat > div:nth-of-type(3) > input",
+   "x": 57,
+   "y": 2709,
+   "w": 1039,
+   "h": 36,
+   "text": "Click here...",
+   "type": "text",
+   "name": null
+  },
+  {
+   "kind": "iframe",
+   "selector": "iframe#panda-daedc1af-a080-4b37-b1ba-8f8d201f3eaa",
+   "x": 131,
+   "y": 217,
+   "w": 938,
+   "h": 1671,
+   "src": "./Cactus Recipe_files/saved_resource.html"
+  },
+  {
+   "kind": "image",
+   "selector": "div > div > div > img",
+   "x": 202,
+   "y": 60,
+   "w": 797,
+   "h": 97,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p9/Cactus%20Recipe_files/FpYfaI7403918.png"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./Cactus Recipe_files/fbevents.js.pobrane"
+  },
+  {
+   "marker": "facebook.com/tr",
+   "tag": "img",
+   "attr": "src",
+   "url": "https://www.facebook.com/tr?id=1550629110431763&ev=PageView&noscript=1"
+  }
+ ],
+ "inline_markers": [
+  "facebook.com/tr",
+  "connect.facebook.net",
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p9/Cactus Recipe.html"
+}

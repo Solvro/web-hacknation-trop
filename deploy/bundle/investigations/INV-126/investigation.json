@@ -1,0 +1,57 @@
+{
+ "id": "INV-126",
+ "seed": "treekollo",
+ "campaign_id": null,
+ "status": "done",
+ "budget": {
+  "steps": 1.0,
+  "used": 1.0,
+  "usd": 1.0,
+  "usd_used": 0.0
+ },
+ "model": "gemini-pro-latest",
+ "tools": [
+  "db_search",
+  "incident_neighborhood",
+  "crtsh",
+  "rdap",
+  "dns_ns",
+  "urlscan_search",
+  "certpl_check",
+  "wayback",
+  "adlib_search",
+  "capture",
+  "oracle_lookup"
+ ],
+ "started_at": "2026-11-21T22:31:20+00:00",
+ "nodes": [
+  {
+   "id": "d-treekollo",
+   "kind": "domain",
+   "label": "treekollo",
+   "meta": {
+    "seed": true,
+    "known_in_db": false
+   },
+   "status": "new",
+   "is_new": null,
+   "branch": "db"
+  }
+ ],
+ "edges": [],
+ "steps": [
+  {
+   "n": 1,
+   "tool": "db_search",
+   "query": "treekollo",
+   "result_summary": "Ślad „treekollo”: 0 dopasowań w bazie.",
+   "why": "Zaczynam od tego, co już wiemy o domenie.",
+   "produced": [],
+   "at": "2026-11-21T22:31:20.449+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.0
+  }
+ ],
+ "conclusions": [],
+ "pending_decision": null
+}

@@ -1,0 +1,78 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3013
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 3214,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "header:nth-of-type(2) > div:nth-of-type(1) > div > h1",
+   "x": 225,
+   "y": 20,
+   "w": 750,
+   "h": 240,
+   "text": "NAUKOWO UDOWODNIONE: IDEALNA SYLWETKA W 27 DNI — TO MOŻLIWE DZIĘKI TEMU DOMOWEMU SPOSOBOWI!"
+  },
+  {
+   "kind": "form",
+   "selector": "form#fake-comm-form",
+   "x": 255,
+   "y": 2643,
+   "w": 690,
+   "h": 302,
+   "text": "Zostawić komentarz Wybierz plik Wyślij",
+   "action": "https://ineptsolidoval.top/?pxl=1071875908635809&acc=hk77_tv6_tvtextdc3_feed15_text156tv_w_pl&ad_name=tvtextdc3_text156tv&ad_id=120250558396250564&adset_name=1208_pl_w_tvtextdc3_text156tv_%D1%81%D1%81_d3+%288%29+Adv++lang+schedule_Tuesday_ad&placement=Instagram_Feed&key=wpkci3fy9tl9m1rtj1f9&geo=PL&utm_medium=paid&utm_source=ig&utm_id=120250558396270564&utm_content=120250558396250564&utm_term=120250558396280564&utm_campaign=120250558396270564&fbclid=PAYm9jbATo9UxwZG9mAmZkaWQWUMUO_ZoQtMy4ADjCKmZv7RswaNzummV4dG4DYWVtATAAYWRpZAGrNz7qRvtkc3J0YwZhcHBfaWQPMTI0MDI0NTc0Mjg3NDE0AAGnC5-WunRH49hjT2FBKJQYjOo3N4kFR-3Ob372WvXEE7axpy9R2z4LiPUJaZs_aem_seP-4FPt2Qo4UI3UUy-A1w&lpkey=179173893f9078af50fac1f4198bfd958258698443&clickid=db6amvso0bqs73b1asa0&user_id=13&country_code=PL&trafficsource=11&land_id=25714&_trk=bf1&_camp_id=113#",
+   "method": "get"
+  },
+  {
+   "kind": "input",
+   "selector": "form#fake-comm-form > input",
+   "x": 255,
+   "y": 2684,
+   "w": 281,
+   "h": 38,
+   "text": "Twoje imię i nazwisko",
+   "type": "text",
+   "name": "name"
+  },
+  {
+   "kind": "input",
+   "selector": "form#fake-comm-form > textarea",
+   "x": 255,
+   "y": 2745,
+   "w": 690,
+   "h": 54,
+   "text": "Twój komentarz",
+   "type": "textarea",
+   "name": "comment"
+  },
+  {
+   "kind": "input",
+   "selector": "form#fake-comm-form > button",
+   "x": 255,
+   "y": 2898,
+   "w": 262,
+   "h": 47,
+   "text": "Wyślij",
+   "type": "submit",
+   "name": null
+  },
+  {
+   "kind": "image",
+   "selector": "div > div > div:nth-of-type(1) > img:nth-of-type(1)",
+   "x": 356,
+   "y": 639,
+   "w": 84,
+   "h": 84,
+   "text": "#",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/14/Metabo%20RX_files/tv.png"
+  }
+ ],
+ "markers": [],
+ "inline_markers": [],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/14/Metabo RX.html"
+}
