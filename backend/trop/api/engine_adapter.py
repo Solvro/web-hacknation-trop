@@ -154,7 +154,7 @@ class ServiceAdapter:
                 res = {"ok": False, "error": f"{type(e).__name__}: {e}"}
             if not res.get("ok") or not res.get("bundle"):
                 st.done("capture", status="error", detail=f"Strona niedostępna: {str(res.get('error') or 'brak odpowiedzi')[:160]}", warnings=["capture failed"])
-                self._page_down(jid, None, emit, f"nie udało się pobrać strony ({str(res.get('error') or 'brak odpowiedzi')[:160]}).")
+                self._page_down(jid, None, emit, f"strona nie odpowiada ({str(res.get('error') or 'brak odpowiedzi')[:160]}).")
             src, skip_capture_run = res["bundle"], True
             _inner = cb
 
