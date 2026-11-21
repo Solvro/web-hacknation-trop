@@ -21,6 +21,11 @@
 - 22:38 **WS6 merged**: White Rabbit live run from a kit-A domain found **50 sibling domains (23 new to our data)** in 9 steps for $0.07; fictional velmoria demo replay; Act: DSA art. 16 PDF/JSON (Polish notice by Gemini Flash), CERT PL draft, STIX 2.1, MISP, CSV, rules with dataset test (campaign A: precision 1.0, 0/42 benign). Nothing is ever sent.
 - 22:45 **G2 core met (WS2)**: real-mode API on :18001 (offline, no keys): DANE folder 1 zip → six bots → `assign` KMP-001 p 0.99 in ~2 s. Mock API on :18000. Postgres image now pg17 (seed dump made with pg17). 111 tests pass. WS7 (extension + /sprawdz) started.
 
+- 23:05 **WS3 web merged** (Next.js: Sprawdź → six bots over SSE → Raport → Graf, Kampanie, Zgłoszenie, Scal, Śledztwa, Lab + "Importuj zbiór"; follows the light zgrai-style boards; detective bots run from three.js r128). integration → **main**.
+- 23:08 **Coolify**: created environment `hacknation-2026-trop` in project "Hackatony" and ONE compose application `trop` (uuid ss4xttwzy13a9ufyvslnpujo, branch main, `deploy/compose.coolify.yml`, domain https://trop.b.solvro.pl). First deploy queued.
+  - **Decision: the public URL runs in MOCK mode (fictional universe only).** Real mode would serve organizer-derived identifiers (domains, pixel/tenant ids, captions) on a public URL, which the data rule forbids. Real data runs on the home PC (http://10.8.0.3:13000 once bound) and via `docker compose` for judges. See "Needs Dawid".
+
 ## Needs Dawid
+- **Public real-data demo?** If you want trop.b.solvro.pl to show the real campaigns, decide: (a) keep mock publicly + real on the home PC (current), or (b) real mode behind basic auth on Coolify (needs shipping the corpus/models to the server — a data bundle not in git).
 - (optional) BigQuery ADC (`gcloud auth application-default login`) for Google Ads Transparency — skipped for now.
 - Deadline assumed 22.11 ~11:00.
