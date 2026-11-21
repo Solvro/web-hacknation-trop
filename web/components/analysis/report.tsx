@@ -12,7 +12,7 @@ import { Bot } from '../jelly';
 import { EvidenceChip } from '../evidence-chip';
 import { FollowButton } from '../follow-button';
 import { materialTitle, restoreTemplateCase, useArtifacts, type Artifacts, type Material } from '@/lib/artifacts';
-import { GraphCloud } from '../graph/cloud';
+import { GraphExplorer } from '../graph/explorer';
 import { RealShot } from './live';
 import { ICheck, IGraph, IList } from '../icons';
 
@@ -68,7 +68,9 @@ export interface ReportProps {
   view: 'raport' | 'graf';
   onView: (v: 'raport' | 'graf') => void;
   onFocus: (id: string) => void;
-  focusView?: React.ReactNode;
+  /** resolved graph node to unfold (chip clicked in the Raport) */
+  graphFocus?: string | null;
+  graphFocusMissing?: boolean;
 }
 
 export const hasImages = (art: Artifacts) => !!(art.landing || art.adShot || art.frames.length);
@@ -150,7 +152,7 @@ function WhyPanel({ d }: { d: Decision }) {
   );
 }
 
-export function Report({ decision: d, campaign, incident, names, view, onView, onFocus, focusView }: ReportProps) {
+export function Report({ decision: d, campaign, incident, names, view, onView, onFocus, graphFocus, graphFocusMissing }: ReportProps) {
   const art = useArtifacts(d.incident_id);
   const cid = d.campaign_id ?? d.candidate_campaign_id ?? '';
   const story = storyOf(campaign);
@@ -164,13 +166,6 @@ export function Report({ decision: d, campaign, incident, names, view, onView, o
   const sideRest = counted.length ? side : side.slice(cards.length);
   const isGraf = view === 'graf';
   const img = hasImages(art);
-  const cloudRaw = useApi<GraphPayload>(isGraf && cid ? `/graph?scope=campaign&campaign=${encodeURIComponent(cid)}` : null).data;
-  const cloud = useMemo(() => {
-    if (!cloudRaw) return undefined;
-    const members = cloudRaw.nodes.filter((x) => x.kind === 'incident' && (x.campaign_id === cid || cloudRaw.edges.some((e) => (e.a === cid && e.b === x.id) || (e.b === cid && e.a === x.id))));
-    if (!members.length) return undefined;
-    return { ...cloudRaw, nodes: [{ id: cid, kind: 'campaign' as const, label: cid }, ...members], edges: members.map((m) => ({ a: cid, b: m.id, type: 'member' as const })) };
-  }, [cloudRaw, cid]);
   const op = d.operator_id ?? campaign?.operator_id;
   const ru = d.runner_up;
   // raport: one column of cards next to the images, or two columns of cards when there are no images
@@ -200,10 +195,14 @@ export function Report({ decision: d, campaign, incident, names, view, onView, o
           <button type="button" aria-pressed={!isGraf} onClick={() => onView('raport')}><IList width={15} height={15} />Raport</button>
           <button type="button" aria-pressed={isGraf} onClick={() => onView('graf')}><IGraph width={15} height={15} />Graf</button>
         </div>
-        {isGraf && !focusView && <span className="text-[13px] text-tx3">Kliknij węzeł, żeby go rozwinąć</span>}
+        {isGraf && <span className="text-[13px] text-tx3">Kliknij węzeł, żeby rozwinąć jego powiązania; kliknij ponownie, żeby zwinąć</span>}
       </div>
 
-      {isGraf && focusView ? <div className="mt-5">{focusView}</div> : (
+      {isGraf ? (
+        <div className="mt-5">
+          <GraphExplorer originId={d.incident_id} decision={d} names={names} originTitle={incident?.title ?? incident?.domain} originThumb={art.ad ?? art.any} focusId={graphFocus} focusMissing={graphFocusMissing} />
+        </div>
+      ) : (
         <>
           {/* desktop stage: cards move between list and graph */}
           <div className="hidden lg:block relative mt-[18px]" role="group" aria-label={isGraf ? 'Graf: materiał, dowody i dopasowane kampanie' : 'Raport botów'} style={{ height: stageH }}>
@@ -256,7 +255,6 @@ export function Report({ decision: d, campaign, incident, names, view, onView, o
                 <span className="text-[12.5px] text-tx3">{ru.same_operator ? `ten sam operator ${op ?? ''}` : 'inny operator'}</span>
               </div>
             )}
-            {isGraf && <GraphCloud data={cloud} onPick={onFocus} className="!absolute left-[970px] top-[110px] w-[222px] h-[340px]" label={`Materiały kampanii ${cid}`} />}
             {img && (
               <div className="mv absolute" style={{ left: 740, top: 0, width: 452, opacity: isGraf ? 0 : 1, pointerEvents: isGraf ? 'none' : 'auto' }}>
                 <MaterialImages art={art} url={incident?.domain ?? d.incident_id} height={440} />
