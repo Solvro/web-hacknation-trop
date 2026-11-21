@@ -23,6 +23,7 @@ RUN ln -s "$(/app/backend/.venv/bin/python -c 'import imageio_ffmpeg;print(image
  && ffmpeg -version | head -1
 COPY deploy/entrypoint.sh deploy/seed.sh /
 COPY deploy/bundle /bundle
+RUN chmod +x /entrypoint.sh /seed.sh
 ENV PATH="/app/backend/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
     DATA_DIR=/data ARTIFACT_DIR=/data/artifacts CACHE_DIR=/data/cache MODELS_DIR=/data/models REPLAY_DIR=/data/replay
 RUN mkdir -p /data/artifacts /data/cache /data/models /data/replay

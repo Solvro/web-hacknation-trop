@@ -13,7 +13,7 @@ x-backend-env: &backend-env
   REDIS_URL: redis://redis:6379/0
   TROP_MODE: ${TROP_MODE:-live}
   TROP_NO_LIVE: ${TROP_NO_LIVE:-1}
-  TROP_CAPTURE: ${TROP_CAPTURE:-off}
+  TROP_CAPTURE: ${TROP_CAPTURE:-local}   # URL input is captured by the WORKER (Chromium image); off -> board-13 job.error
   LLM_BUDGET_USD: ${LLM_BUDGET_USD:-10}
   DATA_DIR: /data
   ARTIFACT_DIR: /data/artifacts
@@ -24,6 +24,13 @@ x-backend-env: &backend-env
   OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
   URLSCAN_API_KEY: ${URLSCAN_API_KEY:-}
   META_ACCESS_TOKEN: ${META_ACCESS_TOKEN:-}
+  META_APP_ID: ${META_APP_ID:-}
+  META_APP_SECRET: ${META_APP_SECRET:-}
+  IPINFO_TOKEN: ${IPINFO_TOKEN:-}
+  CERTSPOTTER_API_KEY: ${CERTSPOTTER_API_KEY:-}
+  GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
+  GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS:-}
+  WIKIMEDIA_UA: ${WIKIMEDIA_UA:-}
 
 services:
   postgres:
@@ -54,8 +61,9 @@ services:
     healthcheck: {test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/api/v1/health || exit 1"], interval: 15s, timeout: 5s, retries: 20, start_period: 120s}
     mem_limit: 1g
 
-  worker:
-    build: {context: ., dockerfile: deploy/Dockerfile.api}
+  worker:      # runs analyses (incl. URL capture): TROP_WORKER_DOCKERFILE=deploy/Dockerfile.worker (api image + Chromium/Playwright, WS5)
+    build: {context: ., dockerfile: "${TROP_WORKER_DOCKERFILE:-deploy/Dockerfile.api}"}
+    shm_size: 256m
     command: ["trop", "worker"]
     healthcheck: {disable: true}
     environment:

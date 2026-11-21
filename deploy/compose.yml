@@ -59,9 +59,10 @@ services:
     mem_limit: 1g
     restart: unless-stopped
 
-  worker:
-    build: {context: .., dockerfile: deploy/Dockerfile.api}
-    image: trop-api
+  worker:      # runs analyses (incl. URL capture): TROP_WORKER_DOCKERFILE=deploy/Dockerfile.worker once WS5's Chromium image exists
+    build: {context: .., dockerfile: "${TROP_WORKER_DOCKERFILE:-deploy/Dockerfile.api}"}
+    image: trop-worker
+    shm_size: 256m
     command: ["trop", "worker"]
     healthcheck: {disable: true}
     env_file: [{path: ../.env, required: false}]
