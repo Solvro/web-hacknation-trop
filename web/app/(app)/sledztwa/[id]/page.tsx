@@ -268,7 +268,6 @@ function Sledztwo() {
           )}
         </div>
       </div>
-      <p className="text-[12px] text-tx3"><ICheck width={11} height={11} className="inline mr-1" />Agent tylko czyta publiczne źródła. Nie wypełnia formularzy i niczego nie zgłasza bez ciebie.</p>
     </Page>
   );
 }
