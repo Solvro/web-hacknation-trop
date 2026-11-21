@@ -17,7 +17,8 @@ def test_graph_focus_neighbourhood_panel_meta(client):
     assert per["focus"] == "person:Jan Kowalski" and len(per["nodes"]) > 1
     bridge = client.get(f"{P}/graph?focus=KMP-034&origin=KMP-017").json()
     assert {n["id"] for n in bridge["nodes"]} >= {"KMP-034", "KMP-017"}
-    assert next(n for n in bridge["nodes"] if n["id"] == "KMP-034")["meta"]["side"] == "right"
+    assert "side" not in next(n for n in bridge["nodes"] if n["id"] == "KMP-034")["meta"]       # side:'right' only on incident centres
+    assert next(n for n in inc["nodes"] if n["id"] == "INC-24817")["meta"]["side"] == "right"
     assert any(n["meta"].get("only") in ("origin", "focus") for n in bridge["nodes"] if n["kind"] == "trace") or True
     assert client.get(f"{P}/graph?focus=nope").status_code == 404
 

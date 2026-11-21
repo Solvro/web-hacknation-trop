@@ -25,6 +25,16 @@ No blocking schema change needed; everything fits `schema.py` as is. Notes for t
 
 # WS3 (web) contract requests
 
+**Round 2 (real mode, 21.11 late):** the fixture fallback in point 2 is gone — fixtures only with `?offline=1` /
+`NEXT_PUBLIC_MOCK=1`. Focus ids: the web sends `ev:<field>:<value>` for an evidence chip and resolves it itself
+against `GET /graph` (exact id → `trace:<field>s:<value>` / any id ending in `:<value>` → `person:<lower name>` →
+`d:<domain>` for URL/cert fields), then calls `/graph?focus=<real node id>`; unresolved → intentional empty state.
+`trace:<type>:<value>` with the engine field name (plural or singular) works with this. Please: (a) `side:'right'` only on
+incident centres (the web ignores it elsewhere), (b) a freshly analysed incident as a graph node (today `focus=INC-…`
+404s, the web shows it as the origin card without edges), (c) Polish `narrative`/`description` in real mode (the web hides
+English narratives and uses `name` as the headline), (d) `GET /act/packages?campaign_id=` should filter (the web filters
+client-side meanwhile), (e) `oracle/predictions?campaign=` should filter (same).
+
 The web works against today's API with local adapters (web/lib/graph.ts, web/lib/mock/*). These would remove them.
 
 1. **`GET /graph?focus=<id>` returns the neighbourhood, not the whole graph** (focus node + origin + ≤ 6 direct
@@ -66,3 +76,15 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
   `/lab/ablation` → `[{layer, delta_f1, b3_F1, ari, pair_auc, loco_link, wrong}]` (drop-one-layer, from `trop eval --ablation`).
 - **`Decision.duplicate_of`** is set (L0) when the analysed material has the same entry URL / landing hash as a corpus incident.
 - `GET /operators[?ids=]` lists operators; `POST /analyze` with `files` ignores a prefilled `url`.
+
+# WS2 round 3 (prod fixes)
+
+- **Durable streams:** every job / investigation event is appended to Redis list `trop:job:<id>:events` / `trop:inv:<id>:events` (TTL 24 h);
+  `/jobs/{id}/stream` and `/investigations/{id}/stream` replay the list, then follow it by index (no pub/sub loss, no idle cut-off while the job runs)
+  and close after `job.done` / `job.error` / `investigation.done`.
+- `GET /act/packages?campaign_id=&status=`, `GET /oracle/predictions?status=&campaign=` filter; real mode never returns campaigns outside the corpus.
+- Real campaigns: Polish `name`, `narrative` (= headline) and `description` = `"headline\nlead"` from `backend/trop/api/campaigns_pl.json`.
+- `side:'right'` is set only on incident focus nodes.
+- **Samples:** `GET /api/v1/samples` → `[{id,title,description,expected,size}]` (dane-1, dane-3, dane-36, dane-5, p13, p14; zips live in the image bundle,
+  `deploy/make_samples.py`); `POST /api/v1/samples/{id}/analyze` → `AnalyzeAccepted` (a normal job, stream `/jobs/{id}/stream`).
+  Offline outcomes: dane-1 → assign KMP-001, dane-3 → assign KMP-003, dane-36 → new, dane-5 → insufficient, p13 → assign KMP-008, p14 → assign KMP-009 (duplicate_of p14).

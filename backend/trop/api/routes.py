@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import inspect
+import json
 import os
 import re
 from pathlib import Path
@@ -108,6 +109,34 @@ async def analyze(url: str | None = Form(None), trace: str | None = Form(None), 
         kind = "zip" if len(names) == 1 and names[0].lower().endswith(".zip") else "file" if len(names) == 1 else "folder"
         name = names[0] if len(names) == 1 else f"{len(names)} plików"
     return await _a(s.analyze(kind, name, saved))
+
+
+def _samples_dir() -> Path:
+    for p in (Path(settings.data_dir) / "samples", Path(__file__).resolve().parents[3] / "deploy" / "bundle" / "samples"):
+        if (p / "samples.json").exists():
+            return p
+    return Path(settings.data_dir) / "samples"
+
+
+def _samples() -> list[dict]:
+    f = _samples_dir() / "samples.json"
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else []
+
+
+@router.get("/samples", response_model=list[M.Sample], tags=["jobs"], summary="Jury samples (DANE folders + sample_v1 items) to analyse in one click")
+async def samples():
+    return [{k: s[k] for k in ("id", "title", "description", "expected", "size")} for s in _samples()]
+
+
+@router.post("/samples/{sample_id}/analyze", response_model=AnalyzeAccepted, tags=["jobs"])
+async def sample_analyze(sample_id: str):
+    s = next((x for x in _samples() if x["id"] == sample_id), None)
+    if not s:
+        raise HTTPException(404, "unknown sample")
+    path = _samples_dir() / s["file"]
+    if not path.exists():
+        raise HTTPException(404, "sample file missing")
+    return await _a(get_store().analyze("zip", s["file"], [str(path)]))
 
 
 @router.get("/jobs", response_model=list[Job], tags=["jobs"])
@@ -390,8 +419,8 @@ async def oracle_dna_patch(campaign_id: str, body: M.OracleDnaPatch):
 
 
 @router.get("/oracle/predictions", response_model=list[OraclePrediction], tags=["oracle"])
-async def oracle_predictions(status: str | None = None):
-    return await _a(get_store().predictions(status))
+async def oracle_predictions(status: str | None = None, campaign: str | None = None):
+    return await _a(get_store().predictions(status, campaign))
 
 
 # ============================================================================================== persons
@@ -415,8 +444,8 @@ async def brands(window: str = "7d"):
 
 # ============================================================================================== act
 @router.get("/act/packages", response_model=list[ActPackage], tags=["act"])
-async def act_packages():
-    return await _a(get_store().act_packages())
+async def act_packages(campaign_id: str | None = None, status: str | None = None):
+    return await _a(get_store().act_packages(campaign_id, status))
 
 
 @router.post("/act/packages", response_model=ActPackage, status_code=201, tags=["act"])

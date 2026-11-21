@@ -67,6 +67,34 @@ async def subscribe(r: aioredis.Redis, name: str, history: bool = True, stop_on_
         await ps.aclose()
 
 
+async def follow(r: aioredis.Redis, name: str, *, stop_on_terminal: bool = True, idle_check=None, poll: float = 0.25,
+                 idle_s: float = 4.0, max_idle_s: float = 900.0) -> AsyncIterator[Event]:
+    """Durable reader of `trop:<name>:events`: replays the whole list, then follows it by index (no pub/sub, so nothing published
+    before/while the client connects can be lost). Ends after a terminal event; `idle_check()` (async -> bool) may end it when nothing
+    new arrives for `idle_s` (e.g. the job state says it finished); gives up after `max_idle_s` without events."""
+    idx, last = 0, time.monotonic()
+    while True:
+        items = await r.lrange(ekey(name), idx, idx + 199)
+        if items:
+            for raw in items:
+                ev = Event.model_validate_json(raw)
+                idx += 1
+                yield ev
+                if stop_on_terminal and ev.type in TERMINAL:
+                    return
+            last = time.monotonic()
+            continue
+        idle = time.monotonic() - last
+        if idle_check is not None and idle >= idle_s:
+            if await idle_check():
+                if idx >= await r.llen(ekey(name)):      # drained: nothing more will come
+                    return
+            last = time.monotonic() - idle_s + 1.0       # re-check about once a second
+        if idle >= max_idle_s:
+            return
+        await asyncio.sleep(poll)
+
+
 async def set_state(r: aioredis.Redis, job_id: str, state: dict) -> None:
     await r.set(f"trop:job:{job_id}:state", json.dumps(state, ensure_ascii=False), ex=TTL)
     await r.zadd("trop:jobs", {job_id: time.time()})

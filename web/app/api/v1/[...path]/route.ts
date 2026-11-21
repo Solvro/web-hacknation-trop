@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-const HOP = new Set(['connection', 'keep-alive', 'transfer-encoding', 'te', 'trailer', 'upgrade', 'proxy-authorization', 'proxy-authenticate', 'host', 'content-length']);
+const HOP = new Set(['connection', 'keep-alive', 'transfer-encoding', 'te', 'trailer', 'upgrade', 'proxy-authorization', 'proxy-authenticate', 'host', 'content-length', 'expect']);
 
 async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }> }) {
   const { path } = await ctx.params;
@@ -18,10 +18,10 @@ async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }
   let upstream: Response;
   try {
     upstream = await fetch(target, {
-      method: req.method, headers, body: hasBody ? req.body : undefined, redirect: 'manual', cache: 'no-store',
+      // request bodies are buffered (uploads are small zips/screens; streamed multipart bodies arrived truncated
+      // behind the middleware), responses stay streamed so SSE passes through unbuffered
+      method: req.method, headers, body: hasBody ? await req.arrayBuffer() : undefined, redirect: 'manual', cache: 'no-store',
       signal: req.signal,
-      // @ts-expect-error Node fetch needs duplex for streamed request bodies
-      duplex: hasBody ? 'half' : undefined,
     });
   } catch {
     return Response.json({ error: 'api_unreachable', target: base }, { status: 502 });

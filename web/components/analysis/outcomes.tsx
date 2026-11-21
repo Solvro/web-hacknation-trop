@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { CampaignSummary, Decision, EvidenceItem, IncidentSummary, JobStep, LinkExplanation } from '@/lib/contracts';
-import { botColor, botName, LAYER_LABEL, n, p2 } from '@/lib/copy';
+import { botColor, botName, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from "@/lib/copy";
 import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle } from '@/lib/graph';
 import { Bot } from '../jelly';
@@ -39,13 +39,14 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
   async function create() {
     setBusy(true);
     const r = await apiPost<{ id: string }>('/campaigns', { seed_incident: d.incident_id, name: shown, status: 'candidate' }, () => ({ id: cand })).catch(() => ({ id: cand }));
+    // (if the API refuses, we still go to the candidate campaign page; nothing fictional is shown)
     router.push(r.id || cand ? `/kampanie/${encodeURIComponent(r.id || cand)}` : '/kampanie');
   }
   const badge = (e: EvidenceItem) => (e.state === 'missing' ? undefined : (e.df ?? 0) <= 1 ? (e.type === 'infra' ? 'nowa' : 'nowy') : `${e.df} podobne`);
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
-        title={c ? (c.narrative?.replace(/^Nowa:\s*/, '') ?? '') : 'Nowa kampania'}
+        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : 'Nowa kampania'}
         lead={incident?.title ? `Reklama: „${incident.title}”.` : undefined}
         meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
         primary={<button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button>}
@@ -53,8 +54,8 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
       />
       <section className="rounded-[22px] border border-[#BFDBFE] bg-state-cdim px-5 py-5 flex flex-wrap gap-5 items-center justify-between">
         <div className="flex-[1_1_480px]">
-          <h2 className="text-[17px] font-semibold">Nie pasuje do żadnej z {total ? n(41) : '41'} kampanii</h2>
-          <p className="text-[14px] text-state-cyan pt-1">Ślady są nowe: nikt w bazie nie używa tego piksela ani tego formularza. To najpewniej początek nowej kampanii.</p>
+          <h2 className="text-[17px] font-semibold">{total?.length ? `Nie pasuje do żadnej z ${n(total.length)} kampanii` : 'Nie pasuje do żadnej znanej kampanii'}</h2>
+          <p className="text-[14px] text-state-cyan pt-1">Ślady są nowe: żadna znana kampania nie ma ich w tym zestawie. To najpewniej początek nowej kampanii.{d.same_operator_as ? ` Ten sam operator co ${d.same_operator_as}.` : ''}</p>
         </div>
         <label className="flex flex-col gap-1.5 flex-[0_1_340px]">
           <span className="text-[13px] font-medium text-state-cyan">Nazwa nowej kampanii</span>
@@ -65,7 +66,7 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Inc
         <section className="flex flex-col gap-3" aria-labelledby="nw-found">
           <h2 id="nw-found" className="text-[13px] font-medium text-tx3">Co znalazły boty</h2>
           {(d.evidence ?? []).map((e, i) => (
-            <Row key={i} e={{ bot: e.bot, title: e.display, meta: meta(e, e.state === 'missing' ? 'osoby i marki' : (e.df ?? 0) <= 1 ? 'nie ma go w bazie' : `${e.df} podobne materiały`) }} badge={badge(e)} dashed={e.state === 'missing'} />
+            <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: meta(e, e.state === 'missing' ? 'osoby i marki' : (e.df ?? 0) <= 1 ? 'nie ma go w bazie' : `${e.df} podobne materiały`) }} badge={badge(e)} dashed={e.state === 'missing'} />
           ))}
         </section>
         <section className="card !rounded-[22px] p-5" aria-labelledby="nw-near">
@@ -100,7 +101,7 @@ function CandidateCard({ incidentId, s, names, desc }: { incidentId: string; s: 
       <div>
         <h3 className="text-[12.5px] text-tx3 pb-1">Co pasuje</h3>
         <ul className="m-0 p-0 list-none flex flex-col gap-1.5">
-          {(link?.evidence ?? []).map((e, i) => <li key={i} className="flex items-center gap-2.5 text-[14px]"><span className="w-5 h-5 rounded-full bg-state-gdim text-state-g inline-flex items-center justify-center"><ICheck width={10} height={10} /></span>{e.display}</li>)}
+          {(link?.evidence ?? []).map((e, i) => <li key={i} className="flex items-center gap-2.5 text-[14px]"><span className="w-5 h-5 rounded-full bg-state-gdim text-state-g inline-flex items-center justify-center"><ICheck width={10} height={10} /></span>{prettyDisplay(e.display)}</li>)}
           {!link && <li className="text-[13px] text-tx4">Archiwista porównuje…</li>}
         </ul>
       </div>
@@ -108,7 +109,7 @@ function CandidateCard({ incidentId, s, names, desc }: { incidentId: string; s: 
         <div>
           <h3 className="text-[12.5px] text-tx3 pb-1">Czego nie wiadomo</h3>
           <ul className="m-0 p-0 list-none flex flex-col gap-1.5">
-            {(link?.missing ?? []).map((e, i) => <li key={i} className="flex items-center gap-2.5 text-[14px]"><span className="w-5 h-5 rounded-full bg-bg3 text-tx4 inline-flex items-center justify-center">–</span>{e.display}</li>)}
+            {(link?.missing ?? []).map((e, i) => <li key={i} className="flex items-center gap-2.5 text-[14px]"><span className="w-5 h-5 rounded-full bg-bg3 text-tx4 inline-flex items-center justify-center">–</span>{prettyDisplay(e.display)}</li>)}
           </ul>
         </div>
       )}
@@ -125,7 +126,7 @@ export function OutcomeUnsure({ d, incident, names, descs }: { d: Decision; inci
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
         title={d.runner_up?.same_operator ? 'Pasuje do dwóch kampanii jednego operatora' : 'Pasuje do dwóch kampanii'}
-        lead={`Ślady techniczne mają obie kampanie${d.operator_id ? ` ${d.operator_id}` : ''}. Strona nie ma tekstu ani twarzy, więc boty nie rozstrzygną tego same. Wybierz kampanię.`}
+        lead={`Ślady techniczne pasują do obu kampanii${d.operator_id ? ` operatora ${d.operator_id}` : ''}.${(d.evidence ?? []).some((e) => e.state === 'missing' && (e.type === 'content' || e.type === 'persons')) ? ' Strona nie ma tekstu ani twarzy, więc boty nie rozstrzygną tego same.' : ' Różnica jest za mała, żeby boty rozstrzygnęły to same.'} Wybierz kampanię.`}
         meta={[d.incident_id, incident?.domain, (incident as { note?: string })?.note].filter(Boolean).join(' · ')}
         secondary={<Link className="lnk" href="/kampanie">albo załóż nową kampanię</Link>}
       />
@@ -160,7 +161,7 @@ export function OutcomeError({ d, incident, steps, error, names }: { d: Decision
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_400px] gap-10 items-start">
         <section className="flex flex-col gap-3" aria-labelledby="er-found">
           <h2 id="er-found" className="text-[13px] font-medium text-tx3">Co udało się ustalić</h2>
-          {(d?.evidence ?? []).map((e, i) => <Row key={i} e={{ bot: e.bot, title: e.display, meta: [botName(e.bot), e.bot === 'archiwista' ? 'nasza baza' : 'z rejestru i crt.sh, bez strony'].join(' · ') }} badge="ustalone" tone="g" />)}
+          {(d?.evidence ?? []).map((e, i) => <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: [botName(e.bot), e.bot === 'archiwista' ? 'nasza baza' : 'z rejestru i crt.sh, bez strony'].join(' · ') }} badge="ustalone" tone="g" />)}
           {failed.map((s) => (
             <Row key={s.key} dashed e={{ bot: s.bot, title: s.status === 'error' ? `Strona: ${(s.detail ?? '').split('\n')[0]}` : `${s.label.split('·').pop()?.trim() ?? s.label}`, meta: `${botName(s.bot)} · ${(s.detail ?? '').split('\n')[0]}` }}
               badge={s.status === 'error' ? 'nie udało się' : 'brak'} tone={s.status === 'error' ? 'red' : 'neutral'} />
@@ -176,10 +177,10 @@ export function OutcomeError({ d, incident, steps, error, names }: { d: Decision
           )}
           <section className="card !rounded-[22px] p-5">
             <h2 className="text-[17px] font-semibold pb-2">Czym jeszcze możemy sprawdzić</h2>
-            {[['Kopia z archiwum', 'Wayback może mieć zapis strony', 'dostępna'], ['Zrzut ekranu reklamy', 'Czytelnik przeczyta tekst i twarz', 'wrzuć plik'], ['Plik HAR', 'jeśli zapisałeś ruch strony wcześniej', 'wrzuć plik']].map(([a, b, c]) => (
+            {[['Kopia z archiwum', 'Wayback może mieć zapis strony', 'sprawdź'], ['Zrzut ekranu reklamy', 'Czytelnik przeczyta tekst i twarz', 'wrzuć plik'], ['Plik HAR', 'jeśli zapisałeś ruch strony wcześniej', 'wrzuć plik']].map(([a, b, c]) => (
               <div key={a} className="flex items-center justify-between gap-3 py-2.5 border-b border-bg4 last:border-0">
                 <span><b className="block text-[14px] font-semibold text-tx2">{a}</b><span className="text-[12.5px] text-tx3">{b}</span></span>
-                {c === 'dostępna' ? <span className="text-[12.5px] text-state-g">{c}</span> : <Link href="/" className="text-[12.5px] text-tx3 hover:text-tx1">{c}</Link>}
+                {c === 'sprawdź' ? <a href={`https://web.archive.org/web/*/${incident?.domain ?? ''}`} target="_blank" rel="noopener noreferrer nofollow" className="text-[12.5px] text-tx3 hover:text-tx1">{c}</a> : <Link href="/" className="text-[12.5px] text-tx3 hover:text-tx1">{c}</Link>}
               </div>
             ))}
           </section>

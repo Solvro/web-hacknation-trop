@@ -1,0 +1,56 @@
+{
+  "KMP-001": {
+    "name": "Fałszywa Gazeta.pl — „Zyskarnia” i „Świtowin”: zamach na znaną osobę",
+    "headline": "Fałszywy artykuł o zamachu prowadzi do „platform inwestycyjnych”",
+    "description": "Podrobiona strona Gazeta.pl opisuje szokujące wydarzenie z udziałem znanej osoby (m.in. Rafała Brzoski), by skierować ofiary na platformy „Zyskarnia” i „Świtowin”. Ta sama strona jest przerabiana pod kolejne osoby; kampanię łączą wspólny kit (ten sam najemca), piksel Facebooka i bramka CAPI.",
+    "vertical": "inwestycje"
+  },
+  "KMP-002": {
+    "name": "FinNews „Trudna odpowiedź” — inwestycja Baltic Pipe",
+    "headline": "Polityczny fake news o Baltic Pipe jako przynęta inwestycyjna",
+    "description": "Blog „FinNews” publikuje zmyślony tekst z udziałem polityków, który ma skłonić do inwestycji. Dwa warianty działają na różnej infrastrukturze, ale mają bajt w bajt te same zasoby strony.",
+    "vertical": "inwestycje"
+  },
+  "KMP-003": {
+    "name": "Fałszywa Gazeta.pl — Olejnik kontra NBP i Glapiński",
+    "headline": "Zmyślony wywiad z dziennikarką i prezesem NBP",
+    "description": "Fałszywy artykuł o rzekomej rozmowie Moniki Olejnik z prezesem NBP prowadzi na platformę inwestycyjną. Obsługuje go ta sama sieć lejków co kampanię KMP-001, więc obie należą do jednej operacji.",
+    "vertical": "inwestycje"
+  },
+  "KMP-004": {
+    "name": "Cukrzyca — wywiad z „Ojcem Bonifacym z Jasnej Góry”",
+    "headline": "Fałszywy duchowny reklamuje „cudowny” środek na cukrzycę",
+    "description": "Strona w formie wywiadu z zmyślonym zakonnikiem sprzedaje preparat na cukrzycę. Działa na tym samym kicie co kampania KMP-005, co wskazuje wspólnego operatora.",
+    "vertical": "zdrowie"
+  },
+  "KMP-005": {
+    "name": "Bóle stawów RelieFlex — historia „weterynarza i konia 600 kg”",
+    "headline": "Historia o koniu i weterynarzu sprzedaje maść na stawy",
+    "description": "Opowieść o rzekomym weterynarzu prowadzi do zamówienia preparatu RelieFlex. Ten sam najemca kitu i ten sam ekosystem reklamowy co w kampanii KMP-004.",
+    "vertical": "zdrowie"
+  },
+  "KMP-006": {
+    "name": "Ubytek słuchu (OtinaxMax) — nagranie „przepis z kaktusa”",
+    "headline": "Nagranie sprzedażowe z „przepisem z kaktusa” na słuch",
+    "description": "Długie nagranie (VSL) promuje preparat OtinaxMax. Wspólny schemat adresów URL i infrastruktura wskazują na tego samego operatora co kampania KMP-007 (średnia pewność).",
+    "vertical": "zdrowie"
+  },
+  "KMP-007": {
+    "name": "Nadciśnienie Kardivix — fałszywy czeski lekarz",
+    "headline": "Zmyślony lekarz „MUDr. Štěpán Kovář” poleca Kardivix",
+    "description": "Reklama z rzekomym czeskim lekarzem prowadzi do sprzedaży preparatu na nadciśnienie. Ten sam błąd w szablonie adresu (parametr `?%3Futm_placement`) co w kampanii KMP-006; osobny produkt, więc osobna kampania.",
+    "vertical": "zdrowie"
+  },
+  "KMP-008": {
+    "name": "Grzybica paznokci — „Dr Merritz”",
+    "headline": "Oferta „dla wszystkich Polaków” na grzybicę paznokci",
+    "description": "Strona z historią „Dr. Merritza” sprzedaje preparat na grzybicę paznokci. Samodzielna kampania z własną infrastrukturą i reklamodawcą w bibliotece reklam Meta.",
+    "vertical": "zdrowie"
+  },
+  "KMP-009": {
+    "name": "Divine Script — manifestowanie obfitości (po angielsku)",
+    "headline": "Angielskojęzyczna oferta „manifestowania obfitości”",
+    "description": "Kampania niepowiązana z pozostałymi: oferta w języku angielskim, brazylijski stos afiliacyjny i nagranie wygenerowane przez AI. Dobry przykład negatywny dla dopasowania.",
+    "vertical": "inne"
+  }
+}

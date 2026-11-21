@@ -114,6 +114,13 @@ export const FOCUS: Record<string, (origin: string) => GraphPayload> = {
 /** Map evidence chips / overview nodes to focus ids (the real API may use its own ids; we pass them through). */
 export function focusIdFor(id: string): string | null {
   if (FOCUS[id]) return id;
+  if (id.startsWith('ev:')) {
+    const f = id.slice(3).split(':')[0];
+    if (/kit|capi/.test(f)) return 'trace:kit';
+    if (/face|person/.test(f)) return 'person:Jan Kowalski';
+    if (/cert|domain|registration/.test(f)) return 'morvanta.click';
+    return null;
+  }
   if (id.startsWith('trace:kit') || id.startsWith('trace:capi')) return 'trace:kit';
   if (id.startsWith('cert:')) return 'morvanta.click';
   return null;
