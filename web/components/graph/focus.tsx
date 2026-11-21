@@ -10,8 +10,11 @@ import { apiPost } from '@/lib/api';
 import { Bot } from '../jelly';
 import { IArrow, IX } from '../icons';
 
-type Meta = { sub?: string; count?: number; thumb?: boolean; weak?: boolean; relation?: string; kind_label?: string; side?: string; shared?: boolean; only?: string; bot?: string };
+type Meta = { sub?: string; count?: number; thumb?: boolean | string; title?: string; weak?: boolean; relation?: string; kind_label?: string; side?: string; shared?: boolean; only?: string; bot?: string };
 const meta = (n: GraphNode) => (n.meta ?? {}) as Meta;
+const nodeTitle = (n: GraphNode) => (n.kind === 'incident' && meta(n).title ? meta(n).title! : n.label);
+/** only real image URLs (never the API's mock placeholder svgs) */
+const realThumb = (t?: boolean | string) => (typeof t === 'string' && t && !/\/mock\//.test(t) ? t : null);
 
 const TONE: Record<string, string> = {
   g: 'bg-state-gdim text-state-g', amber: 'bg-state-adim text-state-amber', red: 'bg-state-rdim text-state-red', cyan: 'bg-state-cdim text-state-cyan',
@@ -22,11 +25,11 @@ function NodeCard({ n, onClick, active }: { n: GraphNode; onClick?: () => void; 
   const m = meta(n);
   const inner = (
     <>
-      {m.thumb && <span className="ph-img w-[34px] h-[34px] flex-none !rounded-lg" aria-hidden="true" />}
+      {realThumb(m.thumb) && <img src={realThumb(m.thumb)!} alt="" className="w-[34px] h-[34px] flex-none rounded-lg object-cover object-top border border-line1" />}
       {!m.thumb && m.bot && <Bot color={BOT_BY_KEY[m.bot as keyof typeof BOT_BY_KEY]?.color ?? '#525252'} size={30} />}
       <span className="flex-1 min-w-0 flex flex-col gap-0.5 text-left">
-        <span className={'font-mono text-[13px] font-semibold truncate ' + (m.weak ? 'text-tx4 font-medium' : 'text-tx1')}>{n.label}</span>
-        {m.sub && <span className="text-[12.5px] text-tx3 truncate">{m.sub}</span>}
+        <span className={(n.kind === 'incident' && m.title ? 'text-[13px] leading-snug line-clamp-2 break-words ' : 'font-mono text-[13px] truncate ') + 'font-semibold ' + (m.weak ? 'text-tx4 font-medium' : 'text-tx1')}>{n.kind === 'incident' && m.title ? m.title : n.label}</span>
+        {(m.sub || (n.kind === 'incident' && m.title)) && <span className="text-[12.5px] text-tx3 truncate">{[n.kind === 'incident' && m.title ? n.id : null, m.sub].filter(Boolean).join(' · ')}</span>}
       </span>
       {m.count != null && <b className="font-mono text-[14px] font-semibold">{m.count}</b>}
     </>
@@ -65,7 +68,7 @@ function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
       <h3 id="focus-title" className="text-[26px] font-semibold tracking-[-0.03em] leading-tight">{p.title}</h3>
       {p.description && <p className="text-[14px] leading-normal text-tx2">{p.description}</p>}
       {p.facts && p.facts.length > 0 && (
-        <dl className="m-0">{p.facts.map((f) => <div key={f.k} className="kv"><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
+        <dl className="m-0">{p.facts.filter((f) => f.v != null && String(f.v).trim() && String(f.v).trim() !== '—').map((f) => <div key={f.k} className="kv"><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
       )}
       {p.bot_text && (
         <div className="flex gap-3 items-start rounded-2xl bg-bg3 p-3.5">
@@ -80,7 +83,7 @@ function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
   );
 }
 
-export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayload; originId: string; onFocus: (id: string) => void; onBack: () => void }) {
+export function FocusView({ data, originId, originThumb, onFocus, onBack }: { data: GraphPayload; originId: string; originThumb?: string; onFocus: (id: string) => void; onBack: () => void }) {
   const center = data.nodes.find((n) => n.id === data.focus) ?? data.nodes[0];
   const origin = data.nodes.find((n) => n.id === originId) ?? data.nodes.find((n) => meta(n).sub === 'ten materiał');
   const others = data.nodes.filter((n) => n !== center && n !== origin);
@@ -98,7 +101,7 @@ export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayl
       <nav aria-label="Ślad" className="text-[14px] flex items-center gap-2">
         <button type="button" onClick={onBack} className="text-tx2 underline decoration-line2 underline-offset-4 hover:text-tx1">Graf</button>
         <span className="text-tx4" aria-hidden="true">›</span>
-        <b className="font-semibold">{center.label}</b>
+        <b className="font-semibold">{nodeTitle(center)}</b>
       </nav>
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_380px] gap-6 items-start">
         {/* desktop graph */}
@@ -119,14 +122,14 @@ export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayl
           </svg>
           {origin && (
             <div className="absolute" style={{ left: 0, top: mid - 32, width: 180 }}>
-              <NodeCard n={{ ...origin, meta: { ...meta(origin), thumb: true, sub: 'ten materiał' } }} />
+              <NodeCard n={{ ...origin, meta: { ...meta(origin), thumb: originThumb ?? true, sub: 'ten materiał', count: undefined } }} />
             </div>
           )}
           {!bridge && (
             <div className="absolute" style={{ left: 232, top: mid - 64, width: 218 }}>
               <div className="rounded-[20px] border-[2.5px] border-tx1 bg-bg1 px-4 py-4 shadow-[0_0_0_6px_#F0F0F0] flex flex-col gap-1.5">
                 <span className="text-[12px] text-tx3 text-center">{meta(center).kind_label ?? panel.kind_label}</span>
-                <b className="font-mono text-[16px] font-semibold truncate">{center.label}</b>
+                <b className="font-mono text-[16px] font-semibold truncate">{nodeTitle(center)}</b>
                 {meta(center).sub && <span className="text-[12.5px] text-tx3 truncate">{meta(center).sub}</span>}
               </div>
             </div>
@@ -134,8 +137,8 @@ export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayl
           {bridge && (
             <div className="absolute" style={{ left: 590, top: mid - 64, width: 200 }}>
               <div className="rounded-[20px] border-[2.5px] border-tx1 bg-bg1 px-4 py-4 shadow-[0_0_0_6px_#F0F0F0] flex flex-col gap-1.5">
-                <span className="flex items-center gap-2 text-[12px] text-tx3"><span className="ph-img w-[26px] h-[26px] !rounded-md" />{meta(center).kind_label ?? 'Materiał'}</span>
-                <b className="font-mono text-[16px] font-semibold truncate">{center.label}</b>
+                <span className="flex items-center gap-2 text-[12px] text-tx3">{realThumb(meta(center).thumb) && <img src={realThumb(meta(center).thumb)!} alt="" className="w-[26px] h-[26px] rounded-md object-cover border border-line1" />}{meta(center).kind_label ?? 'Materiał'}</span>
+                <b className="font-mono text-[16px] font-semibold truncate">{nodeTitle(center)}</b>
                 {meta(center).sub && <span className="text-[12.5px] text-tx3 truncate">{meta(center).sub}</span>}
               </div>
             </div>
@@ -150,7 +153,7 @@ export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayl
         <div className="lg:hidden flex flex-col gap-2.5">
           <div className="rounded-[20px] border-[2.5px] border-tx1 bg-bg1 px-4 py-3.5 flex flex-col gap-1">
             <span className="text-[12px] text-tx3">{meta(center).kind_label ?? panel.kind_label}</span>
-            <b className="font-mono text-[16px] font-semibold break-all">{center.label}</b>
+            <b className="font-mono text-[16px] font-semibold break-all">{nodeTitle(center)}</b>
             {meta(center).sub && <span className="text-[12.5px] text-tx3">{meta(center).sub}</span>}
           </div>
           <span className="text-[12.5px] text-tx3 px-1 pt-1">Powiązane</span>
