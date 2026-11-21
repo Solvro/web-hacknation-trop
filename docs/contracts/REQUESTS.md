@@ -47,3 +47,9 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
    `selqueno.live` → `job.error` at capture + `insufficient` (board 13). The web simulates these offline already.
 7. `GET /traces/{type}/{value}`: the web uses Polish path types `domena|osoba|piksel|kit` in its own routes and sends
    the same strings to the API; please accept `domena→domain`, `osoba→person`, `piksel→pixel` aliases.
+
+# WS7 (extension + /sprawdz) contract requests
+
+1. POST /public/check: accept an optional `image` file (the page sends it; ignored today).
+2. PublicReport with `post` present → incident source = extension (no source field in the schema).
+3. WS3: root layout wraps every route in Header/Footer; /sprawdz covers it with a fixed wrapper — a (public) route group would be cleaner.

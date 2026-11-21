@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><title>TROP</title><link rel="stylesheet" href="ui.css"></head>
+<body><div class="popup">
+<div class="hd"><svg width="24" height="24" viewBox="0 0 28 28" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="3" y="9" width="22" height="10" rx="5" fill="none" stroke="#3BF07E" stroke-width="1.5"/><path d="M8 9h6v10H8a5 5 0 0 1 0-10z" fill="#FF5D6C"/></g></svg><b>TROP</b></div>
+<form class="bd" id="f">
+  <label for="q">Link do reklamy lub tekst reklamy</label>
+  <input id="q" type="text" inputmode="url" placeholder="https://…" autocomplete="off">
+  <button class="btn p" type="submit" id="go">Sprawdź</button>
+  <div id="out" aria-live="polite"></div>
+  <p class="dim">Nie zapisujemy Twoich danych. Brak dopasowania nie oznacza, że reklama jest bezpieczna.</p>
+</form>
+<div class="ft"><a id="opts" href="options.html" target="_blank">Ustawienia</a><span class="dim">Anonimowy odcisk, bez konta</span></div>
+</div><script src="popup.js"></script></body></html>
