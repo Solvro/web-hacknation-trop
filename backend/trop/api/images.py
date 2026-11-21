@@ -102,7 +102,7 @@ def extract_keyframes(video: str, tmp: Path, duration: float | None = None, n: i
     return out
 
 
-def store(iid: str, inc: dict, base: Path | None = None) -> list[dict]:
+def store(iid: str, inc: dict, base: Path | None = None, src: str | Path | None = None) -> list[dict]:
     """Write the downscaled images of one incident; returns the meta list (also saved as meta.json)."""
     d = (base or images_dir()) / _safe_id(iid)
     meta, n = [], {}
@@ -113,7 +113,15 @@ def store(iid: str, inc: dict, base: Path | None = None) -> list[dict]:
             import tempfile
             dur = ((inc.get("media") or {}).get("video") or {}).get("duration_s")
             items += [("video_keyframe", f, KF_W) for f in extract_keyframes(v, Path(tempfile.mkdtemp(prefix="trop-kf-")), dur)]
-    lb = ((inc.get("landing") or {}).get("boxes") or (inc.get("capture") or {}).get("boxes"))
+    lb = (inc.get("landing") or {}).get("boxes")
+    if not lb and src:                           # live capture: screenshots/full_page.boxes.json (page px, same size as the png before downscale)
+        for bj in Path(src).rglob("full_page.boxes.json"):
+            try:
+                b = json.loads(bj.read_text(encoding="utf-8"))
+                lb = b.get("boxes") if isinstance(b, dict) else b
+            except (OSError, ValueError):
+                pass
+            break
     for role, src, w in items:
         k = n.get(role, 0)
         n[role] = k + 1
@@ -121,10 +129,22 @@ def store(iid: str, inc: dict, base: Path | None = None) -> list[dict]:
         size = downscale(src, d / fn, w)
         if size:
             meta.append({"role": role, "n": k, "file": fn, "w": size[0], "h": size[1], "bytes": (d / fn).stat().st_size,
-                         **({"boxes": lb} if lb and role == "landing_screenshot" else {})})
+                         **({"boxes": _scaled(lb, src, size[0])} if lb and role == "landing_screenshot" else {})})
     if meta:
         (d / "meta.json").write_text(json.dumps(meta), encoding="utf-8")
     return meta
+
+
+def _scaled(boxes: list, src: str, new_w: int) -> list:
+    try:
+        from PIL import Image
+        with Image.open(src) as im:
+            k = new_w / im.width
+    except Exception:  # noqa: BLE001
+        return boxes
+    if abs(k - 1) < 1e-3:
+        return boxes
+    return [{**b, **{a: round(b[a] * k) for a in ("x", "y", "w", "h") if isinstance(b.get(a), (int, float))}} for b in boxes]
 
 
 def listing(iid: str) -> list[dict]:

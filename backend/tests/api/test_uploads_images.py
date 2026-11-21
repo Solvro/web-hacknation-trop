@@ -118,6 +118,16 @@ def test_artifacts_mock_shape(client):
     assert client.get(refs[0]["url"]).status_code == 200
 
 
+def test_live_capture_boxes_are_scaled_with_the_image(tmp_path):
+    from PIL import Image
+    shots = tmp_path / "b" / "screenshots"
+    shots.mkdir(parents=True)
+    Image.new("RGB", (2400, 1000), "white").save(shots / "full_page.png")
+    (shots / "full_page.boxes.json").write_text('{"boxes": [{"kind": "form", "x": 240, "y": 100, "w": 480, "h": 50}]}')
+    meta = images.store("INC-Ux", {"landing": {"screenshot_path": str(shots / "full_page.png")}}, tmp_path / "out", src=tmp_path / "b")
+    assert meta[0]["w"] == 1200 and meta[0]["boxes"][0] == {"kind": "form", "x": 120, "y": 50, "w": 240, "h": 25}
+
+
 def test_person_trace_facts_mock(client):
     t = client.get(f"{P}/traces/person/Jan Kowalski").json()
     assert t["facts"]["campaigns"] and t["facts"]["text"] and t["facts"]["captions"]
