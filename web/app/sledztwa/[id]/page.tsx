@@ -77,7 +77,7 @@ function Sledztwo() {
       return p;
     });
   }, []);
-  useEventStream({ path: `/investigations/${encodeURIComponent(id)}/stream`, replay, simulate: () => investigationEvents(id), local: id === 'INV-7', speed: fast ? 40 : 1, onEvent });
+  useEventStream({ path: `/investigations/${encodeURIComponent(id)}/stream`, replay, simulate: () => investigationEvents(id), local: id === 'INV-7' && !replay, speed: fast ? 40 : 1, onEvent });
 
   const last = s.steps[s.steps.length - 1];
   const activeBot = last ? (last.bot ?? TOOL_BOT[String(last.tool).split('.')[0]] ?? 'sedzia') : 'sedzia';

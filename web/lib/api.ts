@@ -10,6 +10,15 @@ export const API = '/api/v1';
 
 /** Remember that the API is down so we stop waiting on it for every call (reset on reload). */
 let apiDown = FORCE_MOCK;
+// `?offline=1` (kept for the browser session, `?offline=0` clears) forces the fixtures without a rebuild.
+if (typeof window !== 'undefined') {
+  try {
+    const q = new URLSearchParams(window.location.search).get('offline');
+    if (q === '1') sessionStorage.setItem('trop-offline', '1');
+    if (q === '0') sessionStorage.removeItem('trop-offline');
+    if (sessionStorage.getItem('trop-offline') === '1') apiDown = true;
+  } catch { /* storage blocked */ }
+}
 export const isOffline = () => apiDown;
 
 function fixture<T>(path: string): T | undefined {
@@ -87,6 +96,9 @@ export function useApi<T>(path: string | null, deps: unknown[] = []): { data: T 
 }
 
 export function useHealth(): { health: Health | undefined; offline: boolean } {
-  const { data } = useApi<Health>('/health');
-  return { health: data, offline: isOffline() };
+  const { data, error } = useApi<Health>('/health');
+  // read after mount so server and client render the same first frame
+  const [off, setOff] = useState(false);
+  useEffect(() => { setOff(isOffline()); }, [data, error]);
+  return { health: data, offline: off };
 }

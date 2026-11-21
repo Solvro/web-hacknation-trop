@@ -35,6 +35,7 @@ function Scal() {
   if (loading) return <Loading />;
   if (!m) return <Page><Empty>Nie da się porównać {a} i {b}.</Empty></Page>;
   const A = m.a, B = m.b;
+  if (A.id === B.id) return <Page><Crumbs items={[{ label: 'Kampanie', href: '/kampanie' }, { label: 'Scal kampanie' }]} /><Empty>{a} i {b} są już jedną kampanią ({A.id}). <Link className="underline" href={`/kampanie/${A.id}`}>Otwórz {A.id}</Link></Empty></Page>;
   const after = m.after ?? {};
   const rows: [string, number, number, number | string][] = [
     ['materiały', A.n_incidents ?? 0, B.n_incidents ?? 0, after.materials ?? after[A.id] ?? (A.n_incidents ?? 0) + (B.n_incidents ?? 0)],
