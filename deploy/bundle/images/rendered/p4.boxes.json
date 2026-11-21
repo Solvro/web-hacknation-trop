@@ -1,0 +1,57 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 15647,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "article > h1",
+   "x": 278,
+   "y": 120,
+   "w": 645,
+   "h": 112,
+   "text": "PILNE: Brutalna napaść na Tomasza Sekielskiego tuż po publikacji tajnego śledztwa w sprawie polskich banków!"
+  },
+  {
+   "kind": "image",
+   "selector": "article > img:nth-of-type(1)",
+   "x": 278,
+   "y": 350,
+   "w": 645,
+   "h": 363,
+   "text": "Rozbity samochód Tomasza Sekielskiego na miejscu napaści",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p4/PILNE_%20Brutalna%20napa%C3%BF%C3%A5%20na%20Tomasza%20Sekielskiego%20tu%E2%95%9B%20po%20publikacji%20tajnego%20%C3%BFledztwa%20w%20spra"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://grentavo.click/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/9377aed1-0f49-4646-a4c4-fcaef2b48892/favicon.ico"
+  },
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://grentavo.click/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/9377aed1-0f49-4646-a4c4-fcaef2b48892/images/01-tunel.webp"
+  },
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "PILNE_%20Brutalna%20napa%C3%BF%C3%A5%20na%20Tomasza%20Sekielskiego%20tu%E2%95%9B%20po%20publikacji%20tajnego%20%C3%BFledztwa%20w%20sprawie%20polskich%20bank%C3%B3w%21_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p4/PILNE_ Brutalna napaÿå na Tomasza Sekielskiego tu╛ po publikacji tajnego ÿledztwa w sprawie polskich banków!.html"
+}

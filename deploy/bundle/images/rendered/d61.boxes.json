@@ -1,0 +1,43 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 11602,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "h1#article_title",
+   "x": 132,
+   "y": 212,
+   "w": 703,
+   "h": 78,
+   "text": "37 minut po emisji wyprowadzono go w kajdankach. Nagranie usunięto przed północą"
+  },
+  {
+   "kind": "image",
+   "selector": "div > section > figure:nth-of-type(1) > img",
+   "x": 132,
+   "y": 434,
+   "w": 703,
+   "h": 440,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/61/strona_1/37%20minut%20po%20emisji%20wyprowadzono%20go%20w%20kajdankach.%20Nagranie%20usuni%C4%99to%20przed%20"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://glowpixel.org/_cdn/production/landing-cdn/666/c05e2bd8-e662-450c-9053-e31eaf28c444/assets/img/gazeta.ico"
+  }
+ ],
+ "inline_markers": [
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/61/strona_1/37 minut po emisji wyprowadzono go w kajdankach. Nagranie usunięto przed północą.html"
+}

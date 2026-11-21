@@ -1,0 +1,50 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 15831,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "h1#article_title",
+   "x": 132,
+   "y": 235,
+   "w": 703,
+   "h": 78,
+   "text": "37 minut po emisji wyprowadzono go w kajdankach. Nagranie usunięto przed północą"
+  },
+  {
+   "kind": "image",
+   "selector": "section > figure:nth-of-type(1) > div > img",
+   "x": 132,
+   "y": 458,
+   "w": 703,
+   "h": 396,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/48/37%20minut%20po%20emisji%20wyprowadzono%20go%20w%20kajdankach.%20Nagranie%20usuni%C4%99to%20przed%20p%C3%B3%C"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://novumfy.com/_cdn/production/landing-cdn/666/307973dd-e974-4729-8a73-f32195a80f42/assets/img/gazeta.ico"
+  },
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./37 minut po emisji wyprowadzono go w kajdankach. Nagranie usunięto przed północą_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/48/37 minut po emisji wyprowadzono go w kajdankach. Nagranie usunięto przed północą.html"
+}

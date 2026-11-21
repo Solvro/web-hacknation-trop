@@ -1,0 +1,44 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 5546,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "div:nth-of-type(2) > div:nth-of-type(1) > h1",
+   "x": 120,
+   "y": 95,
+   "w": 961,
+   "h": 242,
+   "text": "Wiodący dermatolog ujawnił unikalną metodę i stał się najlepszym specjalistą w dziedzinie skutecznego leczenia grzybicy "
+  },
+  {
+   "kind": "image",
+   "selector": "div:nth-of-type(2) > div:nth-of-type(3) > div > img",
+   "x": 412,
+   "y": 488,
+   "w": 375,
+   "h": 561,
+   "text": "dermatolog",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p13/Polka%20zdradza%20sekret%20szybkiego%20pozbycia%20si%E2%8C%90%20uci%C3%91%E2%95%9Bliwej%20grzybicy%21%20Przywr%C3%B3%C3%A5%20stopom%20"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "Polka%20zdradza%20sekret%20szybkiego%20pozbycia%20si%E2%8C%90%20uci%C3%91%E2%95%9Bliwej%20grzybicy%21%20Przywr%C3%B3%C3%A5%20stopom%20pi%E2%8C%90kny%20wygl%C3%91d%20w%20tydzie%CE%A3%21_files/fbevents."
+  }
+ ],
+ "inline_markers": [
+  "connect.facebook.net",
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p13/Polka zdradza sekret szybkiego pozbycia si⌐ uciÑ╛liwej grzybicy! Przywróå stopom pi⌐kny wyglÑd w tydzieΣ!.html"
+}

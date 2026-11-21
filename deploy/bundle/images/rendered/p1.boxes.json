@@ -1,0 +1,63 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 14376,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "article > h1",
+   "x": 278,
+   "y": 144,
+   "w": 645,
+   "h": 75,
+   "text": "«Wiem, kto strzelał»: zamach na Rafała Brzoskę, założyciela InPostu"
+  },
+  {
+   "kind": "image",
+   "selector": "article > img:nth-of-type(1)",
+   "x": 278,
+   "y": 383,
+   "w": 645,
+   "h": 363,
+   "text": "Miejsce zamachu na Alejach Jerozolimskich w Warszawie — czarny Range Rover ze śladami po strzałach, policja w tle. Po pr",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p1/%C2%ABWiem,%20kto%20strzela%C5%82%C2%BB_%20zamach%20na%20Rafa%C5%82a%20Brzosk%C4%99,%20za%C5%82o%C5%BCyciela%20InPostu%20%E2%80%94%20Ga"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://dorquesio.click/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba/favicon.ico"
+  },
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://dorquesio.click/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba/fonts/Libre_Franklin-400-normal-4.woff2"
+  },
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://dorquesio.click/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba/fonts/Libre_Franklin-700-normal-19.woff2"
+  },
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./«Wiem, kto strzelał»_ zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p1/«Wiem, kto strzelał»_ zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl.html"
+}

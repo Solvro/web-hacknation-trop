@@ -1,0 +1,49 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 16948,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "div > div > div:nth-of-type(1) > h1",
+   "x": 244,
+   "y": 168,
+   "w": 712,
+   "h": 230,
+   "text": "WYSOKI CUKIER, CIĄGŁE PRAGNIENIE I CHRONICZNE ZMĘCZENIE — PIERWSZE OZNAKI CUKRZYCY! ROZMOWA Z CZCIGODNYM OJCEM BONIFACYM"
+  },
+  {
+   "kind": "image",
+   "selector": "div:nth-of-type(1) > div:nth-of-type(1) > picture > img",
+   "x": 244,
+   "y": 661,
+   "w": 712,
+   "h": 534,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p6/Wysoki%20cukier,%20ci%C4%85g%C5%82e%20pragnienie%20i%20chroniczne%20zm%C4%99czenie%20%E2%80%94%20pierwsze%20oznaki%20cukrzycy!%20Rozmow"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./Wysoki cukier, ciągłe pragnienie i chroniczne zmęczenie — pierwsze oznaki cukrzycy! Rozmowa z Ojcem Bonifacym z Jasnej Góry_files/fbevents.js.pobrane"
+  },
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://resader.com/_cdn/production/landing-cdn/0660ffe3-7741-4c34-b7e7-81259fbc3947/d34cdd9b-29e4-4a18-be70-1e0cb5382188/0.png"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p6/Wysoki cukier, ciągłe pragnienie i chroniczne zmęczenie — pierwsze oznaki cukrzycy! Rozmowa z Ojcem Bonifacym z Jasnej Góry.html"
+}

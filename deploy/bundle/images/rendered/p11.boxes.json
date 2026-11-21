@@ -1,0 +1,36 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 9563,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "div > div:nth-of-type(2) > div:nth-of-type(2) > h1",
+   "x": 120,
+   "y": 242,
+   "w": 960,
+   "h": 216,
+   "text": "„Polska dla Polaków, a nie dla ukraińskich żądań: nie będziemy przedkładać cudzych interesów nad własne” – ostro odparł "
+  },
+  {
+   "kind": "image",
+   "selector": "section > div > div:nth-of-type(1) > img",
+   "x": 278,
+   "y": 1368,
+   "w": 646,
+   "h": 646,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p11/Trudna%20odpowied%C2%BD_files/55-loz-250.png"
+  }
+ ],
+ "markers": [],
+ "inline_markers": [
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p11/Trudna odpowied½.html"
+}

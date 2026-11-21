@@ -1,0 +1,51 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 15527,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "article > h1",
+   "x": 266,
+   "y": 235,
+   "w": 668,
+   "h": 216,
+   "text": "«Próbowali mnie zniszczyć od lat — ale się nie zamknęłam»: po ataku na jej samochód Monika Olejnik powiedziała jedno zda"
+  },
+  {
+   "kind": "image",
+   "selector": "article > img:nth-of-type(1)",
+   "x": 266,
+   "y": 660,
+   "w": 668,
+   "h": 376,
+   "text": "Miejsce ataku na ul. Puławskiej — samochód Moniki Olejnik",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/3/%C2%ABPr%C3%B3bowali%20mnie%20zniszczy%C4%87%20od%20lat%20%E2%80%94%20ale%20si%C4%99%20nie%20zamkn%C4%99%C5%82"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./«Próbowali mnie zniszczyć od lat — ale się nie zamknęłam»_ po ataku na jej samochód Monika Olejnik powiedziała jedno zdanie, które powtarza teraz cała Polska — TVN24_files/fbevents.pobrane"
+  },
+  {
+   "marker": "facebook.com/tr",
+   "tag": "img",
+   "attr": "src",
+   "url": "https://www.facebook.com/tr?id=sdyv2MBdL2PAdwnWOUUHIGcIgttCkv3KfpAaEnGnmWzftw8 grrqcyRzyoqokrl3&ev=PageView&noscript=1&eid={clickid}-PageView"
+  }
+ ],
+ "inline_markers": [
+  "facebook.com/tr",
+  "connect.facebook.net",
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/3/«Próbowali mnie zniszczyć od lat — ale się nie zamknęłam»_ po ataku na jej samochód Monika Olejnik powiedziała jedno zdanie, które powtarza teraz cała Polska — TVN24.html"
+}
