@@ -15,14 +15,18 @@ function Sledztwa() {
   const sp = useSearchParams();
   const router = useRouter();
   const { data, loading } = useApi<Investigation[]>('/investigations');
-  const [seed, setSeed] = useState(sp.get('seed') || 'morvanta.click');
+  const [seed, setSeed] = useState(sp.get('seed') || '');
   const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
   const started = useRef(false);
 
   async function start(s: string) {
     setBusy(true);
     const kampania = sp.get('kampania') || undefined;
-    const r = await apiPost<{ id: string }>('/investigations', { seed: s.trim(), campaign_id: kampania, budget_steps: 20 }, () => ({ id: 'INV-7' })).catch(() => ({ id: 'INV-7' }));
+    setErr(null);
+    const r = await apiPost<{ id: string }>('/investigations', { seed: s.trim(), campaign_id: kampania, budget_steps: 20 }, () => ({ id: 'INV-7' }))
+      .catch((e: Error) => { setErr(`Nie udało się uruchomić śledztwa: ${e.message}`); setBusy(false); return null; });
+    if (!r) return;
     router.push(`/sledztwa/${encodeURIComponent(r.id)}${kampania ? `?kampania=${kampania}` : ''}`);
   }
   useEffect(() => {
@@ -42,6 +46,7 @@ function Sledztwa() {
         </label>
         <button type="submit" className="btn-pri" disabled={busy || !seed.trim()}>{busy ? 'Uruchamiam…' : 'Szukaj reszty'}<IArrow /></button>
       </form>
+      {err && <p role="alert" className="text-[13.5px] text-state-red -mt-3">{err}</p>}
       <Card title="Ostatnie śledztwa">
         {loading && <Loading />}
         {(data ?? []).map((i) => (

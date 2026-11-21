@@ -51,7 +51,8 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
     onWake?.();
     try {
       const [res] = await Promise.all([
-        analyze(files.length ? { files, url: parsed.kind === 'url' ? parsed.url : undefined } : { url: (parsed as { url: string }).url }),
+        // files win: never send the text field along with an upload
+        analyze(files.length ? { files } : { url: (parsed as { url: string }).url }),
         new Promise((r) => setTimeout(r, 900)),
       ]);
       if (!res.job_id) { router.push(`/slad/domena/${encodeURIComponent(text.trim())}`); return; }
@@ -67,7 +68,8 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
 
   function addFiles(list: FileList | null) {
     if (!list?.length) return;
-    setFiles((f) => [...f, ...Array.from(list)]);
+    const picked = Array.from(list); // copy now: the input is cleared right after onChange
+    setFiles((f) => [...f, ...picked]);
   }
   function onDrop(e: DragEvent) { e.preventDefault(); setDrag(false); addFiles(e.dataTransfer.files); }
 

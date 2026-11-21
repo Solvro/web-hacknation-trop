@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo } from 'react';
 import type { CampaignSummary, Operator, OraclePrediction } from '@/lib/contracts';
 import { useApi } from '@/lib/api';
-import { n, p2 } from '@/lib/copy';
-import { campaignTitle } from '@/lib/graph';
+import { n, p2, plOnly } from '@/lib/copy';
+import { campaignTitle, personName } from '@/lib/graph';
 import { Initials, Loading, Page, Sparkline } from '@/components/ui';
 import { IChevR } from '@/components/icons';
 
@@ -107,7 +107,7 @@ function Kampanie() {
             <span className="text-[13px] text-tx3 mr-1">Kogo udają</span>
             {persons.map(([p, k]) => (
               <button key={p} type="button" className="chip !pl-1" aria-pressed={osoba === p} onClick={() => set('osoba', osoba === p ? null : p)}>
-                <Initials name={p} />{p} <span className="text-[11px] opacity-70">{k}</span>
+                <Initials name={personName(p)} />{personName(p)} <span className="text-[11px] opacity-70">{k}</span>
               </button>
             ))}
           </div>
@@ -133,7 +133,7 @@ function Kampanie() {
                 const hint = mergeHint(c, all);
                 return (
                   <tr key={c.id} className="border-b border-line1 hover:bg-bg2 cursor-pointer" onClick={() => router.push(`/kampanie/${c.id}`)}>
-                    <td className="py-3.5 px-2"><Link href={`/kampanie/${c.id}`} className="block text-[16px] font-semibold tracking-[-0.01em]" onClick={(e) => e.stopPropagation()}>{c.id} {campaignTitle(c)}</Link><span className="text-[13px] text-tx3">{c.narrative}</span></td>
+                    <td className="py-3.5 px-2"><Link href={`/kampanie/${c.id}`} className="block text-[16px] font-semibold tracking-[-0.01em]" onClick={(e) => e.stopPropagation()}>{c.id} {campaignTitle(c)}</Link><span className="text-[13px] text-tx3">{plOnly(c.narrative)}</span></td>
                     <td className="px-2"><Sparkline data={c.heat?.series_14d ?? []} dashedEmpty label={`Materiały w 14 dni: ${(c.heat?.series_14d ?? []).join(', ')}`} /></td>
                     <td className="px-2"><b className="block text-[18px] font-semibold">{n(c.n_incidents)}</b>
                       <span className={'text-[12.5px] ' + (c.status === 'candidate' && !c.operator_id ? 'text-state-cyan' : t > 5 ? 'text-state-red' : 'text-tx3')}>{c.status === 'candidate' ? (c.operator_id ? 'od wczoraj' : 'nowa dziś') : t > 0 ? `+${Math.round(t)}% w 48 h` : t < 0 ? `${Math.round(t)}% w tygodniu` : 'bez zmian'}</span></td>

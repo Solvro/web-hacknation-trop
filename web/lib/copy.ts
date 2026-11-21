@@ -55,13 +55,16 @@ export function fmtDate(iso?: string | null, withTime = true): string {
 export const rarity = (e: Pick<EvidenceItem, 'df' | 'N'>) => (e.N ? `${n(e.df ?? 0)} z ${n(e.N)}` : '');
 
 /** Strength meter 0..100 from weight (boards: +3.1 → 100, +0.8 → 26). */
-export const strengthPct = (e: EvidenceItem) => (e.state === 'zero' ? 0 : Math.max(4, Math.min(100, Math.round((Math.abs(e.weight) / 3.1) * 100))));
+/** Strength meter 0..100. Weight scale differs between engines (mock ≤ 3.1, real ≤ ~7); scale by strength too. */
+export const strengthPct = (e: EvidenceItem) => (e.state === 'zero' ? 0 : Math.max(4, Math.min(100, Math.round(Math.max(Math.abs(e.weight) / (Math.abs(e.weight) > 3.2 ? 7 : 3.1), e.strength === 'H' ? 0.7 : e.strength === 'M' ? 0.4 : 0.15) * 100))));
 export const strengthLabel = (e: EvidenceItem) =>
   e.state === 'zero' ? 'pomijam' : e.state === 'missing' ? 'brak' : e.state === 'conflict' ? 'sprzeczny' : e.strength === 'H' ? 'silny' : e.strength === 'M' ? 'średni' : 'słaby';
 
 /** Long sentence for the Raport list (board 3); falls back to the chip display. */
 export function evidenceSentence(e: EvidenceItem): string {
   const f = e.field.toLowerCase();
+  // the real engine already writes a readable "Label: value" display
+  if (e.display.includes(':') && e.state !== 'zero') return e.display;
   if (e.state === 'zero') return `${e.display} pominięty: ma go ${n(e.df ?? 0)} niepowiązanych spraw`;
   if (f.includes('capi')) return `Ta sama bramka CAPI co ${n(e.df ?? 0)} materiałów tej kampanii`;
   if (f.includes('kit')) return `Ten sam kit: ${e.value}`;
@@ -74,7 +77,7 @@ export function evidenceSentence(e: EvidenceItem): string {
 export function evidenceMeta(e: EvidenceItem): string {
   const parts = [botName(e.bot), e.state === 'zero' ? 'wspólna infrastruktura' : LAYER_LABEL[e.type].toLowerCase()];
   if (e.state === 'zero') parts.push('waga 0');
-  else if (e.N) parts.push(rarity(e));
+  else if (e.N && e.df) parts.push(rarity(e));
   return parts.join(' · ');
 }
 
@@ -85,3 +88,31 @@ export const DECISION_LABEL: Record<string, string> = {
   new: 'Nowa kampania (kandydat)',
   insufficient: 'Za mało śladów',
 };
+
+const FIELD_LABEL: Record<string, string> = {
+  kit_tenants: 'Tenant kitu', kit_tenant: 'Tenant kitu', landing_type_ids: 'Typ landingu', landing_type_id: 'Typ landingu',
+  lander_ids: 'Lander', lander_id: 'Lander', fb_pixels: 'Piksel FB', fb_pixel: 'Piksel FB', capi_gateways: 'Bramka CAPI',
+  capi_gateway: 'Bramka CAPI', brands: 'Marki', persons: 'Osoby', kit_endpoints: 'Endpointy kitu', kit_endpoint: 'Endpoint kitu',
+  url_param_schema: 'Gramatyka URL', chain_param_schemas: 'Gramatyka URL łańcucha', headline_template: 'Szablon nagłówka',
+  h1_template: 'Szablon H1', comment_names: 'Fałszywi komentujący', asset_hashes: 'Wspólne pliki', brand_asset_hashes: 'Pliki marki',
+  path_shapes: 'Kształt ścieżki', entry_path_template: 'Ścieżka wejścia', google_ads: 'Google Ads', ga4: 'GA4', gtm: 'GTM',
+  tiktok_pixels: 'Piksel TikTok', video_hosts: 'Hosting wideo', vertical: 'Branża', products: 'Produkty', domains: 'Domeny',
+  registrar: 'Rejestrator', asn: 'ASN', cdn: 'CDN', ns: 'Serwery DNS', text_minhash: 'Tekst strony', dom_minhash: 'Struktura DOM',
+};
+const VERTICAL: Record<string, string> = { investment: 'inwestycje', health: 'zdrowie', gov: 'dopłaty państwowe', crypto: 'kryptowaluty', loans: 'pożyczki', spiritual: 'duchowość' };
+
+/** Engine displays sometimes start with a raw field name or carry English bits; make them read as Polish UI copy. */
+export function prettyDisplay(s: string | null | undefined): string {
+  if (!s) return '';
+  let out = s.replace(/^([a-z][a-z0-9_]+):\s*/, (m, f: string) => (FIELD_LABEL[f] ? `${FIELD_LABEL[f]}: ` : m));
+  out = out.replace(/\bshared \(e\.g\. /g, 'wspólne (np. ').replace(/\(e\.g\. /g, '(np. ');
+  out = out.replace(/^Branża: (\w+)/, (_, v: string) => `Branża: ${VERTICAL[v] ?? v}`);
+  return out;
+}
+export const prettyEv = <T extends { display: string }>(e: T): T => ({ ...e, display: prettyDisplay(e.display) });
+/** Real-mode engine narratives are English; the UI only shows Polish copy. */
+export const isPolish = (t?: string | null) => !!t && /[ąćęłńóśźż]|\b(i|w|z|na|do|się|nie|przez|oraz|dla)\b/i.test(t);
+export const plOnly = (t?: string | null) => (isPolish(t) ? t! : '');
+export const BOT_FOR_LAYER: Record<string, BotName> = { tracking: 'tropiciel', kit: 'tropiciel', content: 'czytelnik', persons: 'czytelnik', infra: 'notariusz', visual: 'zwiadowca', ad: 'zwiadowca', media: 'czytelnik' };
+export const plural = (k: number, one: string, few: string, many: string) => `${n(k)} ${k === 1 ? one : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? few : many}`;
+export const verticalPl = (v?: string | null) => (v ? VERTICAL[v] ?? v : '');

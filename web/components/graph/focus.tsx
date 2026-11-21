@@ -40,12 +40,15 @@ function NodeCard({ n, onClick, active }: { n: GraphNode; onClick?: () => void; 
 function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
   const bot = p.bot ? BOT_BY_KEY[p.bot] : null;
   async function act() {
     if (!p.action) return;
     if (p.action.kind === 'investigate') {
       setBusy(true);
-      const r = await apiPost<{ id: string }>('/investigations', { seed: p.action.seed ?? p.title }, () => ({ id: 'INV-7' })).catch(() => ({ id: 'INV-7' }));
+      const r = await apiPost<{ id: string }>('/investigations', { seed: p.action.seed ?? p.title }, () => ({ id: 'INV-7' }))
+        .catch((e: Error) => { setErr(`Nie udało się uruchomić agenta: ${e.message}`); setBusy(false); return null; });
+      if (!r) return;
       router.push(`/sledztwa/${encodeURIComponent(r.id)}`);
       return;
     }
@@ -71,6 +74,7 @@ function Panel({ p, onClose }: { p: FocusPanel; onClose: () => void }) {
         </div>
       )}
       {p.action && <button type="button" className="btn-pri self-start" onClick={act} disabled={busy}>{busy ? 'Uruchamiam…' : p.action.label}<IArrow /></button>}
+      {err && <p role="alert" className="text-[13px] text-state-red">{err}</p>}
       {p.link && <Link href={p.link.href} className="lnk self-start">{p.link.label}</Link>}
     </aside>
   );
@@ -80,7 +84,7 @@ export function FocusView({ data, originId, onFocus, onBack }: { data: GraphPayl
   const center = data.nodes.find((n) => n.id === data.focus) ?? data.nodes[0];
   const origin = data.nodes.find((n) => n.id === originId) ?? data.nodes.find((n) => meta(n).sub === 'ten materiał');
   const others = data.nodes.filter((n) => n !== center && n !== origin);
-  const bridge = meta(center).side === 'right';
+  const bridge = meta(center).side === 'right' && center.kind === 'incident';
   const panel = (data.panel ?? {}) as FocusPanel;
   const rowH = 84;
   const H = Math.max(420, others.length * rowH + 40);
