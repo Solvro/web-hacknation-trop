@@ -24,7 +24,7 @@ copy models                               # face/voice index + ONNX (loaded at r
 copy oracle                               # trained domain-DNA model + predictions
 copy cache/models                         # model-output cache (offline replay of VLM/LLM tasks)
 copy cache/enrich                         # DNS/RDAP/crt.sh cache
-copy cache/lab_eval.json                  # `trop eval` numbers for /lab/metrics
+for f in lab_eval lab_eval_dane lab_eval_ablation; do copy "cache/$f.json"; done   # `trop eval` numbers for /lab (sample, DANE open-set, layer ablation)
 copy cache/screenshot_index.json
 for d in sample_v1 dane joint; do         # precomputed extractor outputs the ingest layers fall back to (offline analysis)
   [ -d "$SRC/experiments/$d" ] || continue

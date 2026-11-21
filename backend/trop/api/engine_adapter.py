@@ -164,6 +164,12 @@ class ServiceAdapter:
                 _inner(typ, data)
         inc_id = "INC-U" + jid.rsplit("-", 1)[-1][:6]
         dec, inc, findings = self.service.analyze_path(src, worker_corpus(), emit=cb, inc_id=inc_id)
+        dup = _duplicate_of(inc, worker_corpus())
+        if dup and dec.decision in ("assign", "confirm") and not dec.duplicate_of:
+            dec.duplicate_of = dup                                   # L0: the same material is already in the corpus
+            for _, d in held:
+                if d.get("decision"):
+                    d["decision"]["duplicate_of"] = dup
         for f in findings:
             emit("job.finding", {"job_id": jid, "finding": f.model_dump(mode="json")})
         _remember(inc, dec)
@@ -179,6 +185,23 @@ class ServiceAdapter:
             st.done("capture", status="error", detail="Strona niedostępna dla przechwytywania", warnings=["capture unavailable"])
         emit("job.error", {"job_id": jid, "step": "capture", "message": "Nie udało się pobrać strony: " + why})
         raise CaptureUnavailable(why)
+
+
+def _norm_url(u: str | None) -> str:
+    return (u or "").strip().lower().split("#")[0].rstrip("/")
+
+
+def _duplicate_of(inc: dict, corpus) -> str | None:
+    """Id of a known incident with the same entry URL (exact material re-submitted) or an identical landing screenshot hash."""
+    lan = inc.get("landing") or {}
+    eu, sh = _norm_url(lan.get("entry_url")), lan.get("screenshot_phash")
+    for k in corpus.incidents:
+        kl = k.get("landing") or {}
+        if eu and _norm_url(kl.get("entry_url")) == eu:
+            return k["id"]
+        if sh and kl.get("screenshot_phash") == sh and lan.get("host") == kl.get("host"):
+            return k["id"]
+    return None
 
 
 class CaptureUnavailable(RuntimeError):

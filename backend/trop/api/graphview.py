@@ -34,11 +34,19 @@ def _sub(n: GraphNode, deg: int) -> str:
 def focus_view(g: GraphPayload, focus: str, origin: str | None = None, max_neighbours: int = 6) -> GraphPayload:
     """Focus node + origin + <= 6 strongest direct neighbours. Raises KeyError when the focus is unknown."""
     nodes = {n.id: n for n in g.nodes}
+    g = GraphPayload(nodes=list(g.nodes), edges=list(g.edges), hulls=g.hulls)      # never mutate the caller's graph
     if focus not in nodes:
         by_label = [n for n in g.nodes if n.label.lower() == focus.lower() or n.id.lower() == f"person:{focus}".lower()]
-        if not by_label:
+        if by_label:
+            focus = by_label[0].id
+        elif origin and origin in nodes:      # an id the web derived from a chip (trace:kit, cert:..., domain): show it next to its origin
+            kind = "trace" if focus.startswith("trace:") else "cert" if focus.startswith("cert:") else "person" if focus.startswith("person:") else "domain"
+            n = GraphNode(id=focus, kind=kind, label=focus.split(":", 2)[-1][:40], size=2, meta={"synthetic": True})
+            nodes[focus] = n
+            g.nodes.append(n)
+            g.edges.append(GraphEdge(a=focus, b=origin, type="tracking" if kind == "trace" else "infra", weight=1.0, level="L2"))
+        else:
             raise KeyError(focus)
-        focus = by_label[0].id
     adj: dict[str, list[GraphEdge]] = {}
     for e in g.edges:
         adj.setdefault(e.a, []).append(e)
