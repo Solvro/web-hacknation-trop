@@ -15,6 +15,8 @@
 - 22:20 **WS2 API merged**: 77 endpoints, mock universe (BRIEF), SSE + `?replay=demo`, arq worker, Dockerfile (1.2 GB). Mock API live on 127.0.0.1:18000.
 - 22:25 **WS1 engine merged — G-ENGINE PASS** (re-run by lead after restore): sample_v1 B³/ARI 1.00, LOCO 1.00/1.00, 0 wrong links, perturbations 0 wrong (502 0.867); DANE 9/9 open-set, 0 wrong, incremental + joint B³/ARI 1.00. `trop batch` on DANE: 10 items in 2.3 s, campaigns + operation column match labels. 56 tests pass. **Merged to main.**
 
+- 22:24 **WS1 complete & merged**: isotonic calibration (276 pairs; p=0.54 at score 5, 0.99 at ~8), all ingest shapes (zip, capture-tool dir, file, URL, video-only), `trop analyze|ingest|batch|engine|db|export`, migration 0013 applied to dev DB (backup in data/backup/), judge seed `data/seed/trop_seed.dump`. 58 tests pass. WS2 resumed for G2 real-mode wiring.
+
 ## Needs Dawid
 - (optional) BigQuery ADC (`gcloud auth application-default login`) for Google Ads Transparency — skipped for now.
 - Deadline assumed 22.11 ~11:00.
