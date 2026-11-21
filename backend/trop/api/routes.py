@@ -11,7 +11,7 @@ from fastapi.responses import PlainTextResponse
 
 from trop.api import models as M
 from trop.api import streams as ST
-from trop.api.deps import get_store
+from trop.api.deps import current_mode, get_store
 from trop.config import settings
 from trop.schema import (
     ActPackage, ActPackageCreate, AnalyzeAccepted, BatchResult, Campaign, CampaignDNA, CampaignSummary, CheckResult, Decision,
@@ -53,7 +53,7 @@ async def health() -> M.Health:
             redis = f"down: {type(e).__name__}"
     else:
         db = redis = "mock"
-    return M.Health(ok=s.mode == "mock" or (db == "ok" and redis == "ok"), mode=s.mode, db=db, redis=redis, version="0.1.0", counts=s.health_counts())
+    return M.Health(ok=s.mode == "mock" or (db == "ok" and redis == "ok"), mode=current_mode() if s.mode != "mock" else "mock", db=db, redis=redis, version="0.1.0", counts=s.health_counts())
 
 
 @router.get("/stats/overview", response_model=StatsOverview, tags=["dashboard"])
@@ -544,7 +544,9 @@ async def batch_create(files: list[UploadFile] = File(default=[])):
     for f in files:
         (folder / _safe(f.filename or "item")).write_bytes(await f.read())
         names.append(_safe(f.filename or "item"))
-    return await _a(get_store().batch(names))
+    # a single zip is handed to run_batch as is; several files -> the upload folder
+    path = folder / names[0] if len(names) == 1 and names[0].lower().endswith(".zip") else folder
+    return await _a(get_store().batch(names, str(path)))
 
 
 @router.get("/batch/{job_id}", response_model=BatchResult, tags=["batch"])

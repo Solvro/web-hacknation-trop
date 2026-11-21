@@ -626,7 +626,7 @@ class MockStore:
                            usage=[{"where": "reklamy", "count": ev.df // 2}, {"where": "strony docelowe", "count": ev.df - ev.df // 2}],
                            co_traces=[{"type": "tracking", "value": U.CAPI, "count": 41}, {"type": "kit", "value": U.KIT, "count": 40}])
 
-    def batch(self, names: list[str]) -> M.BatchAccepted:
+    def batch(self, names: list[str], path: str | None = None) -> M.BatchAccepted:
         jid = "JOB-B" + uuid.uuid4().hex[:10].upper()
         rows = []
         src = [m for cid in ("KMP-017", "KMP-034", "KMP-022", "KMP-031", "KMP-040") for m in self.members_[cid][:3]]
