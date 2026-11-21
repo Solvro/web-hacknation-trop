@@ -152,7 +152,7 @@ export default function LabPage() {
             {rob.map(([k, r]) => (
               <div key={k} className="flex items-center gap-3 py-1.5 text-[14px]"><span className="w-32">{PERT[k] ?? k}</span>
                 <span className="flex-1 h-2 rounded-full bg-bg4 overflow-hidden"><i className="block h-full bg-tx1 rounded-full" style={{ width: `${(num(r.acc) ?? 0) * 100}%` }} /></span>
-                <b className="font-mono w-28 text-right">{p2(num(r.acc))} · {String(r.wrong_assign ?? 0)} błędnych</b></div>
+                <b className="font-mono w-36 flex-none text-right whitespace-nowrap text-[13px]">{p2(num(r.acc))} · {String(r.wrong_assign ?? 0)} błędnych</b></div>
             ))}
           </Card>
         ) : (

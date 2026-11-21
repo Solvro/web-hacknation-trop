@@ -96,7 +96,7 @@ export default function SladPage() {
   const wlabels = weekly.map((_, i) => (i === weekly.length - 1 ? 'ten tydzień' : i % 3 === 0 ? fmtDate(new Date(Date.now() - (weekly.length - 1 - i) * 7 * 864e5).toISOString(), false).slice(0, 5) : ''));
   const dates = (t?.latest ?? []).map((m) => m.captured_at).filter(Boolean).map(String).sort();
   const seen = { first: dates[0], last: dates[dates.length - 1] };
-  const usage = (r?.usage ?? []).map((u) => ({ label: u.label?.trim() || (u.where ? WHERE[u.where] ?? u.where : ''), n: u.n ?? u.count ?? 0 })).filter((u) => u.label);
+  const usage = (r?.usage ?? []).map((u) => ({ label: u.label?.trim() || (u.where ? WHERE[u.where] ?? u.where : ''), n: u.n ?? u.count ?? 0 })).filter((u) => u.label && u.label !== 'materiały');
 
   return (
     <div className="flex-1 flex flex-col">

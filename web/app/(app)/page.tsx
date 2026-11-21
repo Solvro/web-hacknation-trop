@@ -56,7 +56,7 @@ function Samples({ onWake }: { onWake: () => void }) {
         ))}
       </ul>
       {err && <p role="alert" className="text-[13px] text-state-red text-center">{err}</p>}
-      <p className="text-[12.5px] text-tx3 text-center">albo wrzuć własny folder jako ZIP</p>
+      <p className="text-[12.5px] text-tx3 text-center">albo przeciągnij własny folder lub ZIP na pole powyżej</p>
     </section>
   );
 }
