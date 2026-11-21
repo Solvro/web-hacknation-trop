@@ -1,0 +1,33 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 1176
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 1254,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "h1#xtitle",
+   "x": 225,
+   "y": 8,
+   "w": 750,
+   "h": 275,
+   "text": "PROSTATYT ZABIJA NIEPOSTRZEGALNIE: JAK NIE PRZEOCZYĆ PIERWSZYCH OBJAWÓW I JAK ZACHOWAĆ ZDROWIE MĘŻCZYZN!"
+  },
+  {
+   "kind": "image",
+   "selector": "div:nth-of-type(2) > div > img:nth-of-type(3)",
+   "x": 553,
+   "y": 539,
+   "w": 94,
+   "h": 94,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udost%C4%99pnienia/47/Uromexil%20Forte_files/3.png"
+  }
+ ],
+ "markers": [],
+ "inline_markers": [],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/dane/unpacked/do_udostępnienia/47/Uromexil Forte.html"
+}

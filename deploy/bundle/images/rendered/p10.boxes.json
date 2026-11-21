@@ -1,0 +1,50 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 1661
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 1772,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "h1",
+   "x": 225,
+   "y": 8,
+   "w": 750,
+   "h": 691,
+   "text": "🔥 UWAGA: TEN FILM MOŻE ZOSTAĆ USUNIĘTY W KAŻDEJ CHWILI! 🔥 JEDYNA BEZPIECZNA METODA: POZBĄDŹ SIĘ NADCIŚNIENIA W DOMU — "
+  },
+  {
+   "kind": "image",
+   "selector": "div:nth-of-type(2) > div > img:nth-of-type(1)",
+   "x": 398,
+   "y": 796,
+   "w": 94,
+   "h": 94,
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p10/Kardivix_files/1791223134276-fcf4a7a0-f2b1-4f38-89a8-678c313c27ab.jpg"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./Kardivix_files/fbevents.js.pobrane"
+  },
+  {
+   "marker": "facebook.com/tr",
+   "tag": "img",
+   "attr": "src",
+   "url": "https://www.facebook.com/tr?id=2420768028414250&ev=PageView&noscript=1"
+  }
+ ],
+ "inline_markers": [
+  "facebook.com/tr",
+  "connect.facebook.net",
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p10/Kardivix.html"
+}

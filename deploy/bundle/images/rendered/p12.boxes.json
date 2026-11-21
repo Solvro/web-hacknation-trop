@@ -1,0 +1,33 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 844
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 900,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "div:nth-of-type(1) > header > div > h1",
+   "x": 244,
+   "y": 19,
+   "w": 712,
+   "h": 253,
+   "text": "DLACZEGO KOŃ WAŻĄCY 600 KG BIEGA BEZ BÓLU DO 25 LAT — A U LUDZI KOLANA ZACZYNAJĄ BOLEĆ JUŻ PO 45?. POLSKI WETERYNARZ ZNA"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./RelieFlex_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p12/RelieFlex.html"
+}

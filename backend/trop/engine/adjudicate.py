@@ -1,5 +1,7 @@
 """LLM adjudicator in the confirm band (RESULTS §4: 1 <= best score_campaign < 5). VETO / ANNOTATE ONLY.
 
+A veto (or "different" with confidence >= 0.5) turns `confirm` into `new` — it only ever removes a candidate link.
+
 The dossier is the one experiments/run_h_adjudicator.py built (extracted FEATURES only: ids, templates, infra metadata,
 evidence list — no raw page text, captions or screenshots), sent through WS4's `trop.media.adjudicator.adjudicate`
 (Gemini Flash, cached by sha256; offline replays the cache). The answer is attached to `Decision.adjudicator`; it can
@@ -87,7 +89,17 @@ def apply(decision, ctx: dict, corpus) -> str:
             "same": "Sędzia (LLM): możliwe to samo — wymaga potwierdzenia analityka (LLM nie tworzy powiązań)",
             "unsure": "Sędzia (LLM): niepewne"}[a.verdict]
     line += f" ({a.confidence:.2f}): {(a.rationale or [''])[0][:160]}"
+    if rejects(a):
+        # the only state change the adjudicator may make: REMOVE the candidate link (confirm -> new). The candidate
+        # stays visible (candidate_campaign_id) and same_operator_as is kept (set by decide when score_operator >= 3).
+        decision.decision = "new"
+        line = f"Sędzia odrzucił: {(a.rationale or [''])[0][:160]} ({a.verdict}, {a.confidence:.2f})"
     if why is not None:
         why.bullets = [line] + why.bullets
-    assert decision.decision != "assign"          # the adjudicator never links
+    assert decision.decision in ("confirm", "new") and decision.campaign_id is None   # never links
     return line
+
+
+def rejects(a: Adjudication) -> bool:
+    """veto, or 'different' with confidence >= 0.5 -> the confirm-band candidate is rejected."""
+    return a.verdict == "veto" or (a.verdict == "different" and a.confidence >= 0.5)

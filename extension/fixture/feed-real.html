@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kanał testowy (fixture TROP, odwzorowanie prawdziwej kampanii)</title>
+<style>
+  body{margin:0;background:#18191a;color:#e4e6eb;font:15px/1.4 system-ui,Segoe UI,Roboto,sans-serif}
+  .bar{background:#242526;padding:12px 20px;border-bottom:1px solid #3a3b3c;font-weight:600}
+  .feed{max-width:560px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:16px}
+  [role=article]{background:#242526;border:1px solid #3a3b3c;border-radius:8px;overflow:hidden}
+  .hd{padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+  .hd h3{margin:0;font-size:15px}
+  .hd small{color:#b0b3b8}
+  .txt{padding:0 14px 12px}
+  [role=article] img{display:block;width:100%;height:auto}
+  .lnk{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#3a3b3c;text-decoration:none;color:inherit}
+  .lnk span{flex:1;display:flex;flex-direction:column}
+  .lnk .dom{font-size:12px;color:#b0b3b8;text-transform:uppercase}
+  .btn{background:#4e4f50;border-radius:6px;padding:8px 12px;font-weight:600;font-size:13px}
+</style>
+</head>
+<body>
+<div class="bar">Kanał testowy: reklama odwzorowuje znaną kampanię z korpusu TROP (bez zdjęć prawdziwych osób)</div>
+<main class="feed">
+
+  <div role="article" id="post-friend" aria-label="Post znajomego">
+    <div class="hd"><h3>Kasia M.</h3><small>2 godz.</small></div>
+    <div class="txt" data-ad-preview="message">Pierwszy śnieg w górach, w końcu!</div>
+  </div>
+
+  <div role="article" id="post-scam" aria-label="Post sponsorowany">
+    <div class="hd"><h3>Formal Favorable</h3><small><span>Sponsorowane</span></small></div>
+    <div class="txt" data-ad-preview="message">PL Wydarzenie, które wstrząsnęło całą Polską</div>
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22560%22 height=%22300%22 viewBox=%220 0 560 300%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%233a4a5c%22/%3E%3Cstop offset=%221%22 stop-color=%22%2314202c%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22560%22 height=%22300%22 fill=%22url(%23g)%22/%3E%3Ccircle cx=%22440%22 cy=%2270%22 r=%2234%22 fill=%22%23c9d3dc%22 opacity=%22.35%22/%3E%3Cpath d=%22M0 250 L120 160 L210 230 L320 120 L460 240 L560 190 L560 300 L0 300Z%22 fill=%22%230c141c%22/%3E%3Ccircle cx=%22280%22 cy=%22112%22 r=%2246%22 fill=%22%2305080a%22/%3E%3Cpath d=%22M150 300 C160 205 215 172 280 172 C345 172 400 205 410 300Z%22 fill=%22%2305080a%22/%3E%3C/svg%3E" alt="Ciemna sylwetka osoby na tle gór (grafika poglądowa, SVG)" width="560" height="300">
+    <a class="lnk" href="https://civicdaybook.live/?utm_id=WVVfDj0sSpk725CZefaO&amp;utm_medium=7DJYmtt5h2&amp;utm_campaign=5DkJlRt5Wj&amp;utm_content=tlJwInE50J&amp;utm_visit=01a11f55-dea2-71c8-81fb-5bdfdd77fe0b" onclick="return false">
+      <span><span class="dom">civicdaybook.live</span><b>NA ŻYWO · WTOREK, 20:10 — WARSZAWA</b></span><span class="btn">Dowiedz się więcej</span>
+    </a>
+  </div>
+
+  <div role="article" id="post-benign-ad" aria-label="Post sponsorowany">
+    <div class="hd"><h3>Kawiarnia Pod Dębem</h3><small><span>Sponsorowane</span></small></div>
+    <div class="txt" data-ad-preview="message">Nowa kawa sezonowa już u nas. Wpadnij na latte z cynamonem w tę sobotę.</div>
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22560%22 height=%22220%22 viewBox=%220 0 560 220%22%3E%3Crect width=%22560%22 height=%22220%22 fill=%22%23d9c8a9%22/%3E%3Cellipse cx=%22280%22 cy=%22170%22 rx=%22150%22 ry=%2222%22 fill=%22%23b79f78%22/%3E%3Cpath d=%22M215 70h130v70a65 45 0 0 1-130 0z%22 fill=%22%23fff%22/%3E%3Cpath d=%22M345 85h24a22 22 0 0 1 0 44h-26%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%2212%22/%3E%3Cpath d=%22M250 30c-10 15 10 20 0 35M285 24c-10 15 10 20 0 35%22 stroke=%22%238a7656%22 stroke-width=%225%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/svg%3E" alt="Filiżanka kawy" width="560" height="220">
+    <a class="lnk" href="https://kawiarnia-pod-debem.example/menu" onclick="return false">
+      <span><span class="dom">kawiarnia-pod-debem.example</span><b>Zobacz menu</b></span><span class="btn">Zobacz więcej</span>
+    </a>
+  </div>
+
+</main>
+</body>
+</html>

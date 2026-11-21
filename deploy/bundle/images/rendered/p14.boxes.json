@@ -1,0 +1,33 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 1478
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 1577,
+ "truncated": false,
+ "boxes": [
+  {
+   "kind": "image",
+   "selector": "a#a03ebdb2-a0cc-458e-98fe-ea8ce3a43ce8 > img",
+   "x": 162,
+   "y": 221,
+   "w": 877,
+   "h": 493,
+   "role": "hero",
+   "src": "https://media.atomicatmedia.net/u/N9yXgIHdLCbRxufqsVSOe09lZfj1/Pictures/clciXs3746593.gif?quality=78#592599"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "./(1) Available For a LIMITED TIME ONLY!_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p14/(1) Available For a LIMITED TIME ONLY!.html"
+}

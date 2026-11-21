@@ -1,5 +1,5 @@
 // Service worker: every network call goes through here (page CSP and mixed content cannot block it).
-const DEFAULT_BASE = "http://127.0.0.1:18000";
+const DEFAULT_BASE = "https://trop.b.solvro.pl";
 
 async function getSettings() {
   const s = await chrome.storage.local.get(["apiBase", "installId"]);

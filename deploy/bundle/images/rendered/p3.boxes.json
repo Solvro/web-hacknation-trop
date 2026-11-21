@@ -1,0 +1,57 @@
+{
+ "image": {
+  "w": 1200,
+  "h": 3750
+ },
+ "scale_from_page": 0.9375,
+ "page_h": 14421,
+ "truncated": true,
+ "boxes": [
+  {
+   "kind": "headline",
+   "selector": "article > h1",
+   "x": 278,
+   "y": 120,
+   "w": 645,
+   "h": 112,
+   "text": "PILNE: Brutalna napaść na Krzysztofa Stanowskiego tuż po publikacji tajnego śledztwa w sprawie polskich banków!"
+  },
+  {
+   "kind": "image",
+   "selector": "article > img:nth-of-type(1)",
+   "x": 278,
+   "y": 350,
+   "w": 645,
+   "h": 360,
+   "text": "Rozbity samochód Krzysztofa Stanowskiego na miejscu napaści",
+   "role": "hero",
+   "src": "file:///home/dawid-home-pc/hacknation/trop/data/raw/sample_v1/p3/PILNE_%20Brutalna%20napa%C3%BF%C3%A5%20na%20Krzysztofa%20Stanowskiego%20tu%E2%95%9B%20po%20publikacji%20tajnego%20%C3%BFledztwa%20w%20s"
+  }
+ ],
+ "markers": [
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://falmurek.live/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/acd4c270-a082-4dc8-80bb-430ea2b84b0b/favicon.ico"
+  },
+  {
+   "marker": "landing-cdn",
+   "tag": "link",
+   "attr": "href",
+   "url": "https://falmurek.live/_cdn/production/landing-cdn/f141c307-7ca2-41d9-b311-5ed107964c8b/acd4c270-a082-4dc8-80bb-430ea2b84b0b/images/01-tunel.webp"
+  },
+  {
+   "marker": "fbevents",
+   "tag": "script",
+   "attr": "src",
+   "url": "PILNE_%20Brutalna%20napa%C3%BF%C3%A5%20na%20Krzysztofa%20Stanowskiego%20tu%E2%95%9B%20po%20publikacji%20tajnego%20%C3%BFledztwa%20w%20sprawie%20polskich%20bank%C3%B3w%21_files/fbevents.js.pobrane"
+  }
+ ],
+ "inline_markers": [
+  "fbevents",
+  "landing-cdn",
+  "googletagmanager"
+ ],
+ "source": "/home/dawid-home-pc/hacknation/trop/.claude/worktrees/agent-a65baae6b2409b015/data/raw/sample_v1/p3/PILNE_ Brutalna napaÿå na Krzysztofa Stanowskiego tu╛ po publikacji tajnego ÿledztwa w sprawie polskich banków!.html"
+}

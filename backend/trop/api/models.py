@@ -39,6 +39,18 @@ class IncidentDetail(Incident):
     coverage: float = 0.0
 
 
+class ArtifactRef(_C):
+    """GET /incidents/{id}/artifacts: a downscaled image served at GET /artifacts/{id} (never a local path)."""
+    id: str
+    role: Literal["ad_screenshot", "landing_screenshot", "video_keyframe"]
+    url: str
+    w: int
+    h: int
+    mime: str = "image/webp"
+    size: int = 0
+    boxes: list[dict[str, Any]] | None = None     # landing pages: highlight rectangles of the render agent (pass-through)
+
+
 class Artifact(_C):
     kind: Literal["screenshot", "har", "html", "video", "creative", "dom", "tls"]
     name: str
@@ -248,6 +260,7 @@ class TraceView(_C):
     latest: list[Any]
     usage: list[dict[str, Any]]
     co_traces: list[dict[str, Any]]
+    facts: dict[str, Any] = {}     # type-specific text-ready facts (persons: campaigns + counts, captions, first/last seen, face matches)
 
 
 class BatchAccepted(_C):
