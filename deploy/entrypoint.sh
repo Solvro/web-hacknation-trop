@@ -27,4 +27,9 @@ fi
 if [ "${TROP_DB_SEED:-0}" = "1" ]; then
   /seed.sh
 fi
+# drop root: the worker runs as uid 1000 (Chromium) and both share /data, so the api must create files as 1000 too
+if [ "$(id -u)" = "0" ] && [ "${TROP_RUN_AS_ROOT:-0}" != "1" ] && command -v setpriv >/dev/null 2>&1; then
+  chown -R 1000:1000 /data 2>/dev/null || true
+  exec setpriv --reuid=1000 --regid=1000 --clear-groups env HOME=/tmp "$@"
+fi
 exec "$@"

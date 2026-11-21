@@ -145,11 +145,11 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
           ))}
         </ul>
       )}
-      <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1.5">
-        <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-2 pt-1.5">
+        <div className="flex flex-wrap md:flex-nowrap gap-1.5 min-w-0">
           {CHIPS.map((c) => (
             <span key={c.key}>
-              <button type="button" className="chip" onClick={() => inputs.current[c.key]?.click()}>
+              <button type="button" className="chip whitespace-nowrap" onClick={() => inputs.current[c.key]?.click()}>
                 <c.icon width={14} height={14} />{c.label}
               </button>
               <input ref={(el) => { inputs.current[c.key] = el; }} type="file" accept={c.accept} multiple className="hidden"
@@ -157,13 +157,13 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
             </span>
           ))}
           <span>
-            <button type="button" className="chip" onClick={() => inputs.current.dir?.click()}>
+            <button type="button" className="chip whitespace-nowrap" onClick={() => inputs.current.dir?.click()}>
               <IFile width={14} height={14} />Wybierz folder
             </button>
             <input ref={(el) => { inputs.current.dir = el; if (el) { el.setAttribute('webkitdirectory', ''); el.setAttribute('directory', ''); } }} type="file" multiple className="hidden"
               aria-label="Wybierz folder" onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
           </span>
-          <button type="button" className="chip" aria-pressed={traceMode}
+          <button type="button" className="chip whitespace-nowrap" aria-pressed={traceMode}
             onClick={() => {
               // fill the field with a real trace from the database (cycles through a few on repeated clicks)
               setTraceMode(true); setFiles([]); setErr(null);
