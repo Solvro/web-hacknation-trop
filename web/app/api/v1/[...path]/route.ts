@@ -18,10 +18,12 @@ async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }
   let upstream: Response;
   try {
     upstream = await fetch(target, {
-      // request bodies are buffered (uploads are small zips/screens; streamed multipart bodies arrived truncated
-      // behind the middleware), responses stay streamed so SSE passes through unbuffered
-      method: req.method, headers, body: hasBody ? await req.arrayBuffer() : undefined, redirect: 'manual', cache: 'no-store',
+      // request bodies are STREAMED (test-set zips can be hundreds of MB; the web container has 512 MB), the auth
+      // middleware does not run on /api, and `expect` is dropped (undici rejects it)
+      method: req.method, headers, body: hasBody ? req.body : undefined, redirect: 'manual', cache: 'no-store',
       signal: req.signal,
+      // @ts-expect-error Node fetch needs duplex for streamed request bodies
+      duplex: hasBody ? 'half' : undefined,
     });
   } catch {
     return Response.json({ error: 'api_unreachable', target: base }, { status: 502 });
