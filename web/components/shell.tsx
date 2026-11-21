@@ -12,7 +12,7 @@ const TABS = [
 export function Logo() {
   return (
     <Link href="/" aria-label="trop, strona główna" className="inline-flex items-baseline text-[24px] font-bold tracking-[-0.04em] text-tx1 no-underline">
-      tr<span className="ml-0.5 px-[7px] pb-0.5 rounded-[9px] bg-tx1 text-white tracking-[-0.02em]">op</span>
+      <span className="px-[9px] pb-0.5 rounded-[9px] bg-tx1 text-white tracking-[-0.03em]">trop</span>
     </Link>
   );
 }

@@ -18,15 +18,17 @@ const TYPE_LABEL: Record<string, string> = { domena: 'domena', osoba: 'osoba', p
 export default function SladPage() {
   const { type, value: raw } = useParams<{ type: string; value: string }>();
   const value = decodeURIComponent(raw);
-  const { data, error, loading } = useApi<TraceData>(`/traces/${API_TYPE[type] ?? type}/${encodeURIComponent(value)}`);
+  // the engine stores names and domains lower-case
+  const apiValue = type === 'osoba' || type === 'domena' ? value.toLowerCase() : value;
+  const { data, error, loading } = useApi<TraceData>(`/traces/${API_TYPE[type] ?? type}/${encodeURIComponent(apiValue)}`);
   const [wake] = useState(1);
   const t = data;
   const total = t?.campaigns?.reduce((a, c) => a + (c.n ?? 0), 0) ?? 0;
   const nCamp = t?.campaigns?.filter((c) => c.id).length ?? 0;
   const weekly = t?.weekly ?? [];
   const wlabels = weekly.map((_, i) => (i === weekly.length - 1 ? 'ten tydzień' : i % 3 === 0 ? fmtDate(new Date(Date.parse('2026-11-21') - (weekly.length - 1 - i) * 7 * 864e5).toISOString(), false).slice(0, 5) : ''));
-  const usageNote = t?.usage?.find((u) => !u.n);
-  const usagePills = t?.usage?.filter((u) => u.n) ?? [];
+  const usageNote = t?.usage?.find((u) => !u.n && u.label?.trim());
+  const usagePills = t?.usage?.filter((u) => u.n && u.label?.trim()) ?? [];
 
   return (
     <div className="flex-1 flex flex-col">
@@ -71,8 +73,8 @@ export default function SladPage() {
                 </Card>
               </div>
               <div className="flex flex-col gap-6">
-                {(t.usage?.length ?? 0) > 0 && <Card title="Jak go wykorzystują">
-                  {usageNote && <div className="flex gap-3 pb-3"><span className="ph-img w-16 h-16 flex-none">twarz</span><p className="text-[13.5px] text-tx2">{usageNote.label}</p></div>}
+                {(usageNote || usagePills.length > 0) && <Card title="Jak go wykorzystują">
+                  {usageNote && <div className="flex gap-3 pb-3">{(type === 'osoba' || t.type === 'person') && <span className="ph-img w-16 h-16 flex-none">twarz</span>}<p className="text-[13.5px] text-tx2">{usageNote.label}</p></div>}
                   <div className="flex flex-wrap gap-2">{usagePills.map((u) => <span key={u.label} className="chip !cursor-default">{u.label}</span>)}</div>
                 </Card>}
                 <Card title="Często razem z">
