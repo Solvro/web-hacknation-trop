@@ -1,0 +1,186 @@
+{
+ "model": "dict",
+ "data": {
+  "packages": [
+   {
+    "id": "ACT-7",
+    "kind": "bundle",
+    "campaign_id": "KMP-017",
+    "status": "draft",
+    "contents": {
+     "ads": 38,
+     "advertisers": 11,
+     "domains": 19,
+     "evidence_items": 64
+    },
+    "recipients": [
+     {
+      "id": "meta_dsa",
+      "label": "Meta (DSA art. 16)",
+      "enabled": true,
+      "progress": {
+       "done": 0,
+       "total": 11
+      },
+      "status": "ready"
+     },
+     {
+      "id": "certpl",
+      "label": "CERT Polska",
+      "enabled": true,
+      "progress": {
+       "done": 0,
+       "total": 14
+      },
+      "status": "ready"
+     },
+     {
+      "id": "google",
+      "label": "Google Ads",
+      "enabled": true,
+      "progress": {
+       "done": 0,
+       "total": 2
+      },
+      "status": "ready"
+     }
+    ],
+    "parts": [
+     {
+      "key": "notice",
+      "label": "Zgłoszenie DSA (PDF)",
+      "bot": "archiwista",
+      "ready": true
+     },
+     {
+      "key": "stix",
+      "label": "Pakiet STIX 2.1",
+      "bot": "notariusz",
+      "ready": true
+     },
+     {
+      "key": "certpl",
+      "label": "Lista domen dla CERT PL",
+      "bot": "notariusz",
+      "ready": true
+     },
+     {
+      "key": "rules",
+      "label": "Reguły (urlscan/YARA)",
+      "bot": "tropiciel",
+      "ready": false
+     }
+    ],
+    "notice_text": "Zgłaszamy 38 reklam 11 reklamodawców promujących fałszywy portal «Kurier Dnia» (kampania KMP-017) naruszających art. 16 DSA. Dowody w załączniku.",
+    "formats": [
+     "pdf",
+     "json",
+     "stix",
+     "misp",
+     "csv"
+    ],
+    "created_at": "2026-11-21T08:20:00+01:00",
+    "sent_at": null,
+    "outcome": null,
+    "disclaimer": "Nic nie zostało wysłane — pakiet przygotowany i wyeksportowany."
+   },
+   {
+    "id": "ACT-3",
+    "kind": "bundle",
+    "campaign_id": "KMP-022",
+    "status": "sent",
+    "contents": {
+     "ads": 29,
+     "advertisers": 7,
+     "domains": 6,
+     "evidence_items": 41
+    },
+    "recipients": [
+     {
+      "id": "meta_dsa",
+      "label": "Meta (DSA art. 16)",
+      "enabled": true,
+      "progress": {
+       "done": 7,
+       "total": 7
+      },
+      "status": "done"
+     }
+    ],
+    "parts": [
+     {
+      "key": "notice",
+      "label": "Zgłoszenie DSA (PDF)",
+      "bot": "archiwista",
+      "ready": true
+     },
+     {
+      "key": "stix",
+      "label": "Pakiet STIX 2.1",
+      "bot": "notariusz",
+      "ready": true
+     },
+     {
+      "key": "certpl",
+      "label": "Lista domen dla CERT PL",
+      "bot": "notariusz",
+      "ready": true
+     },
+     {
+      "key": "rules",
+      "label": "Reguły (urlscan/YARA)",
+      "bot": "tropiciel",
+      "ready": false
+     }
+    ],
+    "notice_text": "Zgłoszenie KMP-022.",
+    "formats": [
+     "pdf",
+     "json",
+     "stix"
+    ],
+    "created_at": "2026-11-12T09:40:00+01:00",
+    "sent_at": "2026-11-12T10:00:00+01:00",
+    "outcome": {
+     "removed": 22,
+     "total": 29
+    },
+    "disclaimer": "Nic nie zostało wysłane — pakiet przygotowany i wyeksportowany."
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-1",
+    "campaign_id": "KMP-017",
+    "kind": "urlscan",
+    "body": "page.url:\"/api/v2/relay/lead/\" AND page.domain:(*.click OR *.live)"
+   },
+   {
+    "id": "R-2",
+    "campaign_id": "KMP-017",
+    "kind": "url_regex",
+    "body": "^https://[a-z]{7,9}\\.(click|live)/\\?utm_source=.*utm_visit=[0-9a-f-]{36}$"
+   },
+   {
+    "id": "R-3",
+    "campaign_id": "KMP-017",
+    "kind": "html_signature",
+    "body": "<script src=\"*cg-7f3a91e0.ecs.eu-west-1.on.aws*\">"
+   },
+   {
+    "id": "R-4",
+    "campaign_id": "KMP-017",
+    "kind": "yara",
+    "body": "rule kmp017_relay { strings: $a = \"/api/v2/relay/lead/\" condition: $a }"
+   }
+  ],
+  "rule_test": {
+   "hits": 41,
+   "tp": 38,
+   "needs_review": 3,
+   "benign_hits": 0,
+   "benign_total": 500,
+   "precision": 0.93
+  }
+ }
+}

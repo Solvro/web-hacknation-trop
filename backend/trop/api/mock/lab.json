@@ -1,0 +1,172 @@
+{
+ "model": "dict",
+ "data": {
+  "views": {
+   "summary": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "bcubed_f1": 0.91,
+    "ari": 0.87,
+    "pairwise_precision": 0.96,
+    "open_set_accuracy": 0.93,
+    "new_campaign_precision": 0.95,
+    "conformal_target": 0.05,
+    "conformal_achieved": 0.041,
+    "m2_infra_blind_f1": 0.74
+   },
+   "baselines": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "rows": [
+     {
+      "model": "M1 (uczony)",
+      "bcubed_f1": 0.91
+     },
+     {
+      "model": "ręczne wagi",
+      "bcubed_f1": 0.78
+     },
+     {
+      "model": "HDBSCAN",
+      "bcubed_f1": 0.61
+     }
+    ]
+   },
+   "loco": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "rows": [
+     {
+      "campaign": "KMP-017",
+      "f1": 0.93
+     },
+     {
+      "campaign": "KMP-022",
+      "f1": 0.9
+     },
+     {
+      "campaign": "KMP-031",
+      "f1": 0.92
+     },
+     {
+      "campaign": "KMP-034",
+      "f1": 0.88
+     }
+    ]
+   },
+   "conformal": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "alpha": 0.05,
+    "achieved_error": 0.041,
+    "n_cal": 412,
+    "avg_set_size": 1.08
+   },
+   "models": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "rows": [
+     {
+      "id": "M1",
+      "version": "engine@mock",
+      "trained_at": "2026-11-21T04:00:00+01:00",
+      "bcubed_f1": 0.91
+     },
+     {
+      "id": "M2",
+      "version": "infra-blind",
+      "bcubed_f1": 0.74
+     }
+    ]
+   },
+   "layer_compare": {
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/",
+    "rows": [
+     {
+      "layer": "tracking",
+      "alone_f1": 0.84
+     },
+     {
+      "layer": "kit",
+      "alone_f1": 0.8
+     },
+     {
+      "layer": "infra",
+      "alone_f1": 0.74
+     },
+     {
+      "layer": "content",
+      "alone_f1": 0.7
+     },
+     {
+      "layer": "persons",
+      "alone_f1": 0.52
+     },
+     {
+      "layer": "visual",
+      "alone_f1": 0.61
+     },
+     {
+      "layer": "ad",
+      "alone_f1": 0.4
+     },
+     {
+      "layer": "media",
+      "alone_f1": 0.35
+     }
+    ]
+   }
+  },
+  "ablation": [
+   {
+    "layer": "tracking",
+    "delta_f1": -0.12,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "kit",
+    "delta_f1": -0.09,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "infra",
+    "delta_f1": -0.17,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "content",
+    "delta_f1": -0.06,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "persons",
+    "delta_f1": -0.03,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "visual",
+    "delta_f1": -0.04,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "ad",
+    "delta_f1": -0.01,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   },
+   {
+    "layer": "media",
+    "delta_f1": -0.02,
+    "sample": true,
+    "note": "przykładowe wartości, podmienić z eval/"
+   }
+  ]
+ }
+}

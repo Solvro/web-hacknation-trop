@@ -1,0 +1,671 @@
+{
+ "model": "dict[str,Timeline]",
+ "data": {
+  "KMP-017": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 4
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-08T02:05:00Z",
+     "kind": "domain_registered",
+     "ref": "brenvilo.live"
+    },
+    {
+     "at": "2026-11-09T00:14:00Z",
+     "kind": "domain_registered",
+     "ref": "ormalto.click"
+    },
+    {
+     "at": "2026-11-09T01:51:00Z",
+     "kind": "domain_registered",
+     "ref": "kervanta.live"
+    },
+    {
+     "at": "2026-11-10T00:40:00Z",
+     "kind": "domain_registered",
+     "ref": "sarmelto.click"
+    },
+    {
+     "at": "2026-11-10T02:33:00Z",
+     "kind": "domain_registered",
+     "ref": "dolvinex.click"
+    },
+    {
+     "at": "2026-11-11T01:07:00Z",
+     "kind": "domain_registered",
+     "ref": "plenvaro.live"
+    },
+    {
+     "at": "2026-11-11T02:20:00Z",
+     "kind": "domain_registered",
+     "ref": "vistorra.click"
+    },
+    {
+     "at": "2026-11-12T00:55:00Z",
+     "kind": "domain_registered",
+     "ref": "mandurex.live"
+    },
+    {
+     "at": "2026-11-12T01:18:00Z",
+     "kind": "domain_registered",
+     "ref": "korvelta.click"
+    },
+    {
+     "at": "2026-11-13T00:31:00Z",
+     "kind": "domain_registered",
+     "ref": "selqueno.live"
+    },
+    {
+     "at": "2026-11-14T02:02:00Z",
+     "kind": "domain_registered",
+     "ref": "dunvarra.click"
+    },
+    {
+     "at": "2026-11-15T01:45:00Z",
+     "kind": "domain_registered",
+     "ref": "ambrelio.live"
+    },
+    {
+     "at": "2026-11-16T02:10:00Z",
+     "kind": "domain_registered",
+     "ref": "quorvex.click"
+    },
+    {
+     "at": "2026-11-17T00:22:00Z",
+     "kind": "domain_registered",
+     "ref": "trastino.live"
+    },
+    {
+     "at": "2026-11-18T01:03:00Z",
+     "kind": "domain_registered",
+     "ref": "velmoria.click"
+    },
+    {
+     "at": "2026-11-19T19:28:00Z",
+     "kind": "oracle_predicted",
+     "ref": "morvanta.click"
+    },
+    {
+     "at": "2026-11-20T02:48:00Z",
+     "kind": "domain_registered",
+     "ref": "tranvello.click"
+    },
+    {
+     "at": "2026-11-20T21:40:00Z",
+     "kind": "oracle_predicted",
+     "ref": "orvinta.click"
+    },
+    {
+     "at": "2026-11-21T00:47:00Z",
+     "kind": "cert_batch",
+     "ref": "plessuro.live"
+    },
+    {
+     "at": "2026-11-21T01:12:00Z",
+     "kind": "cert_batch",
+     "ref": "orvinta.click"
+    },
+    {
+     "at": "2026-11-21T02:31:00Z",
+     "kind": "cert_batch",
+     "ref": "morvanta.click"
+    },
+    {
+     "at": "2026-11-21T02:31:00Z",
+     "kind": "hunter_capture",
+     "ref": "INC-24817"
+    }
+   ]
+  },
+  "KMP-034": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 1
+    }
+   ],
+   "events": []
+  },
+  "KMP-022": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 2
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T10:00:00Z",
+     "kind": "act_sent",
+     "ref": "ACT-3"
+    }
+   ]
+  },
+  "KMP-031": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 4
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 5
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 4
+    }
+   ],
+   "events": []
+  },
+  "KMP-040": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 0
+    }
+   ],
+   "events": []
+  },
+  "KMP-043": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 0
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 0
+    }
+   ],
+   "events": []
+  },
+  "KMP-011": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 3
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 2
+    }
+   ],
+   "events": []
+  },
+  "KMP-029": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 2
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 2
+    }
+   ],
+   "events": []
+  },
+  "KMP-036": {
+   "days": [
+    {
+     "date": "2026-11-08",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-09",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-10",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-11",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-12",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-13",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-14",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-15",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-16",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-17",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-18",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-19",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-20",
+     "incidents": 1
+    },
+    {
+     "date": "2026-11-21",
+     "incidents": 1
+    }
+   ],
+   "events": []
+  }
+ }
+}
