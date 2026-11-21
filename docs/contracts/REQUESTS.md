@@ -88,3 +88,13 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
 - **Samples:** `GET /api/v1/samples` → `[{id,title,description,expected,size}]` (dane-1, dane-3, dane-36, dane-5, p13, p14; zips live in the image bundle,
   `deploy/make_samples.py`); `POST /api/v1/samples/{id}/analyze` → `AnalyzeAccepted` (a normal job, stream `/jobs/{id}/stream`).
   Offline outcomes: dane-1 → assign KMP-001, dane-3 → assign KMP-003, dane-36 → new, dane-5 → insufficient, p13 → assign KMP-008, p14 → assign KMP-009 (duplicate_of p14).
+
+# WS2 round 4
+
+- `POST /api/v1/investigations {seed: "incident:<id>"}` (any analysed incident, corpus or fresh upload/URL result): the API derives the pivots
+  (landing etld1 + redirect/chain domains, ad display_link / CTA domain, domains named in the video, advertiser + page_id / library_id, kit tenant / pixel / CAPI / Google Ads)
+  and answers `{id, seed, pivots, hints}`. White Rabbit is seeded with the best domain; the rest is passed as analyst notes (`steer` channel, <= 300 chars each, Polish),
+  same budget cap (`budget_steps`, usd cap 1.0). No domain at all -> seed = advertiser / `page:<id>` with a note to start from `adlib_search` + `db_search`;
+  neither -> 422. The investigation's `campaign_id` defaults to the incident's campaign. (The offline/heuristic planner ignores notes; the LLM planner follows them.)
+- dane-5 (video only) now analyses to `new` with media evidence: zips are unpacked by the adapter (ingest's `single_item` treats a zip as a generic "upload" and loses
+  the video layer; WS1 may want `classify(root)` there) and the bundle carries the d5 mp4 at its recorded path so the (name, size) media lookup hits.

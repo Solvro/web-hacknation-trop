@@ -94,16 +94,20 @@ enrich = _placeholder("enrich", "trop.enrich.service", "enrich")
 act = _placeholder("act", "trop.act.service", "build_package")
 
 
-async def agent(ctx: dict, inv_id: str, body: dict) -> dict:
+async def agent(ctx: dict, inv_id: str, body: dict, hints: list[str] | None = None) -> dict:
     """White Rabbit run (blocking trop.agent.service.run_investigation in a thread). Events are published on `inv:<id>`."""
     from trop.agent import service as svc
 
     def emit(typ: str, data: dict) -> None:
         bus.publish_sync(f"inv:{inv_id}", typ, {"investigation_id": inv_id, **data})
 
+    from trop.agent.loop import Control
+    control = Control(svc._dir(inv_id) / "control.jsonl")
+    for h in hints or []:                           # pivots of the incident the investigation was started from (analyst notes, budget cap unchanged)
+        control.put({"type": "steer", "message": h})
     loop = asyncio.get_running_loop()
     try:
-        res = await loop.run_in_executor(None, lambda: svc.run_investigation(body, emit, investigation_id=inv_id))
+        res = await loop.run_in_executor(None, lambda: svc.run_investigation(body, emit, investigation_id=inv_id, control=control))
         return {"investigation_id": inv_id, "status": res.get("status")}
     except Exception as e:  # noqa: BLE001
         log.exception("agent failed")
