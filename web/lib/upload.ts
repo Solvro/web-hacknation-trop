@@ -6,8 +6,8 @@
 // Chunks go one after another, each retried up to 3 times. Anything ≤ 20 MB keeps the single multipart POST.
 import { API, ApiError, apiPost } from './api';
 
-export const CHUNKED_ABOVE = 20 * 1024 * 1024;
-const DEFAULT_CHUNK = 8 * 1024 * 1024;
+export const CHUNKED_ABOVE = 8 * 1024 * 1024;   // slow uplinks: a single 20 MB POST can hit the ~60 s proxy limit
+const DEFAULT_CHUNK = 2 * 1024 * 1024;
 
 export interface UploadItem { file: File; name: string }
 export interface UploadDone { job_id: string | null; incident_id?: string | null; batch?: unknown }
@@ -15,17 +15,33 @@ export interface UploadDone { job_id: string | null; incident_id?: string | null
 export const totalSize = (items: UploadItem[]) => items.reduce((a, f) => a + f.file.size, 0);
 export const needsChunks = (items: UploadItem[]) => totalSize(items) > CHUNKED_ABOVE;
 
-async function putWithRetry(path: string, body: BodyInit, headers: Record<string, string>, tries = 3): Promise<void> {
+/** One PUT via XHR so the progress bar moves inside a chunk too (slow uplinks: a chunk can take seconds). */
+function putOnce(path: string, body: Blob | FormData, headers: Record<string, string>, onBytes?: (n: number) => void): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open('PUT', API + path);
+    for (const [k, v] of Object.entries(headers)) x.setRequestHeader(k, v);
+    x.upload.onprogress = (e) => { if (e.lengthComputable) onBytes?.(e.loaded); };
+    x.onload = () => resolve(x.status);
+    x.onerror = () => reject(new ApiError(503, 'Wysyłanie przerwane'));
+    x.ontimeout = () => reject(new ApiError(408, 'Przekroczono czas wysyłania'));
+    x.timeout = 55_000;
+    x.send(body);
+  });
+}
+
+async function putWithRetry(path: string, body: Blob | FormData, headers: Record<string, string>, onBytes?: (n: number) => void, tries = 3): Promise<void> {
   let last: unknown;
   for (let i = 0; i < tries; i++) {
     try {
-      const r = await fetch(API + path, { method: 'PUT', body, headers });
-      if (r.ok) return;
-      last = new ApiError(r.status, `${r.status} ${path}`);
-      if (r.status >= 400 && r.status < 500 && r.status !== 408 && r.status !== 429) break; // not worth retrying
+      const st = await putOnce(path, body, headers, onBytes);
+      if (st >= 200 && st < 300) return;
+      last = new ApiError(st, `${st} ${path}`);
+      if (st >= 400 && st < 500 && st !== 408 && st !== 429) break; // not worth retrying
     } catch (e) {
       last = e;
     }
+    onBytes?.(0);
     await new Promise((res) => setTimeout(res, 800 * (i + 1)));
   }
   throw last instanceof Error ? last : new ApiError(503, 'Wysyłanie przerwane');
@@ -59,7 +75,7 @@ export async function uploadChunked(items: UploadItem[], mode: 'analyze' | 'batc
     const f = items[0].file;
     for (let n = 0, off = 0; off < f.size; n++, off += chunk) {
       const part = f.slice(off, Math.min(f.size, off + chunk));
-      await putWithRetry(base + n, part, { 'content-type': 'application/octet-stream' });
+      await putWithRetry(base + n, part, { 'content-type': 'application/octet-stream' }, (b) => onProgress?.((sent + b) / total));
       sent += part.size; onProgress?.(sent / total);
     }
   } else {
@@ -67,8 +83,9 @@ export async function uploadChunked(items: UploadItem[], mode: 'analyze' | 'batc
     for (let n = 0; n < gs.length; n++) {
       const fd = new FormData();
       for (const it of gs[n]) fd.append('files', it.file, it.name);
-      await putWithRetry(base + n, fd, { accept: 'application/json' });
-      sent += gs[n].reduce((a, it) => a + it.file.size, 0); onProgress?.(sent / total);
+      const sz = gs[n].reduce((a, it) => a + it.file.size, 0);
+      await putWithRetry(base + n, fd, { accept: 'application/json' }, (b) => onProgress?.((sent + Math.min(b, sz)) / total));
+      sent += sz; onProgress?.(sent / total);
     }
   }
   return apiPost<UploadDone>(`/uploads/${encodeURIComponent(init.upload_id)}/complete`, { mode });

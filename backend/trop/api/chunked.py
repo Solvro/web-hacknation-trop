@@ -20,7 +20,7 @@ from fastapi import HTTPException, Request
 from trop.api import uploads as UP
 from trop.config import settings
 
-CHUNK = 8 * 1024 * 1024
+CHUNK = 2 * 1024 * 1024   # small chunks: smooth progress on slow uplinks, each request far below the proxy timeout
 TOTAL_CAP = 1536 * 1024 * 1024            # 1.5 GB
 TTL_S = 6 * 3600
 _ID = re.compile(r"^[0-9a-f]{16}$")
