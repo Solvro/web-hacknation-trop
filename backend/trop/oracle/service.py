@@ -51,6 +51,13 @@ def train(campaign_id: str = CAMPAIGN_ID, refresh: bool = False, run_backtest: b
     if run_backtest:
         res = bt.run_backtest(pos, neg, fpr=fpr)
         res["summary"]["cv_auc_5fold"] = cv_auc
+        rnd = bt.run_backtest(pos, neg, fpr=fpr, temporal=False)
+        res["summary"]["random_split"] = rnd["summary"]
+        res["rows_random_split"] = rnd["rows"]
+        try:
+            res["summary"]["stage2_same_tld"] = bt.run_stage2(pos, neg)
+        except Exception as e:            # offline / lookups failed: keep the lexical numbers
+            res["summary"]["stage2_same_tld"] = {"error": f"{type(e).__name__}: {str(e)[:120]}"}
         (data.oracle_dir() / "backtest.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
         out["backtest"] = res["summary"]
     # final model on everything; threshold: FPR budget on out-of-sample negatives (half/half)
@@ -113,7 +120,7 @@ def _save_preds(d: dict[str, dict]) -> None:
     (data.oracle_dir() / "predictions.json").write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def predict(entries: list[dict], enrich_hits: bool = True, notify: bool = True, issuer_default: str | None = None) -> list[OraclePrediction]:
+def predict(entries: list[dict], enrich_hits: bool = True, notify: bool = True, max_enrich: int = 15) -> list[OraclePrediction]:
     """Score cert sightings; hits above the campaign threshold become (stored) predictions."""
     model, dna = load_model()
     tl = set(dna.tld_dist)
@@ -123,21 +130,26 @@ def predict(entries: list[dict], enrich_hits: bool = True, notify: bool = True, 
     p1 = model.p_lex([etld1(e["domain"]) for e in cand])
     store = _preds()
     out: list[OraclePrediction] = []
-    for e, p in zip(cand, p1):
+    order = sorted(range(len(cand)), key=lambda i: -p1[i])
+    n_enriched = 0
+    for i in order:
+        e, p = cand[i], p1[i]
         if p < dna.threshold * 0.6:                     # cheap gate before resolving anything
-            continue
+            break
         dom = etld1(e["domain"])
         if dom in store:
             continue
         enr = None
-        if enrich_hits:
+        if enrich_hits and n_enriched < max_enrich:     # stage 2 costs RDAP/DNS lookups: best candidates first, capped
+            n_enriched += 1
             try:
                 rd, rec = rdap.lookup(dom), dns.records(dom)
                 enr = {"ns": dns.ns_of(dom), "registrar": rd.get("registrar"), "created": rd.get("created")}
             except Exception:
                 enr = None
         score, reasons = score_domain(dom, enr, e.get("issuer"))
-        if score < dna.threshold:
+        # lexical evidence alone is weak (kit-A names are diverse): without metadata corroboration demand a much higher score
+        if score < (dna.threshold if enr else max(dna.threshold, 0.92)):
             continue
         pred = OraclePrediction(domain=dom, issued_at=str(e.get("not_before") or _now()), issuer=e.get("issuer"), dna_score=score,
                                 campaign_id=dna.campaign_id, status="predicted", reasons=reasons[:6])

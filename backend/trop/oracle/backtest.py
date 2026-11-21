@@ -35,9 +35,11 @@ def threshold_for_fpr(model_scores_neg: np.ndarray, fpr: float) -> float:
 
 
 def run_backtest(pos: list[dict], neg: list[dict], train_frac: float = 0.6, ct_latency_h: float = 0.25, fpr: float = 0.02,
-                 seed: int = 11, neg_ratios=(1, 10, 50)) -> dict[str, Any]:
+                 seed: int = 11, neg_ratios=(1, 10, 50), temporal: bool = True) -> dict[str, Any]:
     rng = random.Random(seed)
     timed = sorted([r for r in pos if r.get("cert_time")], key=lambda r: r["cert_time"])
+    if not temporal:                       # random split: same-family leakage allowed (the campaign keeps reusing grammars)
+        rng.shuffle(timed)
     untimed = [r for r in pos if not r.get("cert_time")]
     cut = int(len(timed) * train_frac)
     train_pos, test_pos = timed[:cut] + untimed[: len(untimed) * 6 // 10], timed[cut:] + untimed[len(untimed) * 6 // 10:]
@@ -92,9 +94,41 @@ def run_backtest(pos: list[dict], neg: list[dict], train_frac: float = 0.6, ct_l
         "n_with_timing": len(leads), "flagged_before_first_activity": len(pos_leads),
         "median_lead_h": round(median(leads), 1) if leads else None,
         "median_lead_h_positive": round(median(pos_leads), 1) if pos_leads else None,
-        "ct_latency_h": ct_latency_h, "split": f"temporal {int(train_frac * 100)}/{100 - int(train_frac * 100)} by certificate time",
+        "ct_latency_h": ct_latency_h, "split": (f"temporal {int(train_frac * 100)}/{100 - int(train_frac * 100)} by certificate time" if temporal
+                  else f"random {int(train_frac * 100)}/{100 - int(train_frac * 100)}"),
     }
     return {"summary": summary, "rows": sorted(rows, key=lambda r: -(r["lead_h"] or -1e9) if r["flagged"] else 1e9)}
+
+
+def run_stage2(pos: list[dict], neg: list[dict], train_frac: float = 0.6, max_neg: int = 150, seed: int = 11) -> dict[str, Any]:
+    """Temporal backtest of the full two-stage score on same-TLD negatives: lexical LR + metadata evidence (NS pair / registrar
+    from RDAP + DNS, cached; negatives are looked up live, capped). DNA/NS pairs come from the TRAIN positives only."""
+    from trop.enrich import enrich as E
+
+    from .model import build_dna, logit, meta_bonus, sigmoid
+    timed = sorted([r for r in pos if r.get("cert_time")], key=lambda r: r["cert_time"])
+    cut = int(len(timed) * train_frac)
+    train, test = timed[:cut], timed[cut:]
+    negs = [r for r in neg if r["kind"] == "same_tld_recent"][:max_neg]
+    allneg = [r for r in neg if r["kind"] != "same_tld_recent"]
+    m = DomainModel().fit([r["domain"] for r in train], [r["domain"] for r in (allneg + neg)[:1500]])
+    dna = build_dna("KIT-A", train, None, 0.5)
+
+    def score(d: str) -> tuple[float, float]:
+        e = E.enrich_domain(d, ("dns", "rdap"), ips=False)
+        p = float(m.p_lex([d])[0])
+        b, _ = meta_bonus(dna, e)
+        return p, sigmoid(logit(p) + b)
+    sp = [score(r["domain"]) for r in test]
+    sn = [score(r["domain"]) for r in negs]
+    out: dict[str, Any] = {"n_test_pos": len(sp), "n_same_tld_neg": len(sn), "stage": "lexical + NS pair/registrar (train-only DNA)"}
+    y = np.array([1] * len(sp) + [0] * len(sn))
+    for name, idx in (("lexical_only", 0), ("with_metadata", 1)):
+        s = np.array([x[idx] for x in sp + sn])
+        out[name] = {"auc": round(float(roc_auc_score(y, s)), 3), **precision_at_k(s, y, (5, 10, 20))}
+        thr = float(np.quantile(s[len(sp):], 0.99))
+        out[name]["recall_at_1pct_fpr"] = round(float((s[:len(sp)] > thr).mean()), 3)
+    return out
 
 
 def cross_val_auc(pos: list[dict], neg: list[dict], k: int = 5, seed: int = 3) -> float | None:

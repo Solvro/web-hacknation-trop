@@ -54,7 +54,8 @@ def certstream_collect(tlds: Iterable[str], seconds: float = 30.0, url: str | No
 def urlscan_recent(tlds: Iterable[str], hours: int = 24, size: int = 100) -> list[dict]:
     out = []
     for t in tlds:
-        r = urlscan.search(f"page.tld:{t.lstrip('.')} AND date:>now-{hours}h", size)
+        span = f"{hours // 24}d" if hours % 24 == 0 else f"{hours}h"
+        r = urlscan.search(f"page.domain:*.{t.lstrip('.')} AND date:>now-{span}", size)
         for s in r.get("results", []):
             d = s.get("apex") or etld1(s.get("domain") or "")
             if d and not s.get("umbrella_rank"):

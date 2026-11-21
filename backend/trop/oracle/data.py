@@ -135,12 +135,27 @@ def load_negatives(n_certpl: int = 3000, seed: int = 7) -> list[dict]:
     for d in doms[:n_certpl]:
         sld, t = _split(d)
         out.append({"domain": etld1(d), "sld": sld, "tld": t, "kind": "other_scam"})
-    for q in ("page.umbrellaRank:[1 TO 100000] AND page.country:PL", "page.umbrellaRank:[1 TO 50000]", "page.umbrellaRank:[1 TO 20000] AND page.tld:com"):
+    # benign = established registrable domains (> 4 y old) recently scanned on a spread of TLDs; one row per apex
+    queries = [f"page.tld:{t} AND page.apexDomainAgeDays:>1500 AND date:>now-1d" for t in
+               ("com", "net", "org", "pl", "eu", "info", "xyz", "top", "online", "shop", "site", "co", "io", "de")]
+    queries.append("page.umbrellaRank:[1 TO 100000] AND page.country:PL")
+    for q in queries:
         for s in urlscan.search(q, 100).get("results", []):
             d = s.get("apex") or etld1(s.get("domain") or "")
             if d:
                 sld, t = _split(d)
                 out.append({"domain": d, "sld": sld, "tld": t, "kind": "benign"})
+    # same-TLD hard negatives: whatever else was recently scanned on the campaign's TLDs (removes the TLD shortcut; these can
+    # contain unknown kit-A members, a small label noise that makes the reported precision conservative)
+    from collections import Counter
+
+    from . import ct
+    known = {r["domain"] for r in load_training()}
+    top_tlds = [t for t, _ in Counter(r["tld"] for r in load_training()).most_common(8)]
+    for s in ct.urlscan_recent(top_tlds, hours=72, size=100):
+        if s["domain"] not in known:
+            sld, t = _split(s["domain"])
+            out.append({"domain": s["domain"], "sld": sld, "tld": t, "kind": "same_tld_recent"})
     seen, uniq = set(), []
     for r in out:
         if r["domain"] not in seen:
