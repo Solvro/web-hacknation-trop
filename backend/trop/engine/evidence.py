@@ -38,6 +38,11 @@ STRENGTH = {
     # embeddings (filled by emb module)
     "text_emb": 3.0, "shot_emb": 2.0, "face_identity": 2.5,
 }
+# TROP addition (video / ASR layer, WS4 output). Only present when an incident has media.video.gemini / asr_text, so the
+# RESULTS §2a/§2b numbers are unaffected. media_text = text MinHash over transcript + on-screen text (same strength as
+# text_minhash, campaign-level content); voice_id = speaker-embedding cluster (operator-ish: a voice-over artist / TTS
+# voice is reused across an operator's products) -> operator-only, counts for the campaign only via the conjunction.
+STRENGTH.update({"media_text": 5.0, "voice_id": 4.0})
 NEG = {"kit_tenant_conflict": -5.0, "vertical_conflict": -1.0, "lang_conflict": -2.0}
 LAYER = {
     "fb_pixel": "tracking", "capi_gateway": "tracking", "google_ads": "tracking", "ga4": "tracking", "gtm": "tracking",
@@ -49,6 +54,7 @@ LAYER = {
     "products": "content", "vertical": "content", "ad_name_grammar": "kit", "advertiser": "ad", "ad_text": "ad",
     "creative_phash": "visual", "ad_persons": "ad", "text_emb": "content", "shot_emb": "visual",
     "face_identity": "persons", "comment_names": "content", "brand_asset": "kit", "ns_pair": "infra", "registrar_batch": "infra", "entry_url": "infra", "path_shape": "kit", "chain_etld1": "infra",
+    "media_text": "content", "voice_id": "media",
 }
 HIGH = {"fb_pixel", "capi_gateway", "google_ads", "ga4", "gtm", "kit_tenant", "lander_id", "etld1", "asset_hash",
         "headline_template", "text_minhash", "video_host", "products"}
@@ -59,7 +65,8 @@ GENERIC_TEMPLATES = {"", "{PER}", "home", "index", "strona główna"}
 # Evidence that identifies the OPERATOR ACCOUNT (hosting/kit/registrar) but not a specific campaign: an operator runs
 # several campaigns from one Cloudflare account / kit tenant / domain batch. Campaign-level score excludes these.
 OPERATOR_ONLY = {"chain_etld1", "path_shape", "kit_tenant", "ns_pair", "registrar_batch", "third_party", "landing_type_id", "origin_ip", "cert_batch",
-                 "domain_dna", "kit_endpoints", "url_param_schema", "entry_path_template", "brand_asset", "vertical"}
+                 "domain_dna", "kit_endpoints", "url_param_schema", "entry_path_template", "brand_asset", "vertical",
+                 "voice_id"}
 CONJUNCTION = True   # same operator AND same narrative => same campaign (operator evidence capped at +4)
 LEVEL = "campaign"   # 'campaign' | 'operator' — which score the harness scorer uses
 
@@ -151,6 +158,14 @@ def prepare(incs: list[dict]) -> None:
         v["creative_phash"] = ad.get("creative_phash")
         v["ad_persons"] = set(ad.get("persons", []))
         v["face_identity"] = {f["identity"] for f in (inc.get("media", {}).get("faces") or []) if f.get("identity")}
+        # video / ASR layer (TROP): spoken + on-screen text, voice cluster, domains named in the video
+        med = inc.get("media") or {}
+        gem = ((med.get("video") or {}).get("gemini") or {})
+        mtext = " ".join([med.get("asr_text") or gem.get("transcript") or ""] + [str(x) for x in (gem.get("on_screen_text") or [])])
+        mtoks = re.findall(r"\w+", mtext.lower())
+        v["media_mh"] = minhash_of(_shingles(mtoks, 5)) if len(mtoks) >= 30 else None
+        v["voice_id"] = {med["voice_id"]} if med.get("voice_id") else set()
+        v["video_domains"] = set((inc.get("content") or {}).get("video_domains") or [])
         inc["_v"] = v
 
 
@@ -248,6 +263,22 @@ def pair_evidence(a: dict, b: dict, df: dict, n: int) -> tuple[list[dict], dict]
         add("domain_dna", str(va["domain_dna"]), STRENGTH["domain_dna"])
     if va["vertical"] and vb["vertical"] and va["vertical"] == vb["vertical"]:
         add("vertical", va["vertical"], STRENGTH["vertical"])
+    # video / ASR (TROP): transcript MinHash vs the other side's transcript or landing text; voice; named domains
+    if va.get("media_mh") is not None or vb.get("media_mh") is not None:
+        best_j = 0.0
+        for x, y in ((va.get("media_mh"), vb.get("media_mh")), (va.get("media_mh"), vb["text_mh"]), (va["text_mh"], vb.get("media_mh"))):
+            if x is not None and y is not None:
+                best_j = max(best_j, x.jaccard(y))
+        if best_j >= 0.15:
+            add("media_text", f"jaccard={best_j:.2f}", STRENGTH["media_text"] * min(1.0, (best_j - 0.15) / 0.55))
+    shared_v = va.get("voice_id", set()) & vb.get("voice_id", set())
+    if shared_v:
+        best = max(shared_v, key=lambda x: rarity("voice_id", x, df, n))
+        add("voice_id", best, STRENGTH["voice_id"] * rarity("voice_id", best, df, n), raw=[best])
+    vd = (va.get("video_domains", set()) & (vb["chain_etld1"] | vb.get("video_domains", set()))) | \
+         (vb.get("video_domains", set()) & va["chain_etld1"])
+    if vd and not (va["etld1"] & vb["etld1"]) and not any(e["type"] == "chain_etld1" for e in ev):
+        add("chain_etld1", sorted(vd)[0], STRENGTH["chain_etld1"], raw=sorted(vd))
     # embeddings (cosine), if present
     for ftype, key, lo in (("text_emb", "text_emb", 0.80), ("shot_emb", "shot_emb", 0.85)):
         ea, eb = a.get("emb", {}).get(key), b.get("emb", {}).get(key)
