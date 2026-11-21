@@ -1,4 +1,4 @@
-"""Screenshots of /sprawdz against the mock API. Run: python shots.py [base_url]  (default http://127.0.0.1:13160)"""
+"""Screenshots of /sprawdz against the API behind the web proxy (production when API_INTERNAL_URL points there). Run: python shots.py [base_url]  (default http://127.0.0.1:13160)"""
 import os
 import sys
 from pathlib import Path
@@ -15,20 +15,21 @@ with sync_playwright() as p:
     pg = b.new_page(viewport={"width": 1280, "height": 900})
     pg.goto(f"{BASE}/sprawdz")
     pg.get_by_text("Schematy tego tygodnia").wait_for()
-    pg.get_by_text("Skala:").first.wait_for(timeout=10000)
-    pg.get_by_label("Link do reklamy lub strony, na którą prowadzi").fill("https://morvanta.click/?utm_source=fb")
+    pg.get_by_role("heading", name="Znana kampania oszustwa reklamowego").wait_for(timeout=10000)
+    pg.get_by_label("Link do reklamy lub tekst reklamy").fill("Wydarzenie, które wstrząsnęło całą Polską")
     pg.get_by_role("button", name="Sprawdź").click()
     pg.get_by_text("To wygląda na znane oszustwo").wait_for(timeout=10000)
-    pg.screenshot(path=str(OUT / "10-sprawdz-scam.png"), full_page=False)
+    pg.screenshot(path=str(OUT / "10-sprawdz-scam.png"), full_page=True)
     pg.get_by_role("button", name="Zgłoś tę reklamę").click()
     pg.get_by_text("zgłoszenie przyjęte").wait_for(timeout=10000)
-    pg.get_by_label("Link do reklamy lub strony, na którą prowadzi").fill("https://przyklad.example/abc")
+    pg.screenshot(path=str(OUT / "10b-sprawdz-reported.png"), full_page=True)
+    pg.get_by_label("Link do reklamy lub tekst reklamy").fill("https://przyklad.example/abc")
     pg.get_by_role("button", name="Sprawdź").click()
     pg.get_by_text("Nie znamy tego materiału").wait_for(timeout=10000)
     assert "bezpiecz" not in pg.get_by_role("heading", level=2, name="Nie znamy tego materiału").inner_text().lower()
-    pg.screenshot(path=str(OUT / "11-sprawdz-unknown.png"), full_page=False)
+    pg.screenshot(path=str(OUT / "11-sprawdz-unknown.png"), full_page=True)
     pg.set_viewport_size({"width": 390, "height": 800})
-    pg.screenshot(path=str(OUT / "12-sprawdz-mobile.png"), full_page=False)
+    pg.screenshot(path=str(OUT / "12-sprawdz-mobile.png"), full_page=True)
     assert pg.evaluate("document.documentElement.scrollWidth <= 390 && [...document.querySelectorAll('main *')].every(e => e.getBoundingClientRect().right <= 391)"), "horizontal overflow"
     b.close()
 print("OK")

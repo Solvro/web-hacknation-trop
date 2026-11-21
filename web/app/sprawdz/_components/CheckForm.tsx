@@ -32,7 +32,7 @@ export function CheckForm() {
     <>
       <form className={s.form} aria-label="Sprawdź reklamę" onSubmit={submit}>
         <div>
-          <label className={s.lbl} htmlFor="url">Link do reklamy lub strony, na którą prowadzi</label>
+          <label className={s.lbl} htmlFor="url">Link do reklamy lub tekst reklamy</label>
           <input className={s.inp} id="url" name="url" type="text" inputMode="url" autoComplete="off" placeholder="https://…" value={url} onChange={(e) => setUrl(e.target.value)} />
         </div>
         <div className={s.row}>
