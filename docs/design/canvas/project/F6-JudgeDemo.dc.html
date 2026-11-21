@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F6: demo dla jury w 3 minuty</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.tline{display:flex;gap:3px;width:100%}
+.tseg{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:4px;min-width:0;min-height:64px;padding:8px;border-radius:6px;border:1px solid #2B3F32;background:#0F1812;color:#A9BDB0;cursor:pointer;text-align:left;overflow:hidden;font:12px/1.25 Inter,system-ui,sans-serif}
+.tseg span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.tseg.done{background:rgba(59,240,126,.08);border-color:#178A43;color:#DDEBE2}
+.tseg.on{background:#3BF07E;border-color:#3BF07E;color:#03140A}
+.tseg.on .mono{color:#03140A}
+.axis{display:flex;justify-content:space-between;font:11px "JetBrains Mono",monospace;color:#83998B}
+.now{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:20px}
+.say{margin:0;padding:16px 18px;border-radius:10px;background:#0F1812;border:1px solid #2B3F32;font:500 17px/1.55 "Space Grotesk",Inter,sans-serif;color:#DDEBE2}
+.blk{display:flex;flex-direction:column;gap:8px}
+.bt{display:grid;grid-template-columns:96px 170px 150px minmax(0,1.2fr) minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start;padding:12px 16px;border-bottom:1px solid #1D2B22;font-size:12.5px;line-height:1.5;min-width:1100px}
+.bt.hd{font:500 10.5px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#83998B;padding-top:10px;padding-bottom:10px}
+.bt.on{background:rgba(59,240,126,.10)}
+.bt:last-child{border-bottom:0}
+.fb{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.fbi{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:8px}
+.keys>div{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#A9BDB0}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden">
+<div class="rain" aria-hidden="true"><span style="left: 4%">ｦｱｳ7ｴｵ0ｶｷ1ｸｹｺ</span><span style="left: 14%">01ﾊﾐﾋｰ3ｳｼﾅﾓﾆ</span><span style="left: 27%">ｻﾜﾂ5ｵﾘｱ9ﾎﾃﾏ</span><span style="left: 41%">ﾑﾅ2ｹﾒｴｶ8ｷﾑﾕ</span><span style="left: 58%">ﾗｾﾈ4ｽﾀﾇﾍ6ｦｲ</span><span style="left: 72%">ｸﾁ0ﾄﾉﾌ1ﾔﾖﾙﾚ</span><span style="left: 86%">ﾛﾝ3ｱｶ7ｻﾀﾅﾊﾏ</span><span style="left: 95%">ﾔ9ﾗﾜ2ｲｳｴｵｶ</span></div>
+<div class="row" style="position: relative"><span class="eb">Przepływ F6</span><span class="pill g">scenariusz sceniczny</span><span class="pill">flow (f)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1" style="position: relative">Demo dla jury: od jednej reklamy do pakietu DSA w 3 minuty</h1>
+<div class="meta" style="position: relative">
+<div><span class="eb">Aktor</span><span class="sm">Prezenter + operator przy laptopie; jury podaje materiał</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">URL lub zrzut reklamy od jury (albo przygotowany INC-24817)</span></div>
+<div><span class="eb">Cel</span><span class="sm">Pokazać atrybucję, wyjaśnialność, predykcję i działanie w jednym ciągu</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">3:00 · 9 beatów</span></div>
+</div>
+<p class="muted sm" style="position: relative"><b class="g">Sukces:</b> każdy beat kończy się w swoim czasie, a każdy ma plan awaryjny, który działa bez sieci.</p>
+</section>
+
+<section class="panel hot" aria-labelledby="f6-now" style="display: flex; flex-direction: column">
+<div class="ph">
+<h2 class="h3" id="f6-now">Beat {{num}} z 9 · <span class="mono g">{{cur.range}}</span></h2>
+<div class="row" style="gap: 8px">
+<button class="btn" type="button" onClick="{{prev}}" disabled="{{atStart}}" aria-label="Poprzedni beat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Wstecz</button>
+<button class="btn btn-p" type="button" onClick="{{next}}" disabled="{{atEnd}}" aria-label="Następny beat">Dalej<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 14px">
+<div class="bar lg" role="progressbar" aria-label="Postęp demo" aria-valuemin="0" aria-valuemax="180" aria-valuenow="{{cur.endSec}}"><i style="width: {{pct}}%"></i></div>
+<div class="tline" role="group" aria-label="Oś czasu demo, 0:00 do 3:00">
+<sc-for list="{{beats}}" as="b" hint-placeholder-count="9">
+<button type="button" class="tseg {{b.cls}}" style="flex: {{b.sec}} 1 0px" onClick="{{b.pick}}" aria-pressed="{{b.on}}" aria-label="{{b.aria}}"><span class="mono xs">{{b.start}}</span><span>{{b.short}}</span></button>
+</sc-for>
+</div>
+<div class="axis" aria-hidden="true"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span><span>2:30</span><span>3:00</span></div>
+<div class="now">
+<div class="blk">
+<span class="eb">Na ekranie</span>
+<h3 class="h2">{{cur.title}}</h3>
+<p class="sm muted" style="line-height: 1.6">{{cur.onScreen}}</p>
+<div class="row" style="gap: 8px"><a class="btn" href="{{cur.href}}">Otwórz ekran: {{cur.screen}}</a><span class="kbd">{{cur.key}}</span></div>
+</div>
+<div class="blk">
+<span class="eb">Mówimy</span>
+<blockquote class="say">{{cur.say}}</blockquote>
+<span class="eb am">Jeśli live zawiedzie</span>
+<p class="sm" style="line-height: 1.6; color: #FFB547">{{cur.fallback}}</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="f6-all">
+<div class="ph"><h2 class="h3" id="f6-all">Wszystkie beaty</h2><span class="dim sm">tabela do próby generalnej; podświetlony bieżący</span></div>
+<div class="scroll-x">
+<div class="bt hd"><span>Czas</span><span>Beat</span><span>Ekran</span><span>Na ekranie</span><span>Mówimy</span><span>Awaryjnie</span></div>
+<sc-for list="{{beats}}" as="b" hint-placeholder-count="9">
+<div class="bt {{b.cls}}"><span class="mono g">{{b.range}}</span><span style="color: #DDEBE2; font-weight: 600">{{b.title}}</span><a class="mono xs" href="{{b.href}}">{{b.screen}}</a><span style="color: #A9BDB0">{{b.onScreen}}</span><span style="color: #DDEBE2">{{b.say}}</span><span style="color: #FFB547">{{b.fallback}}</span></div>
+</sc-for>
+</div>
+</section>
+
+<section class="panel warn" aria-labelledby="f6-fb">
+<div class="ph"><h2 class="h3" id="f6-fb">Plan awaryjny</h2><span class="dim sm">sprawdzić 30 min przed wejściem na scenę</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 16px">
+<div class="fb">
+<div class="fbi"><span class="brl g">Zapisany przebieg</span><p class="ln">Każdy job i każde śledztwo z próby jest zapisany jako strumień zdarzeń. Tryb replay odtwarza je w tym samym tempie, z tymi samymi czasami kroków.</p></div>
+<div class="fbi"><span class="brl g">Tryb offline</span><p class="ln">Odznaka DEMO, wszystkie narzędzia OSINT z cache, bez kluczy API i bez sieci. Uruchomienie: <span class="mono">docker compose --profile demo up</span>.</p></div>
+<div class="fbi"><span class="brl am">Nagranie wideo</span><p class="ln">Pełne 3:00 w MP4 na laptopie i na pendrive; na wypadek awarii projektora drugi laptop z tym samym obrazem.</p></div>
+<div class="fbi"><span class="brl am">Zasiany zbiór</span><p class="ln">Seed z fikcyjnymi kampaniami KMP-017, KMP-034, KMP-022, KMP-031 i kandydatem KMP-040; INC-24817 przygotowany, gdyby jury nie podało materiału.</p></div>
+<div class="fbi"><span class="brl cy">Sieć</span><p class="ln">Hotspot z telefonu jako zapas. Jeśli capture na żywo trwa ponad 25 s, operator przełącza na replay bez komentarza.</p></div>
+</div>
+<div>
+<span class="eb">Skróty klawiszowe operatora</span>
+<div class="keys" style="margin-top: 10px">
+<div><span class="kbd">Alt 1</span>Centrum dowodzenia</div>
+<div><span class="kbd">Alt 2</span>Analizuj</div>
+<div><span class="kbd">Alt 3</span>Dlaczego / dlaczego nie</div>
+<div><span class="kbd">Alt 4</span>Graf powiązań</div>
+<div><span class="kbd">Alt 5</span>Śledztwo</div>
+<div><span class="kbd">Alt 6</span>Oracle</div>
+<div><span class="kbd">Alt 7</span>Act center</div>
+<div><span class="kbd">Alt 8</span>Lab</div>
+<div><span class="kbd">Alt 9</span>Wtyczka</div>
+<div><span class="kbd">Ctrl Shift R</span>przełącz live / replay</div>
+</div>
+</div>
+<p class="dnote">Implementacja: parametr ?replay=demo w kliencie SSE podmienia źródło na zapisany strumień z API /events; skróty Alt 1–9 tylko w trybie DEMO.</p>
+</div>
+</section>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = [
+      { s: 0, e: 15, title: 'Hook: Follow the fake', short: 'Hook', screen: 'S01 · Centrum dowodzenia', href: 'S01-Command.dc.html', key: 'Alt 1',
+        onScreen: 'Centrum dowodzenia z deszczem glifów i hasłem „Follow the fake”. Licznik: 41 aktywnych kampanii, feed na żywo.',
+        say: 'Platformy usuwają pojedyncze reklamy. Oszuści prowadzą kampanie. RED PILL idzie za fałszywką aż do operatora.',
+        fallback: 'Zrzut ekranu S01 na pierwszym slajdzie.' },
+      { s: 15, e: 35, title: 'Materiał od jury', short: 'Materiał', screen: 'S02 · Analizuj', href: 'S02-Analyze.dc.html', key: 'Alt 2',
+        onScreen: 'Jury podaje URL albo zrzut. Upuszczamy go do Analizuj i pipeline startuje na oczach sali.',
+        say: 'Prosimy o dowolną reklamę. Wrzucamy ją tak, jak dostałby ją analityk NASK.',
+        fallback: 'Przygotowany zrzut INC-24817 i tryb replay zapisanego joba.' },
+      { s: 35, e: 55, title: 'Werdykt w 20 sekund', short: 'Werdykt', screen: 'S02 · karta werdyktu', href: 'S02-Analyze.dc.html', key: 'Alt 2',
+        onScreen: 'Karta werdyktu: dołącza do KMP-017, p 0.94, zbiór {KMP-017}. Chipy dowodów z wagą i rzadkością.',
+        say: 'Dwadzieścia sekund. Dołącza do kampanii KMP-017, a każdy powód jest na ekranie: ta sama bramka CAPI w 47 z 1 284 incydentów, ten sam kit, ten sam szablon nagłówka.',
+        fallback: 'Replay zapisanego joba: identyczne kroki i czasy.' },
+      { s: 55, e: 75, title: 'Dlaczego i dlaczego nie', short: 'Dlaczego', screen: 'X2 · Dlaczego połączone', href: 'X2-WhyLinked.dc.html', key: 'Alt 3',
+        onScreen: 'Panel: dlaczego połączone z KMP-017 i dlaczego NIE z KMP-034. Cloudflare przekreślony, waga 0.',
+        say: 'Równie ważne jest to, czego nie łączymy. Wspólny Cloudflare nie jest dowodem: waga zero. KMP-034 to ten sam operator, ale inna kampania.',
+        fallback: 'Statyczny ekran X2 z tymi samymi danymi.' },
+      { s: 75, e: 95, title: 'Treść kontra infrastruktura', short: 'Graf', screen: 'S06 · Graf powiązań', href: 'S06-Graph.dc.html', key: 'Alt 4',
+        onScreen: 'Graf w dwóch trybach: sama treść skleja cztery kampanie w jedną, a dowody infrastruktury rozdzielają je poprawnie.',
+        say: 'Sam model językowy skleja wszystko, co mówi o zamachu. Dowody infrastruktury rozdzielają kampanie i pokazują operatorów.',
+        fallback: 'Dwa zapisane układy grafu, przełączane filtrem.' },
+      { s: 95, e: 125, title: 'Agent Smith od jednej domeny', short: 'Agent', screen: 'S07 · Śledztwo', href: 'S07-Investigation.dc.html', key: 'Alt 5',
+        onScreen: 'Agent startuje od velmoria.click: crt.sh, DNS, urlscan, Ad Library. Graf rośnie, case file się pisze, licznik dochodzi do 14 domen.',
+        say: 'Jedna domena. Agent sam pivotuje po certyfikatach, DNS i ścieżce kitu. Po półtorej minuty ma 14 domen kampanii, każdą z dowodem.',
+        fallback: 'Narzędzia z cache (tryb offline) albo nagranie przebiegu.' },
+      { s: 125, e: 150, title: 'Dziś w nocy', short: 'Oracle', screen: 'S08 · Oracle', href: 'S08-Oracle.dc.html', key: 'Alt 6',
+        onScreen: 'Trzy certyfikaty z tej nocy (00:47, 01:12, 02:31), żadnego nie ma na liście CERT PL. Oracle oznaczyła dwie domeny wcześniej.',
+        say: 'Trzy z tych domen dostały certyfikat dziś w nocy i nie ma ich na liście ostrzeżeń. Oracle wskazała dwie, zanim ruszyła reklama.',
+        fallback: 'Replay zapisanego strumienia CT.' },
+      { s: 150, e: 170, title: 'Jeden klik: pakiet DSA', short: 'DSA', screen: 'S10 · Act center', href: 'S10-Act.dc.html', key: 'Alt 7',
+        onScreen: 'Pakiet z art. 16 DSA dla całej kampanii: 58 reklam, 11 reklamodawców, 19 domen; obok zgłoszenie do CERT PL.',
+        say: 'Jedno kliknięcie i NASK ma gotowe zgłoszenie dla całej kampanii, a nie dla jednej reklamy. Wysyłka wymaga jeszcze potwierdzenia człowieka.',
+        fallback: 'Wygenerowany wcześniej PDF pakietu na pulpicie.' },
+      { s: 170, e: 180, title: 'Zamknięcie', short: 'Koniec', screen: 'S11 · Lab + E1', href: 'S11-Lab.dc.html', key: 'Alt 8',
+        onScreen: 'B-cubed F1 0.91 wobec 0.61 dla HDBSCAN, a potem wtyczka dla obywateli na poście sponsorowanym.',
+        say: 'Zmierzone: F1 0,91 wobec 0,61 dla czystego ML. Ta sama wiedza chroni obywateli we wtyczce. Follow the fake.',
+        fallback: 'Slajd z metrykami i zrzut wtyczki.' }
+    ];
+    const fmt = (sec) => Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+    const beat = (this.state && typeof this.state.beat === 'number') ? this.state.beat : 0;
+    const beats = B.map((b, i) => ({
+      ...b,
+      sec: b.e - b.s,
+      start: fmt(b.s),
+      range: fmt(b.s) + '–' + fmt(b.e),
+      endSec: b.e,
+      on: i === beat,
+      cls: i === beat ? 'on' : (i < beat ? 'done' : ''),
+      aria: 'Beat ' + (i + 1) + ': ' + b.title + ', ' + fmt(b.s),
+      pick: () => this.setState({ beat: i })
+    }));
+    const cur = beats[beat];
+    return {
+      annot: (this.props.showApi ?? false) ? 'show-api' : '',
+      beats,
+      cur,
+      num: beat + 1,
+      pct: Math.round((cur.e / 180) * 1000) / 10,
+      atStart: beat === 0,
+      atEnd: beat === B.length - 1,
+      prev: () => this.setState({ beat: Math.max(0, beat - 1) }),
+      next: () => this.setState({ beat: Math.min(B.length - 1, beat + 1) })
+    };
+  }
+}
+</script>
+</body>
+</html>

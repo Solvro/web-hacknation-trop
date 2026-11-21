@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Diff szablonów — specyfikacja</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.cn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid rgba(92,200,255,.55);color:#5CC8FF;font:600 11px "JetBrains Mono",ui-monospace,monospace;flex:none}
+.sides{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #1D2B22}
+.sides>div{flex:1 1 440px;min-width:0;padding:16px;display:flex;flex-direction:column;gap:14px}
+.sides>div+div{border-left:1px solid #1D2B22}
+.diff h3{font:600 17px/1.45 "Space Grotesk",Inter,sans-serif;margin:0;color:#DDEBE2}
+.diff p{margin:0}
+.met{display:flex;flex-wrap:wrap;gap:24px;padding:12px 16px;border-top:1px solid #1D2B22}
+.met>div{display:flex;flex-direction:column;gap:3px}
+.tree{font:12px/1.85 "JetBrains Mono",ui-monospace,monospace;color:#A9BDB0;white-space:pre;margin:0;overflow-x:auto}
+.shot{position:relative;height:220px;flex:1 1 200px;min-width:0}
+.reg{position:absolute;border:2px solid #FFB547;border-radius:4px;background:rgba(255,181,71,.08)}
+.reg span{position:absolute;top:-10px;left:6px;background:#0A100C;color:#FFB547;font:600 10.5px "JetBrains Mono",monospace;padding:0 4px}
+.rules{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="page" style="max-width: 1240px; margin: 0 auto">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px">
+<span class="eb">Komponent wyjaśnialności · X3</span>
+<h1 class="h1">Diff szablonów</h1>
+<p class="muted" style="max-width: 900px; line-height: 1.6">Analityk pyta: <b style="color: #DDEBE2">„czy to ta sama strona z podmienioną osobą, czy coś innego?”</b> Diff zestawia dwa landingi obok siebie po zamaskowaniu encji (osoba, miasto, data, rola). Wspólny szablon jest neutralny, podmienione sloty są bursztynowe, a prawdziwe różnice czerwone (tylko A) lub zielone (tylko B). Ten sam widok porównuje DOM, zasoby i zrzuty ekranu.</p>
+</header>
+
+<section class="panel" aria-labelledby="tx-h">
+<div class="ph"><h2 class="h3" id="tx-h"><a class="id" href="S04-Incident.dc.html">INC-24702</a> <span class="dim">V1 · dunvarra.click</span> ↔ <a class="id" href="S04-Incident.dc.html">INC-24817</a> <span class="dim">V2 · morvanta.click</span></h2>
+<div class="seg" role="group" aria-label="Tryb porównania"><button class="on" type="button">Tekst</button><button type="button">DOM</button><button type="button">Zasoby</button><button type="button">Zrzut</button></div>
+<button class="btn btn-sm" type="button">Tylko różnice</button>
+<span class="api">GET links/INC-24702/INC-24817?view=diff</span></div>
+<div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; background: #0F1812">
+<span class="eb">Wspólny szablon po maskowaniu</span>
+<p class="diff" style="font-size: 13px">{NAGŁÓWEK} · <span class="slot">{MIASTO}</span>, <span class="slot">{DATA}</span>. Znany <span class="slot">{ROLA}</span> po raz pierwszy opowiada o tym, co wydarzyło się po nagraniu programu. Według informacji «Kurier Dnia» sprawą zajmuje się już prokuratura… W rozmowie wraca temat «platformy», o której <span class="slot">{PER}</span> mówił wcześniej. {ZDANIE}</p>
+</div>
+<div class="sides">
+<div>
+<div class="row between"><span class="eb">A · INC-24702 · V1</span><span class="pill">20.11 19:44</span></div>
+<div class="diff">
+<h3><span class="del">«Wiem, kto to zrobił»: atak na</span> <span class="slot">Tomasz Lewandowski</span><span class="del">. Nowe nagranie</span></h3>
+</div>
+<p class="diff"><span class="slot">Warszawa</span><span class="same">, </span><span class="slot">19 listopada</span><span class="same">. Znany </span><span class="slot">dziennikarz</span><span class="same"> po raz pierwszy opowiada o tym, co wydarzyło się po nagraniu programu. Według informacji «Kurier Dnia» sprawą zajmuje się już prokuratura, a fragment wywiadu zniknął z anteny po kilku minutach.</span></p>
+<p class="diff"><span class="same">W rozmowie wraca temat «platformy», o której </span><span class="slot">Lewandowski</span><span class="same"> mówił wcześniej. </span><span class="del">Redakcja otrzymała wezwanie do usunięcia materiału.</span></p>
+</div>
+<div>
+<div class="row between"><span class="eb">B · INC-24817 · V2</span><span class="pill">21.11 02:31</span></div>
+<div class="diff">
+<h3><span class="ins">PILNE:</span> <span class="slot">Jan Kowalski</span> <span class="ins">przerywa milczenie po napaści</span></h3>
+</div>
+<p class="diff"><span class="slot">Kraków</span><span class="same">, </span><span class="slot">21 listopada</span><span class="same">. Znany </span><span class="slot">przedsiębiorca</span><span class="same"> po raz pierwszy opowiada o tym, co wydarzyło się po nagraniu programu. Według informacji «Kurier Dnia» sprawą zajmuje się już prokuratura, a fragment wywiadu zniknął z anteny po kilku minutach.</span></p>
+<p class="diff"><span class="same">W rozmowie wraca temat «platformy», o której </span><span class="slot">Kowalski</span><span class="same"> mówił wcześniej. </span><span class="ins">Bank próbował zablokować publikację.</span></p>
+</div>
+</div>
+<div class="met" aria-label="Miary podobieństwa">
+<div><span class="eb">MinHash tekstu</span><span class="mono g">0.82</span></div>
+<div><span class="eb">DOM shingles</span><span class="mono g">0.91</span></div>
+<div><span class="eb">pHash zrzutu</span><span class="mono g">Δ 4</span></div>
+<div><span class="eb">Wspólne hashe zasobów</span><span class="mono g">7/9</span></div>
+<div><span class="eb">Szablon nagłówka</span><span class="mono am">różny: V1 ≠ V2</span></div>
+<div><span class="eb">Poziom</span><span class="lvl l1"><b>L1</b> wariant tej samej kampanii</span></div>
+</div>
+</section>
+
+<div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr))">
+
+<section class="panel" aria-labelledby="dom-h">
+<div class="ph"><h2 class="h3" id="dom-h">Tryb DOM</h2><span class="dim xs">ścieżki tagów, 41 dopasowanych</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 150px; min-width: 0"><span class="eb">A</span>
+<pre class="tree">body.article
+├ header.kd-top     <span class="g">✓</span>
+├ article#story     <span class="g">✓</span>
+│ ├ h1.headline     <span class="am">≈</span>
+│ ├ div.byline      <span class="g">✓</span>
+│ └ <span style="color: #FFC2C8">div.gallery   − A</span>
+├ aside.comments    <span class="g">✓</span>
+└ form#lead         <span class="g">✓</span></pre></div>
+<div style="flex: 1 1 150px; min-width: 0"><span class="eb">B</span>
+<pre class="tree">body.article
+├ header.kd-top     <span class="g">✓</span>
+├ article#story     <span class="g">✓</span>
+│ ├ h1.headline     <span class="am">≈</span>
+│ ├ div.byline      <span class="g">✓</span>
+│ └ <span style="color: #B9FFD3">div.video     + B</span>
+├ aside.comments    <span class="g">✓</span>
+└ form#lead         <span class="g">✓</span></pre></div>
+<p class="dim xs" style="flex: 1 1 100%">✓ to samo poddrzewo · ≈ ta sama struktura, inny tekst · −/+ tylko po jednej stronie. Podobieństwo przez MinHash shingli ścieżek.</p>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="as-h">
+<div class="ph"><h2 class="h3" id="as-h">Tryb Zasoby</h2><span class="dim xs">hashe body z HAR</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Zasób</th><th scope="col">A</th><th scope="col">B</th><th scope="col">Stan</th></tr></thead>
+<tbody>
+<tr><td class="mono xs">relay.min.js</td><td class="mono xs dim">e41b7c3</td><td class="mono xs dim">e41b7c3</td><td class="g mono">✓</td></tr>
+<tr><td class="mono xs">app.js</td><td class="mono xs dim">9be4c21</td><td class="mono xs dim">9be4c21</td><td class="g mono">✓</td></tr>
+<tr><td class="mono xs">style.css</td><td class="mono xs dim">51ad9e0</td><td class="mono xs dim">51ad9e0</td><td class="g mono">✓</td></tr>
+<tr><td class="mono xs">logo-kd.svg</td><td class="mono xs dim">0c77aa1</td><td class="mono xs dim">0c77aa1</td><td class="g mono">✓</td></tr>
+<tr><td class="mono xs">comments.js</td><td class="mono xs dim">a8f210d</td><td class="mono xs dim">a8f210d</td><td class="g mono">✓</td></tr>
+<tr><td class="mono xs">gallery.js</td><td class="mono xs dim">2b6f0a9</td><td class="mono xs dim">—</td><td class="rd mono">✕ A</td></tr>
+<tr><td class="mono xs">video.js</td><td class="mono xs dim">—</td><td class="mono xs dim">7d2e11f</td><td class="rd mono">✕ B</td></tr>
+</tbody>
+</table>
+</div>
+<p class="dim xs" style="padding: 10px 16px">+2 wspólne (favicon mmh3, fonts.css) · strony trzecie: cdn.vidstream.example (tylko B), stats.counter.example (obie)</p>
+</section>
+
+<section class="panel" aria-labelledby="sh-h">
+<div class="ph"><h2 class="h3" id="sh-h">Tryb Zrzut</h2><span class="dim xs">pHash Δ 4 · 2 regiony różnic</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 12px">
+<div class="ph-img shot">zrzut landingu A<br>(schemat)<div class="reg" style="left: 10%; top: 14%; width: 80%; height: 16%"><span>1</span></div><div class="reg" style="left: 10%; top: 52%; width: 80%; height: 28%"><span>2</span></div></div>
+<div class="ph-img shot">zrzut landingu B<br>(schemat)<div class="reg" style="left: 10%; top: 14%; width: 80%; height: 16%"><span>1</span></div><div class="reg" style="left: 10%; top: 52%; width: 80%; height: 28%"><span>2</span></div></div>
+<p class="dim xs" style="flex: 1 1 100%">1 nagłówek · 2 galeria (A) zamieniona na osadzone wideo (B). Reszta strony w tych samych miejscach.</p>
+</div>
+</section>
+
+</div>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="beh-h">
+<div class="ph"><h2 class="h3" id="beh-h">Zachowanie</h2></div>
+<div class="pb">
+<ul class="rules">
+<li>Kolumny przewijają się synchronicznie. <span class="kbd">[</span> <span class="kbd">]</span> przeskakują między różnicami, <span class="kbd">D</span> włącza „tylko różnice”.</li>
+<li>Klik w slot pokazuje rozkład wartości w całej kampanii, np. {PER}: Jan Kowalski 28 · Anna Nowak 12 · Tomasz Lewandowski 6.</li>
+<li>Tryb DOM: klik w węzeł podświetla go po obu stronach i w zrzucie. Tryb Zasoby: klik w hash otwiera szufladę dowodu (X1).</li>
+<li>Gdzie: S05 „Porównaj szablony V1 i V2”, S04 zakładka Dopasowania, S03 szczegół triage, X2 przy dowodzie Treść.</li>
+<li>Strona błędu (502, parking) nie ma diffu. Zamiast niego komunikat i wskaźnik pokrycia (X4).</li>
+</ul>
+</div>
+</section>
+<section class="panel" aria-labelledby="ctr-h">
+<div class="ph"><h2 class="h3" id="ctr-h">Kontrakt danych</h2><span class="api">GET links/{a}/{b}?view=diff</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted"><span class="mono">GET /api/v1/links/{a}/{b}?view=diff</span>, dane z <span class="mono">landing.text</span>, <span class="mono">landing.dom_minhash</span>, <span class="mono">tracking.asset_hashes</span> i <span class="mono">landing.screenshot_phash</span>.</p>
+<pre class="code">{
+  <span class="ck">"a"</span>: <span class="cs">"INC-24702"</span>, <span class="ck">"b"</span>: <span class="cs">"INC-24817"</span>,
+  <span class="ck">"metrics"</span>: { <span class="ck">"minhash"</span>: <span class="cg">0.82</span>, <span class="ck">"dom_shingles"</span>: <span class="cg">0.91</span>,
+               <span class="ck">"phash_distance"</span>: <span class="cg">4</span>, <span class="ck">"assets_shared"</span>: <span class="cg">7</span>, <span class="ck">"assets_total"</span>: <span class="cg">9</span> },
+  <span class="ck">"text"</span>: {
+    <span class="ck">"template"</span>: <span class="cs">"{NAGŁÓWEK} · {MIASTO}, {DATA}. Znany {ROLA}…"</span>,
+    <span class="ck">"a_tokens"</span>: [{ <span class="ck">"t"</span>: <span class="cs">"«Wiem, kto to zrobił»…"</span>, <span class="ck">"op"</span>: <span class="cs">"del"</span> }, …],
+    <span class="ck">"b_tokens"</span>: [{ <span class="ck">"t"</span>: <span class="cs">"PILNE:"</span>, <span class="ck">"op"</span>: <span class="cs">"ins"</span> }, …],   <span class="cc">// op: same|ins|del|slot</span>
+    <span class="ck">"slots"</span>: [{ <span class="ck">"name"</span>: <span class="cs">"PER"</span>, <span class="ck">"a"</span>: <span class="cs">"Tomasz Lewandowski"</span>, <span class="ck">"b"</span>: <span class="cs">"Jan Kowalski"</span> }]
+  },
+  <span class="ck">"dom"</span>: { <span class="ck">"matched"</span>: <span class="cg">41</span>, <span class="ck">"only_a"</span>: [<span class="cs">"article#story>div.gallery"</span>],
+           <span class="ck">"only_b"</span>: [<span class="cs">"article#story>div.video"</span>], <span class="ck">"changed_text"</span>: [<span class="cs">"h1.headline"</span>] },
+  <span class="ck">"assets"</span>: [{ <span class="ck">"path"</span>: <span class="cs">"relay.min.js"</span>, <span class="ck">"sha_a"</span>: <span class="cs">"e41b7c3…"</span>, <span class="ck">"sha_b"</span>: <span class="cs">"e41b7c3…"</span>,
+               <span class="ck">"same"</span>: <span class="cg">true</span>, <span class="ck">"third_party"</span>: <span class="cg">false</span> }, …],
+  <span class="ck">"visual"</span>: { <span class="ck">"phash_distance"</span>: <span class="cg">4</span>,
+              <span class="ck">"regions"</span>: [{ <span class="ck">"x"</span>: <span class="cg">0.1</span>, <span class="ck">"y"</span>: <span class="cg">0.14</span>, <span class="ck">"w"</span>: <span class="cg">0.8</span>, <span class="ck">"h"</span>: <span class="cg">0.16</span>, <span class="ck">"label"</span>: <span class="cs">"nagłówek"</span> }] }
+}</pre>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="rul-h">
+<div class="ph"><h2 class="h3" id="rul-h">Zasady</h2></div>
+<div class="pb">
+<ul class="rules">
+<li><b class="g">Tak:</b> maskuj encje (osoby, miasta, daty, kwoty, telefony) przed porównaniem. Inaczej warianty wyglądają jak różne kampanie.</li>
+<li><b class="g">Tak:</b> obok koloru zawsze znaki −/+ i etykiety A/B. Kolor nie może być jedyną informacją.</li>
+<li><b class="g">Tak:</b> miary podobieństwa stoją zawsze obok wizualnego diffu.</li>
+<li><b class="rd">Nie:</b> nie licz różnic w slotach jako różnic szablonu.</li>
+<li><b class="rd">Nie:</b> nie pokazuj diffu dla stron-błędów (502, parking). Pokaż powód i pokrycie.</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+<p class="footnote" style="max-width: 1240px; margin: 0 auto">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

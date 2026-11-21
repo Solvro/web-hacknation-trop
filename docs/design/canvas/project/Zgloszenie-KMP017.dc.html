@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: nowe zgłoszenie KMP-017</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 14px;border-radius:12px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.sh{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.rc{display:grid;grid-template-columns:18px 40px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;cursor:pointer}
+.rc input{width:16px;height:16px;margin:0;accent-color:#0A0A0A}
+.rc i{width:40px;height:40px;border-radius:12px;background:#F5F5F5;display:inline-flex;align-items:center;justify-content:center;font:600 14px Geist,sans-serif;font-style:normal;color:#404040}
+.rc b{display:block;font-size:15px;font-weight:600}
+.rc span.d{display:block;font-size:13px;color:#6B6B6B;margin-top:1px}
+.rc em{font:500 13px 'Geist Mono',ui-monospace,monospace;font-style:normal;color:#525252}
+.fc{display:flex;align-items:center;gap:12px;height:64px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw{flex:none;font:600 14px/1 'Geist Mono',ui-monospace,monospace}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1200px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 24px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+    <nav aria-label="Ślad" style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #6B6B6B"><a href="Kampanie.dc.html" style="color: #6B6B6B">Kampanie</a><span aria-hidden="true" style="color: #D4D4D4">/</span><a href="Kampania-KMP017.dc.html" style="color: #6B6B6B">KMP-017</a><span aria-hidden="true" style="color: #D4D4D4">/</span><span style="color: #0A0A0A; font-weight: 500">Nowe zgłoszenie</span></nav>
+
+    <section aria-labelledby="zn-h" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="zn-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Zgłoś całą kampanię naraz</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami i dowodami, zamiast 46 osobnych.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">KMP-017 «Zamach» · 46 reklam · 29 domen · 11 reklamodawców</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+        <a class="pri" href="Kampania-KMP017.dc.html">Wyślij 3 zgłoszenia<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+
+      <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+
+        <section aria-labelledby="zn-to" style="display: flex; flex-direction: column; gap: 10px">
+          <h2 id="zn-to" class="sh">Do kogo</h2>
+          <label class="rc"><input type="checkbox" checked><i>M</i><span><b>Meta · zgłoszenie DSA art. 16</b><span class="d">usunięcie reklam i zablokowanie kont reklamodawców</span></span><em>46 reklam · 11 kont</em></label>
+          <label class="rc"><input type="checkbox" checked><i>C</i><span><b>CERT PL · lista ostrzeżeń</b><span class="d">blokada domen w polskich sieciach</span></span><em>24 nowe domeny</em></label>
+          <label class="rc"><input type="checkbox" checked><i>G</i><span><b>Google Safe Browsing</b><span class="d">ostrzeżenie w przeglądarkach</span></span><em>29 domen</em></label>
+          <label class="rc" style="background: #FAFAFA"><input type="checkbox"><i>R</i><span><b>Rejestrator R-114 · abuse</b><span class="d">odpowiada rzadko, domyślnie wyłączony</span></span><em>29 domen</em></label>
+        </section>
+
+        <section aria-labelledby="zn-what" style="display: flex; flex-direction: column; gap: 12px">
+          <h2 id="zn-what" class="sh">Co wysyłamy</h2>
+          <div class="fc"><span data-jelly="auto" data-color="#2563EB" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">46 reklam z linkami do Ad Library i zrzutami</span><span class="fm">przygotował Zwiadowca</span></span><b class="fw">46</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#EC4899" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">11 kont reklamodawców z historią reklam</span><span class="fm">przygotował Archiwista</span></span><b class="fw">11</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">29 domen z certyfikatami i datami, w tym 10 ze śledztwa</span><span class="fm">przygotował Notariusz</span></span><b class="fw">29</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ślady, które łączą reklamy: bramka CAPI i kit</span><span class="fm">przygotował Tropiciel</span></span><b class="fw">2</b></div>
+          <div class="fc"><span data-jelly="square" data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Uzasadnienie i plik STIX 2.1 dla CERT PL</span><span class="fm">przygotował Sędzia</span></span><b class="fw">STIX</b></div>
+        </section>
+      </div>
+
+      <aside aria-labelledby="zn-txt" style="flex: 1 1 400px; max-width: 100%; min-width: 0; padding: 20px; border-radius: 22px; background: #F6F6F6; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span data-jelly="square" data-master="" data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span>
+          <span style="display: flex; flex-direction: column; gap: 1px"><h2 id="zn-txt" class="sh">Treść zgłoszenia</h2><span style="font-size: 13px; color: #6B6B6B">napisał Sędzia · możesz poprawić</span></span>
+        </div>
+        <label for="zn-body" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)">Treść zgłoszenia</label>
+        <textarea id="zn-body" rows="14" style="width: 100%; box-sizing: border-box; padding: 16px; border-radius: 16px; border: 1px solid #E5E5E5; background: #FFFFFF; outline: none; resize: vertical; font-family: inherit; font-size: 14.5px; line-height: 1.6; color: #262626">Zgłoszenie na podstawie art. 16 DSA.
+
+Zgłaszamy 46 reklam z 11 kont reklamodawców. Wszystkie należą do jednej kampanii oszustwa «Zamach» (KMP-017).
+
+Reklamy podszywają się pod portal «Kurier Dnia» i znane osoby, a prowadzą do fałszywej platformy inwestycyjnej, która wyłudza pieniądze.
+
+Wspólne ślady: ta sama bramka konwersji, ten sam zestaw stron i ten sam szablon tekstu. Lista reklam, adresów i dowodów jest w załączniku.</textarea>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" class="sec">Pobierz PDF</button>
+          <button type="button" class="sec">Pobierz STIX</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

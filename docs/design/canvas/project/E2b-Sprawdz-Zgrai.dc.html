@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Sprawdź reklamę: wariant B, minimal w stylu zgrai</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zg{font-family:Geist,Inter,system-ui,sans-serif;color:#0a0a0a;background:#ffffff;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+.zg *{box-sizing:border-box}
+.zg p,.zg h1,.zg h2,.zg h3{margin:0}
+.zg a{color:#0a0a0a;text-decoration:none}
+.zg a:hover{color:#525252}
+.zg-wrap{width:100%;max-width:1040px;margin:0 auto;padding:0 24px}
+.zg-mono{font-family:"Geist Mono",ui-monospace,monospace}
+.zg-eb{font:500 12px/1 "Geist Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#737373}
+.zg-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;font:500 16px/1 Geist,Inter,sans-serif;border:1px solid #d4d4d4;background:#ffffff;color:#0a0a0a;box-shadow:0 1px 2px rgba(0,0,0,.05);cursor:pointer;white-space:nowrap}
+.zg-btn.pri{background:#171717;border-color:#171717;color:#fafafa}
+.zg a.zg-btn.pri{color:#fafafa}
+.zg-btn.ghost{border-color:transparent;background:transparent;box-shadow:none;color:#525252;font-size:14px;min-height:44px;padding:0 10px}
+.zg-card{background:#ffffff;border:1px solid #e5e5e5;border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.zg-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.zg-list li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;font-size:16px;line-height:1.5;color:#262626}
+.zg-n{font:500 13px/24px "Geist Mono",monospace;color:#a3a3a3}
+.zg-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))}
+</style>
+</helmet>
+<div class="zg" style="min-height: 100vh; display: flex; flex-direction: column">
+
+<header class="zg-wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 20px; padding-bottom: 20px">
+<a href="E2b-Sprawdz-Zgrai.dc.html" aria-label="redpill, sprawdź reklamę" style="display: inline-flex; align-items: center; gap: 2px; font: 700 24px/32px Geist, sans-serif; letter-spacing: -0.96px; min-height: 44px">
+<span>red</span><span style="background: #0a0a0a; color: #ffffff; border-radius: 9px; padding: 0 7px 2px; letter-spacing: -0.48px">pill</span><span style="color: #a3a3a3; font-weight: 500">/sprawdź</span>
+</a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px" aria-label="Menu">
+<a class="zg-btn ghost" href="#jak">Jak to działa</a>
+<a class="zg-btn ghost" href="E1-Extension.dc.html">Wtyczka</a>
+<a class="zg-btn ghost" href="S01-Command.dc.html">Dla instytucji</a>
+</nav>
+</header>
+
+<main style="flex: 1 1 auto">
+
+<section class="zg-wrap" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding-top: 96px; padding-bottom: 56px">
+<h1 style="font: 600 clamp(40px, 6vw, 64px)/1 Geist, sans-serif; letter-spacing: -0.045em; max-width: 760px">Sprawdź reklamę, zanim klikniesz.</h1>
+<p style="font-size: 18px; line-height: 27px; color: #525252; max-width: 520px">Wklej link albo wgraj zrzut ekranu. Porównamy reklamę z kampaniami oszustów, które już znamy, i powiemy, co zrobić.</p>
+<form aria-label="Sprawdź reklamę" style="width: 100%; max-width: 620px; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 12px">
+<div style="width: 100%; display: flex; flex-wrap: wrap; gap: 8px; padding: 6px; border: 1px solid #d4d4d4; border-radius: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.05); background: #ffffff">
+<label for="zg-url" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Link do reklamy lub strony</label>
+<input id="zg-url" type="url" inputmode="url" placeholder="https://…" value="https://morvanta.click/?utm_source=fb" style="flex: 1 1 260px; min-width: 0; min-height: 48px; border: 0; outline: none; padding: 0 14px; font: 400 16px Geist, sans-serif; color: #0a0a0a; background: transparent; border-radius: 12px">
+<button class="zg-btn pri" type="button" style="border-radius: 12px">Sprawdź</button>
+</div>
+<button class="zg-btn ghost" type="button" style="font-size: 13px; color: #6b6b6b">albo wgraj zrzut ekranu</button>
+<p style="font-size: 13px; color: #737373">Nie zapisujemy Twoich danych. Zrzuty kasujemy po 24 h.</p>
+</form>
+</section>
+
+<section class="zg-wrap" aria-live="polite" aria-label="Wynik sprawdzenia" style="padding-bottom: 72px; display: flex; justify-content: center">
+<sc-if value="{{isScam}}" hint-placeholder-val="{{true}}">
+<article class="zg-card" style="width: 100%; max-width: 880px; padding: 32px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #c10012"><span style="width: 8px; height: 8px; border-radius: 50%; background: #e40014"></span>Wynik · wysokie ryzyko</span>
+<h2 style="font: 600 36px/1.05 Geist, sans-serif; letter-spacing: -0.04em">To najpewniej oszustwo.</h2>
+<p style="font-size: 17px; line-height: 1.55; color: #525252; max-width: 680px">Reklama pasuje do kampanii <b style="color: #0a0a0a; font-weight: 600">„Fałszywe artykuły o napaści na znaną osobę”</b>. Widzieliśmy 46 podobnych reklam od 7 listopada, ostatnią dziś w nocy.</p>
+</div>
+<div style="height: 1px; background: #e5e5e5"></div>
+<div class="zg-grid" style="gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span class="zg-eb">Dlaczego</span>
+<ol class="zg-list">
+<li><span class="zg-n">01</span><span>Ten sam układ co 46 innych reklam: neutralne zdjęcie, sensacyjny tekst, przypadkowa nazwa nadawcy.</span></li>
+<li><span class="zg-n">02</span><span>Link prowadzi do strony udającej portal informacyjny, choć adres to losowe słowo z końcówką .click.</span></li>
+<li><span class="zg-n">03</span><span>Strona zbiera numer telefonu i namawia do wpłaty, jak znane oszustwa „inwestycyjne”.</span></li>
+</ol>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span class="zg-eb">Co zrobić teraz</span>
+<ul class="zg-list">
+<li><span class="zg-n">→</span><span>Nie podawaj danych, telefonu ani pieniędzy.</span></li>
+<li><span class="zg-n">→</span><span>Zgłoś reklamę na platformie, na której ją widzisz.</span></li>
+<li><span class="zg-n">→</span><span>Jeśli podałeś dane karty, od razu zadzwoń do banku.</span></li>
+<li><span class="zg-n">→</span><span>Zgłoś stronę do CERT Polska.</span></li>
+</ul>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button class="zg-btn pri" type="button">Zgłoś tę reklamę</button>
+<button class="zg-btn" type="button">Pokaż podobne reklamy</button>
+</div>
+</article>
+</sc-if>
+<sc-if value="{{isUnknown}}" hint-placeholder-val="{{false}}">
+<article class="zg-card" style="width: 100%; max-width: 880px; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="zg-eb" style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #a3a3a3"></span>Wynik · brak dopasowania</span>
+<h2 style="font: 600 36px/1.05 Geist, sans-serif; letter-spacing: -0.04em">Nie znamy tej reklamy.</h2>
+<p style="font-size: 17px; line-height: 1.55; color: #525252"><b style="color: #0a0a0a; font-weight: 600">To nie znaczy, że jest bezpieczna.</b> Nie pasuje do żadnej kampanii, którą już przeanalizowaliśmy.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span class="zg-eb">Sprawdź sam</span>
+<ul class="zg-list">
+<li><span class="zg-n">01</span><span>Znana osoba „poleca” inwestycję albo lek lub nagle „przerywa milczenie”.</span></li>
+<li><span class="zg-n">02</span><span>Strona wygląda jak portal informacyjny, ale adres jest dziwny lub nowy.</span></li>
+<li><span class="zg-n">03</span><span>Obietnica szybkiego zysku, „ostatnie sztuki”, presja czasu.</span></li>
+<li><span class="zg-n">04</span><span>Formularz prosi o telefon, a „konsultant” ma oddzwonić.</span></li>
+</ul>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center"><button class="zg-btn pri" type="button">Wyślij do sprawdzenia przez analityka</button><span style="font-size: 14px; color: #737373">Odpowiemy w ciągu 24 h.</span></div>
+</article>
+</sc-if>
+</section>
+
+<section class="zg-wrap" style="padding-bottom: 72px; display: flex; flex-direction: column; gap: 20px" aria-labelledby="zg-sch">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px"><h2 id="zg-sch" style="font: 600 28px/1.1 Geist, sans-serif; letter-spacing: -0.03em">Schematy tego tygodnia</h2><span class="zg-eb">tydzień 47</span></div>
+<div class="zg-grid">
+<article class="zg-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span class="zg-eb">Schemat 01</span>
+<h3 style="font: 600 18px/1.3 Geist, sans-serif; letter-spacing: -0.01em">Fałszywe artykuły o napaści na znaną osobę</h3>
+<p style="font-size: 15px; line-height: 1.55; color: #525252">Strona udaje portal, a jej adres to losowe słowo z końcówką .click albo .live.</p>
+</article>
+<article class="zg-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span class="zg-eb">Schemat 02</span>
+<h3 style="font: 600 18px/1.3 Geist, sans-serif; letter-spacing: -0.01em">„Lekarz” poleca cudowny suplement</h3>
+<p style="font-size: 15px; line-height: 1.55; color: #525252">Wideo z nienaturalnym ruchem ust lub sztucznym głosem i licznik „ostatnich sztuk”.</p>
+</article>
+<article class="zg-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span class="zg-eb">Schemat 03</span>
+<h3 style="font: 600 18px/1.3 Geist, sans-serif; letter-spacing: -0.01em">Platforma AI „dla każdego”</h3>
+<p style="font-size: 15px; line-height: 1.55; color: #525252">Znane twarze ze sportu i telewizji, formularz z telefonem, „konsultant zadzwoni”.</p>
+</article>
+</div>
+</section>
+
+<section id="jak" class="zg-wrap" style="padding-bottom: 80px; display: flex; flex-direction: column; gap: 20px">
+<h2 style="font: 600 28px/1.1 Geist, sans-serif; letter-spacing: -0.03em">Jak to działa</h2>
+<div class="zg-grid" style="gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zg-mono" style="font-size: 13px; color: #a3a3a3">01</span><h3 style="font: 600 17px Geist, sans-serif">Wklej link lub zrzut</h3><p style="font-size: 15px; line-height: 1.55; color: #525252">Wystarczy adres z reklamy albo zdjęcie ekranu telefonu.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zg-mono" style="font-size: 13px; color: #a3a3a3">02</span><h3 style="font: 600 17px Geist, sans-serif">Porównujemy ślady</h3><p style="font-size: 15px; line-height: 1.55; color: #525252">Wygląd, tekst i techniczne odciski strony zestawiamy z kampaniami, które już znamy.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zg-mono" style="font-size: 13px; color: #a3a3a3">03</span><h3 style="font: 600 17px Geist, sans-serif">Wynik i zgłoszenie</h3><p style="font-size: 15px; line-height: 1.55; color: #525252">Dostajesz ocenę z uzasadnieniem. Zgłoszenie pomaga zablokować całą kampanię.</p></div>
+</div>
+</section>
+
+</main>
+
+<footer class="zg-wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px; padding-bottom: 28px; border-top: 1px solid #e5e5e5; font-size: 13px; color: #737373">
+<span>redpill · projekt HackNation 2026</span>
+<span>Dane na stronie są przykładowe</span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"result":{"editor":"enum","options":["scam","unknown"],"default":"scam","section":"Stan"},"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const r = this.props.result ?? 'scam';
+    return { isScam: r === 'scam', isUnknown: r === 'unknown' };
+  }
+}
+</script>
+</body>
+</html>

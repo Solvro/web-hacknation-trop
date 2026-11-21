@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: raport INC-24817</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #E5E5E5;background:#FFFFFF;font-family:inherit;font-size:13px;color:#404040;cursor:pointer}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:14px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:#F5F5F5}
+.segb{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 16px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.segb svg{width:15px;height:15px}
+.fc{display:flex;align-items:center;gap:12px;height:64px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw{flex:none;font:600 15px/1 'Geist Mono',ui-monospace,monospace}
+.panel{background:#F6F6F6;border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:4px}
+.step{border-radius:18px;overflow:hidden}
+.step[open]{background:#FFFFFF}
+.step summary{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 14px;cursor:pointer;list-style:none}
+.step summary::-webkit-details-marker{display:none}
+.step .chev{flex:none;transition:transform .2s ease}
+.step[open] .chev{transform:rotate(180deg)}
+.okc{width:20px;height:20px;flex:none;border-radius:999px;background:#0A0A0A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font:700 12px/1 Geist,sans-serif}
+.sn{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sn b{font-size:15px;font-weight:600}
+.sn span{font-size:13px;color:#525252}
+.tm{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#8A8A8A}
+.det{padding:0 14px 14px;display:flex;gap:10px;align-items:flex-start}
+.det p{margin:0;font-size:14px;line-height:1.45;color:#262626}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1000px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 30px 24px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
+
+    <section aria-labelledby="rp-verdict" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="rp-verdict" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Fałszywe newsy, które prowadzą do „inwestycji”</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Reklama udaje pilną wiadomość z «Kurier Dnia», a link prowadzi do fałszywej „platformy inwestycyjnej”, która wyłudza pieniądze.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">KMP-017 «Zamach» · 46 reklam · 19 domen · INC-24817 · morvanta.click</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+        <a class="pri" href="Kampania-KMP017.dc.html">Otwórz kampanię<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="Sledztwo.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; color: #525252; text-decoration: underline; text-decoration-color: #D4D4D4; text-underline-offset: 4px">albo szukaj reszty z agentem</a>
+      </div>
+    </section>
+
+    <nav class="seg" aria-label="Widok wyniku" style="align-self: flex-start; margin-bottom: -10px">
+          <a class="segb" href="Sprawdz-3-Raport.dc.html" aria-current="page" style="background: #FFFFFF; color: #0A0A0A; box-shadow: 0 1px 2px rgba(0,0,0,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg>Raport</a>
+          <a class="segb" href="Sprawdz-4-Graf.dc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8 7l8 4M8 17l8-4"></path></svg>Graf</a>
+        </nav>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+
+      <section aria-labelledby="rp-found" style="flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="rp-found" style="margin: 0 0 2px; font-size: 13px; font-weight: 500; color: #6B6B6B">Co znalazły boty</h2>
+
+        <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ta sama bramka CAPI co 47 materiałów tej kampanii</span><span class="fm">Tropiciel · tracking · 47 z 1 284 materiałów</span></span><b class="fw">+3.1</b></div>
+
+        <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ten sam kit: /api/v2/relay/lead/{uuid}/</span><span class="fm">Tropiciel · kit · 58 z 1 284</span></span><b class="fw">+2.7</b></div>
+
+        <div class="fc"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Tekst z szablonu „PILNE: {PER} przerywa…”</span><span class="fm">Czytelnik · treść · podobieństwo 0.93 · 22 z 1 284</span></span><b class="fw">+2.2</b></div>
+
+        <div class="fc"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Certyfikat z tej samej nocnej partii LE R11</span><span class="fm">Notariusz · infra · 6 z 1 284 · RDAP częściowo</span></span><b class="fw">+1.4</b></div>
+
+        <div class="fc"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">W reklamie ta sama twarz: Jan Kowalski</span><span class="fm">Czytelnik · osoby · 61 z 1 284</span></span><b class="fw">+0.8</b></div>
+
+        <div class="fc" style="background: #FAFAFA; border-style: dashed; box-shadow: none"><span data-jelly="auto" data-color="#EC4899" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl" style="color: #525252">Cloudflare pominięty: ma go 512 niepowiązanych spraw</span><span class="fm">Archiwista · wspólna infrastruktura · waga 0</span></span><b class="fw" style="color: #A3A3A3">0</b></div>
+
+        <div role="group" aria-label="Ocena werdyktu" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 12px">
+          <span style="font-size: 14px; font-weight: 600; margin-right: 6px">Werdykt trafny?</span>
+          <button type="button" class="chip">Tak</button>
+          <button type="button" class="chip">Inna kampania</button>
+          <button type="button" class="chip">Nowa kampania</button>
+          <button type="button" class="chip">To nie oszustwo</button>
+        </div>
+      </section>
+
+      <aside class="panel" aria-labelledby="rp-sum" style="flex: 0 1 452px; min-width: 0">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 2px 4px 10px">
+          <span data-jelly="square" data-master="" data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 42px; height: 42px"></span>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+            <h2 id="rp-sum" style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.015em">Jak pracowały boty</h2>
+            <span style="font-size: 13px; color: #6B6B6B">6 z 6 kroków · 19,6 s</span>
+          </div>
+        </div>
+
+        <details class="step">
+          <summary><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="sn"><b>Przechwycenie strony</b><span>4 przekierowania · 212 żądań</span></span><span class="tm">6,8 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="auto" data-color="#2563EB" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Zwiadowca</span><p>Otworzyłem stronę w piaskownicy. Formularzy nie wysyłam.</p><p>Droga: l.facebook.com → morvanta.click/?utm_visit=0193a7c2-…</p></span></div>
+        </details>
+
+        <details class="step">
+          <summary><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="sn"><b>Ślady techniczne</b><span>bramka CAPI · kit relay v1</span></span><span class="tm">0,6 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Tropiciel</span><p>Bramka CAPI cg-7f3a… ma 47 materiałów, wszystkie z KMP-017.</p><p>Ścieżka /api/v2/relay/lead/{uuid}/ występuje też w KMP-034.</p></span></div>
+        </details>
+
+        <details class="step">
+          <summary><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="sn"><b>Treść i osoby</b><span>szablon „PILNE” · Jan Kowalski</span></span><span class="tm">3,9 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Czytelnik</span><p>Tekst pasuje do szablonu „PILNE: {PER} przerywa…” (0.93).</p><p>Twarz w reklamie: Jan Kowalski, podobieństwo 0.91.</p></span></div>
+        </details>
+
+        <details class="step" open="">
+          <summary><span class="okc" style="background: #EA580C">!</span><span class="sn"><b>Domena i certyfikaty</b><span style="color: #9A3412">częściowo: RDAP nie odpowiedział</span></span><span class="tm">2,4 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Notariusz</span><p>Certyfikat z nocnej partii 6 certyfikatów LE R11.</p><p>RDAP milczał 3 razy, więc rejestratora nie znam. Werdykt liczony bez tej informacji.</p></span></div>
+        </details>
+
+        <details class="step">
+          <summary><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="sn"><b>Porównanie z bazą</b><span>312 podobnych · 9 kampanii</span></span><span class="tm">0,4 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="auto" data-color="#EC4899" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Archiwista</span><p>Najbliżej: KMP-017 0.94, KMP-034 0.41, KMP-022 0.08.</p><p>Cloudflare 203.0.113.0/24 pomijam: ma go 512 niepowiązanych spraw.</p></span></div>
+        </details>
+
+        <details class="step">
+          <summary><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="sn"><b>Werdykt</b><span>KMP-017 · pewność 0.94</span></span><span class="tm">5,5 s</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="det"><span data-jelly="square" data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">Sędzia</span><p>Tylko KMP-017 przekracza próg pewności.</p><p>Najwięcej ważyły bramka CAPI i kit.</p></span></div>
+        </details>
+
+        <a href="C3-Porownanie.dc.html" style="align-self: flex-start; margin-top: 4px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; text-decoration: none">Szczegóły warstwa po warstwie<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </aside>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

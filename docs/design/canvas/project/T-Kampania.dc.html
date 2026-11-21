@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: kampania KMP-017</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/0fec4c5e428884d17088a849211b39ed"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+sc-if,sc-for{display:contents}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:14px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06)}
+.stat{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border:1px solid #F0F0F0;border-radius:18px}
+.stat b{font-size:28px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.stat span{font-size:13px;color:#6B6B6B}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.dom{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;gap:14px;align-items:center;padding:13px 4px;border-bottom:1px solid #F0F0F0;text-decoration:none;color:#0A0A0A}
+.dom:last-child{border-bottom:0}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:#F5F5F5}
+.seg button{min-height:32px;padding:0 12px;border-radius:999px;border:0;background:transparent;font-family:inherit;font-size:13px;font-weight:500;color:#525252;cursor:pointer}
+.person{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;border:1px solid #E5E5E5;font-size:13.5px}
+.person i{width:26px;height:26px;border-radius:999px;background:#F0F0F0;display:inline-flex;align-items:center;justify-content:center;font:600 10.5px Geist,sans-serif;font-style:normal;color:#525252}
+.person span{color:#8A8A8A}
+.panel{background:#F6F6F6;border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:4px}
+.step{border-radius:18px;overflow:hidden}
+.step>button{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 14px;border:none;background:none;font-family:inherit;text-align:left;cursor:pointer;color:#0A0A0A}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1300px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="T-Kolejka.dc.html">Kolejka<b>7</b></a>
+        <a class="tab" href="T-Kampania.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Kampanie</a>
+        <a class="tab" href="T-Sledztwo.dc.html">Śledztwa</a>
+        <a class="tab" href="T-Zgloszenia.dc.html">Zgłoszenia</a>
+      </nav>
+      <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #F0FDF4; color: #166534; font-size: 13px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 999px; background: #22C55E; animation: pulse 1.6s ease-out infinite"></span>na żywo</span>
+    </div>
+  </header>
+
+  <div style="max-width: 1240px; margin: 0 auto; padding: 28px 24px 48px; display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start">
+
+    <section aria-labelledby="km-h" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+      <nav aria-label="Ślad" style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #6B6B6B"><a href="T-Kampania.dc.html" style="color: #6B6B6B; text-decoration: none">Kampanie</a><span aria-hidden="true" style="color: #D4D4D4">/</span><span style="color: #0A0A0A; font-weight: 500">KMP-017</span><span aria-hidden="true" style="color: #D4D4D4">·</span><a href="Sprawdz.dc.html" style="color: #6B6B6B">z raportu INC-24817</a></nav>
+
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span class="pill" style="align-self: flex-start; background: #FFF7ED; color: #9A3412">Aktywna · +38% materiałów w 48 h</span>
+        <h1 id="km-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">KMP-017 «Zamach»</h1>
+        <p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.5; color: #525252">Fałszywy portal «Kurier Dnia» pisze o „napaści” na znaną osobę, a link prowadzi do „platformy inwestycyjnej”. Kampanię prowadzi operator OP-03 «Kestrel».</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+        <div class="stat"><b>46</b><span>materiałów</span></div>
+        <div class="stat"><b>19</b><span>domen, 3 nowe dziś</span></div>
+        <div class="stat"><b>11</b><span>reklamodawców</span></div>
+        <div class="stat"><b>5/19</b><span>domen na liście CERT PL</span></div>
+      </div>
+
+      <section class="card" aria-labelledby="km-t" style="padding: 18px 20px 14px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <h2 id="km-t" style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.015em">Materiały w czasie</h2>
+          <div class="seg" role="group" aria-label="Zakres"><button type="button" aria-pressed="true" style="background: #FFFFFF; color: #0A0A0A; box-shadow: 0 1px 2px rgba(0,0,0,.08)">14 dni</button><button type="button" aria-pressed="false">48 h</button></div>
+        </div>
+        <svg viewBox="0 0 680 186" role="img" aria-label="Liczba nowych materiałów dziennie od 8 do 21 listopada, od 0 do 6, rośnie. 19.11 Oracle przewidział morvanta.click, dziś w nocy wydano 3 certyfikaty." style="width: 100%; height: auto; display: block; font-family: Geist, sans-serif">
+          <g fill="#171717">
+            <rect x="16" y="150" width="26" height="0" rx="4"></rect>
+            <rect x="63" y="131" width="26" height="19" rx="4"></rect>
+            <rect x="110" y="112" width="26" height="38" rx="4"></rect>
+            <rect x="157" y="131" width="26" height="19" rx="4"></rect>
+            <rect x="204" y="93" width="26" height="57" rx="4"></rect>
+            <rect x="251" y="112" width="26" height="38" rx="4"></rect>
+            <rect x="298" y="74" width="26" height="76" rx="4"></rect>
+            <rect x="345" y="93" width="26" height="57" rx="4"></rect>
+            <rect x="392" y="55" width="26" height="95" rx="4"></rect>
+            <rect x="439" y="74" width="26" height="76" rx="4"></rect>
+            <rect x="486" y="36" width="26" height="114" rx="4"></rect>
+            <rect x="533" y="55" width="26" height="95" rx="4"></rect>
+            <rect x="580" y="74" width="26" height="76" rx="4"></rect>
+          </g>
+          <rect x="627" y="36" width="26" height="114" rx="4" fill="#EA580C"></rect>
+          <line x1="10" y1="150.5" x2="670" y2="150.5" stroke="#E5E5E5"></line>
+          <g font-size="11" fill="#8A8A8A" text-anchor="middle">
+            <text x="29" y="172">08.11</text><text x="123" y="172">10.11</text><text x="217" y="172">12.11</text><text x="311" y="172">14.11</text><text x="405" y="172">16.11</text><text x="499" y="172">18.11</text><text x="593" y="172">20.11</text><text x="640" y="186">dziś</text>
+          </g>
+          <line x1="546" y1="26" x2="546" y2="50" stroke="#6D28D9" stroke-width="1.5"></line>
+          <text x="540" y="20" font-size="12" fill="#6D28D9" text-anchor="end">Oracle przewidział morvanta.click</text>
+          <line x1="640" y1="26" x2="640" y2="32" stroke="#EA580C" stroke-width="1.5"></line>
+          <text x="672" y="20" font-size="12" fill="#9A3412" text-anchor="end">3 certyfikaty tej nocy</text>
+        </svg>
+      </section>
+
+      <section class="card" aria-labelledby="km-d" style="padding: 18px 20px 6px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 4px">
+          <h2 id="km-d" style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.015em">Domeny</h2>
+          <a href="T-Kampania.dc.html" style="font-size: 13.5px; color: #525252">Wszystkie 19</a>
+        </div>
+        <sc-for list="{{domains}}" as="d" hint-placeholder-count="6">
+          <a class="dom" href="Sprawdz.dc.html">
+            <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font: 500 14px 'Geist Mono', ui-monospace, monospace">{{d.name}}</span><span style="font-size: 12.5px; color: #6B6B6B">{{d.meta}}</span></span>
+            <span class="pill" style="background: {{d.bg}}; color: {{d.c}}">{{d.status}}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="km-p" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="km-p" style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.015em">Kogo udaje</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <span class="person"><i>JK</i>Jan Kowalski<span>31 reklam</span></span>
+          <span class="person"><i>AN</i>Anna Nowak<span>9</span></span>
+          <span class="person"><i>TL</i>Tomasz Lewandowski<span>6</span></span>
+          <span class="person"><i>KD</i>«Kurier Dnia»<span>portal</span></span>
+        </div>
+      </section>
+    </section>
+
+    <aside aria-labelledby="km-sum" style="flex: 1 1 380px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div class="panel">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 2px 4px 10px">
+          <span data-jelly="square" data-master data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 42px; height: 42px"></span>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+            <h2 id="km-sum" style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.015em">Co wiemy o kampanii</h2>
+            <span style="font-size: 13px; color: #6B6B6B">boty uzupełniły o 08:52</span>
+          </div>
+        </div>
+        <sc-for list="{{facts}}" as="s" hint-placeholder-count="5">
+          <div class="step" style="background: {{s.bg}}">
+            <button type="button" onClick="{{s.toggle}}" aria-expanded="{{s.expanded}}">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{s.name}}</span><span style="font-size: 13px; color: #525252">{{s.out}}</span></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: {{s.chev}}; transition: transform .2s ease"><path d="M6 9l6 6 6-6"></path></svg>
+            </button>
+            <sc-if value="{{s.open}}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 0 14px 14px; display: flex; gap: 10px; align-items: flex-start">
+                <span data-jelly="{{s.shape}}" data-color="{{s.c}}" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span>
+                <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">{{s.bot}}</span><span style="font-size: 14px; line-height: 1.45; color: #262626">{{s.d1}}</span><span style="font-size: 14px; line-height: 1.45; color: #262626">{{s.d2}}</span></span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <a class="pri" href="T-Zgloszenia.dc.html">Zgłoś całą kampanię<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a class="sec" href="T-Sledztwo.dc.html">Szukaj reszty z agentem</a>
+        <span style="padding: 4px 6px; font-size: 13px; line-height: 1.45; color: #6B6B6B">Oracle pilnuje nowych certyfikatów z DNA tej kampanii. Gdy pojawi się nowa domena, trafi do kolejki.</span>
+      </div>
+    </aside>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+const FACTS = [
+  { id: 'dna', name: 'Jak wyglądają domeny', out: '7–9 liter, zmyślone słowa, .click i .live', bot: 'Notariusz', c: '#8B5CF6', shape: 'auto', d1: 'Rejestrator R-114, certyfikaty LE R10 i R11 wydawane nocą, między 00:00 a 03:00.', d2: 'Serwery w AS64500, schowane za Cloudflare.' },
+  { id: 'trk', name: 'Ślady techniczne', out: 'bramka CAPI cg-7f3a… · kit relay v1', bot: 'Tropiciel', c: '#F97316', shape: 'auto', d1: 'Wszystkie 46 materiałów wysyła konwersje do tej samej bramki.', d2: 'Linki mają pięć parametrów utm i utm_visit w formacie uuidv7.' },
+  { id: 'txt', name: 'Treść', out: '3 szablony, najnowszy „PILNE: {PER}…”', bot: 'Czytelnik', c: '#14B8A6', shape: 'auto', d1: '„«Wiem, kto to zrobił»: atak na {PER}” (19), „PILNE: {PER} przerywa milczenie…” (22), wideo deepfake (5).', d2: 'Reklamy pokazują krajobrazy i zwierzęta, a link udaje OKAZJE-DNIA.COM.' },
+  { id: 'op', name: 'Operator', out: 'OP-03 «Kestrel» · prowadzi też KMP-034', bot: 'Sędzia', c: '#0A0A0A', shape: 'square', d1: 'Ten sam kit i ta sama bramka CAPI co KMP-034 «Glikonor».', d2: 'Treść i osoby są inne, więc to dwie kampanie jednego operatora.' },
+  { id: 'orc', name: 'Oracle', out: '2 domeny złapane przed reklamą', bot: 'Archiwista', c: '#EC4899', shape: 'auto', d1: 'morvanta.click przewidziana 19.11, orvinta.click 20.11, średnio 31 h przed pierwszą reklamą.', d2: 'tranvello.click czeka na potwierdzenie, pewność 0.71.' }
+];
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, {});
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return Object.assign(this.baseVals(), { refCv: this.refCv, refRt: this.refRt });
+  }
+  baseVals() {
+    const sel = (this.state && this.state.sel !== undefined) ? this.state.sel : 'dna';
+    const facts = FACTS.map((f) => {
+      const open = sel === f.id;
+      return Object.assign({}, f, {
+        open: open, expanded: open ? 'true' : 'false',
+        bg: open ? '#FFFFFF' : 'transparent', chev: open ? 'rotate(180deg)' : 'none',
+        toggle: () => this.setState({ sel: open ? null : f.id })
+      });
+    });
+    const st = {
+      live: { bg: '#FEF2F2', c: '#B91C1C' },
+      fresh: { bg: '#FFF7ED', c: '#9A3412' },
+      pred: { bg: '#F5F3FF', c: '#6D28D9' },
+      listed: { bg: '#F0FDF4', c: '#166534' },
+      off: { bg: '#F5F5F5', c: '#525252' }
+    };
+    const dom = (name, meta, status, kind) => Object.assign({ name, meta, status }, st[kind]);
+    return {
+      facts: facts,
+      domains: [
+        dom('morvanta.click', 'certyfikat dziś 02:31 · Oracle przewidział 19.11', 'reklamy aktywne · 4', 'live'),
+        dom('orvinta.click', 'certyfikat dziś 01:12 · Oracle przewidział 20.11', 'nowa, jeszcze bez reklam', 'fresh'),
+        dom('plessuro.live', 'certyfikat dziś 00:47', 'nowa, jeszcze bez reklam', 'fresh'),
+        dom('tranvello.click', 'Oracle · pewność 0.71', 'przewidziana', 'pred'),
+        dom('velmoria.click', 'od 12.11 · 9 reklam', 'na liście CERT PL', 'listed'),
+        dom('selqueno.live', 'od 17.11 nie odpowiada (502)', 'wyłączona', 'off')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

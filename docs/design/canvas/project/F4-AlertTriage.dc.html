@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F4: alert → triage → feedback</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.stc{flex:1 1 250px;max-width:300px;min-width:0;background:#0A100C;border:1px solid #1D2B22;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.stc.hot{border-color:rgba(59,240,126,.38)}.stc.amb{border-color:rgba(255,181,71,.45)}.stc.cyn{border-color:rgba(92,200,255,.45)}.stc.red{border-color:rgba(255,93,108,.45)}
+.stc.wide{max-width:none}
+.stn{display:flex;align-items:center;gap:8px}
+.stn b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 11px "JetBrains Mono",monospace;background:rgba(59,240,126,.10);color:#3BF07E;border:1px solid rgba(59,240,126,.38);flex:none}
+.stn.cy b{background:rgba(92,200,255,.10);color:#5CC8FF;border-color:rgba(92,200,255,.45)}
+.stn.am b{background:rgba(255,181,71,.12);color:#FFB547;border-color:rgba(255,181,71,.45)}
+.stn .h3{flex:1 1 auto;min-width:0}
+.chev{display:flex;align-items:center;justify-content:center;width:20px;flex:none;color:#3B5444}
+.thumb{height:90px;border-radius:6px;border:1px solid #2B3F32;background:#050806;padding:6px;display:flex;gap:5px;overflow:hidden}
+.thumb .s{display:block;width:13%;background:#0F1812;border-radius:3px;flex:none}
+.thumb .m{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;min-width:0}
+.thumb .tr{display:flex;gap:4px;flex:1 1 auto;min-height:0}
+.thumb i{display:block;border-radius:2px;background:#16231A;min-height:5px}
+.thumb .gf{background:#178A43}.thumb .gl{border:1px solid rgba(59,240,126,.5);background:rgba(59,240,126,.08)}
+.thumb .cl{border:1px solid rgba(92,200,255,.5);background:rgba(92,200,255,.08)}.thumb .cf{background:#2D6E8E}
+.thumb .al{border:1px solid rgba(255,181,71,.5);background:rgba(255,181,71,.08)}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ln b{color:#DDEBE2;font-weight:600}
+.apiln{font:11.5px/1.45 "JetBrains Mono",monospace;color:#5CC8FF;overflow-wrap:anywhere}
+.dur{font:11px "JetBrains Mono",monospace;color:#83998B;white-space:nowrap}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.entries{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(620px,100%),1fr));gap:16px}
+.erow{border:1px dashed #2B3F32;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));gap:12px}
+.bc{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;background:#0A100C;border:1px solid #1D2B22}
+.bc ul{display:flex;flex-direction:column;gap:6px;font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.eci{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#DDEBE2}
+.chk::before{content:"";width:14px;height:14px;border-radius:3px;border:1.5px solid #3B5444;flex:none;margin-top:3px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div class="row"><span class="eb">Przepływ F4</span><span class="pill cy">pętla uczenia</span><span class="pill">flow (d)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1">Alert Hunter / Oracle → triage → decyzja → feedback do modelu</h1>
+<div class="meta">
+<div><span class="eb">Aktor</span><span class="sm">Analityk dyżurny</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">Hunter: nowa reklama z niskim wynikiem · Oracle: certyfikat CT pasuje do DNA (0.88)</span></div>
+<div><span class="eb">Cel</span><span class="sm">Szybka decyzja człowieka, która jednocześnie uczy model</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">~20 s / element · retrain M1 ≈ 8 s</span></div>
+</div>
+<p class="muted sm"><b class="g">Sukces:</b> decyzja w ≤ 3 klawiszach, zapis oznaczonych par, nowa wersja M1 z walidacją, metryki w Lab odświeżone na żywo.</p>
+</section>
+
+<section class="lane" aria-labelledby="f4-in">
+<div class="lane-h"><h2 class="h2" id="f4-in">Dwa wejścia</h2><span class="dim sm">oba kończą się jako element triage</span></div>
+<div class="entries">
+<div class="erow">
+<span class="brl cy">Wejście H · Hunter</span>
+<div class="strip">
+<article class="stc wide" style="flex-basis: 260px">
+<div class="stn cy"><b>H1</b><h3 class="h3">Capture nowej reklamy</h3><span class="dur">automat</span></div>
+<a class="mono xs" href="S12-Hunter.dc.html">Źródło: S12 · Ad Library</a>
+<p class="ln"><b>System:</b> zapytanie „nagranie usunięte z TV” daje nową reklamę; pipeline jak w F1. Wynik 0.52 dla KMP-022 i 0.47 dla KMP-034, czyli pasmo niepewności.</p>
+<p class="apiln">SSE hunter.capture · job.step</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc cyn wide" style="flex-basis: 260px">
+<div class="stn cy"><b>H2</b><h3 class="h3">Alert: niepewne</h3><span class="dur">&lt; 1 s</span></div>
+<p class="ln"><b>System:</b> alert „Niepewne przypisanie INC-24823” z priorytetem średnim; element w kolejce Triage.</p>
+<p class="apiln">SSE alert.created · triage.created</p>
+</article>
+</div>
+</div>
+<div class="erow">
+<span class="brl am">Wejście O · Oracle</span>
+<div class="strip">
+<article class="stc wide" style="flex-basis: 260px">
+<div class="stn am"><b>O1</b><h3 class="h3">Certyfikat w CT</h3><span class="dur">real-time</span></div>
+<a class="mono xs" href="S08-Oracle.dc.html">Ekran: S08 · Oracle</a>
+<p class="ln"><b>System:</b> LE R11 dla tranvello.click o 02:58; DNA KMP-017 0.88 (pseudosłowo 9 liter, .click, partia nocna).</p>
+<p class="apiln">SSE oracle.match {domain, campaign_id, score}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc amb wide" style="flex-basis: 260px">
+<div class="stn am"><b>O2</b><h3 class="h3">Alert: domena przewidziana</h3><span class="dur">&lt; 1 s</span></div>
+<p class="ln"><b>System:</b> alert „tranvello.click: przewidziana dla KMP-017, brak reklam”, priorytet wysoki, bo DNA ≥ 0.85.</p>
+<p class="apiln">SSE alert.created · triage.created</p>
+</article>
+</div>
+</div>
+</div>
+</section>
+
+<section class="lane" aria-labelledby="f4-main">
+<div class="lane-h"><h2 class="h2" id="f4-main">Wspólna ścieżka</h2><span class="dim sm">przykład: INC-24823 z wejścia H</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn"><b>1</b><h3 class="h3">Alert w centrum</h3><span class="dur">5 s</span></div>
+<a class="mono xs" href="S01-Command.dc.html">Ekran: S01 · feed i dzwonek</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><span class="tr" style="flex: none"><i style="flex: 1; height: 14px"></i><i style="flex: 1; height: 14px"></i><i style="flex: 1; height: 14px"></i></span><i class="cl" style="height: 12px"></i><i style="height: 8px"></i><i class="al" style="height: 12px"></i><i style="height: 8px"></i></span></div>
+<p class="ln"><b>Analityk:</b> widzi alert w feedzie i klika „Do triage”.</p>
+<p class="apiln">GET /alerts?status=open · SSE alert.created</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>2</b><h3 class="h3">Kolejka</h3><span class="dur">2 s</span></div>
+<a class="mono xs" href="S03-Triage.dc.html">Ekran: S03 · Triage</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr"><span style="display: flex; flex-direction: column; gap: 4px; flex: 1"><i class="gl" style="height: 12px"></i><i style="height: 12px"></i><i style="height: 12px"></i><i style="height: 12px"></i></span><i style="flex: 1.4"></i></span></span></div>
+<p class="ln"><b>System:</b> 23 otwarte elementy, filtry typu, sortowanie po priorytecie i wieku.</p>
+<p class="apiln">GET /triage?status=open&amp;sort=-priority</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc cyn">
+<div class="stn cy"><b>3</b><h3 class="h3">Szczegół i adjudykator</h3><span class="dur">~15 s</span></div>
+<a class="mono xs" href="X2-WhyLinked.dc.html">Komponent: X2 · porównanie dowodów</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr"><i class="gl" style="flex: 1"></i><i class="al" style="flex: 1"></i></span><i style="height: 8px"></i><i style="height: 8px; width: 70%"></i></span></div>
+<p class="ln"><b>System:</b> kandydaci KMP-022 0.52 i KMP-034 0.47. Adjudykator (PLLuM lokalnie): „wspólny pixel 870011223344556 z KMP-022, brak kitu relay, więc raczej KMP-022”.</p>
+<p class="apiln">GET /triage/{id} · GET /links/{a}/{b}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>4</b><h3 class="h3">Decyzja</h3><span class="dur">1 klawisz</span></div>
+<a class="mono xs" href="S03-Triage.dc.html">Ekran: S03 · pasek decyzji</a>
+<div class="row" style="gap: 6px"><span class="kbd">A</span><span class="sm">akceptuj</span><span class="kbd">R</span><span class="sm">odrzuć</span><span class="kbd">M</span><span class="sm">przenieś</span><span class="kbd">N</span><span class="sm">nowa</span></div>
+<p class="ln"><b>Analityk:</b> M, potem KMP-022, potem Enter. Opcjonalna notatka.</p>
+<p class="ln"><b>System:</b> toast z „Cofnij” przez 10 s.</p>
+<p class="apiln">POST /triage/{id}/decision {action, campaign_id?, note}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>5</b><h3 class="h3">Feedback zapisany</h3><span class="dur">od razu</span></div>
+<p class="ln"><b>System:</b> pary oznaczone: (INC-24823, KMP-022) pozytywna, (INC-24823, KMP-034) negatywna, z autorem i czasem. Trafiają też do eval/labels.</p>
+<p class="apiln">POST /feedback (zapisywane przez decyzję)</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>6</b><h3 class="h3">Retrain M1</h3><span class="dur">≈ 8 s</span></div>
+<a class="mono xs" href="S11-Lab.dc.html">Ekran: S11 · Lab</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i class="gf" style="height: 10px; width: 91%"></i><i style="height: 10px; width: 78%"></i><i style="height: 10px; width: 61%"></i><i class="cf" style="height: 10px; width: 40%"></i></span></div>
+<p class="ln"><b>System:</b> aktywne uczenie: nowa wersja M1, izotoniczna kalibracja i próg konformalny; walidacja na hold-out przed wdrożeniem.</p>
+<p class="apiln">GET /lab/runs/{id} · SSE model.updated (nowe)</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>7</b><h3 class="h3">Metryki w Lab</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="S11-Lab.dc.html">Ekran: S11 · metryki</a>
+<p class="ln"><b>System:</b> B-cubed F1 0.910 → 0.912; błąd konformalny 4.1% przy celu 5%; wersja modelu w stopce każdego ekranu.</p>
+<p class="apiln">GET /lab/metrics</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>8</b><h3 class="h3">Oracle się kalibruje</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="S08-Oracle.dc.html">Ekran: S08 · przewidziane vs potwierdzone</a>
+<p class="ln"><b>System:</b> decyzje o domenach przewidzianych zmieniają precyzję Oracle (p@20 0.85 → 0.86) i próg per kampania.</p>
+<p class="apiln">GET /oracle/metrics · GET /oracle/predictions</p>
+</article>
+</div>
+</section>
+
+<section class="lane" aria-labelledby="f4-br">
+<div class="lane-h"><h2 class="h2" id="f4-br">Co zmienia każda decyzja</h2><span class="dim sm">krok 4 → skutki dalej</span></div>
+<div class="branches">
+<div class="bc" style="border-color: rgba(59,240,126,.38)">
+<div class="row"><span class="kbd">A</span><span class="brl g">Akceptuj</span></div>
+<ul>
+<li>Incydent dołącza do kampanii (L2); para pozytywna.</li>
+<li>Element z Oracle: domena „potwierdzona”, dochodzi do wskaźników kampanii, Hunter obserwuje reklamy na nią.</li>
+<li>SSE incident.attributed, campaign.updated.</li>
+</ul>
+</div>
+<div class="bc" style="border-color: rgba(255,93,108,.45)">
+<div class="row"><span class="kbd">R</span><span class="brl rd">Odrzuć</span></div>
+<ul>
+<li>Para negatywna; incydent zostaje nieprzypisany albo trafia do kandydatów.</li>
+<li>Element z Oracle: domena „odrzucona”, liczona jako FP; próg kampanii rośnie z 0.70 do 0.72.</li>
+<li>SSE triage.updated (nowe), oracle/metrics.</li>
+</ul>
+</div>
+<div class="bc" style="border-color: rgba(92,200,255,.45)">
+<div class="row"><span class="kbd">M</span><span class="brl cy">Przenieś</span></div>
+<ul>
+<li>Pozytywna z KMP-022, negatywna z KMP-034.</li>
+<li>Obie kampanie przeliczają DNA i członków.</li>
+<li>SSE campaign.updated ×2.</li>
+</ul>
+</div>
+<div class="bc" style="border-color: rgba(255,181,71,.45)">
+<div class="row"><span class="kbd">N</span><span class="brl am">Nowa kampania</span></div>
+<ul>
+<li>Powstaje kandydat KMP-041; negatywne pary ze wszystkimi kandydatami.</li>
+<li>Zbiór kalibracyjny konformalny dostaje przykład „poza zbiorem”.</li>
+<li>Hunter dostaje frazy i domenę do obserwacji.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<div class="split">
+<section class="panel a" aria-labelledby="f4-edge">
+<div class="ph"><h2 class="h3" id="f4-edge">Stany brzegowe</h2><span class="dim sm">jak UI je pokazuje</span></div>
+<div class="pb ec">
+<div class="eci"><span class="brl am">Dwie osoby naraz</span><p class="ln">Miękka blokada: „Ewa przegląda ten element”. Przy konflikcie zapisu (409) element się przeładowuje z nową decyzją.</p></div>
+<div class="eci"><span class="brl cy">Cofnij</span><p class="ln">Toast „Cofnij” przez 10 s. Cofnięcie usuwa feedback, zanim wejdzie do partii treningowej.</p></div>
+<div class="eci"><span class="brl rd">Sprzeczne etykiety</span><p class="ln">Ta sama para oznaczona raz tak, raz inaczej: flaga do przeglądu. Para nie trafia do treningu, dopóki ktoś tego nie rozstrzygnie.</p></div>
+<div class="eci"><span class="brl rd">Retrain gorszy</span><p class="ln">Automatyczny rollback. Lab pokazuje „M1 v42 odrzucony: F1 −0.02 na walidacji”.</p></div>
+<div class="eci"><span class="brl cy">Brak adjudykatora</span><p class="ln">Bez klucza LLM element ma tylko porównanie dowodów, a pole uzasadnienia mówi „adjudykator wyłączony”.</p></div>
+<div class="eci"><span class="brl am">Fala alertów</span><p class="ln">Na przykład 200 z Oracle w godzinę: grupowanie po kampanii i masowa akceptacja z podglądem listy domen.</p></div>
+<div class="eci"><span class="brl am">Nadużycie wtyczki</span><p class="ln">Zgłoszenia obywateli mają limit i reputację źródła; niski priorytet, dopóki nie pasują do znanej kampanii.</p></div>
+</div>
+</section>
+<section class="panel b" aria-labelledby="f4-acc">
+<div class="ph"><h2 class="h3" id="f4-acc">Kryteria akceptacji</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="chk">Decyzja w ≤ 3 klawiszach, bez myszy.</p>
+<p class="chk">Każda decyzja zapisuje oznaczone pary z autorem i czasem.</p>
+<p class="chk">„Cofnij” działa przez 10 s.</p>
+<p class="chk">Retrain ≤ 10 s, z walidacją i automatycznym rollbackiem.</p>
+<p class="chk">Zmiana metryk jest widoczna w Lab razem z wersją modelu.</p>
+<p class="chk">Zamknięty element znika ze wszystkich otwartych widoków (SSE).</p>
+<p class="dnote">Nowe w kontrakcie: zdarzenia SSE model.updated i triage.updated; nagłówek If-Match przy POST /triage/{id}/decision.</p>
+</div>
+</section>
+</div>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Sprawdź reklamę: wariant C, znak ostrzegawczy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Archivo+Black&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFD21F}
+.zn{font-family:Archivo,"Arial Narrow",system-ui,sans-serif;color:#111111;background:#FFD21F;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+.zn *{box-sizing:border-box}
+.zn p,.zn h1,.zn h2,.zn h3{margin:0}
+.zn a{color:#111111}
+.zn-wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
+.zn-hz{height:18px;background:repeating-linear-gradient(-45deg,#111111 0 16px,#FFD21F 16px 32px)}
+.zn-disp{font-family:"Archivo Black",Archivo,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.01em}
+.zn-lab{font:600 12px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase}
+.zn-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:3px solid #111111;background:#111111;color:#FFD21F;font:800 17px/1 Archivo,sans-serif;font-stretch:112%;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;white-space:nowrap}
+.zn-btn.alt{background:#FFD21F;color:#111111}
+.zn-btn.wh{background:#ffffff;color:#111111}
+.zn-tile{background:#111111;color:#ffffff;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.zn-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))}
+.zn-num{font:400 34px/1 "Archivo Black",sans-serif;color:#FFD21F}
+</style>
+</helmet>
+<div class="zn" style="min-height: 100vh; display: flex; flex-direction: column">
+<div class="zn-hz" aria-hidden="true"></div>
+
+<header class="zn-wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; padding-bottom: 16px">
+<a href="E2c-Sprawdz-Znak.dc.html" aria-label="RED PILL, sprawdź reklamę" style="display: inline-flex; align-items: center; gap: 12px; min-height: 44px; text-decoration: none">
+<svg width="40" height="36" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 2L38 34H2z" fill="#111111"></path><path d="M20 12v11M20 27.5v.5" stroke="#FFD21F" stroke-width="4" stroke-linecap="round"></path></svg>
+<span class="zn-disp" style="font-size: 22px; letter-spacing: .04em">Red Pill</span>
+</a>
+<nav style="display: flex; flex-wrap: wrap; gap: 20px" aria-label="Menu">
+<a class="zn-lab" href="#zn-jak" style="display: inline-flex; align-items: center; min-height: 44px; text-decoration: none">Jak to działa</a>
+<a class="zn-lab" href="E1-Extension.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; text-decoration: none">Wtyczka</a>
+<a class="zn-lab" href="S01-Command.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; text-decoration: none">Dla instytucji</a>
+</nav>
+</header>
+
+<main style="flex: 1 1 auto">
+
+<section class="zn-wrap" style="padding-top: 48px; padding-bottom: 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<span class="zn-lab">Uwaga · reklamy z oszustwem</span>
+<h1 class="zn-disp" style="font-size: clamp(48px, 8vw, 104px); line-height: .9">Sprawdź, zanim klikniesz.</h1>
+<p style="font-size: 20px; line-height: 1.45; font-weight: 500; max-width: 620px">Wklej link albo wgraj zrzut reklamy. Porównamy ją z kampaniami oszustów, które już znamy.</p>
+</div>
+<svg width="200" height="180" viewBox="0 0 200 180" role="img" aria-label="Znak ostrzegawczy: wykrzyknik w trójkącie" style="flex: 0 1 200px; max-width: 100%; height: auto"><path d="M100 8L194 172H6z" fill="#ffffff" stroke="#111111" stroke-width="10" stroke-linejoin="round"></path><path d="M100 62v54M100 140v2" stroke="#111111" stroke-width="16" stroke-linecap="round"></path></svg>
+</section>
+
+<section style="background: #111111; color: #ffffff">
+<form class="zn-wrap" aria-label="Sprawdź reklamę" style="padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 12px">
+<label class="zn-lab" for="zn-url" style="color: #FFD21F">Link z reklamy lub strony</label>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<input id="zn-url" type="url" inputmode="url" placeholder="https://…" value="https://morvanta.click/?utm_source=fb" style="flex: 1 1 320px; min-width: 0; min-height: 56px; border: 3px solid #ffffff; background: #ffffff; color: #111111; padding: 0 16px; font: 500 18px 'IBM Plex Mono', monospace; outline: none">
+<button class="zn-btn alt" type="button" style="border-color: #FFD21F; min-height: 56px">Sprawdź</button>
+<button class="zn-btn" type="button" style="border-color: #ffffff; color: #ffffff; min-height: 56px">Wgraj zrzut</button>
+</div>
+<p style="font-size: 14px; color: #d4d4d4">Nie zapisujemy Twoich danych. Zrzuty kasujemy po 24 h.</p>
+</form>
+</section>
+
+<section class="zn-wrap" aria-live="polite" aria-label="Wynik sprawdzenia" style="padding-top: 48px; padding-bottom: 48px">
+<sc-if value="{{isScam}}" hint-placeholder-val="{{true}}">
+<article style="background: #ffffff; border: 4px solid #111111; display: flex; flex-direction: column">
+<div style="background: #D7261E; color: #ffffff; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+<svg width="72" height="64" viewBox="0 0 40 36" aria-hidden="true" style="flex: none"><path d="M20 2L38 34H2z" fill="#ffffff"></path><path d="M20 12v11M20 27.5v.5" stroke="#D7261E" stroke-width="4" stroke-linecap="round"></path></svg>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<span class="zn-lab">Wynik</span>
+<h2 class="zn-disp" style="font-size: clamp(32px, 4.4vw, 52px); line-height: .95">Stop. To najpewniej oszustwo.</h2>
+</div>
+</div>
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 22px">
+<p style="font-size: 19px; line-height: 1.5; font-weight: 500">Pasuje do kampanii <b>„Fałszywe artykuły o napaści na znaną osobę”</b>. Widzieliśmy 46 podobnych reklam od 7 listopada.</p>
+<div class="zn-grid">
+<div class="zn-tile"><span class="zn-num">1</span><span style="font-size: 16px; line-height: 1.45">Ten sam układ co 46 innych reklam: neutralne zdjęcie, sensacyjny tekst, przypadkowy nadawca.</span></div>
+<div class="zn-tile"><span class="zn-num">2</span><span style="font-size: 16px; line-height: 1.45">Strona udaje portal informacyjny, a jej adres to losowe słowo z końcówką .click.</span></div>
+<div class="zn-tile"><span class="zn-num">3</span><span style="font-size: 16px; line-height: 1.45">Zbiera numer telefonu i namawia do wpłaty, jak znane oszustwa „inwestycyjne”.</span></div>
+</div>
+<div style="border-top: 3px solid #111111; padding-top: 20px; display: flex; flex-direction: column; gap: 12px">
+<h3 class="zn-disp" style="font-size: 24px">Co zrobić teraz</h3>
+<ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 17px; line-height: 1.45; font-weight: 500">
+<li>Nie podawaj danych, telefonu ani pieniędzy.</li>
+<li>Zgłoś reklamę na platformie, na której ją widzisz.</li>
+<li>Jeśli podałeś dane karty, od razu zadzwoń do banku.</li>
+<li>Zgłoś stronę do CERT Polska.</li>
+</ul>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="zn-btn" type="button">Zgłoś tę reklamę</button><button class="zn-btn wh" type="button">Pokaż podobne</button></div>
+</div>
+</article>
+</sc-if>
+<sc-if value="{{isUnknown}}" hint-placeholder-val="{{false}}">
+<article style="background: #ffffff; border: 4px solid #111111; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+<svg width="64" height="64" viewBox="0 0 40 40" aria-hidden="true" style="flex: none"><rect x="5" y="5" width="30" height="30" transform="rotate(45 20 20)" fill="#FFD21F" stroke="#111111" stroke-width="3"></rect><path d="M16 16.5a4 4 0 1 1 5.5 3.7c-1 .5-1.5 1.2-1.5 2.3M20 26v.5" stroke="#111111" stroke-width="2.6" stroke-linecap="round" fill="none"></path></svg>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<span class="zn-lab">Wynik</span>
+<h2 class="zn-disp" style="font-size: clamp(30px, 4vw, 46px); line-height: .95">Nie znamy tej reklamy.</h2>
+</div>
+</div>
+<p style="font-size: 19px; line-height: 1.5; font-weight: 700">To nie znaczy, że jest bezpieczna. Sprawdź te sygnały:</p>
+<div class="zn-grid">
+<div class="zn-tile"><span class="zn-num">1</span><span style="font-size: 16px; line-height: 1.45">Znana osoba „poleca” inwestycję albo lek lub nagle „przerywa milczenie”.</span></div>
+<div class="zn-tile"><span class="zn-num">2</span><span style="font-size: 16px; line-height: 1.45">Strona wygląda jak portal informacyjny, ale adres jest dziwny lub nowy.</span></div>
+<div class="zn-tile"><span class="zn-num">3</span><span style="font-size: 16px; line-height: 1.45">Szybki zysk, „ostatnie sztuki”, presja czasu, telefon od „konsultanta”.</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center"><button class="zn-btn" type="button">Wyślij do analityka</button><span style="font-size: 15px; font-weight: 500">Odpowiemy w ciągu 24 h.</span></div>
+</article>
+</sc-if>
+</section>
+
+<section class="zn-wrap" style="padding-bottom: 48px; display: flex; flex-direction: column; gap: 20px" aria-labelledby="zn-sch">
+<h2 id="zn-sch" class="zn-disp" style="font-size: 36px">Schematy tygodnia</h2>
+<div class="zn-grid">
+<article style="background: #ffffff; border: 3px solid #111111; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<svg width="44" height="40" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 2L38 34H2z" fill="#FFD21F" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path><path d="M14 27h12M16 22h8M20 11v6" stroke="#111111" stroke-width="2.4" stroke-linecap="round"></path></svg>
+<h3 style="font: 800 20px/1.2 Archivo, sans-serif; font-stretch: 90%">Fałszywe artykuły o napaści na znaną osobę</h3>
+<p style="font-size: 16px; line-height: 1.45">Strona udaje portal, a jej adres to losowe słowo z końcówką .click albo .live.</p>
+</article>
+<article style="background: #ffffff; border: 3px solid #111111; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<svg width="44" height="40" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 2L38 34H2z" fill="#FFD21F" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path><path d="M20 14v12M14 20h12" stroke="#111111" stroke-width="2.6" stroke-linecap="round"></path></svg>
+<h3 style="font: 800 20px/1.2 Archivo, sans-serif; font-stretch: 90%">„Lekarz” poleca cudowny suplement</h3>
+<p style="font-size: 16px; line-height: 1.45">Wideo z nienaturalnym ruchem ust lub sztucznym głosem i licznik „ostatnich sztuk”.</p>
+</article>
+<article style="background: #ffffff; border: 3px solid #111111; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<svg width="44" height="40" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 2L38 34H2z" fill="#FFD21F" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path><path d="M13 27l5-6 4 3 5-8" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+<h3 style="font: 800 20px/1.2 Archivo, sans-serif; font-stretch: 90%">Platforma AI „dla każdego”</h3>
+<p style="font-size: 16px; line-height: 1.45">Znane twarze ze sportu i telewizji, formularz z telefonem, „konsultant zadzwoni”.</p>
+</article>
+</div>
+</section>
+
+<section id="zn-jak" style="background: #111111; color: #ffffff">
+<div class="zn-wrap" style="padding-top: 40px; padding-bottom: 40px; display: flex; flex-direction: column; gap: 20px">
+<h2 class="zn-disp" style="font-size: 36px; color: #FFD21F">Jak to działa</h2>
+<div class="zn-grid" style="gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zn-num">01</span><h3 style="font: 800 19px Archivo, sans-serif">Wklej link lub zrzut</h3><p style="font-size: 16px; line-height: 1.5; color: #e5e5e5">Wystarczy adres z reklamy albo zdjęcie ekranu telefonu.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zn-num">02</span><h3 style="font: 800 19px Archivo, sans-serif">Porównujemy ślady</h3><p style="font-size: 16px; line-height: 1.5; color: #e5e5e5">Wygląd, tekst i techniczne odciski strony zestawiamy ze znanymi kampaniami.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="zn-num">03</span><h3 style="font: 800 19px Archivo, sans-serif">Wynik i zgłoszenie</h3><p style="font-size: 16px; line-height: 1.5; color: #e5e5e5">Twoje zgłoszenie pomaga zablokować całą kampanię, a nie jedną reklamę.</p></div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="zn-wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; padding-bottom: 18px">
+<span class="zn-lab">Red Pill · HackNation 2026</span>
+<span class="zn-lab">Dane przykładowe</span>
+</footer>
+<div class="zn-hz" aria-hidden="true"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"result":{"editor":"enum","options":["scam","unknown"],"default":"scam","section":"Stan"},"$preview":{"width":1280,"height":2100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const r = this.props.result ?? 'scam';
+    return { isScam: r === 'scam', isUnknown: r === 'unknown' };
+  }
+}
+</script>
+</body>
+</html>

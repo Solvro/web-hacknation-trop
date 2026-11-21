@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: kolejka</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/0fec4c5e428884d17088a849211b39ed"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+sc-if,sc-for{display:contents}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #E5E5E5;background:#FFFFFF;font-family:inherit;font-size:13px;color:#404040;cursor:pointer}
+.chip b{font:500 11.5px 'Geist Mono',ui-monospace,monospace;color:#8A8A8A}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:14px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;font-size:13px;font-weight:500;white-space:nowrap}
+.spin{display:inline-block;width:12px;height:12px;box-sizing:border-box;border-radius:999px;border:2px solid #D4D4D4;border-top-color:#0A0A0A;animation:spin .9s linear infinite}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1000px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="T-Kolejka.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Kolejka<b>7</b></a>
+        <a class="tab" href="T-Kampania.dc.html">Kampanie</a>
+        <a class="tab" href="T-Sledztwo.dc.html">Śledztwa</a>
+        <a class="tab" href="T-Zgloszenia.dc.html">Zgłoszenia</a>
+      </nav>
+      <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #F0FDF4; color: #166534; font-size: 13px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 999px; background: #22C55E; animation: pulse 1.6s ease-out infinite"></span>na żywo</span>
+    </div>
+  </header>
+
+  <main style="max-width: 1040px; margin: 0 auto; padding: 40px 24px 64px; display: flex; flex-direction: column; gap: 26px">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 8px; max-width: 640px">
+        <h1 style="margin: 0; font-size: 40px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Kolejka</h1>
+        <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #525252">Hunter, Oracle i wtyczka przynoszą materiały same, a boty od razu je sprawdzają. Ty zatwierdzasz albo poprawiasz.</p>
+      </div>
+      <button type="button" class="pri">Zatwierdź 3 pewne<span style="font: 500 12px 'Geist Mono', monospace; color: #A3A3A3">od 0.90</span></button>
+    </div>
+
+    <form aria-label="Nowy materiał" style="display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 18px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E5E5E5; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05)">
+      <label for="kq-new" class="sr">Nowy materiał do sprawdzenia</label>
+      <input id="kq-new" type="text" placeholder="Wklej link albo wrzuć plik, żeby sprawdzić coś nowego" style="flex: 1; min-width: 0; min-height: 44px; border: none; outline: none; background: transparent; font-family: inherit; font-size: 15px; color: #0A0A0A">
+      <a class="pri" href="Sprawdz.dc.html" style="border-radius: 999px; min-height: 44px">Obudź boty</a>
+    </form>
+
+    <div role="group" aria-label="Filtry" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px">
+      <button type="button" class="chip" aria-pressed="true" style="background: #0A0A0A; border-color: #0A0A0A; color: #FFFFFF">Wszystkie <b style="color: #A3A3A3">7</b></button>
+      <button type="button" class="chip" aria-pressed="false">Pewne <b>3</b></button>
+      <button type="button" class="chip" aria-pressed="false">Do decyzji <b>3</b></button>
+      <button type="button" class="chip" aria-pressed="false">W toku <b>1</b></button>
+      <span style="width: 1px; height: 22px; background: #E5E5E5; margin: 0 6px"></span>
+      <button type="button" class="chip" aria-pressed="false">Hunter <b>2</b></button>
+      <button type="button" class="chip" aria-pressed="false">Oracle <b>2</b></button>
+      <button type="button" class="chip" aria-pressed="false">Wtyczka <b>1</b></button>
+      <button type="button" class="chip" aria-pressed="false">Ręcznie <b>2</b></button>
+    </div>
+
+    <section aria-label="Materiały w kolejce" style="display: flex; flex-direction: column">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="7">
+        <a href="{{r.href}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; padding: 18px 4px; border-bottom: 1px solid #F0F0F0; text-decoration: none; color: #0A0A0A">
+          <span style="display: flex; flex: none; width: 142px">
+            <sc-for list="{{r.bots}}" as="b" hint-placeholder-count="6">
+              <span data-jelly="auto" data-color="{{b.color}}" data-state="{{b.state}}" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px; margin-right: -8px"></span>
+            </sc-for>
+          </span>
+          <span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+            <span style="font-size: 17px; font-weight: 600; letter-spacing: -0.015em">{{r.title}}</span>
+            <span style="font-size: 13.5px; color: #6B6B6B">{{r.meta}}</span>
+          </span>
+          <span aria-label="{{r.progressLabel}}" role="img" style="display: grid; grid-template-columns: repeat(6, 14px); gap: 3px; flex: none">
+            <sc-for list="{{r.segs}}" as="s" hint-placeholder-count="6">
+              <span style="height: 5px; border-radius: 999px; background: {{s.c}}"></span>
+            </sc-for>
+          </span>
+          <span style="flex: none; min-width: 210px; display: flex; justify-content: flex-end">
+            <span class="pill" style="background: {{r.pbg}}; color: {{r.pc}}">
+              <sc-if value="{{r.busy}}" hint-placeholder-val="{{ false }}"><span class="spin" aria-hidden="true"></span></sc-if>
+              {{r.verdict}}
+            </span>
+          </span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M9 6l6 6-6 6"></path></svg>
+        </a>
+      </sc-for>
+    </section>
+
+    <p style="margin: 0; font-size: 13px; color: #6B6B6B">Dziś boty sprawdziły 128 materiałów. 121 dołączyło do znanych kampanii samo, 7 czeka tutaj.</p>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+const COLORS = ['#2563EB', '#F97316', '#14B8A6', '#8B5CF6', '#EC4899', '#0A0A0A'];
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, {});
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return Object.assign(this.baseVals(), { refCv: this.refCv, refRt: this.refRt });
+  }
+  baseVals() {
+    const bots = (done) => COLORS.map((c, i) => ({ color: i < done ? c : '#A3A3A3', state: i < done ? 'awake' : 'asleep' }));
+    const segs = (done) => Array.from({ length: 6 }, (_, i) => ({ c: i < done ? '#0A0A0A' : (i === done ? '#EA580C' : '#E5E5E5') }));
+    const tone = {
+      ok: { pbg: '#F0FDF4', pc: '#166534' },
+      ask: { pbg: '#EFF6FF', pc: '#1E40AF' },
+      neu: { pbg: '#FFF7ED', pc: '#9A3412' },
+      run: { pbg: '#F5F5F5', pc: '#404040' }
+    };
+    const row = (title, meta, verdict, kind, done, href) => Object.assign({
+      title, meta, verdict, href: href || 'Sprawdz.dc.html',
+      bots: bots(done), segs: segs(done), busy: kind === 'run',
+      progressLabel: done >= 6 ? 'Sprawdzone: 6 z 6 kroków' : 'W toku: ' + done + ' z 6 kroków'
+    }, tone[kind]);
+    return {
+      rows: [
+        row('plessuro.live', 'Oracle · nowy certyfikat dziś 00:47 · jeszcze bez reklam', 'KMP-017 · 0.88 · sprawdź', 'ask', 6),
+        row('orvinta.click', 'Oracle · nowy certyfikat dziś 01:12 · przewidziany 20.11', 'KMP-017 · 0.93', 'ok', 6),
+        row('morvanta.click', 'Hunter · Ad Library · 02:31 · INC-24817', 'KMP-017 · 0.94', 'ok', 6),
+        row('quantapl-invest.top', 'Ręcznie · ZIP z archiwum · 07:47', 'KMP-031 · 0.91', 'ok', 6),
+        row('Plik HAR', 'Ręcznie · 08:02 · INC-24768', 'KMP-017 czy KMP-034?', 'ask', 6),
+        row('Zrzut posta z Facebooka', 'Wtyczka · 3 osoby zgłosiły · 08:31', 'nowa kampania?', 'neu', 6),
+        row('tranvello.click', 'Hunter · Ad Library · 08:44', 'boty pracują', 'run', 4)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

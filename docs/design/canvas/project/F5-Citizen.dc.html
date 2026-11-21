@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F5: wtyczka i Sprawdź reklamę</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.stc{flex:1 1 250px;max-width:300px;min-width:0;background:#0A100C;border:1px solid #1D2B22;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.stc.hot{border-color:rgba(59,240,126,.38)}.stc.amb{border-color:rgba(255,181,71,.45)}.stc.cyn{border-color:rgba(92,200,255,.45)}.stc.red{border-color:rgba(255,93,108,.45)}
+.stn{display:flex;align-items:center;gap:8px}
+.stn b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 11px "JetBrains Mono",monospace;background:rgba(59,240,126,.10);color:#3BF07E;border:1px solid rgba(59,240,126,.38);flex:none}
+.stn.cy b{background:rgba(92,200,255,.10);color:#5CC8FF;border-color:rgba(92,200,255,.45)}
+.stn .h3{flex:1 1 auto;min-width:0}
+.chev{display:flex;align-items:center;justify-content:center;width:20px;flex:none;color:#3B5444}
+.thumb{height:90px;border-radius:6px;border:1px solid #2B3F32;background:#050806;padding:6px;display:flex;gap:5px;overflow:hidden}
+.thumb .m{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;min-width:0}
+.thumb .tr{display:flex;gap:4px;flex:1 1 auto;min-height:0}
+.thumb i{display:block;border-radius:2px;background:#16231A;min-height:5px}
+.thumb .lt{background:#C9D3CC}.thumb .lt2{background:#E7ECE8}
+.thumb .rl{border:1px solid rgba(255,93,108,.7);background:rgba(255,93,108,.18)}
+.thumb .gl{border:1px solid rgba(59,240,126,.5);background:rgba(59,240,126,.08)}.thumb .gf{background:#178A43}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ln b{color:#DDEBE2;font-weight:600}
+.apiln{font:11.5px/1.45 "JetBrains Mono",monospace;color:#5CC8FF;overflow-wrap:anywhere}
+.dur{font:11px "JetBrains Mono",monospace;color:#83998B;white-space:nowrap}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.rowbox{border:1px dashed #2B3F32;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.ec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.eci{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#DDEBE2}
+.chk::before{content:"";width:14px;height:14px;border-radius:3px;border:1.5px solid #3B5444;flex:none;margin-top:3px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.priv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:16px}
+.yes,.no{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+.yes li::marker{color:#3BF07E}.no li::marker{color:#FF5D6C}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div class="row"><span class="eb">Przepływ F5</span><span class="pill cy">warstwa obywatelska</span><span class="pill">flow (e)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1">Wtyczka na poście sponsorowanym i strona „Sprawdź reklamę”</h1>
+<div class="meta">
+<div><span class="eb">Aktor</span><span class="sm">Obywatel, a po zgłoszeniu analityk NASK</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">Post sponsorowany w feedzie albo podejrzany link od znajomego</span></div>
+<div><span class="eb">Cel</span><span class="sm">Ostrzec przed kliknięciem i zebrać zgłoszenie jako nowy incydent</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">nakładka ≤ 300 ms · sprawdzenie ≤ 5 s</span></div>
+</div>
+<p class="muted sm"><b class="g">Sukces:</b> ostrzeżenie pojawia się, zanim użytkownik kliknie; zgłoszenie po 5 s jest incydentem w triage. Wysyłany jest wyłącznie odcisk reklamy.</p>
+</section>
+
+<section class="rowbox" aria-labelledby="f5-ext">
+<div class="lane-h"><span class="brl g">Ścieżka 1</span><h2 class="h2" id="f5-ext">Wtyczka przeglądarki</h2><span class="dim sm">MV3 · content script na liście serwisów</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn"><b>1</b><h3 class="h3">Przewijanie feedu</h3><span class="dur">ciągle</span></div>
+<a class="mono xs" href="E1-Extension.dc.html">Ekran: E1 · feed</a>
+<div class="thumb" aria-hidden="true" style="background: #E7ECE8"><span class="m"><i class="lt" style="height: 10px; width: 50%"></i><i class="lt" style="height: 46px"></i><i class="lt" style="height: 10px; width: 70%"></i></span></div>
+<p class="ln"><b>Użytkownik:</b> przewija feed jak zwykle.</p>
+<p class="ln"><b>System:</b> content script rozpoznaje posty oznaczone jako sponsorowane. Analiza odbywa się lokalnie, treść feedu nie jest wysyłana.</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>2</b><h3 class="h3">Odcisk posta</h3><span class="dur">&lt; 50 ms</span></div>
+<p class="ln"><b>System:</b> lokalnie liczy nazwę reklamodawcy, hash znormalizowanego tekstu, domenę linku i pHash kreacji. Nic więcej nie opuszcza przeglądarki.</p>
+<pre class="code" style="font-size: 11px">{ advertiser, text_simhash,
+  link_domain, creative_phash }</pre>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>3</b><h3 class="h3">Dopasowanie</h3><span class="dur">≤ 250 ms</span></div>
+<p class="ln"><b>System:</b> serwer porównuje odcisk z indeksem kampanii. Wynik jest cache'owany lokalnie na 24 h.</p>
+<p class="apiln">POST /public/extension/match → {match, campaign_public_id, level, reasons[]}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc red">
+<div class="stn"><b>4</b><h3 class="h3">Nakładka</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="E1-Extension.dc.html">Ekran: E1 · nakładka</a>
+<div class="thumb" aria-hidden="true" style="background: #E7ECE8"><span class="m"><i class="rl" style="height: 18px"></i><i class="lt" style="height: 38px"></i><i class="lt" style="height: 10px; width: 70%"></i></span></div>
+<p class="ln"><b>System:</b> pasek nad postem: „Uwaga: ta reklama pasuje do znanej kampanii oszustwa”. Przyciski: Dlaczego?, Zgłoś, Ukryj.</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>5</b><h3 class="h3">„Dlaczego?”</h3><span class="dur">klik</span></div>
+<p class="ln"><b>System:</b> ogólne powody prostym językiem: „ten sam szablon artykułu co 46 innych reklam”, „podszywa się pod osobę publiczną”, „strona założona 2 dni temu”. Link do „Sprawdź reklamę”.</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>6</b><h3 class="h3">„Zgłoś”</h3><span class="dur">1 s</span></div>
+<p class="ln"><b>Użytkownik:</b> zaznacza zgodę na przekazanie zrzutu posta i wysyła.</p>
+<p class="apiln">POST /public/report {fingerprint, screenshot?, consent:true}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc cyn">
+<div class="stn cy"><b>7</b><h3 class="h3">Incydent w triage</h3><span class="dur">≤ 5 s</span></div>
+<a class="mono xs" href="S03-Triage.dc.html">Ekran: S03 · filtr „Wtyczka”</a>
+<p class="ln"><b>System:</b> powstaje incydent z source=extension i przechodzi pipeline F1. <b>Analityk:</b> potwierdza w kolejce.</p>
+<p class="apiln">SSE incident.created · triage.created</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>8</b><h3 class="h3">Zasila kampanię</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="S05-Campaign.dc.html">Ekran: S05 · członkowie</a>
+<p class="ln"><b>System:</b> zgłoszenie liczy się jako członek KMP-017 (źródło „Wtyczka · obywatel”) i może trafić do pakietu DSA.</p>
+<p class="apiln">SSE incident.attributed · campaign.updated</p>
+</article>
+</div>
+</section>
+
+<section class="rowbox" aria-labelledby="f5-pub">
+<div class="lane-h"><span class="brl cy">Ścieżka 2</span><h2 class="h2" id="f5-pub">Strona publiczna „Sprawdź reklamę”</h2><span class="dim sm">bez logowania · działa na telefonie</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn cy"><b>P1</b><h3 class="h3">Wklej lub wgraj</h3><span class="dur">10 s</span></div>
+<a class="mono xs" href="E2-SprawdzReklame.dc.html">Ekran: E2 · Sprawdź reklamę</a>
+<div class="thumb" aria-hidden="true"><span class="m" style="align-items: center; justify-content: center"><i style="height: 10px; width: 60%"></i><i class="gl" style="height: 18px; width: 80%"></i><i class="gf" style="height: 12px; width: 30%"></i></span></div>
+<p class="ln"><b>Użytkownik:</b> wkleja link z reklamy albo wgrywa zrzut ekranu.</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn cy"><b>P2</b><h3 class="h3">Sprawdzenie</h3><span class="dur">3–5 s</span></div>
+<p class="ln"><b>System:</b> znana domena odpowiada z indeksu od razu. Nowy URL przechodzi lekki capture w sandboxie i dopasowanie.</p>
+<p class="apiln">POST /public/check {url | screenshot} → {verdict, campaign_public_name, reasons[], advice[]}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc red">
+<div class="stn cy"><b>P3</b><h3 class="h3">Wynik</h3><span class="dur">od razu</span></div>
+<div class="thumb" aria-hidden="true"><span class="m"><i class="rl" style="height: 30px"></i><i style="height: 8px"></i><i style="height: 8px; width: 80%"></i><i style="height: 8px; width: 60%"></i></span></div>
+<p class="ln"><b>Oszustwo:</b> czerwona karta, nazwa kampanii po ludzku i co zrobić teraz. <b>Nieznane:</b> neutralna karta z napisem „Brak w bazie nie znaczy, że jest bezpieczna”.</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn cy"><b>P4</b><h3 class="h3">Zgłoś</h3><span class="dur">5 s</span></div>
+<p class="ln"><b>Użytkownik:</b> „Zgłoś tę reklamę”, opcjonalnie e-mail do odpowiedzi. Zgłoszenie trafia do triage jak w kroku 7.</p>
+<p class="apiln">POST /public/report</p>
+</article>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="f5-priv" style="border-color: rgba(92,200,255,.45)">
+<div class="ph"><h2 class="h3" id="f5-priv">Prywatność i odporność na nadużycia</h2><span class="dim sm">obowiązuje obie ścieżki</span></div>
+<div class="pb priv">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="brl g">Wysyłane</span>
+<ul class="yes"><li>Odcisk reklamy: reklamodawca, hash tekstu, domena linku, pHash kreacji.</li><li>Zrzut posta tylko po zgłoszeniu i zaznaczeniu zgody.</li><li>Anonimowy token instalacji do limitu zapytań.</li></ul></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="brl rd">Nigdy niewysyłane</span>
+<ul class="no"><li>Treść feedu, znajomi, identyfikator konta, historia przeglądania.</li><li>Ciasteczka śledzące. Adres IP trzymany najwyżej 24 h na potrzeby limitu.</li></ul></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="brl am">Limity</span>
+<ul><li>60 dopasowań na minutę na instalację, 10 zgłoszeń dziennie.</li><li>Reputacja źródła: zgłoszenia nie pasujące do niczego mają niski priorytet.</li></ul></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="brl cy">Odpowiedzi publiczne</span>
+<ul><li>Tylko ogólne powody. Nigdy pixel ID, ścieżki kitu, reguły ani lista domen, żeby nie pomagać w omijaniu wykrywania.</li><li>Uprawnienia wtyczki ograniczone do listy serwisów społecznościowych; kod otwarty.</li></ul></div>
+</div>
+</section>
+
+<div class="split">
+<section class="panel a" aria-labelledby="f5-edge">
+<div class="ph"><h2 class="h3" id="f5-edge">Stany brzegowe</h2><span class="dim sm">jak UI je pokazuje</span></div>
+<div class="pb ec">
+<div class="eci"><span class="brl g">Brak dopasowania</span><p class="ln">Brak nakładki i brak plakietki „bezpieczne”, żeby nie dawać fałszywego poczucia bezpieczeństwa. Szczegóły tylko po kliknięciu ikony wtyczki.</p></div>
+<div class="eci"><span class="brl am">Fałszywy alarm</span><p class="ln">„To nie oszustwo” w nakładce wysyła feedback do triage. Post jest ukryty z ostrzeżeń dla tego użytkownika.</p></div>
+<div class="eci"><span class="brl am">Zmiana DOM serwisu</span><p class="ln">Selektory w zdalnej konfiguracji z podpisem. Gdy przestają pasować, wtyczka milknie zamiast pokazywać błędy.</p></div>
+<div class="eci"><span class="brl cy">API niedostępne</span><p class="ln">Nakładka się nie pojawia, strona nie jest blokowana. Ikona wtyczki pokazuje stan „offline”.</p></div>
+<div class="eci"><span class="brl cy">Wynik „nieznane”</span><p class="ln">Na stronie publicznej neutralna karta z poradami ogólnymi i zachętą do zgłoszenia.</p></div>
+<div class="eci"><span class="brl rd">Spam zgłoszeń</span><p class="ln">Limit i reputacja jak w F4. Zgłoszenia masowe z jednego tokenu są odrzucane bez informacji zwrotnej.</p></div>
+</div>
+</section>
+<section class="panel b" aria-labelledby="f5-acc">
+<div class="ph"><h2 class="h3" id="f5-acc">Kryteria akceptacji</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="chk">Nakładka pojawia się ≤ 300 ms od wejścia posta w widok i nie blokuje przewijania.</p>
+<p class="chk">Wysyłany jest wyłącznie odcisk reklamy; uprawnienia są opisane w sklepie z wtyczkami.</p>
+<p class="chk">Odpowiedź publiczna zawiera tylko ogólne powody, bez IOC.</p>
+<p class="chk">Zgłoszenie staje się incydentem z source=extension w ≤ 5 s.</p>
+<p class="chk">Strona publiczna działa na telefonie, spełnia WCAG 2.1 AA i używa prostego języka.</p>
+<p class="dnote">Implementacja: osobny router public/ z limitem na tokenie instalacji; odpowiedź match bez identyfikatorów wewnętrznych (campaign_public_id ≠ KMP-id).</p>
+</div>
+</section>
+</div>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

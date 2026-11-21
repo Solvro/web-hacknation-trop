@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: kampania KMP-017</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.lnk{display:inline-flex;align-items:center;min-height:40px;font-size:14px;color:#525252;text-decoration:underline;text-decoration-color:#D4D4D4;text-underline-offset:4px}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06)}
+.stat{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border:1px solid #F0F0F0;border-radius:18px}
+.stat b{font-size:28px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.stat span{font-size:13px;color:#6B6B6B}
+.sh{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.fc{display:flex;align-items:center;gap:12px;height:64px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw{flex:none;font:600 14px/1 'Geist Mono',ui-monospace,monospace}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 2px;border-bottom:1px solid #F0F0F0}
+.row:last-child{border-bottom:0}
+.row .n{display:flex;flex-direction:column;gap:2px;min-width:0}
+.row .n b{font:500 14px 'Geist Mono',ui-monospace,monospace}
+.row .n span{font-size:12.5px;color:#6B6B6B}
+.pp{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #F0F0F0}
+.pp:last-child{border-bottom:0}
+.pp i{width:32px;height:32px;border-radius:999px;background:#F0F0F0;display:inline-flex;align-items:center;justify-content:center;font:600 11px Geist,sans-serif;font-style:normal;color:#525252}
+.pp b{display:block;font-size:14px;font-weight:600}
+.pp span{display:block;font-size:12.5px;color:#6B6B6B}
+.pp em{font:500 12.5px 'Geist Mono',ui-monospace,monospace;font-style:normal;color:#525252}
+.ost{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid #F0F0F0;border-radius:14px}
+.ost b{font-size:18px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.ost span{font-size:12px;color:#6B6B6B}
+.tg{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:999px;background:#F5F5F5;font:500 12.5px 'Geist Mono',ui-monospace,monospace;color:#404040}
+.rl{display:grid;grid-template-columns:190px minmax(0,1fr) 250px;gap:16px;align-items:center;padding:11px 0;border-top:1px solid #F0F0F0}
+.rl b{font-size:14px;font-weight:600}
+.rl span.s{font-size:13px;color:#525252}
+.bar{display:block;height:8px;border-radius:999px;background:#F0F0F0;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:#0A0A0A}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1900px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 24px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+    <nav aria-label="Ślad" style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #6B6B6B"><a href="Kampanie.dc.html" style="color: #6B6B6B">Kampanie</a><span aria-hidden="true" style="color: #D4D4D4">/</span><span style="color: #0A0A0A; font-weight: 500">KMP-017</span></nav>
+
+    <section aria-labelledby="kp-h" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="kp-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Fałszywe newsy, które prowadzą do „inwestycji”</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Reklamy udają pilne wiadomości z «Kurier Dnia» o napaści na znaną osobę i prowadzą do fałszywej „platformy inwestycyjnej”.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">KMP-017 «Zamach» · operator OP-03 «Kestrel» · aktywna od 8 listopada</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+        <a class="pri" href="Zgloszenie-KMP017.dc.html">Zgłoś całą kampanię<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a class="lnk" href="Sledztwo.dc.html">albo szukaj reszty z agentem</a>
+      </div>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+      <div class="stat"><b>46</b><span style="color: #9A3412">materiałów · +38% w 48 h</span></div>
+      <div class="stat"><b>19</b><span>domen · 3 nowe dziś</span></div>
+      <div class="stat"><b>11</b><span>reklamodawców · 4 aktywne strony</span></div>
+      <div class="stat"><b>12 z 46</b><span>reklam usuniętych po zgłoszeniu 18.11</span></div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+
+      <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+        <section class="card" aria-labelledby="kp-t" style="padding: 18px 20px 14px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="kp-t" class="sh">Materiały w czasie</h2>
+          <svg viewBox="0 0 680 186" role="img" aria-label="Nowe materiały dziennie od 8 do 21 listopada, od 0 do 6, rosną. 19.11 Oracle przewidział morvanta.click, dziś w nocy wydano 3 certyfikaty." style="width: 100%; height: auto; display: block; font-family: Geist, sans-serif">
+            <g fill="#171717">
+              <rect x="63" y="131" width="26" height="19" rx="4"></rect><rect x="110" y="112" width="26" height="38" rx="4"></rect><rect x="157" y="131" width="26" height="19" rx="4"></rect><rect x="204" y="93" width="26" height="57" rx="4"></rect><rect x="251" y="112" width="26" height="38" rx="4"></rect><rect x="298" y="74" width="26" height="76" rx="4"></rect><rect x="345" y="93" width="26" height="57" rx="4"></rect><rect x="392" y="55" width="26" height="95" rx="4"></rect><rect x="439" y="74" width="26" height="76" rx="4"></rect><rect x="486" y="36" width="26" height="114" rx="4"></rect><rect x="533" y="55" width="26" height="95" rx="4"></rect><rect x="580" y="74" width="26" height="76" rx="4"></rect>
+            </g>
+            <rect x="627" y="36" width="26" height="114" rx="4" fill="#EA580C"></rect>
+            <line x1="10" y1="150.5" x2="670" y2="150.5" stroke="#E5E5E5"></line>
+            <g font-size="11" fill="#8A8A8A" text-anchor="middle"><text x="29" y="172">08.11</text><text x="123" y="172">10.11</text><text x="217" y="172">12.11</text><text x="311" y="172">14.11</text><text x="405" y="172">16.11</text><text x="499" y="172">18.11</text><text x="593" y="172">20.11</text><text x="640" y="172">dziś</text></g>
+            <line x1="546" y1="26" x2="546" y2="50" stroke="#6D28D9" stroke-width="1.5"></line>
+            <text x="540" y="20" font-size="12" fill="#6D28D9" text-anchor="end">Oracle przewidział morvanta.click</text>
+            <line x1="640" y1="26" x2="640" y2="32" stroke="#EA580C" stroke-width="1.5"></line>
+            <text x="672" y="20" font-size="12" fill="#9A3412" text-anchor="end">3 certyfikaty tej nocy</text>
+          </svg>
+        </section>
+
+        <section aria-labelledby="kp-bind" style="display: flex; flex-direction: column; gap: 12px">
+          <h2 id="kp-bind" class="sh">Co łączy te materiały</h2>
+          <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ta sama bramka CAPI cg-7f3a…</span><span class="fm">Tropiciel · tracking</span></span><b class="fw">46 z 46</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ten sam kit: /api/v2/relay/lead/{uuid}/</span><span class="fm">Tropiciel · kit</span></span><b class="fw">46 z 46</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">3 szablony tekstu, najnowszy „PILNE: {PER}…”</span><span class="fm">Czytelnik · treść · 22 + 19 + 5 nagrań wideo</span></span><b class="fw">46 z 46</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Te same osoby i portal «Kurier Dnia»</span><span class="fm">Czytelnik · osoby</span></span><b class="fw">44 z 46</b></div>
+          <div class="fc"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Domeny 7–9 liter, .click i .live, certyfikaty nocą</span><span class="fm">Notariusz · infra · rejestrator R-114</span></span><b class="fw">19 z 19</b></div>
+        </section>
+
+        <section class="card" aria-labelledby="kp-d" style="padding: 18px 20px 6px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 2px">
+            <h2 id="kp-d" class="sh">Domeny</h2>
+            <a href="Kampania-KMP017.dc.html" style="font-size: 13.5px; color: #525252">Wszystkie 19</a>
+          </div>
+          <div class="row"><span class="n"><b>morvanta.click</b><span>certyfikat dziś 02:31 · 4 reklamy</span></span><span class="pill" style="background: #FEF2F2; color: #B91C1C">aktywna</span></div>
+          <div class="row"><span class="n"><b>orvinta.click</b><span>certyfikat dziś 01:12 · przewidziana 20.11</span></span><span class="pill" style="background: #FFF7ED; color: #9A3412">nowa, bez reklam</span></div>
+          <div class="row"><span class="n"><b>plessuro.live</b><span>certyfikat dziś 00:47</span></span><span class="pill" style="background: #FFF7ED; color: #9A3412">nowa, bez reklam</span></div>
+          <div class="row"><span class="n"><b>velmoria.click</b><span>od 12.11 · 9 reklam</span></span><span class="pill" style="background: #F0FDF4; color: #166534">na liście CERT PL</span></div>
+          <div class="row"><span class="n"><b>selqueno.live</b><span>od 17.11 nie odpowiada</span></span><span class="pill" style="background: #F5F5F5; color: #525252">wyłączona</span></div>
+        </section>
+
+        <section class="card" aria-labelledby="kp-z" style="padding: 18px 20px 8px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 6px">
+            <h2 id="kp-z" class="sh">Zgłoszenia</h2>
+            <a href="Zgloszenie-KMP017.dc.html" style="font-size: 13.5px; color: #525252">Nowe zgłoszenie</a>
+          </div>
+          <span style="display: block; padding: 6px 0 2px; font-size: 13px; font-weight: 500; color: #6B6B6B">Wysłane dziś 09:12 · cała kampania</span>
+          <div class="rl"><b>Meta · DSA art. 16</b><span class="bar" role="img" aria-label="0 procent"><i style="width: 2%"></i></span><span class="s">przyjęte, w ocenie · 0 z 46 usuniętych</span></div>
+          <div class="rl"><b>CERT PL · lista ostrzeżeń</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">24 z 24 domen na liście</span></div>
+          <div class="rl"><b>Google Safe Browsing</b><span class="bar" role="img" aria-label="w kolejce"><i style="width: 8%; background: #A3A3A3"></i></span><span class="s">w kolejce u Google</span></div>
+          <span style="display: block; padding: 14px 0 2px; font-size: 13px; font-weight: 500; color: #6B6B6B">Wysłane 18.11 · przed śledztwem</span>
+          <div class="rl"><b>Meta · DSA art. 16</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">12 z 12 reklam usuniętych w 6 h</span></div>
+        </section>
+      </div>
+
+      <aside style="flex: 1 1 360px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+        <section aria-labelledby="kp-mg" style="padding: 16px 18px; border-radius: 22px; background: #F6F6F6; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12.5px; font-weight: 500; color: #6B6B6B">Możliwe, że to ta sama kampania</span>
+          <h2 id="kp-mg" class="sh">KMP-043 «Kurier wideo»</h2>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #525252">Te same ślady i 4 wspólne domeny. Różni je tylko format: tu wideo z deepfake.</p>
+          <a href="Scal-Kampanie.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; font-weight: 500; color: #0A0A0A; text-decoration: underline; text-decoration-color: #D4D4D4; text-underline-offset: 4px">Porównaj i scal</a>
+        </section>
+
+        <section aria-labelledby="kp-o" style="padding: 18px 20px 10px; border-radius: 22px; background: #FAF8FF; border: 1px solid #EDE9FE">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 6px">
+            <span class="pill" style="align-self: flex-start; background: #F5F3FF; color: #6D28D9; border: 1px solid #DDD6FE">Oracle</span>
+            <h2 id="kp-o" class="sh">Przewidziane domeny</h2>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #525252">Domeny z DNA tej kampanii, które dostały certyfikat, zanim pojawiła się reklama.</p>
+          </div>
+          <div class="row"><span class="n"><b>morvanta.click</b><span>przewidziana 19.11 · reklama 21.11</span></span><span class="pill" style="background: #F0FDF4; color: #166534">trafiona</span></div>
+          <div class="row"><span class="n"><b>orvinta.click</b><span>przewidziana 20.11 · certyfikat dziś</span></span><span class="pill" style="background: #F0FDF4; color: #166534">trafiona</span></div>
+          <div class="row" style="border-bottom: 1px solid #EDE9FE"><span class="n"><b>tranvello.click</b><span>pewność 0.71 · jeszcze bez certyfikatu</span></span><span class="pill" style="background: #F5F3FF; color: #6D28D9">czeka</span></div>
+          <p style="margin: 0; padding: 10px 2px 8px; font-size: 12.5px; color: #6B6B6B">Średnio 31 h przed pierwszą reklamą.</p>
+        </section>
+
+        <section class="card" aria-labelledby="kp-op" style="padding: 18px 20px 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 12.5px; font-weight: 500; color: #6B6B6B">Operator</span>
+            <h2 id="kp-op" class="sh">OP-03 «Kestrel»</h2>
+          </div>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #525252">Zmienia tematy, od finansów po zdrowie, ale zostawia ten sam zestaw stron i tę samą bramkę konwersji. Nowe domeny rejestruje partiami, nocą.</p>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <div class="ost"><b>58</b><span>materiałów</span></div>
+            <div class="ost"><b>25</b><span>domen</span></div>
+            <div class="ost"><b>2.11</b><span>pierwszy ślad</span></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 12.5px; font-weight: 500; color: #6B6B6B">Rozpoznajemy go po</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <span class="tg">kit relay v1</span><span class="tg">bramka CAPI cg-7f3a…</span><span class="tg">hosting AS64500</span><span class="tg">rejestrator R-114</span><span class="tg">certyfikaty nocą</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 12.5px; font-weight: 500; color: #6B6B6B">Prowadzi też</span>
+            <div class="row" style="border-bottom: 0"><span class="n"><b style="font-family: Geist, sans-serif; font-weight: 600">KMP-034 «Glikonor»</b><span>lek na cukrzycę, deepfake lekarza · od 2.11</span></span><span style="font: 500 13px 'Geist Mono', monospace; color: #525252">12</span></div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="kp-p" style="padding: 18px 20px 8px">
+          <h2 id="kp-p" class="sh" style="padding-bottom: 4px">Kogo udaje</h2>
+          <div class="pp"><i>JK</i><span><b>Jan Kowalski</b><span>przedsiębiorca</span></span><em>31 reklam</em></div>
+          <div class="pp"><i>AN</i><span><b>Anna Nowak</b><span>dziennikarka</span></span><em>9</em></div>
+          <div class="pp"><i>TL</i><span><b>Tomasz Lewandowski</b><span>dziennikarz</span></span><em>6</em></div>
+          <div class="pp"><i>KD</i><span><b>«Kurier Dnia»</b><span>fałszywy portal</span></span><em>46</em></div>
+        </section>
+
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

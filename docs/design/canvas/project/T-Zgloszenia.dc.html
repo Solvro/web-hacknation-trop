@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: zgłoszenia</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/0fec4c5e428884d17088a849211b39ed"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+sc-if,sc-for{display:contents}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:14px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:14.5px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.07)}
+.lbl{font-size:13px;font-weight:500;color:#6B6B6B}
+.rc{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid #F0F0F0;border-radius:14px;cursor:pointer}
+.rc input{width:16px;height:16px;margin:0;accent-color:#0A0A0A}
+.rc b{display:block;font-size:15px;font-weight:600}
+.rc span.d{display:block;font-size:13px;color:#6B6B6B;margin-top:1px}
+.rc span.n{font:500 13px 'Geist Mono',ui-monospace,monospace;color:#525252}
+.inc{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;background:#F5F5F5;font-size:13px;color:#404040}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.seg4{display:grid;grid-template-columns:repeat(4,18px);gap:4px;flex:none}
+.seg4 i{display:block;height:5px;border-radius:999px;background:#E5E5E5}
+.seg4 i.on{background:#0A0A0A}
+.plat{width:36px;height:36px;flex:none;border-radius:999px;background:#F5F5F5;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#404040}
+.hist{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:18px 4px;border-bottom:1px solid #F0F0F0}
+.hist:last-child{border-bottom:0}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1300px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="T-Kolejka.dc.html">Kolejka<b>7</b></a>
+        <a class="tab" href="T-Kampania.dc.html">Kampanie</a>
+        <a class="tab" href="T-Sledztwo.dc.html">Śledztwa</a>
+        <a class="tab" href="T-Zgloszenia.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Zgłoszenia</a>
+      </nav>
+      <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #F0FDF4; color: #166534; font-size: 13px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 999px; background: #22C55E; animation: pulse 1.6s ease-out infinite"></span>na żywo</span>
+    </div>
+  </header>
+
+  <main style="max-width: 920px; margin: 0 auto; padding: 40px 24px 64px; display: flex; flex-direction: column; gap: 28px">
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <a href="T-Kampania.dc.html" class="pill" style="align-self: flex-start; background: #F5F3FF; color: #6D28D9; text-decoration: none">KMP-017 «Zamach» · 46 materiałów · 29 domen</a>
+      <h1 style="margin: 0; font-size: 40px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Zgłoś całą kampanię naraz</h1>
+      <p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.5; color: #525252">Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami, reklamodawcami i dowodami, zamiast 46 osobnych.</p>
+    </div>
+
+    <sc-if value="{{isDraft}}" hint-placeholder-val="{{ true }}">
+      <section class="card" aria-label="Nowe zgłoszenie" style="padding: 22px; display: flex; flex-direction: column; gap: 22px">
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span class="lbl">Do kogo</span>
+          <label class="rc"><input type="checkbox" checked><span><b>Meta · zgłoszenie DSA art. 16</b><span class="d">usunięcie reklam i zablokowanie kont reklamodawców</span></span><span class="n">46 reklam, 11 kont</span></label>
+          <label class="rc"><input type="checkbox" checked><span><b>CERT PL · lista ostrzeżeń</b><span class="d">blokada domen w polskich sieciach</span></span><span class="n">24 domeny nowe na liście</span></label>
+          <label class="rc"><input type="checkbox" checked><span><b>Google Safe Browsing</b><span class="d">ostrzeżenie w przeglądarkach</span></span><span class="n">29 domen</span></label>
+          <label class="rc"><input type="checkbox"><span><b>Rejestrator R-114 · abuse</b><span class="d">odpowiada rzadko, więc domyślnie wyłączony</span></span><span class="n">29 domen</span></label>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span class="lbl">W środku</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <span class="inc">46 reklam z linkami do Ad Library</span>
+            <span class="inc">11 reklamodawców</span>
+            <span class="inc">29 domen, w tym 10 ze śledztwa</span>
+            <span class="inc">dowody: tracking, kit, treść, infra, osoby</span>
+            <span class="inc">zrzuty i drogi przekierowań</span>
+            <span class="inc">plik STIX 2.1 dla CERT PL</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span data-jelly="square" data-master data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span>
+            <label for="zg-text" style="font-size: 14px; color: #262626">Sędzia napisał treść zgłoszenia. Przeczytaj ją przed wysłaniem.</label>
+          </div>
+          <textarea id="zg-text" rows="7" style="width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; border: 1px solid #E5E5E5; background: #FAFAFA; outline: none; resize: vertical; font-family: inherit; font-size: 14.5px; line-height: 1.55; color: #262626">Zgłoszenie na podstawie art. 16 DSA.
+
+Zgłaszamy 46 reklam z 11 kont reklamodawców, które należą do jednej kampanii oszustwa «Zamach» (KMP-017). Reklamy podszywają się pod portal «Kurier Dnia» i znane osoby, a prowadzą do fałszywej platformy inwestycyjnej.
+
+Wspólne ślady: ta sama bramka konwersji, ten sam zestaw stron i ten sam szablon tekstu. Lista reklam, adresów i dowodów jest w załączniku.</textarea>
+        </div>
+
+        <sc-if value="{{isAsk}}" hint-placeholder-val="{{ false }}">
+          <div role="alertdialog" aria-labelledby="zg-confirm" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: #0A0A0A; color: #FFFFFF">
+            <span id="zg-confirm" style="flex: 1 1 320px; font-size: 15px; line-height: 1.45">Wysłać 3 zgłoszenia o KMP-017 do Meta, CERT PL i Google? Tego nie da się cofnąć.</span>
+            <button type="button" onClick="{{send}}" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: none; background: #FFFFFF; color: #0A0A0A; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Wyślij teraz</button>
+            <button type="button" onClick="{{back}}" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: none; background: transparent; color: #D4D4D4; font-family: inherit; font-size: 15px; cursor: pointer">Wróć</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{notAsk}}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+            <span style="font-size: 13px; color: #6B6B6B">Wysyłka idzie z adresu zespołu.</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <button type="button" class="sec">Pobierz PDF</button>
+              <button type="button" class="sec">Pobierz STIX</button>
+              <button type="button" class="pri" onClick="{{ask}}">Wyślij 3 zgłoszenia</button>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isSent}}" hint-placeholder-val="{{ false }}">
+      <section class="card" aria-labelledby="zg-sent" style="padding: 22px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px">
+          <span class="pill" style="background: #F0FDF4; color: #166534"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Wysłane dziś o 09:12</span>
+          <button type="button" onClick="{{back}}" style="min-height: 40px; padding: 0 12px; border: none; background: none; font-family: inherit; font-size: 14px; color: #525252; cursor: pointer">Pokaż treść</button>
+        </div>
+        <h2 id="zg-sent" style="margin: 0; font-size: 24px; letter-spacing: -0.03em; font-weight: 600">3 zgłoszenia o KMP-017 są w drodze</h2>
+        <div style="display: flex; flex-direction: column">
+          <div class="hist"><span class="plat">M</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">Meta · DSA art. 16</b><span style="font-size: 13.5px; color: #6B6B6B">przyjęte, w ocenie · 0 z 46 reklam usuniętych</span></span><span class="seg4" role="img" aria-label="Etap 1 z 4"><i class="on"></i><i></i><i></i><i></i></span></div>
+          <div class="hist"><span class="plat">C</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">CERT PL · lista ostrzeżeń</b><span style="font-size: 13.5px; color: #6B6B6B">przyjęte · 24 z 24 nowych domen już na liście</span></span><span class="seg4" role="img" aria-label="Etap 4 z 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+          <div class="hist"><span class="plat">G</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">Google Safe Browsing</b><span style="font-size: 13.5px; color: #6B6B6B">w kolejce u Google</span></span><span class="seg4" role="img" aria-label="Etap 1 z 4"><i class="on"></i><i></i><i></i><i></i></span></div>
+        </div>
+        <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #6B6B6B">Status sprawdzamy co godzinę. Gdy do kampanii dołączą nowe materiały, przygotujemy uzupełnienie do tych samych odbiorców.</p>
+      </section>
+    </sc-if>
+
+    <section aria-labelledby="zg-hist" style="display: flex; flex-direction: column; gap: 6px">
+      <h2 id="zg-hist" style="margin: 0 0 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Wcześniejsze zgłoszenia</h2>
+      <div class="hist"><span class="plat">M</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">KMP-017 · Meta DSA · 18.11</b><span style="font-size: 13.5px; color: #6B6B6B">12 z 12 reklam usuniętych w 6 godzin</span></span><span class="seg4" role="img" aria-label="Zakończone"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="pill" style="background: #FFF7ED; color: #9A3412">uzupełnienie gotowe: +34 reklamy</span></div>
+      <div class="hist"><span class="plat">M</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">KMP-031 · Meta DSA · 20.11</b><span style="font-size: 13.5px; color: #6B6B6B">51 z 58 reklam usuniętych</span></span><span class="seg4" role="img" aria-label="Etap 3 z 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="pill" style="background: #F5F5F5; color: #404040">w toku</span></div>
+      <div class="hist"><span class="plat">C</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">KMP-031 · CERT PL · 20.11</b><span style="font-size: 13.5px; color: #6B6B6B">9 z 9 domen na liście ostrzeżeń</span></span><span class="seg4" role="img" aria-label="Zakończone"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="pill" style="background: #F0FDF4; color: #166534">gotowe</span></div>
+      <div class="hist"><span class="plat">G</span><span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><b style="font-size: 15px; font-weight: 600">KMP-022 · Google · 19.11</b><span style="font-size: 13.5px; color: #6B6B6B">bez odpowiedzi od 2 dni</span></span><span class="seg4" role="img" aria-label="Etap 1 z 4"><i class="on"></i><i></i><i></i><i></i></span><span class="pill" style="background: #F5F5F5; color: #404040">czeka</span></div>
+    </section>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"stan":{"editor":"enum","options":["szkic","wysłane"],"default":"szkic","section":"Przepływ"},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentDidUpdate(prevProps) {
+    if (prevProps.stan !== this.props.stan && this.state && this.state.st) this.setState({ st: null });
+  }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, {});
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    const st = (this.state && this.state.st) || (this.props.stan === 'wysłane' ? 'sent' : 'draft');
+    return {
+      refCv: this.refCv, refRt: this.refRt,
+      isDraft: st !== 'sent', isSent: st === 'sent',
+      isAsk: st === 'ask', notAsk: st !== 'ask',
+      ask: () => this.setState({ st: 'ask' }),
+      send: () => this.setState({ st: 'sent' }),
+      back: () => this.setState({ st: 'draft' })
+    };
+  }
+}
+</script>
+</body>
+</html>

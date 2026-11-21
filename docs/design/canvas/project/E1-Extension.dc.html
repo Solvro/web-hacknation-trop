@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Wtyczka RED PILL — nakładka</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.frame{border:1px solid #2B3F32;border-radius:12px;overflow:hidden;background:#141719}
+.chrome{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#1E2225;border-bottom:1px solid #2C3135}
+.addr{flex:1 1 auto;min-width:0;height:30px;border-radius:999px;background:#121517;border:1px solid #2C3135;display:flex;align-items:center;gap:8px;padding:0 12px;font:12.5px "JetBrains Mono",ui-monospace,monospace;color:#B9C0C5}
+.feed{max-width:560px;margin:0 auto;padding:20px 16px 28px;display:flex;flex-direction:column;gap:16px}
+.post{background:#1F2326;border:1px solid #2C3135;border-radius:10px;overflow:hidden;color:#E4E7EA}
+.post-h{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.post-t{padding:0 14px 12px;font-size:14px;line-height:1.5}
+.who{display:flex;flex-direction:column;gap:1px;font-size:13.5px}
+.who small{font-size:12px;color:#A3ABB1}
+.lnk{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#262B2F;border-top:1px solid #2C3135}
+.fbtn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:6px;border:0;background:#3A4146;color:#E4E7EA;font:600 13px Inter,sans-serif;cursor:pointer}
+.strip{background:#2A1418;border-bottom:1px solid rgba(255,93,108,.55);color:#FFE3E6;padding:10px 14px;display:flex;flex-direction:column;gap:10px}
+.strip.amb{background:#2A2112;border-bottom-color:rgba(255,181,71,.55);color:#FFEBCC}
+.sbtn{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-radius:6px;border:1px solid rgba(255,93,108,.5);background:transparent;color:#FFE3E6;font:500 12.5px Inter,sans-serif;cursor:pointer}
+.sbtn.on{background:rgba(255,93,108,.18)}
+.rchip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:rgba(255,93,108,.14);border:1px solid rgba(255,93,108,.4);font:500 11.5px Inter,sans-serif;color:#FFD4D9}
+.why{background:#1A0E11;border:1px solid rgba(255,93,108,.35);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;line-height:1.5}
+.why ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.popup{width:100%;max-width:360px;background:#0A100C;border:1px solid #2B3F32;border-radius:12px;box-shadow:0 24px 60px -20px rgba(0,0,0,.8);overflow:hidden}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #1D2B22}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main style="padding: 32px 32px 16px; display: flex; flex-direction: column; gap: 24px; max-width: 1440px; margin: 0 auto">
+
+<section style="display: flex; flex-direction: column; gap: 8px">
+<div class="row"><span class="eb">Warstwa obywatelska · wtyczka MV3</span><span class="api">POST /public/extension/match</span><span class="api">POST /public/report</span></div>
+<h1 class="h1">Wtyczka RED PILL — nakładka na post sponsorowany</h1>
+<p class="muted" style="max-width: 900px">Schemat generycznego kanału społecznościowego (np. Facebook), nie odwzorowanie interfejsu platformy. Wtyczka oznacza tylko reklamy pasujące do znanych kampanii i nigdy nie twierdzi, że reklama jest bezpieczna.</p>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div class="frame">
+<div class="chrome">
+<span style="display: flex; gap: 6px" aria-hidden="true"><span style="width: 10px; height: 10px; border-radius: 50%; background: #3A4146"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3A4146"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3A4146"></span></span>
+<span class="addr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z"></path></svg>social.example/feed</span>
+<button class="btn btn-sm" type="button" aria-label="Wtyczka RED PILL: 2 reklamy pasujące do kampanii na tej stronie" style="gap: 6px; background: #121517; border-color: rgba(255,93,108,.5)"><svg width="18" height="18" viewBox="0 0 28 28" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="3" y="9" width="22" height="10" rx="5" fill="none" stroke="#3BF07E" stroke-width="1.5"></rect><path d="M8 9h6v10H8a5 5 0 0 1 0-10z" fill="#FF5D6C"></path></g></svg><span class="mono xs" style="color: #FF5D6C">2</span></button>
+</div>
+
+<div class="feed">
+
+<article class="post" style="opacity: .55" aria-label="Zwykły post znajomego">
+<div class="post-h"><span class="sil" style="width: 36px; height: 36px"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="9" r="4.5"></circle><path d="M3 24c1-5.5 4.5-8 9-8s8 2.5 9 8z"></path></svg></span><span class="who"><b>Kasia M.</b><small>2 godz.</small></span></div>
+<p class="post-t">Pierwszy śnieg w górach, w końcu!</p>
+<div class="ph-img" style="height: 120px; border-radius: 0; border-left: 0; border-right: 0">zdjęcie znajomego</div>
+</article>
+
+<article class="post" style="border-color: rgba(255,93,108,.6)" aria-label="Post sponsorowany oznaczony przez RED PILL">
+<div class="strip" role="region" aria-label="Ostrzeżenie RED PILL">
+<div class="row" style="gap: 10px; align-items: flex-start">
+<svg width="22" height="22" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><g transform="rotate(-40 14 14)"><rect x="3" y="9" width="22" height="10" rx="5" fill="none" stroke="#3BF07E" stroke-width="1.5"></rect><path d="M8 9h6v10H8a5 5 0 0 1 0-10z" fill="#FF5D6C"></path></g></svg>
+<div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<b style="font-size: 14px">RED PILL: ta reklama pasuje do znanej kampanii oszustwa</b>
+<div class="row" style="gap: 6px"><span class="rchip">46 podobnych reklam</span><span class="rchip">fałszywy portal informacyjny</span><span class="rchip">narzędzia oszustw inwestycyjnych</span></div>
+</div>
+<div class="row" style="gap: 6px"><button class="sbtn on" type="button" aria-expanded="true">Dlaczego?</button><button class="sbtn" type="button">Zgłoś</button><button class="sbtn" type="button">Ukryj</button></div>
+</div>
+<div class="why">
+<b>Dlaczego to ostrzeżenie?</b>
+<ol>
+<li>Ten sam schemat reklam widzieliśmy 46 razy od 7.11: neutralne zdjęcie, sensacyjny tekst, losowa nazwa reklamodawcy.</li>
+<li>Link prowadzi do strony udającej portal informacyjny, z artykułem o napaści na znaną osobę.</li>
+<li>Strona używa narzędzi znanych z oszustw inwestycyjnych: zbiera dane i namawia do wpłaty.</li>
+</ol>
+<b>Co zrobić</b>
+<p>Nie klikaj w link i nie podawaj danych ani pieniędzy. Możesz zgłosić reklamę jednym kliknięciem: wyślemy tylko jej odcisk.</p>
+<a href="E2-SprawdzReklame.dc.html" style="color: #FF9AA5; font-weight: 600">Szczegóły na stronie Sprawdź reklamę →</a>
+</div>
+</div>
+<div class="post-h"><span class="sil" style="width: 36px; height: 36px"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="9" r="4.5"></circle><path d="M3 24c1-5.5 4.5-8 9-8s8 2.5 9 8z"></path></svg></span><span class="who"><b>Puzzle Mania PL</b><small>Sponsorowane</small></span></div>
+<p class="post-t">Nie uwierzysz, co wydarzyło się wczoraj wieczorem… Cała Polska o tym mówi.</p>
+<div class="ph-img" style="height: 220px; border-radius: 0; border-left: 0; border-right: 0">kreacja-wabik: krajobraz z jeziorem</div>
+<div class="lnk"><div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span class="mono xs" style="color: #A3ABB1">OKAZJE-DNIA.COM</span><b style="font-size: 14px">Zobacz, zanim usuną</b></div><button class="fbtn" type="button">Dowiedz się więcej</button></div>
+</article>
+
+</div>
+</div>
+
+<section class="panel" aria-labelledby="st-h">
+<div class="ph"><h2 class="h3" id="st-h">Stany oznaczenia</h2></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Brak dopasowania</span>
+<div class="ph-img" style="height: 44px">post bez oznaczenia</div>
+<p class="dim xs">Nic nie dodajemy. To nie znaczy, że reklama jest bezpieczna.</p>
+</div>
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Możliwe dopasowanie</span>
+<div class="strip amb" style="border-radius: 6px; border: 1px solid rgba(255,181,71,.55); flex-direction: row; align-items: center; gap: 8px"><span class="dot am"></span><span class="sm">RED PILL: sprawdzamy tę reklamę</span></div>
+<p class="dim xs">Wynik pośredni. Odcisk trafia do triage analityka.</p>
+</div>
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Znana kampania</span>
+<div class="strip" style="border-radius: 6px; border: 1px solid rgba(255,93,108,.55); flex-direction: row; align-items: center; gap: 8px"><span class="dot rd"></span><span class="sm">RED PILL: pasuje do znanej kampanii oszustwa</span></div>
+<p class="dim xs">Tylko decyzja „dołącza do kampanii” z poziomu L2 lub wyżej.</p>
+</div>
+</div>
+</section>
+</div>
+
+<aside style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+<span class="eb">Okno wtyczki (ikona na pasku przeglądarki)</span>
+<div class="popup">
+<div class="row between" style="padding: 14px 16px; border-bottom: 1px solid #1D2B22">
+<span class="row" style="gap: 8px"><svg width="22" height="22" viewBox="0 0 28 28" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="3" y="9" width="22" height="10" rx="5" fill="none" stroke="#3BF07E" stroke-width="1.5"></rect><path d="M8 9h6v10H8a5 5 0 0 1 0-10z" fill="#FF5D6C"></path></g></svg><b style="font: 700 14px/1 'Space Grotesk', sans-serif; letter-spacing: .14em">RED PILL</b></span>
+<span class="pill g"><span class="dot"></span>aktywna</span>
+</div>
+<div style="padding: 14px 16px; border-bottom: 1px solid #1D2B22; display: flex; flex-direction: column; gap: 10px">
+<b class="sm">Na tej stronie: 2 reklamy pasujące do kampanii</b>
+<div class="row between sm"><span>Puzzle Mania PL</span><span class="pill rd">znana kampania</span></div>
+<div class="row between sm"><span>Zdrowie Natura Shop</span><span class="pill am">sprawdzamy</span></div>
+</div>
+<div class="prow"><span class="sm" id="t1">Oznaczaj reklamy na stronach</span><button class="tgl on" type="button" aria-pressed="true" aria-labelledby="t1"></button></div>
+<div class="prow"><span class="sm" id="t2">Wysyłaj anonimowe zgłoszenia</span><button class="tgl on" type="button" aria-pressed="true" aria-labelledby="t2"></button></div>
+<div style="padding: 12px 16px; border-bottom: 1px solid #1D2B22"><p class="xs muted" style="line-height: 1.5">Wysyłamy tylko odcisk reklamy: tekst, link, hash obrazu — bez danych o Tobie i bez historii przeglądania.</p></div>
+<div class="row between" style="padding: 12px 16px"><span class="sm">Twoje zgłoszenia: <b>4</b> <span class="dim">(2 potwierdzone)</span></span><a class="xs" href="E2-SprawdzReklame.dc.html">Sprawdź reklamę →</a></div>
+</div>
+<div class="dnote" style="max-width: 360px">Odcisk reklamy → POST /public/extension/match: {advertiser, text, display_link, landing_url, creative_phash}. Odpowiedź: {match: known|possible|none, public_campaign_name, reasons[], similar_count, first_seen}. Nigdy nie wysyłamy identyfikatora użytkownika.</div>
+</aside>
+
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

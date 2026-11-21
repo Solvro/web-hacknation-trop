@@ -1,0 +1,15 @@
+# RED PILL · scrapers / ingest / enrichment / capture  (Python 3.12+; tested on 3.14)
+psycopg[binary]>=3.2
+httpx>=0.27
+dnspython>=2.6
+tldextract>=5.1
+mmh3>=4.1
+pillow>=10.4
+beautifulsoup4>=4.12
+lxml>=5.2
+playwright>=1.48        # then: python -m playwright install chromium
+minio>=7.2              # S3-compatible artifact store client (MinIO / SeaweedFS / Garage / AWS)
+pyyaml>=6.0             # seed: experiments/labels.yaml, ad_truth.yaml
+certifi>=2024.7
+# optional
+# google-cloud-bigquery>=3.25   # hunter/google_atc.py

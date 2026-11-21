@@ -1,0 +1,6 @@
+# Organizer-derived ground truth (domains, pixel/tenant IDs, ad captions) — never publish (public repo)
+labels.yaml
+labels_dane.yaml
+ad_truth.yaml
+.venv/
+__pycache__/

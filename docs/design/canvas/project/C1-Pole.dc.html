@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Sprawdź materiał C1: jedno pole</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/4a45834733cab3a8558aaac01529657b">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid #e5e5e5;background:#fafafa}
+.zr a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#525252}
+.zr a:hover{background:#f0f0f0;color:#0a0a0a}
+.zr a.on{background:#ffffff;color:#0a0a0a;box-shadow:0 0 0 1px #e5e5e5,0 1px 2px rgba(0,0,0,.05)}
+.zr svg{width:20px;height:20px}
+.mn{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+.hdr{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid #e5e5e5}
+.wrap{width:100%;max-width:860px;margin:0 auto;padding:32px 24px 48px;display:flex;flex-direction:column;gap:18px}
+.big{background:#ffffff;border:1px solid #e5e5e5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.07)}
+.ta{display:block;width:100%;min-height:92px;border:0;outline:none;resize:none;background:transparent;font:16px/1.5 Geist,sans-serif;color:#0a0a0a;padding:6px 8px}
+.ta::placeholder{color:#a3a3a3}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #e5e5e5;background:#fafafa;font:500 13px/1 Geist,sans-serif;color:#404040;cursor:pointer}
+.chip svg{width:14px;height:14px;flex:none}
+.tg{display:inline-flex;align-items:center;gap:8px;font:13px Geist,sans-serif;color:#525252}
+.sig{display:flex;flex-direction:column;gap:8px;padding:14px 16px;border:1px solid #e5e5e5;border-radius:16px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,.05);text-align:left;cursor:pointer;font:inherit;color:inherit}
+.sig:hover{border-color:#d4d4d4}
+.src{display:inline-flex;align-items:center;gap:6px;font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#737373}
+.src i{display:inline-block;width:8px;height:8px;border-radius:2px;background:#171717}
+.rw{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid #f0f0f0}
+.rw:last-child{border-bottom:0}
+.qb{display:flex;align-items:center;gap:14px;padding:10px 12px 10px 10px;border-radius:18px}
+.sub{font:12.5px/1.5 "Geist Mono",ui-monospace,monospace;color:#737373;margin-top:2px}
+.er{display:grid;grid-template-columns:104px minmax(0,1fr) 84px 44px 92px;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid #f0f0f0}
+.er:last-child{border-bottom:0}
+.er .ty{display:flex;align-items:center;gap:8px;font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#737373}
+.er .ty i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c)}
+.er .v{font:500 13px/1.3 "Geist Mono",monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.er .w{font:600 14px/1 "Geist Mono",monospace;text-align:right}
+.er .r{font:12px/1 "Geist Mono",monospace;color:#737373;text-align:right}
+.er.z .v{color:#737373;text-decoration:line-through;text-decoration-color:#a3a3a3}
+.er.z .w{color:#a3a3a3}
+.lbl2{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
+.fb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 18px;border-radius:22px;background:#f6f6f6}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+</style>
+</helmet>
+<div class="rp" style="min-height: 100vh; background: #ffffff; color: #0a0a0a; display: flex">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a href="Z-S01-Command.dc.html" aria-label="redpill, centrum" style="width: 40px; height: 40px; background: #0a0a0a; color: #ffffff; border-radius: 11px; font: 700 15px/1 Geist, sans-serif; letter-spacing: -0.04em; margin-bottom: 10px">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum" title="Centrum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a class="on" href="C1-Pole.dc.html" aria-label="Sprawdź materiał" title="Sprawdź materiał" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a href="Z-S05-Campaign.dc.html" aria-label="Kampanie" title="Kampanie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a href="ZB-Sledztwo.dc.html" aria-label="Śledztwa" title="Śledztwa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div class="mn">
+<header class="hdr">
+<sc-if value="{{isStart}}" hint-placeholder-val="{{false}}"><nav class="trail" aria-label="Ślad" style="font-size: 14px"><b>Sprawdź materiał</b></nav></sc-if>
+<sc-if value="{{notStart}}" hint-placeholder-val="{{true}}"><nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="C1-Pole.dc.html">Sprawdź materiał</a><span class="sep">/</span><b>INC-24817</b></nav></sc-if>
+<div style="flex: 1 1 auto"></div>
+<label class="omni" style="flex: 0 1 300px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Domena, pixel, INC-…, osoba" aria-label="Szukaj"><span class="kbd">Ctrl K</span></label>
+<span class="pill g"><span class="dot live"></span>na żywo</span>
+</header>
+
+<sc-if value="{{isStart}}" hint-placeholder-val="{{false}}">
+<div class="wrap" style="padding-top: 72px; gap: 26px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+<span class="pill"><span class="dot live"></span>w bazie 1 284 materiały i 46 kampanii</span>
+<h1 style="font: 600 46px/1.04 Geist, sans-serif; letter-spacing: -0.05em">Co sprawdzamy?</h1>
+<p class="muted" style="font-size: 16px; max-width: 560px">Wklej link reklamy albo upuść plik. W około 20 sekund zobaczysz, do której kampanii należy i dlaczego.</p>
+</div>
+<div class="big" style="padding: 14px 14px 12px">
+<label class="sr" for="c1-in">Link albo plik do sprawdzenia</label>
+<textarea id="c1-in" class="ta" placeholder="https://…   albo upuść tutaj zrzut ekranu, HAR, HTML, wideo lub ZIP z archiwum"></textarea>
+<div class="row between" style="padding-top: 8px">
+<div class="row" style="gap: 6px">
+<button class="chip" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5"></path></svg>Zrzut ekranu</button>
+<button class="chip" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v4h4"></path></svg>HAR / HTML</button>
+<button class="chip" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h11v12H4zM15 10l5-3v10l-5-3"></path></svg>Wideo</button>
+<button class="chip" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16v12H4zM3 4h18v4H3zM10 12h4"></path></svg>ZIP z archiwum</button>
+</div>
+<div class="row" style="gap: 16px">
+<span class="tg"><span class="tgl on" aria-hidden="true"></span>Przechwyć na żywo</span>
+<button class="btn btn-p btn-lg" type="button">Sprawdź<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 10px" aria-labelledby="c1-sig">
+<div class="row between"><span id="c1-sig" class="eb">Albo zacznij od sygnału</span><a class="xs dim" href="Z-S01-Command.dc.html">wszystkie w Centrum →</a></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<button class="sig" type="button"><span class="src"><i></i>Hunter · Ad Library</span><b style="font: 600 15px/1.25 Geist, sans-serif">Nowa reklama «Puzzle Mania PL»</b><span class="mono xs dim">morvanta.click · 2 min temu</span></button>
+<button class="sig" type="button"><span class="src"><i style="background: #6d28d9"></i>Oracle · certyfikat</span><b style="font: 600 15px/1.25 Geist, sans-serif">plessuro.live dostał certyfikat</b><span class="mono xs dim">pasuje do DNA KMP-017 · 01:12</span></button>
+<button class="sig" type="button"><span class="src"><i style="background: #b45309"></i>Wtyczka · zgłoszenia</span><b style="font: 600 15px/1.25 Geist, sans-serif">3 osoby zgłosiły ten sam post</b><span class="mono xs dim">zrzut ekranu · 08:31</span></button>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 4px" aria-labelledby="c1-rec">
+<span id="c1-rec" class="eb" style="padding-bottom: 6px">Ostatnio sprawdzane</span>
+<div class="rw"><b class="mono" style="font-weight: 600">INC-24822</b><span class="sm muted">zrzut ekranu · 08:31</span><span class="pill am">nowa kampania?</span></div>
+<div class="rw"><b class="mono" style="font-weight: 600">INC-24768</b><span class="sm muted">HAR · 08:02</span><span class="pill cy">niepewne</span></div>
+<div class="rw"><b class="mono" style="font-weight: 600">INC-24751</b><span class="sm muted">ZIP z archiwum · 07:47</span><span class="pill g">KMP-031 · 0.89</span></div>
+<div class="rw"><b class="mono" style="font-weight: 600">INC-24733</b><span class="sm muted">link · 07:20</span><span class="pill">duplikat INC-24690</span></div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isRun}}" hint-placeholder-val="{{false}}">
+<div class="wrap">
+<div class="big qb">
+<div class="ph-img" style="width: 64px; height: 64px; flex: none; font-size: 9.5px">zrzut</div>
+<div class="grow" style="display: flex; flex-direction: column; gap: 3px">
+<span class="mono" style="font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">https://morvanta.click/?utm_source=fb&amp;utm_visit=0193a7c2-…</span>
+<span class="xs dim">link i zrzut reklamy «Puzzle Mania PL» · INC-24817</span>
+</div>
+<button class="btn btn-sm" type="button">Anuluj</button>
+</div>
+
+<section class="big" style="padding: 24px; display: flex; flex-direction: column; gap: 14px" aria-labelledby="c1-run">
+<div class="row between"><h2 id="c1-run" style="font: 600 22px/1.2 Geist, sans-serif; letter-spacing: -0.03em">Sprawdzam materiał…</h2><span class="mono sm dim">11,2 s z ok. 20 s</span></div>
+<div class="bar lg"><i style="width: 56%"></i></div>
+<div class="steps" style="padding-top: 4px">
+<div class="stp done"><span class="ic">1</span><div><div class="sm">Przechwycenie strony w piaskownicy</div><div class="sub">4 przekierowania · 212 żądań · formularzy nie wysyłamy</div></div><span class="tm">6,8 s</span></div>
+<div class="stp done"><span class="ic">2</span><div><div class="sm">Ślady techniczne: tracking i kit</div><div class="sub">bramka CAPI · /api/v2/relay/lead/{uuid}/ · utm×5 + uuidv7</div></div><span class="tm">0,6 s</span></div>
+<div class="stp done"><span class="ic">3</span><div><div class="sm">Treść, osoby i obraz</div><div class="sub">szablon „PILNE: {PER}…” · Jan Kowalski 0.91 · pHash landingu</div></div><span class="tm">3,9 s</span></div>
+<div class="stp run"><span class="ic"></span><div><div class="sm">Rejestr domen i certyfikaty</div><div class="sub">pytam RDAP i crt.sh…</div></div><span class="tm">…</span></div>
+<div class="stp"><span class="ic">5</span><div><div class="sm dim">Porównanie z 1 284 materiałami</div></div><span class="tm"></span></div>
+<div class="stp"><span class="ic">6</span><div><div class="sm dim">Werdykt</div></div><span class="tm"></span></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 10px" aria-labelledby="c1-found">
+<span id="c1-found" class="eb">Już znalezione</span>
+<div class="evs">
+<span class="ev big t-tracking"><span class="t">Tracking</span><span class="v">bramka CAPI cg-7f3a…</span><span class="r">47 z 1 284</span></span>
+<span class="ev big t-kit"><span class="t">Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><span class="r">58 z 1 284</span></span>
+<span class="ev big t-content"><span class="t">Treść</span><span class="v">„PILNE: {PER} przerywa…”</span><span class="r">22 z 1 284</span></span>
+<span class="ev big t-persons"><span class="t">Osoby</span><span class="v">Jan Kowalski · twarz 0.91</span><span class="r">61 z 1 284</span></span>
+</div>
+<p class="sm muted">Wstępnie najbliżej: <b style="color: #0a0a0a">KMP-017 «Zamach»</b>. Werdykt po porównaniu z bazą.</p>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{true}}">
+<div class="wrap">
+<div class="big qb">
+<div class="ph-img" style="width: 64px; height: 64px; flex: none; font-size: 9.5px">zrzut</div>
+<div class="grow" style="display: flex; flex-direction: column; gap: 3px">
+<span class="mono" style="font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">https://morvanta.click/?utm_source=fb&amp;utm_visit=0193a7c2-…</span>
+<span class="xs dim">link i zrzut reklamy «Puzzle Mania PL» · INC-24817</span>
+</div>
+<button class="btn btn-sm" type="button">Nowe sprawdzenie</button>
+</div>
+<div class="row xs dim" style="gap: 8px; padding: 0 8px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+<span>6 kroków w 19,6 s</span><span>·</span><span class="am">RDAP nie odpowiedział, dane o rejestracji są częściowe</span><span>·</span><a class="xs" href="C1-Pole.dc.html" style="text-decoration: underline; text-underline-offset: 3px">pokaż kroki</a>
+</div>
+
+<section class="big" style="padding: 26px 28px; display: flex; flex-direction: column; gap: 22px" aria-labelledby="c1-v">
+<div style="display: flex; gap: 20px; align-items: center">
+<div class="ring" style="--p: 94; --rc: #15803d; width: 84px; height: 84px"><span style="font-size: 20px">0.94</span></div>
+<div class="grow" style="display: flex; flex-direction: column; gap: 6px">
+<span class="lbl2 g"><span class="dot"></span>Dołącza do kampanii</span>
+<h1 id="c1-v" style="font: 600 36px/1.05 Geist, sans-serif; letter-spacing: -0.045em">KMP-017 «Zamach»</h1>
+<p class="muted" style="font-size: 15px">Ta sama bramka CAPI i ten sam kit co 47 materiałów tej kampanii. Tekst pochodzi z tego samego szablonu.</p>
+</div>
+<a class="btn" href="Z-S05-Campaign.dc.html" style="align-self: flex-start">Otwórz kampanię</a>
+</div>
+
+<div>
+<div class="row between" style="padding-bottom: 2px"><span class="eb">Dlaczego</span><span class="xs dim mono">siła · waga · ile materiałów ma ten ślad</span></div>
+<div class="er t-tracking"><span class="ty"><i></i>Tracking</span><span class="v">bramka CAPI cg-7f3a…</span><div class="bar"><i style="width: 100%"></i></div><span class="w">+3.1</span><span class="r">47 z 1 284</span></div>
+<div class="er t-kit"><span class="ty"><i></i>Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><div class="bar"><i style="width: 87%"></i></div><span class="w">+2.7</span><span class="r">58 z 1 284</span></div>
+<div class="er t-content"><span class="ty"><i></i>Treść</span><span class="v">„PILNE: {PER} przerywa…”</span><div class="bar"><i style="width: 71%"></i></div><span class="w">+2.2</span><span class="r">22 z 1 284</span></div>
+<div class="er t-infra"><span class="ty"><i></i>Infra</span><span class="v">partia certyfikatów LE R11, noc</span><div class="bar"><i style="width: 45%"></i></div><span class="w">+1.4</span><span class="r">6 z 1 284</span></div>
+<div class="er t-persons"><span class="ty"><i></i>Osoby</span><span class="v">Jan Kowalski · twarz 0.91</span><div class="bar"><i style="width: 26%"></i></div><span class="w">+0.8</span><span class="r">61 z 1 284</span></div>
+<div class="er z"><span class="ty"><i style="background: #d4d4d4"></i>Wspólne</span><span class="v">Cloudflare 203.0.113.0/24</span><div class="bar"><i style="width: 0%"></i></div><span class="w">0</span><span class="r">512 spraw</span></div>
+</div>
+
+<div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; background: #fafafa; border: 1px dashed #d4d4d4">
+<b class="mono" style="font-weight: 600; font-size: 14px; flex: none">0.41</b>
+<p class="sm"><b>Dlaczego nie KMP-034 «Glikonor»?</b> <span class="muted">Ten sam kit, ale inna treść i inne osoby. To ten sam operator OP-03, ale inna kampania.</span></p>
+</div>
+
+<div class="row between" style="gap: 16px">
+<div class="row" style="gap: 12px"><span class="xs dim">pokrycie 6 z 8 warstw</span><div class="cov" role="img" aria-label="Pokrycie 6 z 8 warstw: infra częściowo, media brak" style="width: 140px"><i class="t-tracking"></i><i class="t-kit"></i><i class="t-infra part"></i><i class="t-content"></i><i class="t-persons"></i><i class="t-visual"></i><i class="t-ad"></i><i class="miss"></i></div><span class="xs dim mono">zbiór {KMP-017} · α 0.05</span></div>
+<div class="row" style="gap: 8px"><a class="btn btn-lg" href="ZB-Sledztwo.dc.html">Śledź z agentem</a><a class="btn btn-p btn-lg" href="Z-S10-Act.dc.html">Pakiet DSA dla kampanii</a></div>
+</div>
+</section>
+
+<div class="fb" role="group" aria-label="Ocena werdyktu">
+<span style="font: 600 14px Geist, sans-serif; margin-right: 6px">Werdykt trafny?</span>
+<button class="btn btn-sm" type="button">Tak</button>
+<button class="btn btn-sm" type="button">Inna kampania…</button>
+<button class="btn btn-sm" type="button">Nowa kampania</button>
+<button class="btn btn-sm" type="button">To nie oszustwo</button>
+<span class="xs dim" style="margin-left: auto">Każda poprawka od razu trafia do treningu</span>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"etap":{"editor":"enum","options":["start","analiza","werdykt"],"default":"werdykt","section":"Przepływ"},"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const e = this.props.etap ?? 'werdykt';
+    return { isStart: e === 'start', notStart: e !== 'start', isRun: e === 'analiza', isDone: e === 'werdykt' };
+  }
+}
+</script>
+</body>
+</html>

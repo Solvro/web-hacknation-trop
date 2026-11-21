@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: wynik, niepewne</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.lnk{display:inline-flex;align-items:center;min-height:40px;font-size:14px;color:#525252;text-decoration:underline;text-decoration-color:#D4D4D4;text-underline-offset:4px}
+.cand{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06);padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ch b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em}
+.ch span.d{display:block;font-size:13.5px;color:#6B6B6B;margin-top:2px}
+.ch .sc{font:600 26px/1 'Geist Mono',ui-monospace,monospace;letter-spacing:-.03em}
+.lb{font-size:12.5px;font-weight:500;color:#6B6B6B}
+.li{display:flex;align-items:center;gap:10px;font-size:14px;padding:4px 0}
+.ok{width:20px;height:20px;flex:none;border-radius:999px;background:#DCFCE7;color:#15803D;display:inline-flex;align-items:center;justify-content:center}
+.no{width:20px;height:20px;flex:none;border-radius:999px;background:#F5F5F5;color:#A3A3A3;display:inline-flex;align-items:center;justify-content:center}
+.pick{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:14px;border:1px solid #0A0A0A;background:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;color:#0A0A0A;cursor:pointer;margin-top:auto}
+.pick:hover{background:#0A0A0A;color:#FFFFFF}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1100px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 30px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+    <section aria-labelledby="np-h" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="np-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Pasuje do dwóch kampanii jednego operatora</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Ślady techniczne mają obie kampanie OP-03. Strona nie ma tekstu ani twarzy, więc boty nie rozstrzygną tego same. Wybierz kampanię.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">INC-24768 · kelvaro.live · plik HAR, bez zrzutu reklamy</span>
+      </div>
+      <a class="lnk" href="Sprawdz-Nowa.dc.html">albo załóż nową kampanię</a>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+
+      <article class="cand" aria-labelledby="np-a">
+        <div class="ch"><span><b id="np-a">KMP-017 «Zamach»</b><span class="d">Fałszywe newsy, które prowadzą do „inwestycji”</span></span><span class="sc">0.52</span></div>
+        <div>
+          <span class="lb">Co pasuje</span>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>ta sama bramka CAPI</div>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>ten sam kit</div>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>domena .live z nocnym certyfikatem, jak 19 domen tej kampanii</div>
+        </div>
+        <div>
+          <span class="lb">Czego nie wiadomo</span>
+          <div class="li"><span class="no"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 12h10"></path></svg></span>treść i osoby: strona jest pusta</div>
+        </div>
+        <button type="button" class="pick">To KMP-017</button>
+      </article>
+
+      <article class="cand" aria-labelledby="np-b">
+        <div class="ch"><span><b id="np-b">KMP-034 «Glikonor»</b><span class="d">Lek na cukrzycę reklamowany twarzą lekarza</span></span><span class="sc">0.47</span></div>
+        <div>
+          <span class="lb">Co pasuje</span>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>ta sama bramka CAPI</div>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>ten sam kit</div>
+          <div class="li"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>Oracle przypisał kelvaro.live do tej kampanii (0.64)</div>
+        </div>
+        <div>
+          <span class="lb">Czego nie wiadomo</span>
+          <div class="li"><span class="no"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 12h10"></path></svg></span>treść i osoby: strona jest pusta</div>
+        </div>
+        <button type="button" class="pick">To KMP-034</button>
+      </article>
+    </div>
+
+    <section aria-label="Co pomoże rozstrzygnąć" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 16px 18px; border-radius: 22px; background: #F6F6F6">
+      <span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span>
+      <span style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <b style="font-size: 15px; font-weight: 600">Wrzuć zrzut reklamy, a rozstrzygniemy sami</b>
+        <span style="font-size: 13.5px; color: #525252">Czytelnik przeczyta tekst i rozpozna twarz. Przy tych dwóch kampaniach to zwykle wystarcza.</span>
+      </span>
+      <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E5E5E5; background: #FFFFFF; font-family: inherit; font-size: 14.5px; font-weight: 500; color: #0A0A0A; cursor: pointer">Dodaj zrzut ekranu</button>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

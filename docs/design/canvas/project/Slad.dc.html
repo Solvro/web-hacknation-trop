@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: ślad, Jan Kowalski</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06)}
+.sh{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;gap:12px;align-items:center;padding:12px 2px;border-bottom:1px solid #F0F0F0;text-decoration:none;color:#0A0A0A}
+.cr:last-child{border-bottom:0}
+.cr b{display:block;font-size:15px;font-weight:600}
+.cr span.d{display:block;font-size:13px;color:#6B6B6B}
+.cr em{font:600 15px 'Geist Mono',ui-monospace,monospace;font-style:normal}
+.mr{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid #F0F0F0;font-size:13.5px}
+.mr:last-child{border-bottom:0}
+.mr b{font:500 13px 'Geist Mono',ui-monospace,monospace}
+.mr span.w{color:#6B6B6B;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid #E5E5E5;background:#FFFFFF;font-size:13px;color:#262626;text-decoration:none}
+.chip i{font-style:normal;font-size:11.5px;color:#8A8A8A}
+.up{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #E5E5E5;background:#FFFFFF;font-family:inherit;font-size:13px;color:#404040;cursor:pointer}
+.up svg{width:14px;height:14px;flex:none}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1350px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <div ref="{{refRt}}" style="position: relative; height: 380px; display: flex; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box">
+    <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+    <section aria-label="Sprawdź" data-jelly-clear style="position: relative; z-index: 1; width: 100%; max-width: 680px; box-sizing: border-box; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 22px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 16px 40px rgba(0,0,0,.07)">
+      <label for="sl-q" style="font-size: 13px; font-weight: 500; color: #6B6B6B">Link, plik albo ślad</label>
+      <input id="sl-q" value="Jan Kowalski" style="border: none; outline: none; padding: 0; min-height: 28px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 16px; color: #0A0A0A; background: transparent">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 6px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px"><button type="button" class="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5"></path></svg>Zrzut ekranu</button><button type="button" class="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h11v12H4zM15 10l5-3v10l-5-3"></path></svg>Wideo</button><button type="button" class="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v4h4"></path></svg>HAR lub ZIP</button><button type="button" class="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg>Domena lub osoba</button></div>
+        <a class="pri" href="Slad.dc.html">Sprawdź<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </section>
+  </div>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 0 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+
+    <section aria-labelledby="sd-h" style="display: flex; flex-direction: column; gap: 10px">
+      <span style="align-self: flex-start; display: inline-flex; align-items: center; height: 28px; padding: 0 11px; border-radius: 999px; background: #F5F5F5; color: #404040; font-size: 12.5px; font-weight: 500">Ślad · osoba</span>
+      <h1 id="sd-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Jan Kowalski</h1>
+      <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Twarz i nazwisko przedsiębiorcy pojawiają się w reklamach trzech kampanii. Oszuści używają ich od połowy września.</p>
+      <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">61 materiałów · 3 kampanie · pierwszy raz 14.09 · ostatni dziś 02:31</span>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+
+      <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+        <section class="card" aria-labelledby="sd-c" style="padding: 18px 20px 6px">
+          <h2 id="sd-c" class="sh" style="padding-bottom: 2px">W kampaniach</h2>
+          <a class="cr" href="Kampania-KMP017.dc.html"><span><b>KMP-017 «Zamach»</b><span class="d">Fałszywe newsy, które prowadzą do „inwestycji”</span></span><em>31</em><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+          <div class="cr"><span><b>KMP-031 «Platforma AI»</b><span class="d">Inwestycje „ze sztuczną inteligencją”</span></span><em>18</em><span></span></div>
+          <div class="cr"><span><b>KMP-009 «Kryptobot»</b><span class="d">Bot, który rzekomo sam gra na giełdzie</span></span><em>7</em><span></span></div>
+          <div class="cr"><span><b style="color: #525252">Bez kampanii</b><span class="d">pojedyncze materiały, za mało śladów</span></span><em style="color: #8A8A8A">5</em><span></span></div>
+        </section>
+
+        <section class="card" aria-labelledby="sd-t" style="padding: 18px 20px 14px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="sd-t" class="sh">Materiały tygodniowo</h2>
+          <svg viewBox="0 0 680 160" role="img" aria-label="Materiały z Janem Kowalskim tygodniowo od połowy września do dziś: od 1 do 14, najwięcej w ostatnim tygodniu." style="width: 100%; height: auto; display: block; font-family: Geist, sans-serif">
+            <g fill="#171717">
+              <rect x="20" y="118" width="40" height="12" rx="5"></rect><rect x="82" y="112" width="40" height="18" rx="5"></rect><rect x="144" y="124" width="40" height="6" rx="3"></rect><rect x="206" y="106" width="40" height="24" rx="5"></rect><rect x="268" y="100" width="40" height="30" rx="5"></rect><rect x="330" y="94" width="40" height="36" rx="5"></rect><rect x="392" y="100" width="40" height="30" rx="5"></rect><rect x="454" y="76" width="40" height="54" rx="5"></rect><rect x="516" y="64" width="40" height="66" rx="5"></rect>
+            </g>
+            <rect x="578" y="46" width="40" height="84" rx="5" fill="#EA580C"></rect>
+            <line x1="10" y1="130.5" x2="670" y2="130.5" stroke="#E5E5E5"></line>
+            <g font-size="11" fill="#8A8A8A" text-anchor="middle"><text x="40" y="150">15.09</text><text x="226" y="150">6.10</text><text x="412" y="150">27.10</text><text x="598" y="150">ten tydzień</text></g>
+          </svg>
+        </section>
+
+        <section class="card" aria-labelledby="sd-m" style="padding: 18px 20px 6px">
+          <h2 id="sd-m" class="sh" style="padding-bottom: 2px">Ostatnie materiały</h2>
+          <div class="mr"><b>INC-24817</b><span>morvanta.click · KMP-017</span><span class="w">dziś 02:31</span></div>
+          <div class="mr"><b>INC-24790</b><span>quantapl-invest.top · KMP-031</span><span class="w">20.11</span></div>
+          <div class="mr"><b>INC-24702</b><span>velmoria.click · KMP-017</span><span class="w">18.11</span></div>
+          <div class="mr"><b>INC-24655</b><span>zrzut z wtyczki · bez kampanii</span><span class="w">16.11</span></div>
+        </section>
+      </div>
+
+      <aside style="flex: 1 1 360px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+        <section class="card" aria-labelledby="sd-u" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <h2 id="sd-u" class="sh">Jak go wykorzystują</h2>
+          <div style="display: flex; gap: 12px; align-items: center">
+            <span style="width: 64px; height: 64px; flex: none; border-radius: 16px; background: #F0F0F0; display: grid; place-items: center; font: 10.5px 'Geist Mono', monospace; color: #8A8A8A">twarz</span>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #525252">Przycięte zdjęcie z wywiadu. W 9 materiałach wideo z podłożonym, syntetycznym głosem.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <span class="chip">twarz rozpoznana w 52 z 61</span>
+            <span class="chip">głos syntetyczny w 9</span>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="sd-w" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="sd-w" class="sh">Często razem z</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <a class="chip" href="Slad.dc.html">«Kurier Dnia»<i>portal</i></a>
+            <a class="chip" href="Slad.dc.html">Anna Nowak<i>osoba</i></a>
+            <a class="chip" href="Slad.dc.html">„PILNE: {PER}…”<i>szablon</i></a>
+            <a class="chip" href="Slad.dc.html">bramka CAPI cg-7f3a…<i>tracking</i></a>
+          </div>
+        </section>
+
+        
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1350}}'>
+const FIELD = ['#2563EB', '#F97316', '#14B8A6', '#8B5CF6', '#EC4899'];
+
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, {
+      costume: 'detective',
+      field: { bots: FIELD.map((c) => ({ color: c, shape: 'auto' })), master: true, state: 'awake' }
+    });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

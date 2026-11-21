@@ -1,0 +1,7 @@
+# BuildKit per-Dockerfile ignore: the build context is the repo root, but only scrapers/ may enter it.
+# Keeps data/ (organizer data, captures, artifacts), .env and the local venv out of the image and the context.
+*
+!scrapers/
+scrapers/.venv
+**/__pycache__
+**/*.pyc

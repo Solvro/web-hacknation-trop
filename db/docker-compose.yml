@@ -1,0 +1,57 @@
+# RED PILL · database snippet (Postgres 16 + pgvector + pg_trgm, optional S3-compatible artifact store)
+#
+#   docker compose -f db/docker-compose.yml up -d            # Postgres only (artifacts on local FS)
+#   docker compose -f db/docker-compose.yml --profile s3 up -d   # + S3-compatible object store
+#
+# Migrations in db/migrations run automatically on the FIRST boot of an empty volume
+# (docker-entrypoint-initdb.d). For an existing volume run:  python db/migrate.py
+#
+# Ports bind to 127.0.0.1 only. Credentials below are dev defaults; override via env / .env.
+#
+# Object store note: MinIO stopped publishing community Docker images in late 2025
+# (minio/minio on Docker Hub is no longer pullable). Any S3-compatible store works with
+# scrapers/store/artifacts.py; SeaweedFS is used here. Point ARTIFACT_STORE at real MinIO/AWS
+# S3 in production if you have it.
+
+name: redpill-db
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-redpill}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-redpill_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-redpill}
+    ports:
+      - "127.0.0.1:${PG_PORT:-55432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+    command: >
+      postgres
+      -c shared_buffers=512MB
+      -c work_mem=32MB
+      -c maintenance_work_mem=512MB
+      -c max_wal_size=2GB
+      -c random_page_cost=1.1
+      -c jit=off
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-redpill} -d ${POSTGRES_DB:-redpill}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  s3:
+    profiles: ["s3"]
+    image: chrislusf/seaweedfs:3.97
+    command: server -s3 -dir=/data -s3.port=8333 -master.volumeSizeLimitMB=1024
+    ports:
+      - "127.0.0.1:${S3_PORT:-58333}:8333"
+    volumes:
+      - s3data:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  s3data:

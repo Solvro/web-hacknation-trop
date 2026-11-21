@@ -1,0 +1,15 @@
+[project]
+name = "redpill-experiments"
+version = "0.0.1"
+description = "Throwaway experiments for RED PILL attribution pipeline"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy", "pandas", "scipy", "scikit-learn>=1.5", "lightgbm", "shap",
+  "networkx>=3.3", "datasketch", "imagehash", "pillow", "beautifulsoup4", "lxml",
+  "tldextract", "dnspython", "httpx", "pyyaml", "rapidfuzz", "mmh3", "unidecode",
+  "sentence-transformers", "torch", "transformers", "easyocr", "opencv-python-headless",
+  "anthropic", "openai", "tqdm", "tabulate", "matplotlib",
+]
+
+[tool.uv]
+package = false

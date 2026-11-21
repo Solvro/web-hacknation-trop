@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F3: śledztwo agenta od domeny</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.stc{flex:1 1 250px;max-width:300px;min-width:0;background:#0A100C;border:1px solid #1D2B22;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.stc.hot{border-color:rgba(59,240,126,.38)}.stc.amb{border-color:rgba(255,181,71,.45)}.stc.cyn{border-color:rgba(92,200,255,.45)}
+.stn{display:flex;align-items:center;gap:8px}
+.stn b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 11px "JetBrains Mono",monospace;background:rgba(59,240,126,.10);color:#3BF07E;border:1px solid rgba(59,240,126,.38);flex:none}
+.stn .h3{flex:1 1 auto;min-width:0}
+.chev{display:flex;align-items:center;justify-content:center;width:20px;flex:none;color:#3B5444}
+.thumb{height:90px;border-radius:6px;border:1px solid #2B3F32;background:#050806;padding:6px;display:flex;gap:5px;overflow:hidden}
+.thumb .m{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;min-width:0}
+.thumb .tr{display:flex;gap:4px;flex:1 1 auto;min-height:0}
+.thumb i{display:block;border-radius:2px;background:#16231A;min-height:5px}
+.thumb .gf{background:#178A43}.thumb .gl{border:1px solid rgba(59,240,126,.5);background:rgba(59,240,126,.08)}
+.thumb .cl{border:1px solid rgba(92,200,255,.5);background:rgba(92,200,255,.08)}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ln b{color:#DDEBE2;font-weight:600}
+.apiln{font:11.5px/1.45 "JetBrains Mono",monospace;color:#5CC8FF;overflow-wrap:anywhere}
+.dur{font:11px "JetBrains Mono",monospace;color:#83998B;white-space:nowrap}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.ec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.eci{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#DDEBE2}
+.chk::before{content:"";width:14px;height:14px;border-radius:3px;border:1.5px solid #3B5444;flex:none;margin-top:3px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.pv{display:grid;grid-template-columns:52px 120px minmax(0,1fr) 110px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #1D2B22;font-size:12.5px}
+.pv:last-child{border-bottom:0}
+@media (max-width:760px){.pv{grid-template-columns:44px minmax(0,1fr)}}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div class="row"><span class="eb">Przepływ F3</span><span class="pill g">rdzeń demo</span><span class="pill">flow (c)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1">Śledztwo Agenta Smitha od jednej domeny</h1>
+<div class="meta">
+<div><span class="eb">Aktor</span><span class="sm">Analityk prowadzi, Agent Smith (LLM + narzędzia OSINT) wykonuje</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">„Śledź z agentem” w S05 albo omnibox: <span class="mono">śledź velmoria.click</span></span></div>
+<div><span class="eb">Cel</span><span class="sm">Znaleźć infrastrukturę, nowe domeny i reklamy kampanii; każde twierdzenie poparte wywołaniem narzędzia</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">~2 min · budżet 20 kroków</span></div>
+</div>
+<p class="muted sm"><b class="g">Sukces:</b> 14 domen dołączonych do KMP-017, 3 certyfikaty z dzisiejszej nocy, 11 domen poza listą CERT PL gotowych do zgłoszenia. Każde ustalenie ma przypis do kroku agenta.</p>
+</section>
+
+<section class="lane" aria-labelledby="f3-main">
+<div class="lane-h"><h2 class="h2" id="f3-main">Ścieżka główna</h2><span class="dim sm">seed: velmoria.click · KMP-017</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn"><b>1</b><h3 class="h3">Konfiguracja</h3><span class="dur">10 s</span></div>
+<a class="mono xs" href="S07-Investigation.dc.html">Ekran: S07 · start śledztwa</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i style="height: 12px; width: 70%"></i><i class="gl" style="height: 14px"></i><span class="tr" style="flex: none"><i style="flex: 1; height: 10px"></i><i style="flex: 1; height: 10px"></i><i style="flex: 1; height: 10px"></i><i style="flex: 1; height: 10px"></i></span><i style="height: 10px; width: 45%" class="gf"></i></span></div>
+<p class="ln"><b>Analityk:</b> seed velmoria.click; budżet 20 kroków i 60k tokenów; narzędzia: crt.sh, DNS, RDAP, urlscan, Ad Library, CERT PL, Wayback, nasz indeks; tryb online lub cache.</p>
+<p class="apiln">POST /investigations {seed, budget, tools, mode}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>2</b><h3 class="h3">Start i plan</h3><span class="dur">3 s</span></div>
+<a class="mono xs" href="S07-Investigation.dc.html">Ekran: S07 · kanwa + case file</a>
+<div class="thumb" aria-hidden="true"><svg width="62%" height="76" viewBox="0 0 120 76" preserveAspectRatio="xMidYMid meet"><circle cx="60" cy="38" r="9" fill="#3BF07E"></circle></svg><span class="m"><i style="height: 8px"></i><i style="height: 8px; width: 80%"></i><i style="height: 8px; width: 60%"></i></span></div>
+<p class="ln"><b>System:</b> na kanwie pojawia się węzeł seed, a case file zaczyna od planu: „1. certyfikaty, 2. DNS, 3. ścieżka kitu…”.</p>
+<p class="apiln">GET /investigations/{id} · SSE /investigations/{id}/stream</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>3</b><h3 class="h3">Pivoty na żywo</h3><span class="dur">~90 s</span></div>
+<a class="mono xs" href="S07-Investigation.dc.html">Ekran: S07 · graf rośnie</a>
+<div class="thumb" aria-hidden="true"><svg width="62%" height="76" viewBox="0 0 120 76" preserveAspectRatio="xMidYMid meet"><g stroke="#2B3F32"><line x1="60" y1="38" x2="24" y2="16"></line><line x1="60" y1="38" x2="22" y2="58"></line><line x1="60" y1="38" x2="96" y2="14"></line><line x1="60" y1="38" x2="100" y2="40"></line><line x1="60" y1="38" x2="92" y2="64"></line></g><circle cx="60" cy="38" r="8" fill="#3BF07E"></circle><g fill="#FFB547"><circle cx="24" cy="16" r="5"></circle><circle cx="22" cy="58" r="5"></circle></g><g fill="#B794FF"><circle cx="96" cy="14" r="5"></circle><circle cx="100" cy="40" r="5"></circle></g><circle cx="92" cy="64" r="5" fill="#5CC8FF"></circle></svg><span class="m"><i style="height: 8px"></i><i class="gf" style="height: 8px; width: 80%"></i><i style="height: 8px"></i><i class="gf" style="height: 8px; width: 70%"></i></span></div>
+<p class="ln"><b>System:</b> każdy krok dodaje węzły i krawędzie oraz akapit case file z przypisem. Szczegóły pivotów w tabeli poniżej.</p>
+<p class="apiln">SSE agent.step · graph.node_added · graph.edge_added · casefile.delta</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc cyn">
+<div class="stn"><b>4</b><h3 class="h3">Sterowanie</h3><span class="dur">dowolnie</span></div>
+<a class="mono xs" href="S07-Investigation.dc.html">Ekran: S07 · pole „Wskazówka”</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i style="height: 8px"></i><i style="height: 8px; width: 80%"></i><span style="flex: 1"></span><i class="cl" style="height: 22px"></i></span></div>
+<p class="ln"><b>Analityk:</b> „Sprawdź też domeny .live z tej samej partii certów”, „pomiń Wayback”, albo pauza / stop.</p>
+<p class="ln"><b>System:</b> wskazówka staje się krokiem planu, z przypisem „na prośbę analityka”.</p>
+<p class="apiln">POST /investigations/{id}/steer {message} · POST /investigations/{id}/stop</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>5</b><h3 class="h3">Przegląd ustaleń</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="S07-Investigation.dc.html">Ekran: S07 · case file</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr" style="flex: none"><i style="width: 10px; height: 10px" class="gf"></i><i style="flex: 1; height: 10px"></i></span><span class="tr" style="flex: none"><i style="width: 10px; height: 10px" class="gf"></i><i style="flex: 1; height: 10px"></i></span><span class="tr" style="flex: none"><i style="width: 10px; height: 10px"></i><i style="flex: 1; height: 10px; opacity: .5"></i></span><span class="tr" style="flex: none"><i style="width: 10px; height: 10px" class="gf"></i><i style="flex: 1; height: 10px"></i></span></span></div>
+<p class="ln"><b>Analityk:</b> zaznacza ustalenia do przyjęcia; każde ma przypis: krok #, narzędzie, zapytanie, wynik, czas.</p>
+<p class="ln"><b>System:</b> 3 certy wydane dziś w nocy; Oracle oznaczyła 2 z nich wcześniej.</p>
+<p class="apiln">GET /investigations/{id} → {findings[], tool_calls[]}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>6</b><h3 class="h3">Promocja do kampanii</h3><span class="dur">2 s</span></div>
+<a class="mono xs" href="S05-Campaign.dc.html">Ekran: S05 · KMP-017</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i style="width: 60%; height: 10px"></i><span class="tr" style="flex: none"><i style="flex: 1; height: 12px"></i><i class="gl" style="flex: 1; height: 12px"></i><i style="flex: 1; height: 12px"></i></span><i style="height: 8px"></i><i class="gf" style="height: 8px; width: 50%"></i></span></div>
+<p class="ln"><b>Analityk:</b> „Dodaj 14 domen do KMP-017”.</p>
+<p class="ln"><b>System:</b> tworzy wskaźniki i incydenty z source=hunter, przelicza DNA; licznik domen rośnie z 19 do 33.</p>
+<p class="apiln">POST /investigations/{id}/promote {finding_ids, campaign_id} · SSE campaign.updated</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>7</b><h3 class="h3">Act: CERT PL</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · zgłoszenie CERT PL</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i style="height: 8px"></i><i style="height: 8px"></i><i style="height: 8px; width: 70%"></i><i class="gf" style="height: 12px; width: 40%"></i></span></div>
+<p class="ln"><b>System:</b> formularz CERT PL wypełniony 11 domenami spoza listy, z dowodem dla każdej. Dalej jak w F2: potwierdzenie i wysyłka.</p>
+<p class="apiln">POST /act/packages {kind:"certpl", campaign_id, domains}</p>
+</article>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="f3-pv">
+<div class="ph"><h2 class="h3" id="f3-pv">Krok 3 w szczegółach: pivoty agenta</h2><span class="dim sm">kolejność i liczby z demo</span></div>
+<div class="pb">
+<div class="pv"><span class="mono dim">#2–3</span><span class="mono am">crt.sh</span><span>Partia certyfikatów velmoria.click daje 6 domen z SAN w tej samej partii.</span><span class="row" style="gap: 4px"><span class="pill">+6 domen</span></span></div>
+<div class="pv"><span class="mono dim">#4–6</span><span class="mono am">DNS · RDAP</span><span>Origin 198.51.100.23, AS64500; rejestrator „R-114 (anonimizowany)”. Pivot po IP Cloudflare zablokowany: wspólny CDN, waga 0.</span><span class="row" style="gap: 4px"><span class="pill">+1 origin</span></span></div>
+<div class="pv"><span class="mono dim">#7–9</span><span class="mono vi">urlscan</span><span>Wyszukanie ścieżki kitu <span class="mono">/api/v2/relay/lead/</span>: 14 domen, w tym 8 nowych.</span><span class="row" style="gap: 4px"><span class="pill g">14 domen</span></span></div>
+<div class="pv"><span class="mono dim">#10–13</span><span class="mono cy">Ad Library</span><span>9 aktywnych reklam i 4 strony reklamodawców kierujące na te domeny.</span><span class="row" style="gap: 4px"><span class="pill">9 reklam</span></span></div>
+<div class="pv"><span class="mono dim">#14–15</span><span class="mono g">CERT PL</span><span>11 z 14 domen nie jest na liście ostrzeżeń.</span><span class="row" style="gap: 4px"><span class="pill rd">11 poza listą</span></span></div>
+<div class="pv"><span class="mono dim">#16–18</span><span class="mono am">crt.sh + Oracle</span><span>3 certyfikaty wydane dziś w nocy: plessuro.live 00:47, orvinta.click 01:12, morvanta.click 02:31. Oracle oznaczyła orvinta i morvanta, zanim pojawiły się reklamy.</span><span class="row" style="gap: 4px"><span class="pill am">3 dziś</span><span class="pill cy">2 oracle</span></span></div>
+</div>
+</section>
+
+<div class="split">
+<section class="panel a" aria-labelledby="f3-edge">
+<div class="ph"><h2 class="h3" id="f3-edge">Stany brzegowe</h2><span class="dim sm">jak UI je pokazuje</span></div>
+<div class="pb ec">
+<div class="eci"><span class="brl am">urlscan 429</span><p class="ln">Krok ma stan „czeka 30 s” z licznikiem. Agent przełącza się na nasz indeks, a log mówi to wprost.</p></div>
+<div class="eci"><span class="brl am">Budżet wyczerpany</span><p class="ln">Agent kończy podsumowaniem „co zostało niesprawdzone”. Przycisk „+10 kroków” wymaga potwierdzenia analityka.</p></div>
+<div class="eci"><span class="brl rd">Strażnik halucynacji</span><p class="ln">Twierdzenie bez wywołania narzędzia jest szare i przekreślone, z etykietą „brak źródła”. Nie da się go promować.</p></div>
+<div class="eci"><span class="brl cy">Brak klucza LLM</span><p class="ln">Deterministyczny tryb pivotów w stałej kolejności (crt.sh → DNS → urlscan po kicie → Ad Library → CERT PL). Case file jako tabela, bez narracji.</p></div>
+<div class="eci"><span class="brl cy">Tryb offline</span><p class="ln">Narzędzia odpowiadają z cache, każdy wynik ma etykietę „cache 20.11”. Graf i case file działają tak samo.</p></div>
+<div class="eci"><span class="brl g">Bezpieczeństwo</span><p class="ln">Agent nie odwiedza stron sam: odwiedziny idą przez worker capture w sandboxie, bez wysyłania formularzy. Lista narzędzi jest zamknięta.</p></div>
+</div>
+</section>
+<section class="panel b" aria-labelledby="f3-acc">
+<div class="ph"><h2 class="h3" id="f3-acc">Kryteria akceptacji</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="chk">Graf rośnie na żywo; każdy węzeł ma źródło (numer kroku).</p>
+<p class="chk">Case file jest strumieniowany; każde zdanie ma przypis do wywołania narzędzia.</p>
+<p class="chk">Analityk może w każdej chwili wstrzymać, sterować i zatrzymać.</p>
+<p class="chk">Promowane są tylko ustalenia zaznaczone przez analityka; zostaje wpis w logu audytu.</p>
+<p class="chk">Budżet i koszt są widoczne: kroki, tokeny, czas.</p>
+<p class="chk">Działa bez klucza LLM (tryb deterministyczny) i offline (cache).</p>
+<p class="dnote">Implementacja: kanwa React Flow sterowana zdarzeniami graph.*; case file to markdown z węzłami cytowań [#krok], renderowany przyrostowo z casefile.delta.</p>
+</div>
+</section>
+</div>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>
