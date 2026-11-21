@@ -43,7 +43,7 @@ function Sledztwa() {
   return (
     <Page>
       <h1 className="text-[36px] sm:text-[42px] font-semibold tracking-[-0.04em] leading-none pt-3">Śledztwa</h1>
-      <p className="text-[16px] text-tx2 max-w-[720px] -mt-2">Agent zaczyna od jednej domeny i szuka reszty kampanii: certyfikatów z tej samej nocy, tego samego kitu, tych samych reklamodawców. Bez czatu: widzisz, co znalazł, i decydujesz.</p>
+      <p className="text-[16px] text-tx2 max-w-[720px] -mt-2">Agent zaczyna od jednej domeny i szuka reszty kampanii: certyfikatów z tej samej nocy, tego samego kitu, tych samych reklamodawców.</p>
       <form className="card !rounded-[22px] p-4 flex flex-wrap gap-3 items-end" onSubmit={(e) => { e.preventDefault(); start(seed); }}>
         <label className="flex-1 min-w-[240px] flex flex-col gap-1.5">
           <span className="text-[13px] font-medium text-tx3">Od czego zacząć</span>
