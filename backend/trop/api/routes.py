@@ -46,6 +46,23 @@ def _safe(name: str) -> str:
 
 
 # ============================================================================================== health / dashboard
+@router.get("/debug/worker", tags=["system"], summary="Worker diagnostics (no secrets): queue, running tasks, recent results, heartbeat, dir checks, LLM spend")
+async def debug_worker():
+    from trop.worker import diag
+    out: dict[str, Any] = {"api": {"mode": get_store().mode, **{k: v for k, v in diag.env_info().items() if k not in ("data_dir",)}}}
+    if get_store().mode == "mock":
+        return {**out, "note": "mock store: no worker"}
+    out["worker_state"] = await asyncio.wait_for(asyncio.to_thread(diag.snapshot), 8)
+    out["api"]["dirs"] = await asyncio.to_thread(diag.dir_checks)
+    try:
+        from trop.media.gateway import gateway
+        sp = gateway.spend()
+        out["llm"] = {"spend_usd": round(sp["usd_total"], 4), "budget_usd": sp["budget_usd"], "by_task": {k: round(v, 4) for k, v in sp["by_task"].items()}}
+    except Exception as e:  # noqa: BLE001
+        out["llm"] = {"error": f"{type(e).__name__}: {str(e)[:120]}"}
+    return out
+
+
 @router.get("/health", response_model=M.Health, tags=["system"])
 async def health() -> M.Health:
     s = get_store()

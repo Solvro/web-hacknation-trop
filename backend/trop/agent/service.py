@@ -99,7 +99,7 @@ def run_investigation(body: InvestigationCreate | dict | str, emit: Emit | None 
     control._pos = len((d / "control.jsonl").read_text().splitlines())
     try:
         run(ctx, llm=llm or (default_llm(model) if planner != "heuristic" else None), steps=b.budget_steps,
-            usd_cap=usd_cap, control=control, planner=planner)
+            usd_cap=usd_cap, control=control, planner=planner, first_step=llm is None)
     except Exception as e:  # noqa: BLE001
         inv.status = "error"
         case.note(f"_Błąd: {type(e).__name__}: {str(e)[:200]}_")
