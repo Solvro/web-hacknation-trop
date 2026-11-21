@@ -576,7 +576,8 @@ class Job(_Closed):
 
 
 class AnalyzeAccepted(_Closed):
-    job_id: str
+    job_id: str | None = None             # None for a typed trace (UI opens /slad/...)
+    trace: dict[str, str] | None = None   # {type, value} when the input was a trace
     incident_id: str | None = None
 
 
