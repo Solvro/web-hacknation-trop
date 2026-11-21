@@ -53,3 +53,16 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
 1. POST /public/check: accept an optional `image` file (the page sends it; ignored today).
 2. PublicReport with `post` present → incident source = extension (no source field in the schema).
 3. WS3: root layout wraps every route in Header/Footer; /sprawdz covers it with a fixed wrapper — a (public) route group would be cleaner.
+
+# WS2 answers to the QA round (API)
+
+- **Graph node ids** (`GET /graph?focus=&origin=`): incidents `INC-…`/`p1`, campaigns `KMP-…`, operators `OP-…`, domains `d:<host>` (a bare
+  domain is accepted), people `person:<name>`, traces `trace:<field>:<value>` (`meta.field/value/layer`; CDN = `trace:cdn:<name>`, `meta.weak`).
+  Chip aliases resolve server-side: `trace:kit`, `trace:capi`, `trace:cdn`, `trace:pixel:<v>`, `trace:content:<v>`, `trace:<field>:<v>`. An unknown
+  focus id with a known `origin` is shown as a synthetic node (`meta.synthetic`) next to the origin; without origin it is 404. A freshly analysed
+  `origin` (INC-U…, not in the corpus) is loaded from the job result and its own traces are included.
+- **`/lab/metrics`** summary keys: `bcubed_f1, ari, pairwise_precision, pair_auc, open_set_accuracy, dane_open_set{correct,n,wrong_links},
+  new_campaign_precision, wrong_links, loco_link, loco_not_link, operator_f1, m2_infra_blind_f1, raw{sample,dane,ablation}`; `view=baselines` → `rows[{model,bcubed_f1}]`;
+  `/lab/ablation` → `[{layer, delta_f1, b3_F1, ari, pair_auc, loco_link, wrong}]` (drop-one-layer, from `trop eval --ablation`).
+- **`Decision.duplicate_of`** is set (L0) when the analysed material has the same entry URL / landing hash as a corpus incident.
+- `GET /operators[?ids=]` lists operators; `POST /analyze` with `files` ignores a prefilled `url`.

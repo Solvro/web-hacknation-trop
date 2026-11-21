@@ -86,7 +86,7 @@ async def play(seq: Seq, start_at: float = 0.0, rewrite: dict[str, str] | None =
 
 
 def response(gen: AsyncIterator[ServerSentEvent]) -> EventSourceResponse:
-    return EventSourceResponse(gen, ping=PING_S, headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    return EventSourceResponse(gen, ping=PING_S, headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no", "Connection": "close"})
 
 
 async def hold_then_ping(gen: AsyncIterator[ServerSentEvent], hold: bool) -> AsyncIterator[ServerSentEvent]:

@@ -1,0 +1,586 @@
+{
+ "precomputed": {
+  "face_clusters_shared": {
+   "p1": [
+    "face0",
+    "face1"
+   ],
+   "p2": [
+    "face0",
+    "face1"
+   ],
+   "p7": [
+    "face0"
+   ],
+   "p15": [
+    "face0"
+   ],
+   "d3": [
+    "face17",
+    "face18"
+   ],
+   "d10": [
+    "face17",
+    "face20"
+   ]
+  },
+  "open_set": {
+   "correct": 9,
+   "n": 9,
+   "wrong_links": 0,
+   "rows": [
+    {
+     "query": "d1",
+     "expected": "A",
+     "assigned": "A",
+     "score": 43.17,
+     "margin": 42.58,
+     "operation": "OPN_INV",
+     "op_score": 51.54,
+     "ok": true,
+     "best": "p15: lander_id=7.0, fb_pixel=6.0, kit_tenant=6.0, asset_hash=5.0, text_minhash=5.0"
+    },
+    {
+     "query": "d2",
+     "expected": "A",
+     "assigned": "A",
+     "score": 37.67,
+     "margin": 35.77,
+     "operation": "OPN_INV",
+     "op_score": 46.04,
+     "ok": true,
+     "best": "p15: lander_id=7.0, fb_pixel=6.0, kit_tenant=6.0, asset_hash=5.0, text_minhash=5.0"
+    },
+    {
+     "query": "d3",
+     "expected": "C",
+     "assigned": "C",
+     "score": 7.86,
+     "margin": 6.51,
+     "operation": "OPN_INV",
+     "op_score": 10.2,
+     "ok": true,
+     "best": "p5: ns_pair=4.0, persons=1.5, asset_hash=1.4, third_party=1.3, brands=1.0"
+    },
+    {
+     "query": "d5",
+     "expected": "n/a",
+     "assigned": "new",
+     "score": 0,
+     "margin": 0,
+     "operation": null,
+     "op_score": 0,
+     "ok": null,
+     "best": "p1: "
+    },
+    {
+     "query": "d10",
+     "expected": "new",
+     "assigned": "new",
+     "score": 0.35,
+     "margin": 0.0,
+     "operation": null,
+     "op_score": 0.85,
+     "ok": true,
+     "best": "p1: vertical=0.5, brands=0.4"
+    },
+    {
+     "query": "d14",
+     "expected": "new",
+     "assigned": "new",
+     "score": 1.0,
+     "margin": 1.0,
+     "operation": null,
+     "op_score": 1.0,
+     "ok": true,
+     "best": "p8: ad_name_grammar=1.0"
+    },
+    {
+     "query": "d36",
+     "expected": "new",
+     "assigned": "new",
+     "score": 0.5,
+     "margin": 0.5,
+     "operation": null,
+     "op_score": 0.5,
+     "ok": true,
+     "best": "p13: comment_names=1.5, vertical_conflict=-1.0"
+    },
+    {
+     "query": "d47",
+     "expected": "new",
+     "assigned": "new",
+     "score": 1.64,
+     "margin": 1.64,
+     "operation": "OP3",
+     "op_score": 3.15,
+     "ok": true,
+     "best": "p10: dom_minhash=1.6, entry_path_template=1.0, vertical=0.5"
+    },
+    {
+     "query": "d48",
+     "expected": "new",
+     "assigned": "new",
+     "score": 2.02,
+     "margin": 1.27,
+     "operation": "OPN_INV",
+     "op_score": 4.18,
+     "ok": true,
+     "best": "p1: persons=1.1, kit_endpoints=1.0, brands=0.9, vertical=0.5, url_param_schema=0.4"
+    },
+    {
+     "query": "d61",
+     "expected": "new",
+     "assigned": "new",
+     "score": 3.92,
+     "margin": 2.75,
+     "operation": "OPN_INV",
+     "op_score": 4.83,
+     "ok": true,
+     "best": "p5: asset_hash=2.9, brands=1.0, vertical=0.5, brand_asset=0.4"
+    }
+   ]
+  },
+  "incremental": {
+   "rows": [
+    {
+     "query": "d1",
+     "gold": "A",
+     "predicted": "A",
+     "score": 43.17,
+     "best": "p15"
+    },
+    {
+     "query": "d2",
+     "gold": "A",
+     "predicted": "A",
+     "score": 36.83,
+     "best": "d1"
+    },
+    {
+     "query": "d3",
+     "gold": "C",
+     "predicted": "C",
+     "score": 7.62,
+     "best": "p5"
+    },
+    {
+     "query": "d5",
+     "gold": "UNK",
+     "predicted": "NEW1",
+     "score": 0,
+     "best": "p1"
+    },
+    {
+     "query": "d10",
+     "gold": "O",
+     "predicted": "NEW2",
+     "score": 3.27,
+     "best": "d3"
+    },
+    {
+     "query": "d14",
+     "gold": "N",
+     "predicted": "NEW3",
+     "score": 1.0,
+     "best": "p8"
+    },
+    {
+     "query": "d36",
+     "gold": "L",
+     "predicted": "NEW4",
+     "score": 0.5,
+     "best": "p13"
+    },
+    {
+     "query": "d47",
+     "gold": "M",
+     "predicted": "NEW5",
+     "score": 2.12,
+     "best": "d14"
+    },
+    {
+     "query": "d48",
+     "gold": "K",
+     "predicted": "NEW6",
+     "score": 1.88,
+     "best": "p1"
+    },
+    {
+     "query": "d61",
+     "gold": "K",
+     "predicted": "NEW6",
+     "score": 14.82,
+     "best": "d48"
+    }
+   ],
+   "report": {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14
+   }
+  },
+  "joint": [
+   {
+    "level": "campaign",
+    "method": "avglink",
+    "tau": 5.0,
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14,
+    "pair_auc": 0.991,
+    "sep_margin": -2.48
+   },
+   {
+    "level": "campaign",
+    "method": "components",
+    "tau": 5.0,
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14,
+    "pair_auc": 0.991,
+    "sep_margin": -2.48
+   },
+   {
+    "level": "operator",
+    "method": "avglink",
+    "tau": 3.0,
+    "b3_P": 1.0,
+    "b3_R": 0.75,
+    "b3_F1": 0.857,
+    "ARI": 0.579,
+    "pair_P": 1.0,
+    "pair_R": 0.478,
+    "n_pred": 12,
+    "n_gold": 10,
+    "pair_auc": 0.985,
+    "sep_margin": -2.26
+   },
+   {
+    "level": "operator",
+    "method": "components",
+    "tau": 3.0,
+    "b3_P": 0.868,
+    "b3_R": 1.0,
+    "b3_F1": 0.929,
+    "ARI": 0.873,
+    "pair_P": 0.831,
+    "pair_R": 1.0,
+    "n_pred": 8,
+    "n_gold": 10,
+    "pair_auc": 0.985,
+    "sep_margin": -2.26
+   }
+  ],
+  "n_joint": 24,
+  "gate_failures": [],
+  "seconds": 1.9
+ },
+ "extract": {
+  "face_clusters_shared": {
+   "p1": [
+    "face0",
+    "face1"
+   ],
+   "p2": [
+    "face0",
+    "face1"
+   ],
+   "p7": [
+    "face0"
+   ],
+   "p15": [
+    "face0"
+   ],
+   "d3": [
+    "face17",
+    "face18"
+   ],
+   "d10": [
+    "face17",
+    "face20"
+   ]
+  },
+  "open_set": {
+   "correct": 9,
+   "n": 9,
+   "wrong_links": 0,
+   "rows": [
+    {
+     "query": "d1",
+     "expected": "A",
+     "assigned": "A",
+     "score": 43.17,
+     "margin": 42.58,
+     "operation": "OPN_INV",
+     "op_score": 51.54,
+     "ok": true,
+     "best": "p15: lander_id=7.0, fb_pixel=6.0, kit_tenant=6.0, asset_hash=5.0, text_minhash=5.0"
+    },
+    {
+     "query": "d2",
+     "expected": "A",
+     "assigned": "A",
+     "score": 37.67,
+     "margin": 35.77,
+     "operation": "OPN_INV",
+     "op_score": 46.04,
+     "ok": true,
+     "best": "p15: lander_id=7.0, fb_pixel=6.0, kit_tenant=6.0, asset_hash=5.0, text_minhash=5.0"
+    },
+    {
+     "query": "d3",
+     "expected": "C",
+     "assigned": "C",
+     "score": 7.86,
+     "margin": 6.51,
+     "operation": "OPN_INV",
+     "op_score": 13.2,
+     "ok": true,
+     "best": "p5: ns_pair=4.0, path_shape=3.0, persons=1.5, asset_hash=1.4, third_party=1.3"
+    },
+    {
+     "query": "d5",
+     "expected": "n/a",
+     "assigned": "new",
+     "score": 0,
+     "margin": 0,
+     "operation": null,
+     "op_score": 0,
+     "ok": null,
+     "best": "p1: "
+    },
+    {
+     "query": "d10",
+     "expected": "new",
+     "assigned": "new",
+     "score": 0.35,
+     "margin": 0.0,
+     "operation": null,
+     "op_score": 0.85,
+     "ok": true,
+     "best": "p1: vertical=0.5, brands=0.4"
+    },
+    {
+     "query": "d14",
+     "expected": "new",
+     "assigned": "new",
+     "score": 1.0,
+     "margin": 1.0,
+     "operation": null,
+     "op_score": 1.0,
+     "ok": true,
+     "best": "p8: ad_name_grammar=1.0"
+    },
+    {
+     "query": "d36",
+     "expected": "new",
+     "assigned": "new",
+     "score": 0.5,
+     "margin": 0.5,
+     "operation": null,
+     "op_score": 0.5,
+     "ok": true,
+     "best": "p13: comment_names=1.5, vertical_conflict=-1.0"
+    },
+    {
+     "query": "d47",
+     "expected": "new",
+     "assigned": "new",
+     "score": 1.64,
+     "margin": 1.64,
+     "operation": "OP3",
+     "op_score": 3.15,
+     "ok": true,
+     "best": "p10: dom_minhash=1.6, entry_path_template=1.0, vertical=0.5"
+    },
+    {
+     "query": "d48",
+     "expected": "new",
+     "assigned": "new",
+     "score": 2.02,
+     "margin": 1.27,
+     "operation": "OPN_INV",
+     "op_score": 4.18,
+     "ok": true,
+     "best": "p1: persons=1.1, kit_endpoints=1.0, brands=0.9, vertical=0.5, url_param_schema=0.4"
+    },
+    {
+     "query": "d61",
+     "expected": "new",
+     "assigned": "new",
+     "score": 3.92,
+     "margin": 2.75,
+     "operation": "OPN_INV",
+     "op_score": 4.83,
+     "ok": true,
+     "best": "p5: asset_hash=2.9, brands=1.0, vertical=0.5, brand_asset=0.4"
+    }
+   ]
+  },
+  "incremental": {
+   "rows": [
+    {
+     "query": "d1",
+     "gold": "A",
+     "predicted": "A",
+     "score": 43.17,
+     "best": "p15"
+    },
+    {
+     "query": "d2",
+     "gold": "A",
+     "predicted": "A",
+     "score": 36.83,
+     "best": "d1"
+    },
+    {
+     "query": "d3",
+     "gold": "C",
+     "predicted": "C",
+     "score": 7.62,
+     "best": "p5"
+    },
+    {
+     "query": "d5",
+     "gold": "UNK",
+     "predicted": "NEW1",
+     "score": 0,
+     "best": "p1"
+    },
+    {
+     "query": "d10",
+     "gold": "O",
+     "predicted": "NEW2",
+     "score": 3.27,
+     "best": "d3"
+    },
+    {
+     "query": "d14",
+     "gold": "N",
+     "predicted": "NEW3",
+     "score": 1.0,
+     "best": "p8"
+    },
+    {
+     "query": "d36",
+     "gold": "L",
+     "predicted": "NEW4",
+     "score": 0.5,
+     "best": "p13"
+    },
+    {
+     "query": "d47",
+     "gold": "M",
+     "predicted": "NEW5",
+     "score": 2.12,
+     "best": "d14"
+    },
+    {
+     "query": "d48",
+     "gold": "K",
+     "predicted": "NEW6",
+     "score": 1.88,
+     "best": "p1"
+    },
+    {
+     "query": "d61",
+     "gold": "K",
+     "predicted": "NEW6",
+     "score": 14.82,
+     "best": "d48"
+    }
+   ],
+   "report": {
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14
+   }
+  },
+  "joint": [
+   {
+    "level": "campaign",
+    "method": "avglink",
+    "tau": 5.0,
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14,
+    "pair_auc": 0.991,
+    "sep_margin": -2.48
+   },
+   {
+    "level": "campaign",
+    "method": "components",
+    "tau": 5.0,
+    "b3_P": 1.0,
+    "b3_R": 1.0,
+    "b3_F1": 1.0,
+    "ARI": 1.0,
+    "pair_P": 1.0,
+    "pair_R": 1.0,
+    "n_pred": 14,
+    "n_gold": 14,
+    "pair_auc": 0.991,
+    "sep_margin": -2.48
+   },
+   {
+    "level": "operator",
+    "method": "avglink",
+    "tau": 3.0,
+    "b3_P": 1.0,
+    "b3_R": 0.75,
+    "b3_F1": 0.857,
+    "ARI": 0.579,
+    "pair_P": 1.0,
+    "pair_R": 0.478,
+    "n_pred": 12,
+    "n_gold": 10,
+    "pair_auc": 0.985,
+    "sep_margin": -2.26
+   },
+   {
+    "level": "operator",
+    "method": "components",
+    "tau": 3.0,
+    "b3_P": 0.868,
+    "b3_R": 1.0,
+    "b3_F1": 0.929,
+    "ARI": 0.873,
+    "pair_P": 0.831,
+    "pair_R": 1.0,
+    "n_pred": 8,
+    "n_gold": 10,
+    "pair_auc": 0.985,
+    "sep_margin": -2.26
+   }
+  ],
+  "n_joint": 24,
+  "gate_failures": [],
+  "seconds": 3.9
+ }
+}

@@ -351,6 +351,9 @@ class MockStore:
                 return o
         raise _nf("operator")
 
+    def operators(self) -> list[Operator]:
+        return self.operators_
+
     def operations(self) -> list[Operation]:
         return self.operations_
 

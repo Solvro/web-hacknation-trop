@@ -95,7 +95,7 @@ async def analyze(url: str | None = Form(None), trace: str | None = Form(None), 
         return res.model_copy(update={"trace": {"type": _trace_type(trace), "value": trace}})
     if not url and not files:
         raise HTTPException(422, "provide `url`, `files[]` or `trace`")
-    if url:
+    if not files:                      # files win over a (prefilled) url
         kind, name = "url", url
     else:
         folder = Path(settings.artifact_dir) / "uploads" / __import__("uuid").uuid4().hex[:12]
@@ -301,6 +301,13 @@ async def merge(cid: str, body: MergeRequest):
 @router.post("/campaigns/{cid}/split", response_model=Campaign, tags=["campaigns"])
 async def split(cid: str, body: M.SplitRequest):
     return await _a(get_store().split(cid, body))
+
+
+@router.get("/operators", response_model=list[Operator], tags=["campaigns"])
+async def operators(ids: str | None = None):
+    rows = await _a(get_store().operators())
+    want = {i.strip() for i in ids.split(",")} if ids else None
+    return [o for o in rows if not want or o.id in want]
 
 
 @router.get("/operators/{oid}", response_model=Operator, tags=["campaigns"])
