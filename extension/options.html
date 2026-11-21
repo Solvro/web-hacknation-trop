@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><title>TROP: ustawienia</title><link rel="stylesheet" href="ui.css"></head>
+<body><main class="opt">
+<h1>Ustawienia TROP</h1>
+<form id="f" style="display:flex;flex-direction:column;gap:10px">
+  <label for="base">Adres API</label>
+  <input id="base" type="url" list="presets" placeholder="http://127.0.0.1:18000">
+  <datalist id="presets"><option value="http://127.0.0.1:18000"></option><option value="https://trop.b.solvro.pl"></option></datalist>
+  <div style="display:flex;gap:8px"><button class="btn p" type="submit">Zapisz</button><button class="btn" type="button" id="reset">Przywróć domyślny</button></div>
+  <div class="dim" id="msg" role="status"></div>
+</form>
+<p class="dim">Anonimowy identyfikator instalacji (losowy, bez związku z Tobą): <code id="iid"></code></p>
+<p class="dim">Wtyczka wysyła do API wyłącznie: nazwę reklamodawcy, tekst reklamy, link docelowy i odcisk obrazu (pHash). Nie wysyła zdjęć ani danych konta.</p>
+</main><script src="options.js"></script></body></html>
