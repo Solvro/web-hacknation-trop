@@ -41,6 +41,7 @@ for f in live-analyze.jsonl investigation_live.jsonl; do [ -f "$SRC/replay/$f" ]
 # the d5 video: media lookup keys the precomputed Gemini pass by (file name, size) of the file at its recorded path
 D5="raw/dane/unpacked/do_udostępnienia/5"
 if [ -d "$SRC/$D5" ]; then mkdir -p "$OUT/$D5"; cp "$SRC/$D5"/*.mp4 "$OUT/$D5/" 2>/dev/null || true; fi
+(cd "$ROOT/backend" && uv run python -m trop.api.images "$SRC" "$OUT/images")      # downscaled ad/landing screenshots (WebP q75, <=1200 px)
 python3 "$ROOT/deploy/make_samples.py" "$SRC" "$OUT/samples"          # jury sample zips + samples.json (GET /api/v1/samples)
 # purge any cached model output that mentions the fictional demo universe (real product must never show it)
 grep -rlE "KMP-017|«Zamach»|INC-24817|Kurier Dnia" "$OUT/cache/models" 2>/dev/null | xargs -r rm -f

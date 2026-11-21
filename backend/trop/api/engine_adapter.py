@@ -186,6 +186,11 @@ class ServiceAdapter:
         for f in findings:
             emit("job.finding", {"job_id": jid, "finding": f.model_dump(mode="json")})
         _remember(inc, dec)
+        try:
+            from trop.api import images
+            images.store(dec.incident_id, inc)          # downscaled screenshots for GET /incidents/{id}/artifacts
+        except Exception:  # noqa: BLE001
+            pass
         for typ, data in held:
             emit(typ, data)
         return dec
