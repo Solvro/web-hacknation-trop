@@ -78,8 +78,6 @@ def layer_coverage(inc: dict) -> tuple[list[LayerCoverage], float]:
                "kit": "brak śladów kitu", "infra": "brak domeny", "visual": "brak zrzutu reklamy",
                "persons": "brak rozpoznanych osób", "media": "brak wideo"}
     out = [LayerCoverage(layer=k, state="available" if v else "missing", reason=None if v else reasons[k]) for k, v in st.items()]
-    if inc.get("landing", {}).get("enrich_partial"):
-        pass
     core = ["tracking", "kit", "infra", "content", "ad"]
     return out, round(sum(st[k] for k in core) / len(core), 3)
 

@@ -1,0 +1,36 @@
+{
+  "_note": "FICTIONAL response in the shape of GET /v27.0/ads_archive — for offline tests only. All ids, names and texts are invented.",
+  "data": [
+    {
+      "id": "900000000000001",
+      "ad_creation_time": "2026-11-18",
+      "ad_creative_bodies": ["UWAGA! Nowa informacja z ostatniej chwili. Sprawdź, zanim zniknie z sieci"],
+      "ad_creative_link_captions": ["EXAMPLE.COM"],
+      "ad_creative_link_titles": ["Wszyscy o tym rozmawiają"],
+      "ad_delivery_start_time": "2026-11-18",
+      "ad_snapshot_url": "https://www.facebook.com/ads/archive/render_ad/?id=900000000000001&access_token=REDACTED",
+      "page_id": "800000000000001",
+      "page_name": "Example Silver Studio",
+      "publisher_platforms": ["facebook", "instagram"],
+      "languages": ["pl"],
+      "eu_total_reach": 4120,
+      "target_ages": ["25", "65+"],
+      "target_gender": "All",
+      "target_locations": [{"name": "Poland", "type": "countries", "excluded": false}]
+    },
+    {
+      "id": "900000000000002",
+      "ad_creation_time": "2026-11-19",
+      "ad_creative_bodies": ["Niesamowita historia z wczoraj. Rafał Brzoska przerywa milczenie"],
+      "ad_creative_link_captions": ["NEWS.EXAMPLE"],
+      "ad_creative_link_titles": ["Dowiedz się więcej"],
+      "ad_delivery_start_time": "2026-11-19",
+      "ad_snapshot_url": "https://www.facebook.com/ads/archive/render_ad/?id=900000000000002&access_token=REDACTED",
+      "page_id": "800000000000002",
+      "page_name": "Example Flux Studio",
+      "publisher_platforms": ["facebook"],
+      "languages": ["pl"],
+      "eu_total_reach": 15890
+    }
+  ]
+}
