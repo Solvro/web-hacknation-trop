@@ -19,11 +19,14 @@ def enrich(
     all_domains: bool = typer.Option(False, "--all-domains", help="enrich every domain of an incident, not only the landing"),
     seed: bool = typer.Option(False, "--seed", help="pre-seed the cache from data/experiments/*/infra_enrich.json"),
     certpl_sync: bool = typer.Option(False, "--certpl-sync", help="download/refresh the CERT PL list"),
+    seed_db: bool = typer.Option(False, "--seed-db", help="pre-seed the cache from the dev DB enrichment_cache (read-only)"),
 ) -> None:
     from . import certpl, enrich as E, seed as S
     prov = [p for p in providers.split(",") if p]
     if seed:
         typer.echo(json.dumps(S.seed_all()))
+    if seed_db:
+        typer.echo(json.dumps(S.seed_from_db()))
     if certpl_sync:
         typer.echo(json.dumps(certpl.sync()))
     if incidents:
@@ -32,5 +35,5 @@ def enrich(
         typer.echo(json.dumps(r))
     elif domain:
         typer.echo(json.dumps(E.enrich_domain(domain, prov), indent=1, ensure_ascii=False))
-    elif not (seed or certpl_sync):
+    elif not (seed or certpl_sync or seed_db):
         raise typer.BadParameter("give a domain, --incidents, --seed or --certpl-sync")

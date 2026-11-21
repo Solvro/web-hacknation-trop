@@ -56,3 +56,26 @@ def seed_all(root: Path | None = None) -> dict:
         for k, v in r.items():
             tot[k] = tot.get(k, 0) + v
     return tot
+
+
+def seed_from_db() -> dict:
+    """Seed the FS cache from the dev DB's enrichment_cache (read-only): dns / rdap / crt.sh rows of the Hunter prototype."""
+    import psycopg
+
+    from .crtsh import _norm_crtsh
+    from .rdap import _norm as _norm_rdap
+    n = {"dns": 0, "rdap": 0, "crtsh": 0}
+    with psycopg.connect(settings.database_url, connect_timeout=5) as c:
+        c.read_only = True
+        for prov, key, resp in c.execute("SELECT provider, key, response FROM enrichment_cache WHERE status = 'ok' AND provider IN ('dns','rdap','crtsh')"):
+            if prov == "dns" and key.startswith("all:") and isinstance(resp, dict):
+                rec = {t: [x.rstrip(".") if t == "NS" else x for x in resp.get(t, [])] for t in ("A", "AAAA", "NS", "MX", "TXT")}
+                cache.put("dns", key, cache.Result("ok", {"name": key[4:], **rec}), seeded=True)
+            elif prov == "rdap" and key.startswith("domain:") and isinstance(resp, dict) and "events" in resp:
+                cache.put("rdap", key, cache.Result("ok", _norm_rdap(resp)), seeded=True)
+            elif prov == "crtsh" and key.startswith("q:") and isinstance(resp, list):
+                cache.put("crtsh", key.replace("q:%.", "q:"), cache.Result("ok", _norm_crtsh(resp)), seeded=True)
+            else:
+                continue
+            n[prov] += 1
+    return n
