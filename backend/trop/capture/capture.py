@@ -274,6 +274,14 @@ async def capture(url: str, out_root: Path, profile: Profile, *, referer: str | 
         _write(bundle / "page_text.txt", text or "")
         await safe(page.screenshot(path=str(bundle / "screenshots" / "viewport.png")), None)
         await safe(page.screenshot(path=str(bundle / "screenshots" / "full_page.png"), full_page=True), None)
+        try:                                     # boxes for the analysis view, taken before the page closes
+            from ._boxes import BOXES_JS, MARKERS
+            info = await page.evaluate(BOXES_JS, MARKERS)
+            _write(bundle / "screenshots" / "full_page.boxes.json", json.dumps(
+                {"image": {"w": info["page"]["w"], "h": info["page"]["h"]}, "boxes": info["boxes"], "markers": info["markers"],
+                 "inline_markers": info["inline_markers"], "source": "live"}, ensure_ascii=False, indent=1))
+        except Exception:
+            pass
         try:
             if not mhtml:
                 raise RuntimeError("mhtml skipped (fast mode)")

@@ -98,3 +98,13 @@ The web works against today's API with local adapters (web/lib/graph.ts, web/lib
   neither -> 422. The investigation's `campaign_id` defaults to the incident's campaign. (The offline/heuristic planner ignores notes; the LLM planner follows them.)
 - dane-5 (video only) now analyses to `new` with media evidence: zips are unpacked by the adapter (ingest's `single_item` treats a zip as a generic "upload" and loses
   the video layer; WS1 may want `classify(root)` there) and the bundle carries the d5 mp4 at its recorded path so the (name, size) media lookup hits.
+
+# WS5b render (real captured page for the analysis view)
+
+- `trop.capture.render.render_saved(html_or_dir, out_png, width=1280, max_height=4000)` -> `{ok, png, w, h, boxes, markers, inline_markers, blocked_requests, truncated}`. Saved HTML is opened from file:// in a child
+  headless Chromium (JS off, all non-file/data requests aborted, DNS disabled; <= 8 s). Mojibake `*_files` folders (zip cp437 names) are repaired via a patched temp copy.
+- Box = `{kind: headline|form|input|iframe|image(role hero)|marker, selector, x, y, w, h, text?, ...}`, px of the image it belongs to. `markers` lists every tracking/kit URL found (facebook.com/tr, connect.facebook.net, landing-cdn, aio-static, googletagmanager, ...).
+- Corpus: `trop capture render-corpus [--id p3]` -> `data/artifacts/rendered/<incident_id>.webp` (<= 1200 px wide, q75) + `<incident_id>.boxes.json`
+  `{image:{w,h}, scale_from_page, page_h, truncated, boxes (scaled to the webp), markers, inline_markers, source}`. Ids: `p1..p15`, `d<N>` (DANE folder N). d5 has no HTML (video only) -> no file.
+- Live captures also write `screenshots/full_page.boxes.json` (page px, same box kinds) next to `full_page.png`.
+- Worker hooks (never raise): `render_for_upload(dir) -> {png (temp path), boxes, w, h, markers} | None`; `ensure_landing_screenshot(dir, incident_id) -> {webp, boxes, w, h} | None` writes the artifacts layout above.
