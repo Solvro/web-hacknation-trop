@@ -1,4 +1,5 @@
 """Chunked uploads: small requests, assembled server side, same outcome as POST /analyze | /batch."""
+import json
 import os
 import time
 import zipfile
@@ -88,3 +89,8 @@ def test_abandoned_uploads_are_swept(client, small):
     for f in [d, *d.rglob("*")]:
         os.utime(f, (old, old))
     assert CH.sweep() == 1 and not d.exists()
+
+
+def test_debug_worker_endpoint_mock(client):
+    j = client.get(f"{P}/debug/worker").json()
+    assert j["api"]["mode"] in ("mock", "live") and "uid" in j["api"] and "gemini" not in json.dumps(j).lower().replace("has_gemini_key", "")

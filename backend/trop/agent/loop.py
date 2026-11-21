@@ -21,6 +21,7 @@ log = logging.getLogger("trop.agent.loop")
 
 LLM = Callable[[list[dict], list[dict]], dict]
 MAX_CALLS_PER_TURN = 3
+LLM_DEADLINE_S = 60.0
 
 SYSTEM = """You are White Rabbit, the investigator of TROP (NASK scam-ad attribution). From one seed domain you find the
 rest of the scam operation: sibling domains, ads and advertisers, with explainable evidence. You work by calling tools.
@@ -48,7 +49,20 @@ def default_llm(model: str = "pro") -> LLM:
     from trop.media.gateway import gateway
 
     def call(messages: list[dict], tools: list[dict]) -> dict:
-        return gateway.llm("white_rabbit", messages, tools=tools, model=model)
+        # The gateway retries a hung provider for minutes (300 s timeout x 4 tries): the analyst must never wait on that. A call that
+        # does not answer within LLM_DEADLINE_S is abandoned (its thread finishes on its own) -> {"error"} -> deterministic planner.
+        import threading
+        box: dict = {}
+
+        def work() -> None:
+            try:
+                box["r"] = gateway.llm("white_rabbit", messages, tools=tools, model=model)
+            except Exception as e:  # noqa: BLE001
+                box["r"] = {"missing": True, "error": f"{type(e).__name__}: {str(e)[:150]}"}
+        t = threading.Thread(target=work, daemon=True, name="wr-llm")
+        t.start()
+        t.join(LLM_DEADLINE_S)
+        return box.get("r") or {"missing": True, "error": f"model nie odpowiedział w {LLM_DEADLINE_S:.0f} s"}
     return call
 
 
@@ -211,7 +225,7 @@ def _control_state(verbs: list[str], paused: bool) -> tuple[bool, bool]:
 
 
 def run(ctx: Ctx, *, llm: LLM | None = None, steps: int = 20, usd_cap: float = 1.0, control: Control | None = None,
-        planner: str = "auto", sleep: Callable[[float], None] = time.sleep, pause_timeout_s: float = 1800) -> dict:
+        planner: str = "auto", sleep: Callable[[float], None] = time.sleep, pause_timeout_s: float = 1800, first_step: bool = False) -> dict:
     """Run the investigation to completion. planner: auto (LLM, heuristic fallback) | llm | heuristic."""
     case, inv = ctx.case, ctx.case.inv
     inv.budget.update({"steps": float(steps), "usd": float(usd_cap)})
@@ -248,6 +262,8 @@ def run(ctx: Ctx, *, llm: LLM | None = None, steps: int = 20, usd_cap: float = 1
                         "summary": res.summary, "view": res.view})
         return res
 
+    if first_step and plan is None and steps >= 3 and not inv.steps:      # first step at once, whatever the model does: what our own database already knows
+        do("db_search", {"query": _apex(ctx.seed) or ctx.seed, "why": "Zaczynam od tego, co już wiemy o tej domenie z naszej bazy."}, 0.0)
     while not finished:
         stop, paused = _control_state(_apply_controls(ctx, control, notes), False)
         if paused and not stop:

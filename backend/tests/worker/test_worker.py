@@ -73,6 +73,6 @@ def test_stub_adapter_matches_protocol():
 
 def test_worker_settings_register_all_jobs():
     from trop.worker.settings import WorkerSettings
-    names = {f.__name__ for f in WorkerSettings.functions}
+    names = {f.name for f in WorkerSettings.functions}
     assert {"analyze", "batch", "capture", "enrich", "hunt", "oracle", "agent", "act"} <= names
     assert str(WorkerSettings.redis_settings.port) == "56379"
