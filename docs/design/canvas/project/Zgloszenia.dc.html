@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: zgłoszenia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:#F5F5F5}
+.segb{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 16px;border-radius:999px;border:0;background:transparent;font-family:inherit;font-size:14px;font-weight:500;color:#525252;cursor:pointer}
+.segb b{font:500 11.5px 'Geist Mono',ui-monospace,monospace;color:#8A8A8A}
+.pk{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06);padding:18px 20px 8px}
+.pkh{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:8px 16px;padding-bottom:8px}
+.pkh .t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pkh .t b{font-size:16px;font-weight:600;letter-spacing:-.015em}
+.pkh .t span{font-size:13.5px;color:#6B6B6B}
+.pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.rl{display:grid;grid-template-columns:200px minmax(0,1fr) 300px;gap:18px;align-items:center;padding:12px 0;border-top:1px solid #F0F0F0}
+.rl b{font-size:14px;font-weight:600}
+.rl span.s{font-size:13.5px;color:#525252}
+.bar{display:block;height:8px;border-radius:999px;background:#F0F0F0;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:#0A0A0A}
+</style>
+</helmet>
+<div style="min-height: 1100px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+        <a class="tab" href="Zgloszenia.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Zgłoszenia</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 30px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+
+    <section aria-labelledby="zg-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h1 id="zg-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Zgłoszenia</h1>
+      <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Co wysłaliśmy i ile już zniknęło z sieci.</p>
+      
+    </section>
+
+    <div class="seg" role="group" aria-label="Filtr zgłoszeń" style="align-self: flex-start">
+      <button type="button" class="segb" aria-pressed="true" style="background: #FFFFFF; color: #0A0A0A; box-shadow: 0 1px 2px rgba(0,0,0,.08)">Wszystkie <b>7</b></button>
+      <button type="button" class="segb" aria-pressed="false">W toku <b>3</b></button>
+      <button type="button" class="segb" aria-pressed="false">Do uzupełnienia <b>1</b></button>
+      <button type="button" class="segb" aria-pressed="false">Zakończone <b>3</b></button>
+    </div>
+
+    <section aria-label="Do uzupełnienia" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding: 16px 18px 16px 20px; border-radius: 22px; background: #FFF7ED; border: 1px solid #FED7AA">
+      <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+        <b style="font-size: 15px; font-weight: 600">KMP-031 «Platforma AI» urosła od zgłoszenia</b>
+        <span style="font-size: 13.5px; color: #7C2D12">Od wysłania 20.11 doszło 6 reklam i 2 domeny. Wyślij uzupełnienie do tych samych odbiorców.</span>
+      </span>
+      <button type="button" class="pri">Przygotuj uzupełnienie</button>
+    </section>
+
+    <article class="pk" aria-labelledby="pk1">
+      <div class="pkh">
+        <span class="t"><a id="pk1" href="Kampania-KMP017.dc.html" style="text-decoration: none"><b>KMP-017 «Zamach»</b></a><span>Fałszywe newsy, które prowadzą do „inwestycji” · wysłane dziś 09:12</span></span>
+        <span class="pill" style="background: #F5F5F5; color: #404040">w toku</span>
+      </div>
+      <div class="rl"><b>Meta · DSA art. 16</b><span class="bar" role="img" aria-label="0 procent"><i style="width: 2%"></i></span><span class="s">przyjęte, w ocenie · 0 z 46 usuniętych</span></div>
+      <div class="rl"><b>CERT PL · lista ostrzeżeń</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">24 z 24 domen na liście</span></div>
+      <div class="rl"><b>Google Safe Browsing</b><span class="bar" role="img" aria-label="W kolejce"><i style="width: 8%; background: #A3A3A3"></i></span><span class="s">w kolejce u Google</span></div>
+    </article>
+
+    <article class="pk" aria-labelledby="pk2">
+      <div class="pkh">
+        <span class="t"><b id="pk2">KMP-031 «Platforma AI»</b><span>Inwestycje „ze sztuczną inteligencją” ze znanymi twarzami · wysłane 20.11</span></span>
+        <span class="pill" style="background: #FFF7ED; color: #9A3412">do uzupełnienia</span>
+      </div>
+      <div class="rl"><b>Meta · DSA art. 16</b><span class="bar" role="img" aria-label="88 procent"><i style="width: 88%"></i></span><span class="s">51 z 58 reklam usuniętych</span></div>
+      <div class="rl"><b>CERT PL · lista ostrzeżeń</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">9 z 9 domen na liście</span></div>
+    </article>
+
+    <article class="pk" aria-labelledby="pk3">
+      <div class="pkh">
+        <span class="t"><b id="pk3">KMP-022 «Stawy»</b><span>Fałszywy lekarz poleca suplement na stawy · wysłane 19.11</span></span>
+        <span class="pill" style="background: #F5F5F5; color: #404040">czeka na Google</span>
+      </div>
+      <div class="rl"><b>Google Safe Browsing</b><span class="bar" role="img" aria-label="0 procent"><i style="width: 2%; background: #A3A3A3"></i></span><span class="s">bez odpowiedzi od 2 dni</span></div>
+      <div class="rl"><b>CERT PL · lista ostrzeżeń</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">9 z 9 domen na liście</span></div>
+    </article>
+
+    <article class="pk" aria-labelledby="pk4" style="box-shadow: none; background: #FAFAFA">
+      <div class="pkh">
+        <span class="t"><a id="pk4" href="Kampania-KMP017.dc.html" style="text-decoration: none"><b>KMP-017 «Zamach»</b></a><span>Pierwsze zgłoszenie, przed śledztwem · wysłane 18.11</span></span>
+        <span class="pill" style="background: #F0FDF4; color: #166534">zakończone</span>
+      </div>
+      <div class="rl"><b>Meta · DSA art. 16</b><span class="bar" role="img" aria-label="100 procent"><i style="width: 100%; background: #16A34A"></i></span><span class="s" style="color: #166534">12 z 12 reklam usuniętych w 6 h</span></div>
+    </article>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

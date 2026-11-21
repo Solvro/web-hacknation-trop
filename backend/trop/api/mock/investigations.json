@@ -1,0 +1,516 @@
+{
+ "model": "list[Investigation]",
+ "data": [
+  {
+   "id": "INV-3",
+   "seed": "velmoria.click",
+   "campaign_id": "KMP-017",
+   "status": "done",
+   "budget": {
+    "steps": 20.0,
+    "used": 9.0,
+    "usd": 0.5,
+    "usd_used": 0.07
+   },
+   "model": "gemini-pro-latest",
+   "tools": [
+    "db.lookup",
+    "crtsh.search",
+    "dns.rdap",
+    "urlscan.search",
+    "adlibrary.search",
+    "certpl.check",
+    "oracle.lookup",
+    "engine.compare"
+   ],
+   "started_at": "2026-11-21T08:00:00+01:00",
+   "nodes": [
+    {
+     "id": "n-seed",
+     "kind": "domain",
+     "label": "velmoria.click",
+     "meta": {
+      "on_certpl": true
+     },
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "db"
+    },
+    {
+     "id": "n-cert",
+     "kind": "cert",
+     "label": "crt.sh: partia certyfikatów (6 SAN)",
+     "meta": {
+      "san": 6
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "n-ip",
+     "kind": "ip",
+     "label": "198.51.100.23 · AS64500 (origin)",
+     "meta": {
+      "asn": "AS64500"
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "content"
+    },
+    {
+     "id": "n-urlscan",
+     "kind": "query_result",
+     "label": "urlscan: ścieżka kitu → 14 domen",
+     "meta": {
+      "domains": 14
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-tranvello.click",
+     "kind": "domain",
+     "label": "tranvello.click",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-korvelta.click",
+     "kind": "domain",
+     "label": "korvelta.click",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-mandurex.live",
+     "kind": "domain",
+     "label": "mandurex.live",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-vistorra.click",
+     "kind": "domain",
+     "label": "vistorra.click",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-plenvaro.live",
+     "kind": "domain",
+     "label": "plenvaro.live",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-sarmelto.click",
+     "kind": "domain",
+     "label": "sarmelto.click",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-dolvinex.click",
+     "kind": "domain",
+     "label": "dolvinex.click",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-kervanta.live",
+     "kind": "domain",
+     "label": "kervanta.live",
+     "meta": {},
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "urlscan"
+    },
+    {
+     "id": "d-trastino.live",
+     "kind": "domain",
+     "label": "trastino.live",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-quorvex.click",
+     "kind": "domain",
+     "label": "quorvex.click",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-ambrelio.live",
+     "kind": "domain",
+     "label": "ambrelio.live",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-dunvarra.click",
+     "kind": "domain",
+     "label": "dunvarra.click",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-selqueno.live",
+     "kind": "domain",
+     "label": "selqueno.live",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": "crtsh"
+    },
+    {
+     "id": "n-ads",
+     "kind": "ad",
+     "label": "Ad Library: 9 aktywnych reklam, 4 strony reklamodawców",
+     "meta": {
+      "ads": 9,
+      "pages": 4
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "adlib"
+    },
+    {
+     "id": "n-certpl",
+     "kind": "list_status",
+     "label": "CERT PL: 11 z 14 poza listą",
+     "meta": {
+      "not_listed": 11,
+      "total": 14
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "certpl"
+    },
+    {
+     "id": "d-plessuro.live",
+     "kind": "cert",
+     "label": "plessuro.live · cert 00:47 UTC",
+     "meta": {
+      "issued": "00:47"
+     },
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-orvinta.click",
+     "kind": "cert",
+     "label": "orvinta.click · cert 01:12 UTC",
+     "meta": {
+      "issued": "01:12"
+     },
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "crtsh"
+    },
+    {
+     "id": "d-morvanta.click",
+     "kind": "cert",
+     "label": "morvanta.click · cert 02:31 UTC",
+     "meta": {
+      "issued": "02:31"
+     },
+     "status": "to_decide",
+     "is_new": true,
+     "branch": "crtsh"
+    },
+    {
+     "id": "n-oracle",
+     "kind": "oracle_flag",
+     "label": "Oracle: wcześniej oznaczył orvinta, morvanta",
+     "meta": {
+      "flagged": 2
+     },
+     "status": null,
+     "is_new": null,
+     "branch": "db"
+    }
+   ],
+   "edges": [
+    {
+     "a": "n-seed",
+     "b": "n-cert",
+     "label": "crt.sh"
+    },
+    {
+     "a": "n-cert",
+     "b": "d-trastino.live",
+     "label": "SAN"
+    },
+    {
+     "a": "n-seed",
+     "b": "n-ip",
+     "label": "DNS/RDAP"
+    },
+    {
+     "a": "n-seed",
+     "b": "n-urlscan",
+     "label": "kit path"
+    },
+    {
+     "a": "n-urlscan",
+     "b": "n-ads",
+     "label": "reklamy"
+    },
+    {
+     "a": "n-urlscan",
+     "b": "n-certpl",
+     "label": "lista CERT PL"
+    },
+    {
+     "a": "n-certpl",
+     "b": "d-plessuro.live",
+     "label": "3 certy tej nocy"
+    },
+    {
+     "a": "d-morvanta.click",
+     "b": "n-oracle",
+     "label": "Oracle"
+    }
+   ],
+   "steps": [
+    {
+     "n": 1,
+     "tool": "db.lookup",
+     "query": "velmoria.click",
+     "result_summary": "Domena w KMP-017, na liście CERT PL.",
+     "why": "Zaczynam od tego, co już wiemy.",
+     "produced": [
+      "n-seed"
+     ],
+     "at": "2026-11-21T08:00:00+01:00",
+     "bot": "archiwista",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 2,
+     "tool": "crtsh.search",
+     "query": "velmoria.click",
+     "result_summary": "Partia certyfikatów: 6 domen SAN.",
+     "why": "Certyfikaty z tej samej partii zwykle należą do tego samego operatora.",
+     "produced": [
+      "n-cert",
+      "d-trastino.live",
+      "d-quorvex.click",
+      "d-ambrelio.live",
+      "d-dunvarra.click",
+      "d-selqueno.live"
+     ],
+     "at": "2026-11-21T08:00:06+01:00",
+     "bot": "notariusz",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 3,
+     "tool": "dns.rdap",
+     "query": "velmoria.click",
+     "result_summary": "Origin 198.51.100.23, AS64500; RDAP bez rejestratora (anonimizowany).",
+     "why": "Szukam wspólnego hostingu.",
+     "produced": [
+      "n-ip"
+     ],
+     "at": "2026-11-21T08:00:12+01:00",
+     "bot": "notariusz",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 4,
+     "tool": "urlscan.search",
+     "query": "page.url:\"/api/v2/relay/lead/\"",
+     "result_summary": "14 domen z tą samą ścieżką kitu.",
+     "why": "Ścieżka relay/lead jest dowodem kitu (H).",
+     "produced": [
+      "n-urlscan",
+      "d-tranvello.click",
+      "d-korvelta.click",
+      "d-mandurex.live",
+      "d-vistorra.click",
+      "d-plenvaro.live",
+      "d-sarmelto.click",
+      "d-dolvinex.click",
+      "d-kervanta.live"
+     ],
+     "at": "2026-11-21T08:00:19+01:00",
+     "bot": "tropiciel",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 5,
+     "tool": "adlibrary.search",
+     "query": "strony 14 domen",
+     "result_summary": "9 aktywnych reklam, 4 strony reklamodawców.",
+     "why": "Sprawdzam, czy domeny są aktywnie promowane.",
+     "produced": [
+      "n-ads"
+     ],
+     "at": "2026-11-21T08:00:27+01:00",
+     "bot": "zwiadowca",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 6,
+     "tool": "certpl.check",
+     "query": "14 domen",
+     "result_summary": "11 z 14 nie ma na liście CERT PL.",
+     "why": "Domeny poza listą to kandydaci do zgłoszenia.",
+     "produced": [
+      "n-certpl"
+     ],
+     "at": "2026-11-21T08:00:33+01:00",
+     "bot": "archiwista",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 7,
+     "tool": "crtsh.search",
+     "query": "certy z ostatnich 6 h (LE R11)",
+     "result_summary": "3 certyfikaty tej nocy: plessuro.live 00:47, orvinta.click 01:12, morvanta.click 02:31.",
+     "why": "Nocne partie LE R11 to podpis KMP-017.",
+     "produced": [
+      "d-plessuro.live",
+      "d-orvinta.click",
+      "d-morvanta.click"
+     ],
+     "at": "2026-11-21T08:00:41+01:00",
+     "bot": "notariusz",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 8,
+     "tool": "oracle.lookup",
+     "query": "3 domeny",
+     "result_summary": "Oracle wcześniej oznaczył 2 z 3 (orvinta 20.11, morvanta 19.11).",
+     "why": "Weryfikuję, czy Oracle przewidział te domeny.",
+     "produced": [
+      "n-oracle"
+     ],
+     "at": "2026-11-21T08:00:48+01:00",
+     "bot": "archiwista",
+     "cost_usd": 0.0
+    },
+    {
+     "n": 9,
+     "tool": "engine.compare",
+     "query": "14 domen vs KMP-017",
+     "result_summary": "Wszystkie 14 pasuje do DNA KMP-017 (p ≥ 0.8).",
+     "why": "Porównanie z DNA kampanii.",
+     "produced": [],
+     "at": "2026-11-21T08:00:54+01:00",
+     "bot": "sedzia",
+     "cost_usd": 0.0
+    }
+   ],
+   "conclusions": [
+    {
+     "text": "velmoria.click należy do KMP-017 (operator OP-03 «Kestrel»); partia certyfikatów ujawnia 6 domen, kit — 14.",
+     "evidence_refs": [
+      "n-cert",
+      "n-urlscan"
+     ]
+    },
+    {
+     "text": "11 z 14 domen nie ma na liście CERT PL — pakiet zgłoszeniowy do przygotowania.",
+     "evidence_refs": [
+      "n-certpl"
+     ]
+    },
+    {
+     "text": "Tej nocy wydano 3 certyfikaty; Oracle wcześniej oznaczył 2 z nich (orvinta, morvanta).",
+     "evidence_refs": [
+      "n-oracle"
+     ]
+    }
+   ],
+   "pending_decision": {
+    "node_id": "n-certpl",
+    "question": "Dodać 14 domen do KMP-017 i przygotować zgłoszenie CERT PL?",
+    "options": [
+     "Dodaj 14 domen do KMP-017",
+     "Dodaj tylko 11 spoza listy",
+     "Pomiń"
+    ]
+   }
+  },
+  {
+   "id": "INV-2",
+   "seed": "artovita-forte.shop",
+   "campaign_id": "KMP-022",
+   "status": "done",
+   "budget": {
+    "steps": 20.0,
+    "used": 7.0,
+    "usd": 0.5,
+    "usd_used": 0.05
+   },
+   "model": "gemini-pro-latest",
+   "tools": [
+    "db.lookup",
+    "urlscan.search"
+   ],
+   "started_at": "2026-11-20T15:10:00+01:00",
+   "nodes": [
+    {
+     "id": "n1",
+     "kind": "domain",
+     "label": "artovita-forte.shop",
+     "meta": {},
+     "status": "in_campaign",
+     "is_new": null,
+     "branch": null
+    }
+   ],
+   "edges": [],
+   "steps": [
+    {
+     "n": 1,
+     "tool": "db.lookup",
+     "query": "artovita-forte.shop",
+     "result_summary": "W KMP-022.",
+     "why": "",
+     "produced": [],
+     "at": "2026-11-20T15:10:05+01:00",
+     "bot": null,
+     "cost_usd": 0.0
+    }
+   ],
+   "conclusions": [
+    {
+     "text": "Domena należy do KMP-022 (OP-07 «Orchid»).",
+     "evidence_refs": [
+      "n1"
+     ]
+    }
+   ],
+   "pending_decision": null
+  }
+ ]
+}

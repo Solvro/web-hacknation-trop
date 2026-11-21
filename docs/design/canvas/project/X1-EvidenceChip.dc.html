@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Chip dowodu — specyfikacja</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.cn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid rgba(92,200,255,.55);color:#5CC8FF;font:600 11px "JetBrains Mono",ui-monospace,monospace;flex:none}
+.anat{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+.anat>div{display:flex;flex-direction:column;gap:10px;flex:1 1 170px;min-width:0}
+.tip{width:360px;max-width:100%;background:#0F1812;border:1px solid #3B5444;border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,.6);padding:14px;display:flex;flex-direction:column;gap:10px}
+.drawer{background:#0A100C;border:1px solid #2B3F32;border-radius:10px;display:flex;flex-direction:column;flex:1 1 420px;min-width:0}
+.vgrid{display:grid;gap:10px 16px;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.vrow{display:flex;flex-direction:column;gap:6px;min-width:0}
+.rules{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="page" style="max-width: 1240px; margin: 0 auto">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px">
+<span class="eb">Komponent wyjaśnialności · X1</span>
+<h1 class="h1">Chip dowodu</h1>
+<p class="muted" style="max-width: 880px; line-height: 1.6">Analityk pyta: <b style="color: #DDEBE2">„na jakiej podstawie system łączy te dwa materiały?”</b> Chip pokazuje jeden typowany dowód: z której warstwy pochodzi, jaka wartość jest wspólna, jak mocno taka zgodność świadczy o tej samej kampanii, ile wnosi do wyniku i jak rzadka jest ta wartość w korpusie. Każde połączenie w RED PILL rozkłada się na listę takich chipów.</p>
+</header>
+
+<section class="panel" aria-labelledby="an-h">
+<div class="ph"><h2 class="h3" id="an-h">Anatomia</h2><span class="dim sm">rozmiar big · INC-24817 ↔ KMP-017</span><span class="api">GET incidents/{id}/matches</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 24px">
+<div class="row" style="gap: 16px">
+<span class="ev big t-kit"><span class="t">Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.7</span><span class="r">58/1 284</span></span>
+<span class="dim sm">złożony chip, tak jak w werdykcie S02</span>
+</div>
+<div class="hr"></div>
+<div class="anat">
+<div><span class="ev big t-kit" style="align-self: flex-start"><span class="t">Kit</span></span><span class="row" style="gap: 8px"><span class="cn">1</span><b class="sm">Typ</b></span><p class="dim sm">Warstwa cechy. Kolor i etykieta tekstowa; kolor nigdy nie występuje sam.</p></div>
+<div><span class="ev big t-kit" style="align-self: flex-start"><span class="v">/api/v2/relay/lead/{uuid}/</span></span><span class="row" style="gap: 8px"><span class="cn">2</span><b class="sm">Wartość</b></span><p class="dim sm">Znormalizowana wartość wspólna dla obu stron (ID → {uuid}). Skrót z wielokropkiem; pełna wartość w tooltipie.</p></div>
+<div><span class="ev big t-kit" style="align-self: flex-start"><span class="sb h"><i></i><i></i><i></i></span></span><span class="row" style="gap: 8px"><span class="cn">3</span><b class="sm">Siła H / M / L</b></span><p class="dim sm">Jak mocno zgodność oznacza „ta sama kampania”. Kalibrowane jako log(m/u) Fellegi-Sunter.</p></div>
+<div><span class="ev big t-kit" style="align-self: flex-start"><span class="w">+2.7</span></span><span class="row" style="gap: 8px"><span class="cn">4</span><b class="sm">Waga</b></span><p class="dim sm">Wkład w wynik: siła × rzadkość albo wkład SHAP z modelu M1. Dodatnia zielona, ujemna czerwona.</p></div>
+<div><span class="ev big t-kit" style="align-self: flex-start"><span class="r">58/1 284</span></span><span class="row" style="gap: 8px"><span class="cn">5</span><b class="sm">Rzadkość</b></span><p class="dim sm">„Widziane w 58 z 1 284 incydentów”. Im rzadsza wartość, tym mocniejszy dowód (idf = log N/df).</p></div>
+</div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="var-h">
+<div class="ph"><h2 class="h3" id="var-h">Warianty i stany</h2><span class="api">GET evidence/values/{type}/{value}</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 20px">
+<div class="vrow"><span class="eb">8 typów warstw</span>
+<div class="vgrid">
+<span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a91e0…on.aws</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+3.1</span><span class="r">47/1 284</span></span>
+<span class="ev t-kit"><span class="t">Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.7</span><span class="r">58/1 284</span></span>
+<span class="ev t-content"><span class="t">Treść</span><span class="v">„PILNE: {PER} przerywa milczenie…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.2</span><span class="r">22/1 284</span></span>
+<span class="ev t-infra"><span class="t">Infra</span><span class="v">partia LE R11 · 00:47–02:31</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+1.4</span><span class="r">6/1 284</span></span>
+<span class="ev t-media"><span class="t">Media</span><span class="v">głos syntetyczny · ECAPA 0.87</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+1.1</span><span class="r">14/1 284</span></span>
+<span class="ev t-visual"><span class="t">Obraz</span><span class="v">landing pHash Δ 4</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.9</span><span class="r">9/1 284</span></span>
+<span class="ev t-persons"><span class="t">Osoby</span><span class="v">Jan Kowalski · twarz 0.91 + NER</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.8</span><span class="r">61/1 284</span></span>
+<span class="ev t-ad"><span class="t">Reklama</span><span class="v">kreacja-wabik (krajobraz)</span><span class="sb l"><i></i><i></i><i></i></span><span class="w">+0.3</span><span class="r">402/1 284</span></span>
+</div>
+</div>
+<div class="hr"></div>
+<div class="vrow"><span class="eb">Modyfikatory stanu</span>
+<div class="vgrid">
+<div class="vrow"><span class="ev t-content"><span class="t">Treść</span><span class="v">„PILNE: {PER}…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.2</span><span class="r">22/1 284</span></span><span class="dim xs">match · wartość zgodna po obu stronach</span></div>
+<div class="vrow"><span class="ev conf t-content"><span class="t">Treść</span><span class="v">„Lekarze ukrywają…” ≠ „PILNE: {PER}…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">−1.2</span></span><span class="dim xs">conflict · pole silne obecne po obu stronach i sprzeczne</span></div>
+<div class="vrow"><span class="ev miss t-tracking"><span class="t">Tracking</span><span class="v">brak HAR</span><span class="r">nie liczone</span></span><span class="dim xs">missing · brak danych to nie różnica, wkład 0</span></div>
+<div class="vrow"><span class="ev zero t-infra"><span class="t">Infra</span><span class="v">Cloudflare 203.0.113.0/24</span><span class="w">0.0</span><span class="r">512/1 284</span></span><span class="dim xs">zero · wspólne dla wszystkich (CDN), waga wyzerowana</span></div>
+</div>
+</div>
+<div class="hr"></div>
+<div class="row" style="gap: 32px; align-items: flex-start">
+<div class="vrow"><span class="eb">Rozmiary</span>
+<div class="col" style="gap: 10px">
+<div class="row" style="gap: 12px"><span class="ev big t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+3.1</span><span class="r">47/1 284</span></span><span class="dim xs">big · werdykt, anatomia</span></div>
+<div class="row" style="gap: 12px"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+3.1</span><span class="r">47/1 284</span></span><span class="dim xs">regular · listy dowodów</span></div>
+<div class="row" style="gap: 12px"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span></span><span class="dim xs">compact · typ + wartość, w tabelach</span></div>
+</div>
+</div>
+<div class="vrow"><span class="eb">Interakcja</span>
+<div class="col" style="gap: 10px">
+<div class="row" style="gap: 12px"><span class="ev t-kit" style="background: #16231A; border-color: #6F5A99"><span class="t">Kit</span><span class="v">relay/lead</span><span class="w">+2.7</span></span><span class="dim xs">hover · jaśniejsze tło, tooltip po 300 ms</span></div>
+<div class="row" style="gap: 12px"><span class="ev t-kit" style="box-shadow: 0 0 0 2px #050806, 0 0 0 4px #5CC8FF"><span class="t">Kit</span><span class="v">relay/lead</span><span class="w">+2.7</span></span><span class="dim xs">focus · pierścień cyan, Enter otwiera szufladę</span></div>
+<div class="row" style="gap: 12px"><span class="ev t-kit" style="background: rgba(183,148,255,.16)"><span class="t">Kit</span><span class="v">relay/lead</span><span class="w">+2.7</span></span><span class="dim xs">selected · aktywny filtr w grafie (Shift+klik)</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="beh-h">
+<div class="ph"><h2 class="h3" id="beh-h">Zachowanie: tooltip i szuflada dowodu</h2><span class="api">GET evidence/values/kit/%2Fapi%2Fv2%2Frelay%2Flead%2F%7Buuid%7D%2F</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 360px; min-width: 0">
+<span class="eb">Hover → tooltip</span>
+<span class="ev t-kit" style="align-self: flex-start; background: #16231A"><span class="t">Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.7</span><span class="r">58/1 284</span></span>
+<div class="tip" role="tooltip">
+<div class="row between"><span class="eb" style="color: #B794FF">Kit · ścieżka API kitu</span><span class="pill">match</span></div>
+<span class="mono" style="color: #DDEBE2; overflow-wrap: anywhere">/api/v2/relay/lead/{uuid}/</span>
+<dl class="kv">
+<dt>pole</dt><dd>tracking.kit_endpoints</dd>
+<dt>rzadkość</dt><dd>widziane w 58 z 1 284 incydentów<br>idf = log(1284/58) = 3.10</dd>
+<dt>siła</dt><dd>H · zgodność prawie przesądza (log m/u = 2.4)</dd>
+<dt>wkład M1</dt><dd class="g">+2.7 log-odds (SHAP)</dd>
+</dl>
+<a class="btn btn-sm" href="#beh-h" style="align-self: flex-start">Pokaż 58 incydentów</a>
+</div>
+<div class="col" style="gap: 6px; margin-top: 8px">
+<span class="eb">Klawiatura i mysz</span>
+<p class="sm muted">Tab: fokus na chip · Enter / klik: szuflada · Esc: zamknij · Shift+klik: dodaj jako filtr w grafie · C: kopiuj pełną wartość.</p>
+<span class="eb" style="margin-top: 6px">Gdzie występuje</span>
+<p class="sm muted">S02 werdykt · S03 szczegół triage · S04 dopasowania · S05 członkowie (compact) · S06 inspektor krawędzi · X2 panel „dlaczego”.</p>
+</div>
+</div>
+
+<aside class="drawer" aria-label="Szuflada dowodu">
+<div class="ph"><span class="eb" style="color: #B794FF; flex: 1 1 auto">Wartość dowodu · Kit</span><button class="btn btn-sm btn-gh" type="button" aria-label="Kopiuj wartość">Kopiuj</button><button class="btn btn-sm btn-i btn-gh" type="button" aria-label="Zamknij szufladę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 14px">
+<span class="mono" style="font-size: 14px; color: #DDEBE2">/api/v2/relay/lead/{uuid}/</span>
+<div class="kpis" style="grid-template-columns: repeat(auto-fit, minmax(min(90px, 100%), 1fr))">
+<div class="col" style="gap: 2px"><span class="eb">df</span><span class="mono">58</span></div>
+<div class="col" style="gap: 2px"><span class="eb">N</span><span class="mono">1 284</span></div>
+<div class="col" style="gap: 2px"><span class="eb">idf</span><span class="mono">3.10</span></div>
+<div class="col" style="gap: 2px"><span class="eb">od</span><span class="mono">09.2026</span></div>
+<div class="col" style="gap: 2px"><span class="eb">ostatnio</span><span class="mono">21.11 02:31</span></div>
+</div>
+<div class="col" style="gap: 6px">
+<span class="eb">Pojawienia / tydzień</span>
+<svg viewBox="0 0 360 56" style="width: 100%; height: auto; display: block" role="img" aria-label="Pojawienia wartości w ostatnich 12 tygodniach: od 1 do 14 tygodniowo, wyraźny wzrost w listopadzie">
+<polyline fill="none" stroke="#B794FF" stroke-width="2" points="0,52 32,50 65,50 98,48 131,46 164,44 196,46 229,40 262,30 295,22 327,14 360,4"></polyline>
+<line x1="0" y1="54" x2="360" y2="54" stroke="#2B3F32"></line>
+</svg>
+</div>
+<div class="col" style="gap: 8px">
+<span class="eb">Kampanie z tą wartością</span>
+<div style="display: grid; grid-template-columns: 76px minmax(0, 1fr) 30px; gap: 10px; align-items: center"><a class="id" href="S05-Campaign.dc.html">KMP-017</a><span class="bar"><i class="t-kit" style="width: 79%"></i></span><span class="mono xs muted">46</span></div>
+<div style="display: grid; grid-template-columns: 76px minmax(0, 1fr) 30px; gap: 10px; align-items: center"><a class="id" href="S05-Campaign.dc.html">KMP-034</a><span class="bar"><i class="t-kit" style="width: 21%"></i></span><span class="mono xs muted">12</span></div>
+<p class="sm" style="color: #B794FF">Wartość w 2 kampaniach o różnych narracjach → sygnał wspólnego operatora OP-03 «Kestrel» (L3).</p>
+</div>
+<div class="col" style="gap: 4px">
+<span class="eb">Incydenty (5 z 58)</span>
+<table class="tbl">
+<tbody>
+<tr><td><a class="id" href="S04-Incident.dc.html">INC-24817</a></td><td class="mono sm">morvanta.click</td><td class="mono xs dim">KMP-017</td></tr>
+<tr><td><a class="id" href="S04-Incident.dc.html">INC-24790</a></td><td class="mono sm">orvinta.click</td><td class="mono xs dim">KMP-017</td></tr>
+<tr><td><a class="id" href="S04-Incident.dc.html">INC-24702</a></td><td class="mono sm">dunvarra.click</td><td class="mono xs dim">KMP-017</td></tr>
+<tr><td><a class="id" href="S04-Incident.dc.html">INC-24311</a></td><td class="mono sm">glikonor-pl.shop</td><td class="mono xs dim">KMP-034</td></tr>
+<tr><td><a class="id" href="S04-Incident.dc.html">INC-24188</a></td><td class="mono sm">kelvaro.live</td><td class="mono xs dim">KMP-034</td></tr>
+</tbody>
+</table>
+</div>
+<div class="row" style="gap: 8px">
+<a class="btn btn-sm" href="S06-Graph.dc.html">Pivot w grafie</a>
+<a class="btn btn-sm" href="S07-Investigation.dc.html">Śledź z agentem</a>
+<a class="btn btn-sm" href="S10-Act.dc.html">Dodaj do reguły</a>
+</div>
+</div>
+</aside>
+
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="ctr-h">
+<div class="ph"><h2 class="h3" id="ctr-h">Kontrakt danych</h2><span class="api">GET incidents/{id}/matches</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted">Chip = jeden element <span class="mono">evidence[]</span> z <span class="mono">GET /api/v1/incidents/{id}/matches</span> (dla każdego kandydata). Szuflada dociąga <span class="mono">GET /api/v1/evidence/values/{type}/{value}</span>.</p>
+<pre class="code"><span class="cc">// incidents/{id}/matches → matches[].evidence[]</span>
+{
+  <span class="ck">"type"</span>: <span class="cs">"kit"</span>,            <span class="cc">// tracking|kit|infra|content|persons|visual|ad|media</span>
+  <span class="ck">"field"</span>: <span class="cs">"tracking.kit_endpoints"</span>,
+  <span class="ck">"value"</span>: <span class="cs">"/api/v2/relay/lead/{uuid}/"</span>,
+  <span class="ck">"display"</span>: <span class="cs">"relay/lead"</span>,   <span class="cc">// skrót do UI</span>
+  <span class="ck">"strength"</span>: <span class="cs">"H"</span>,          <span class="cc">// H|M|L (log m/u)</span>
+  <span class="ck">"weight"</span>: <span class="cg">2.7</span>,           <span class="cc">// siła × rzadkość lub SHAP</span>
+  <span class="ck">"shap"</span>: <span class="cg">2.7</span>,
+  <span class="ck">"df"</span>: <span class="cg">58</span>, <span class="ck">"N"</span>: <span class="cg">1284</span>, <span class="ck">"idf"</span>: <span class="cg">3.10</span>,
+  <span class="ck">"state"</span>: <span class="cs">"match"</span>,        <span class="cc">// match|conflict|missing|zero</span>
+  <span class="ck">"sides"</span>: { <span class="ck">"a"</span>: <span class="cs">"INC-24817"</span>, <span class="ck">"b"</span>: <span class="cs">"KMP-017"</span> }
+}
+
+<span class="cc">// evidence/values/{type}/{value}</span>
+{ <span class="ck">"df"</span>: <span class="cg">58</span>, <span class="ck">"N"</span>: <span class="cg">1284</span>, <span class="ck">"idf"</span>: <span class="cg">3.10</span>,
+  <span class="ck">"first_seen"</span>: <span class="cs">"2026-09-…"</span>, <span class="ck">"last_seen"</span>: <span class="cs">"2026-11-21T02:31Z"</span>,
+  <span class="ck">"weekly"</span>: [<span class="cg">1</span>, <span class="cg">2</span>, …, <span class="cg">14</span>],
+  <span class="ck">"campaigns"</span>: [{ <span class="ck">"id"</span>: <span class="cs">"KMP-017"</span>, <span class="ck">"n"</span>: <span class="cg">46</span> }, { <span class="ck">"id"</span>: <span class="cs">"KMP-034"</span>, <span class="ck">"n"</span>: <span class="cg">12</span> }],
+  <span class="ck">"operator_hint"</span>: <span class="cs">"OP-03"</span>,
+  <span class="ck">"incidents"</span>: { <span class="ck">"items"</span>: [ … ], <span class="ck">"next"</span>: <span class="cs">"cursor"</span> } }</pre>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="rul-h">
+<div class="ph"><h2 class="h3" id="rul-h">Zasady</h2></div>
+<div class="pb">
+<ul class="rules">
+<li><b class="g">Tak:</b> zawsze etykieta typu tekstem; kolor tylko ją wzmacnia.</li>
+<li><b class="g">Tak:</b> sortuj po |wadze| malejąco, pokaż do 6 chipów, reszta jako „+3 więcej”.</li>
+<li><b class="g">Tak:</b> skracaj wartość tylko w UI; w tooltipie, szufladzie i eksportach pełna wartość.</li>
+<li><b class="rd">Nie:</b> nie pokazuj wartości powszechnych (CDN, jquery, gstatic) jako dowodu; stan <span class="mono">zero</span> tylko w rozwiniętym „dlaczego”.</li>
+<li><b class="rd">Nie:</b> nie rysuj braków jak konfliktów: <span class="mono">missing</span> ma przerywaną ramkę i nie ma wagi.</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+<p class="footnote" style="max-width: 1240px; margin: 0 auto">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1280,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

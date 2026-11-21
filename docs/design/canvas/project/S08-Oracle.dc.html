@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Oracle · wczesne ostrzeganie</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.word{display:flex;gap:3px;align-items:center}
+.lc,.lv{display:grid;place-items:center;width:22px;height:26px;border-radius:4px;font:600 13px "JetBrains Mono",ui-monospace,monospace}
+.lc{background:rgba(255,181,71,.14);color:#FFB547;border:1px solid rgba(255,181,71,.4)}
+.lv{background:rgba(59,240,126,.12);color:#3BF07E;border:1px solid rgba(59,240,126,.38)}
+.hrow{display:grid;grid-template-columns:64px minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:12.5px}
+.hours{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px}
+.hours i{display:block;height:18px;border-radius:2px;background:#B794FF}
+.rng{accent-color:#3BF07E;width:100%}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="oracle" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><b>Oracle · wczesne ostrzeganie</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section style="display: flex; flex-direction: column; gap: 8px">
+<div class="row"><span class="eb">Oracle · Certificate Transparency + nowe rejestracje</span><span class="pill g"><span class="dot live"></span>strumień CT połączony</span></div>
+<h1 class="h1">Domeny kampanii, <span class="g">zanim ruszą reklamy</span></h1>
+<p class="muted" style="max-width: 880px">Każda kampania ma „DNA domen”: gramatykę nazw, TLD, rejestratora, rytm wydawania certyfikatów i hosting. Oracle ocenia każdy nowy certyfikat ze strumienia CT względem tego DNA.</p>
+</section>
+
+<section class="kpis" aria-label="Wskaźniki Oracle">
+<div class="panel kpi"><span class="eb">Domeny oflagowane · 24 h</span><span class="num">17</span><span class="delta dim">przy progu 0.60</span></div>
+<div class="panel kpi"><span class="eb">Potwierdzone reklamą</span><span class="num">11</span><span class="delta g">precision@20 0.85</span></div>
+<div class="panel kpi"><span class="eb">Mediana wyprzedzenia</span><span class="num">31 h</span><span class="delta g">przed pierwszą reklamą</span></div>
+<div class="panel kpi"><span class="eb">Certyfikaty CT / h</span><span class="num">412<span class="dim" style="font-size: 18px"> tys.</span></span><span class="delta dim">po filtrze: 2,1 tys. .click/.live/.top</span></div>
+<div class="panel kpi"><span class="eb">Fałszywe alarmy · 24 h</span><span class="num">2</span><span class="delta am">1 odrzucony przez analityka</span></div>
+</section>
+<div class="row"><span class="api">GET /oracle/metrics?window=24h</span></div>
+
+<nav class="tabs" aria-label="Kampania">
+<a class="tab on" href="S08-Oracle.dc.html">KMP-017 <span class="n">19 domen</span></a>
+<a class="tab" href="S08-Oracle.dc.html">KMP-034 <span class="n">6</span></a>
+<a class="tab" href="S08-Oracle.dc.html">KMP-022 <span class="n">9</span></a>
+<a class="tab" href="S08-Oracle.dc.html">KMP-031 <span class="n">14</span></a>
+<a class="tab" href="S08-Oracle.dc.html">Wszystkie kampanie</a>
+</nav>
+
+<div class="split">
+<div class="a">
+
+<section class="panel hot" aria-labelledby="ct-h">
+<div class="ph"><h2 class="h3" id="ct-h">Strumień CT na żywo</h2><span class="dim sm">nowe certyfikaty dopasowane do DNA kampanii</span><span class="api">SSE /oracle/stream · oracle.match</span><span class="api">GET /oracle/predictions</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Czas</th><th scope="col">Domena</th><th scope="col">Wystawca</th><th scope="col">Wynik DNA</th><th scope="col">Kampania</th><th scope="col">Status</th><th scope="col"><span style="position: absolute; left: -9999px">Akcje</span></th></tr></thead>
+<tbody>
+<tr class="sel"><td class="when">08:49:51</td><td class="mono">tranvello.click</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i style="width: 71%"></i></span><span class="mono sm">0.71</span></div></td><td><a class="id" href="S05-Campaign.dc.html">KMP-017</a></td><td><span class="pill cy">przewidziana</span></td><td><div class="row" style="gap: 6px; flex-wrap: nowrap"><a class="btn btn-sm" href="S03-Triage.dc.html">Do triage</a><a class="btn btn-sm btn-gh" href="S07-Investigation.dc.html">Śledź</a></div></td></tr>
+<tr><td class="when">08:47:12</td><td class="mono">brustia.click</td><td class="mono xs muted">LE R10</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i class="mut" style="width: 42%"></i></span><span class="mono sm dim">0.42</span></div></td><td class="dim">—</td><td><span class="pill">poniżej progu</span></td><td><div class="row" style="gap: 6px; flex-wrap: nowrap"><a class="btn btn-sm" href="S03-Triage.dc.html">Do triage</a><a class="btn btn-sm btn-gh" href="S07-Investigation.dc.html">Śledź</a></div></td></tr>
+<tr><td class="when">08:41:03</td><td class="mono">kelvaro.live</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i style="width: 64%"></i></span><span class="mono sm">0.64</span></div></td><td><span class="id">KMP-034</span></td><td><span class="pill cy">przewidziana</span></td><td><div class="row" style="gap: 6px; flex-wrap: nowrap"><a class="btn btn-sm" href="S03-Triage.dc.html">Do triage</a><a class="btn btn-sm btn-gh" href="S07-Investigation.dc.html">Śledź</a></div></td></tr>
+<tr><td class="when">07:55:20</td><td class="mono">morvex-logistics.com</td><td class="mono xs muted">Sectigo</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i class="mut" style="width: 31%"></i></span><span class="mono sm dim">0.31</span></div></td><td class="dim">—</td><td><span class="pill">poniżej progu</span></td><td><div class="row" style="gap: 6px; flex-wrap: nowrap"><a class="btn btn-sm" href="S03-Triage.dc.html">Do triage</a><a class="btn btn-sm btn-gh" href="S07-Investigation.dc.html">Śledź</a></div></td></tr>
+<tr><td class="when">06:12:44</td><td class="mono">velmora.live</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i class="rd" style="width: 81%"></i></span><span class="mono sm">0.81</span></div></td><td><span class="id">KMP-017</span></td><td><span class="pill rd">odrzucona</span></td><td><span class="dim xs">AN: legalne studio, fałszywy alarm</span></td></tr>
+<tr><td class="when">02:31:40</td><td class="mono">morvanta.click</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i style="width: 91%"></i></span><span class="mono sm">0.91</span></div></td><td><a class="id" href="S05-Campaign.dc.html">KMP-017</a></td><td><span class="pill g">potwierdzona</span></td><td><a class="mono xs" href="S04-Incident.dc.html">INC-24817</a></td></tr>
+<tr><td class="when">01:12:07</td><td class="mono">orvinta.click</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i style="width: 93%"></i></span><span class="mono sm">0.93</span></div></td><td><a class="id" href="S05-Campaign.dc.html">KMP-017</a></td><td><span class="pill g">potwierdzona</span></td><td><a class="mono xs" href="S04-Incident.dc.html">INC-24790</a></td></tr>
+<tr><td class="when">00:47:33</td><td class="mono">plessuro.live</td><td class="mono xs muted">LE R11</td><td><div class="row" style="gap: 8px; flex-wrap: nowrap"><span class="bar" style="width: 64px"><i style="width: 88%"></i></span><span class="mono sm">0.88</span></div></td><td><a class="id" href="S05-Campaign.dc.html">KMP-017</a></td><td><span class="pill cy">przewidziana</span></td><td><span class="dim xs">brak reklam · 8 h</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="row between" style="padding: 10px 16px; border-top: 1px solid #1D2B22"><span class="dim xs">morvanta.click i orvinta.click oflagowane już przy rejestracji (19.11 i 20.11); dzisiejsze certyfikaty to ich wznowienia</span><span class="api">POST /triage {source: oracle, prediction_id}</span></div>
+</section>
+
+<section class="panel" aria-labelledby="lt-h">
+<div class="ph"><h2 class="h3" id="lt-h">Przewidziane vs potwierdzone</h2><span class="dim sm">ile godzin przed pierwszą reklamą Oracle oflagowała domenę</span><span class="api">GET /oracle/predictions?status=confirmed</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<svg viewBox="0 0 760 260" style="width: 100%; height: auto; display: block" role="img" aria-label="Wyprzedzenie: ambrelio.live 44 h, morvanta.click 40 h, quorvex.click 31 h, dunvarra.click 28 h, orvinta.click 20 h, selqueno.live 12 h; plessuro.live czeka 8 h bez reklamy; mediana 31 h">
+<g stroke="#1D2B22"><line x1="150" y1="24" x2="150" y2="222"></line><line x1="292.5" y1="24" x2="292.5" y2="222"></line><line x1="435" y1="24" x2="435" y2="222"></line><line x1="577.5" y1="24" x2="577.5" y2="222"></line><line x1="720" y1="24" x2="720" y2="222" stroke="#2B3F32"></line></g>
+<line x1="352" y1="24" x2="352" y2="222" stroke="#FFB547" stroke-dasharray="4 4"></line>
+<text x="358" y="20" font-family="JetBrains Mono, monospace" font-size="10" fill="#FFB547">mediana 31 h</text>
+<g font-family="JetBrains Mono, monospace" font-size="11" fill="#A9BDB0" text-anchor="end">
+<text x="138" y="44">ambrelio.live</text><text x="138" y="72">morvanta.click</text><text x="138" y="100">quorvex.click</text><text x="138" y="128">dunvarra.click</text><text x="138" y="156">orvinta.click</text><text x="138" y="184">selqueno.live</text><text x="138" y="212">plessuro.live</text>
+</g>
+<g stroke-width="2" stroke-linecap="round">
+<line x1="197.5" y1="40" x2="720" y2="40" stroke="#2B3F32"></line>
+<line x1="245" y1="68" x2="720" y2="68" stroke="#2B3F32"></line>
+<line x1="352" y1="96" x2="720" y2="96" stroke="#2B3F32"></line>
+<line x1="387.5" y1="124" x2="720" y2="124" stroke="#2B3F32"></line>
+<line x1="482.5" y1="152" x2="720" y2="152" stroke="#2B3F32"></line>
+<line x1="577.5" y1="180" x2="720" y2="180" stroke="#2B3F32"></line>
+<line x1="625" y1="208" x2="712" y2="208" stroke="#5CC8FF" stroke-dasharray="3 4"></line>
+</g>
+<g fill="#5CC8FF"><circle cx="197.5" cy="40" r="5"></circle><circle cx="245" cy="68" r="5"></circle><circle cx="352" cy="96" r="5"></circle><circle cx="387.5" cy="124" r="5"></circle><circle cx="482.5" cy="152" r="5"></circle><circle cx="577.5" cy="180" r="5"></circle><circle cx="625" cy="208" r="5"></circle></g>
+<g fill="#3BF07E"><circle cx="720" cy="40" r="5"></circle><circle cx="720" cy="68" r="5"></circle><circle cx="720" cy="96" r="5"></circle><circle cx="720" cy="124" r="5"></circle><circle cx="720" cy="152" r="5"></circle><circle cx="720" cy="180" r="5"></circle></g>
+<circle cx="720" cy="208" r="5" fill="none" stroke="#83998B" stroke-dasharray="2 2"></circle>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#DDEBE2"><text x="205" y="34">44 h</text><text x="253" y="62">40 h</text><text x="360" y="90">31 h</text><text x="395" y="118">28 h</text><text x="490" y="146">20 h</text><text x="585" y="174">12 h</text><text x="633" y="202" fill="#5CC8FF">czeka · 8 h</text></g>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#83998B" text-anchor="middle"><text x="150" y="244">48 h przed</text><text x="292.5" y="244">36 h</text><text x="435" y="244">24 h</text><text x="577.5" y="244">12 h</text><text x="720" y="244">reklama</text></g>
+</svg>
+<div class="row" style="gap: 16px">
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #5CC8FF; border-radius: 50%"></span>flaga Oracle</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #3BF07E; border-radius: 50%"></span>pierwsza reklama (Hunter / wtyczka)</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: transparent; box-shadow: inset 0 0 0 1px #83998B; border-radius: 50%"></span>jeszcze bez reklamy</span>
+</div>
+</div>
+</section>
+
+</div>
+<div class="b">
+
+<section class="panel" aria-labelledby="dna-h">
+<div class="ph"><h2 class="h3" id="dna-h">DNA domen · KMP-017</h2><span class="api">GET /oracle/dna?campaign=KMP-017</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 18px">
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="row between"><span class="eb">Gramatyka nazwy</span><span class="mono sm am">CVCCVCV(C)</span></div>
+<div class="word" aria-label="morvanta: spółgłoski i samogłoski"><span class="lc">m</span><span class="lv">o</span><span class="lc">r</span><span class="lc">v</span><span class="lv">a</span><span class="lc">n</span><span class="lc">t</span><span class="lv">a</span><span class="mono xs dim" style="margin-left: 8px">.click</span></div>
+<div class="word" aria-label="orvinta: spółgłoski i samogłoski"><span class="lv">o</span><span class="lc">r</span><span class="lc">v</span><span class="lv">i</span><span class="lc">n</span><span class="lc">t</span><span class="lv">a</span><span class="mono xs dim" style="margin-left: 8px">.click</span></div>
+<div class="word" aria-label="velmoria: spółgłoski i samogłoski"><span class="lc">v</span><span class="lv">e</span><span class="lc">l</span><span class="lc">m</span><span class="lv">o</span><span class="lc">r</span><span class="lv">i</span><span class="lv">a</span><span class="mono xs dim" style="margin-left: 8px">.click</span></div>
+<p class="dim xs">Pseudosłowa bez sensu słownikowego, klastry „rv”, „nt”, „lm”, końcówka -a. Słownikowość 0.04.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">TLD</span>
+<div class="hrow"><span class="mono">.click</span><span class="bar lg"><i style="width: 63%"></i></span><span class="mono xs muted">12</span></div>
+<div class="hrow"><span class="mono">.live</span><span class="bar lg"><i style="width: 37%"></i></span><span class="mono xs muted">7</span></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Długość nazwy</span>
+<div class="hrow"><span class="mono">7 liter</span><span class="bar lg"><i class="cy" style="width: 32%"></i></span><span class="mono xs muted">6</span></div>
+<div class="hrow"><span class="mono">8 liter</span><span class="bar lg"><i class="cy" style="width: 42%"></i></span><span class="mono xs muted">8</span></div>
+<div class="hrow"><span class="mono">9 liter</span><span class="bar lg"><i class="cy" style="width: 26%"></i></span><span class="mono xs muted">5</span></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="row between"><span class="eb">Godzina wydania certyfikatu (UTC)</span><span class="mono xs muted">LE R10 / R11</span></div>
+<div class="hours" role="img" aria-label="Certyfikaty wydawane głównie między 00:00 a 03:00 UTC">
+<i style="opacity: .9"></i><i style="opacity: 1"></i><i style="opacity: .85"></i><i style="opacity: .35"></i><i style="opacity: .12"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .12"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .08"></i><i style="opacity: .12"></i><i style="opacity: .08"></i><i style="opacity: .2"></i><i style="opacity: .45"></i>
+</div>
+<div class="row between mono xs dim"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+</div>
+
+<dl class="kv">
+<dt>Rejestrator</dt><dd>R-114 (anonimizowany) · 17/19</dd>
+<dt>Hosting</dt><dd>AS64500 za Cloudflare · 12/19</dd>
+<dt>NS</dt><dd>Cloudflare · 19/19 <span class="dim">(waga 0)</span></dd>
+<dt>Model</dt><dd>M3 · char n-gram LR · AUC 0.97 (walidacja)</dd>
+</dl>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="thr-h">
+<div class="ph"><h2 class="h3" id="thr-h">Próg alertu</h2><span class="api">PATCH /oracle/dna/KMP-017 {threshold}</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<label class="fld"><span class="row between"><span class="lbl">Minimalny wynik DNA dla alertu</span><span class="mono sm g">0.60</span></span><input class="rng" type="range" min="0.3" max="0.95" step="0.05" value="0.6"></label>
+<table class="tbl">
+<thead><tr><th scope="col">Próg</th><th scope="col" class="r">Alerty / dobę</th><th scope="col" class="r">precision@20</th><th scope="col" class="r">Wyprzedzenie</th></tr></thead>
+<tbody>
+<tr><td class="mono">0.50</td><td class="r mono">29</td><td class="r mono">0.71</td><td class="r mono">36 h</td></tr>
+<tr class="sel"><td class="mono">0.60</td><td class="r mono">17</td><td class="r mono">0.85</td><td class="r mono">31 h</td></tr>
+<tr><td class="mono">0.70</td><td class="r mono">9</td><td class="r mono">0.93</td><td class="r mono">22 h</td></tr>
+</tbody>
+</table>
+<p class="dim xs">Niższy próg daje więcej wczesnych trafień i więcej fałszywych alarmów w Triage. Przykładowe wartości, podmienić z eval/.</p>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

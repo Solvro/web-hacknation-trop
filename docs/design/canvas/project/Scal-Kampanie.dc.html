@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: scal kampanie</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.lnk{display:inline-flex;align-items:center;min-height:40px;font-size:14px;color:#525252;text-decoration:underline;text-decoration-color:#D4D4D4;text-underline-offset:4px}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06)}
+.sh{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.cc{display:flex;flex-direction:column;gap:12px;padding:20px;cursor:pointer}
+.cc b.n{font-size:19px;font-weight:600;letter-spacing:-.02em}
+.cc span.d{font-size:13.5px;color:#6B6B6B}
+.cc .st{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:#404040}
+.cc .st b{font:600 14px 'Geist Mono',ui-monospace,monospace;color:#0A0A0A}
+.keep{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#404040}
+.keep input{width:16px;height:16px;margin:0;accent-color:#0A0A0A}
+.fmt{align-self:flex-start;display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:#F5F5F5;font-size:12.5px;color:#404040}
+.fc{display:flex;align-items:center;gap:12px;height:64px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw{flex:none;font:600 14px/1 'Geist Mono',ui-monospace,monospace}
+.ba{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:11px 0;border-bottom:1px solid #F0F0F0;font-size:14px}
+.ba:last-child{border-bottom:0}
+.ba b{font:600 15px 'Geist Mono',ui-monospace,monospace}
+.ba b s{color:#A3A3A3;font-weight:500;text-decoration:none}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1250px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 24px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+    <nav aria-label="Ślad" style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #6B6B6B"><a href="Kampanie.dc.html" style="color: #6B6B6B">Kampanie</a><span aria-hidden="true" style="color: #D4D4D4">/</span><span style="color: #0A0A0A; font-weight: 500">Scal kampanie</span></nav>
+
+    <section aria-labelledby="mg-h" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="mg-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Scal dwie kampanie w jedną</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Boty uważają, że to jedna kampania: te same ślady techniczne i te same domeny. Różni je tylko format reklam.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">KMP-017 «Zamach» + KMP-043 «Kurier wideo» · ten sam operator OP-03</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+        <a class="pri" href="Kampania-KMP017.dc.html">Scal kampanie<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a class="lnk" href="Kampanie.dc.html">albo zostaw osobno</a>
+      </div>
+    </section>
+
+    <div role="radiogroup" aria-label="Którą nazwę zostawić" style="display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr); align-items: center">
+      <label class="card cc" style="border-color: #0A0A0A; box-shadow: 0 0 0 1px #0A0A0A, 0 16px 40px rgba(0,0,0,.06)">
+        <span class="keep"><input type="radio" name="mg-keep" checked>Zostaw tę nazwę</span>
+        <span style="display: flex; flex-direction: column; gap: 2px"><b class="n">KMP-017 «Zamach»</b><span class="d">Fałszywe newsy, które prowadzą do „inwestycji”</span></span>
+        <span class="st"><span><b>46</b> materiałów</span><span><b>19</b> domen</span><span>od 8.11</span></span>
+        <span class="fmt">tekst i zdjęcia</span>
+      </label>
+      <span aria-hidden="true" style="justify-self: center; width: 32px; height: 32px; border-radius: 999px; background: #F5F5F5; display: grid; place-items: center; font: 600 18px Geist, sans-serif; color: #525252">+</span>
+      <label class="card cc">
+        <span class="keep"><input type="radio" name="mg-keep">Zostaw tę nazwę</span>
+        <span style="display: flex; flex-direction: column; gap: 2px"><b class="n">KMP-043 «Kurier wideo»</b><span class="d">Nagrania deepfake z «Kurier Dnia»</span></span>
+        <span class="st"><span><b>5</b> materiałów</span><span><b>6</b> domen</span><span>od wczoraj</span></span>
+        <span class="fmt">wideo z deepfake</span>
+      </label>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+
+      <section aria-labelledby="mg-why" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="mg-why" class="sh">Co je łączy</h2>
+        <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ta sama bramka CAPI cg-7f3a…</span><span class="fm">Tropiciel · tracking</span></span><b class="fw">5 z 5</b></div>
+        <div class="fc"><span data-jelly="auto" data-color="#F97316" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ten sam kit: /api/v2/relay/lead/{uuid}/</span><span class="fm">Tropiciel · kit</span></span><b class="fw">5 z 5</b></div>
+        <div class="fc"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">4 wspólne domeny z tej samej nocnej partii certyfikatów</span><span class="fm">Notariusz · infra</span></span><b class="fw">4 z 6</b></div>
+        <div class="fc"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ta sama osoba i portal: Jan Kowalski, «Kurier Dnia»</span><span class="fm">Czytelnik · osoby</span></span><b class="fw">5 z 5</b></div>
+        <div class="fc" style="background: #FAFAFA; border-style: dashed; box-shadow: none"><span data-jelly="auto" data-color="#14B8A6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl" style="color: #525252">Inny format: wideo z deepfake zamiast tekstu</span><span class="fm">Czytelnik · treść · jedyna różnica</span></span></div>
+      </section>
+
+      <aside style="flex: 1 1 360px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section class="card" aria-labelledby="mg-after" style="padding: 18px 20px 8px">
+          <h2 id="mg-after" class="sh" style="padding-bottom: 4px">Po scaleniu</h2>
+          <div class="ba"><span>materiały</span><b><s>46 + 5 →</s> 51</b></div>
+          <div class="ba"><span>domeny, bez powtórzeń</span><b><s>19 + 6 →</s> 21</b></div>
+          <div class="ba"><span>reklamodawcy</span><b><s>11 + 2 →</s> 12</b></div>
+          <div class="ba"><span>osoby</span><b>bez zmian</b></div>
+        </section>
+        <section aria-label="Zgłoszenia po scaleniu" style="padding: 16px 18px; border-radius: 22px; background: #F6F6F6; display: flex; flex-direction: column; gap: 4px">
+          <b style="font-size: 15px; font-weight: 600">5 nagrań trafi do uzupełnienia zgłoszenia</b>
+          <span style="font-size: 13.5px; line-height: 1.45; color: #525252">Dzisiejsze zgłoszenie KMP-017 obejmie też reklamy z KMP-043.</span>
+        </section>
+        <p style="margin: 0; padding: 0 6px; font-size: 13px; line-height: 1.5; color: #6B6B6B">Scalenie można cofnąć. Historia obu kampanii zostaje zapisana.</p>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1250}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

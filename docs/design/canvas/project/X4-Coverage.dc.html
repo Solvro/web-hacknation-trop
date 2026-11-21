@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Pewność i pokrycie danych — specyfikacja</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.cn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid rgba(92,200,255,.55);color:#5CC8FF;font:600 11px "JetBrains Mono",ui-monospace,monospace;flex:none}
+.lrow{display:grid;grid-template-columns:110px 112px minmax(0,1fr);gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #1D2B22;font-size:13px}
+.lrow:last-child{border-bottom:0}
+.rule{border:1px solid rgba(92,200,255,.45);border-radius:10px;background:rgba(92,200,255,.06);padding:20px;display:flex;flex-direction:column;gap:8px}
+.st{display:flex;flex-direction:column;gap:10px;padding:16px;border:1px solid #1D2B22;border-radius:8px;background:#0F1812;min-width:0}
+.rules{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="page" style="max-width: 1240px; margin: 0 auto">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px">
+<span class="eb">Komponent wyjaśnialności · X4</span>
+<h1 class="h1">Pewność i pokrycie danych</h1>
+<p class="muted" style="max-width: 900px; line-height: 1.6">Analityk pyta: <b style="color: #DDEBE2">„ile system naprawdę widział, zanim to ocenił?”</b> Niepełne dane to norma: zrzut bez HAR, landing z błędem 502, usunięte wideo, timeout RDAP. Wskaźnik pokazuje, które z 8 warstw były dostępne. Wynik zawsze stoi obok pokrycia, więc „0.71 przy pokryciu 0.52” czyta się inaczej niż „0.71 przy 0.95”.</p>
+</header>
+
+<section class="panel" aria-labelledby="an-h">
+<div class="ph"><h2 class="h3" id="an-h">Anatomia · wskaźnik kompaktowy</h2><span class="dim sm">INC-24817</span><span class="api">GET incidents/{id}</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 360px; min-width: 0">
+<div class="row" style="gap: 14px">
+<div class="cov" style="width: 240px" role="img" aria-label="Pokrycie: tracking, kit, treść, osoby, obraz i reklama dostępne; infra częściowo; media brak"><i class="t-tracking" style="height: 14px"></i><i class="t-kit" style="height: 14px"></i><i class="t-infra part" style="height: 14px"></i><i class="t-content" style="height: 14px"></i><i class="t-persons" style="height: 14px"></i><i class="t-visual" style="height: 14px"></i><i class="t-ad" style="height: 14px"></i><i class="miss" style="height: 14px"></i></div>
+<span class="mono" style="font-size: 15px">pokrycie <b class="g">0.78</b></span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); width: 240px; gap: 3px; font: 9.5px/1.2 'JetBrains Mono', monospace; color: #83998B; text-align: center"><span>TR</span><span>KIT</span><span>INF</span><span>TR</span><span>OS</span><span>OBR</span><span>REK</span><span>MED</span></div>
+<div class="row" style="gap: 16px; margin-top: 6px">
+<span class="row xs muted" style="gap: 6px"><span class="cov" style="width: 18px"><i class="t-kit"></i></span>dostępne</span>
+<span class="row xs muted" style="gap: 6px"><span class="cov" style="width: 18px"><i class="t-infra part"></i></span>częściowe</span>
+<span class="row xs muted" style="gap: 6px"><span class="cov" style="width: 18px"><i class="miss"></i></span>brak</span>
+<span class="row xs muted" style="gap: 6px"><span class="cov" style="width: 18px"><i class="err"></i></span>błąd</span>
+</div>
+</div>
+<ol style="display: flex; flex-direction: column; gap: 10px; flex: 1 1 420px; min-width: 0; list-style: none; padding: 0; margin: 0">
+<li class="row" style="gap: 10px; align-items: flex-start; flex-wrap: nowrap"><span class="cn">1</span><span class="sm"><b>Segment na warstwę</b>, zawsze w tej samej kolejności: tracking, kit, infra, treść, osoby, obraz, reklama, media. Kolor warstwy jak w chipie dowodu.</span></li>
+<li class="row" style="gap: 10px; align-items: flex-start; flex-wrap: nowrap"><span class="cn">2</span><span class="sm"><b>Stan segmentu:</b> pełny, częściowy (połowa), brak (pusta ramka), błąd (kreskowanie).</span></li>
+<li class="row" style="gap: 10px; align-items: flex-start; flex-wrap: nowrap"><span class="cn">3</span><span class="sm"><b>Liczba pokrycia</b> to suma wag dostępnych warstw podzielona przez sumę wag wszystkich. Częściowa warstwa liczy się w połowie.</span></li>
+<li class="row" style="gap: 10px; align-items: flex-start; flex-wrap: nowrap"><span class="cn">4</span><span class="sm"><b>Hover:</b> rozwinięcie z powodem dla każdej warstwy (poniżej).</span></li>
+</ol>
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="ex-h">
+<div class="ph"><h2 class="h3" id="ex-h">Widok rozwinięty · warstwy i powody</h2><span class="api">GET incidents/{id} → quality, layers</span></div>
+<div class="pb">
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-tracking"></span>Tracking</span><span class="pill g">dostępne</span><span class="muted">HAR 212 żądań · bramka CAPI · pixel: nie znaleziono (to wynik, nie brak danych)</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-kit"></span>Kit</span><span class="pill g">dostępne</span><span class="muted">ścieżki API · gramatyka URL · 9 hashy zasobów</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-infra"></span>Infra</span><span class="pill am">częściowe</span><span class="muted">DNS ✓ · crt.sh ✓ · <b class="am">RDAP: timeout</b> (3 próby, ponowienie za 15 min)</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-content"></span>Treść</span><span class="pill g">dostępne</span><span class="muted">tekst landingu · OCR kreacji · szablon nagłówka</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-persons"></span>Osoby</span><span class="pill g">dostępne</span><span class="muted">twarz 0.91 · NER + gazetteer</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-visual"></span>Obraz</span><span class="pill g">dostępne</span><span class="muted">pHash landingu · embedding SigLIP</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-ad"></span>Reklama</span><span class="pill g">dostępne</span><span class="muted">Ad Library: reklamodawca, tekst, kreacja-wabik</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-media"></span>Media</span><span class="pill">brak</span><span class="muted">materiał nie zawiera wideo ani audio</span></div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="ex2-h">
+<div class="ph"><h2 class="h3" id="ex2-h">Drugi przykład · <a class="id" href="S04-Incident.dc.html">INC-24610</a></h2><span class="mono sm">pokrycie <b class="am">0.52</b></span></div>
+<div class="pb">
+<div class="cov" style="width: 240px; margin-bottom: 12px"><i class="miss" style="height: 12px"></i><i class="miss" style="height: 12px"></i><i class="t-infra" style="height: 12px"></i><i class="t-content" style="height: 12px"></i><i class="t-persons" style="height: 12px"></i><i class="err" style="height: 12px"></i><i class="t-ad" style="height: 12px"></i><i class="miss" style="height: 12px"></i></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-tracking"></span>Tracking</span><span class="pill">brak</span><span class="muted">HAR: brak (zrzut z Ad Library)</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-kit"></span>Kit</span><span class="pill">brak</span><span class="muted">brak HAR i DOM, więc brak ścieżek API</span></div>
+<div class="lrow"><span class="row" style="gap: 8px"><span class="sw t-visual"></span>Obraz</span><span class="pill rd">błąd</span><span class="muted">landing: 502 Cloudflare. Waga zrzutu wyzerowana (model M5: strona błędu)</span></div>
+</div>
+</section>
+</div>
+
+<div class="b">
+<div class="rule" role="note">
+<span class="eb cy">Zasada metody</span>
+<p style="font: 600 20px/1.35 'Space Grotesk', Inter, sans-serif">Brak danych ≠ dowód różnicy: brakująca warstwa daje 0, nie minus.</p>
+<p class="sm muted" style="line-height: 1.55">Wynik liczymy tylko z warstw obecnych po obu stronach. Dowód negatywny powstaje wyłącznie wtedy, gdy silne pole jest po obu stronach i się nie zgadza. Pokrycie mówi, ile z możliwych dowodów w ogóle mogło zadziałać.</p>
+</div>
+
+<section class="panel" aria-labelledby="st-h">
+<div class="ph"><h2 class="h3" id="st-h">Stany i akcje</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<div class="st"><div class="row between"><span class="sm"><b>Pewne i pełne</b></span><span class="mono xs">0.94 · 0.78</span></div><p class="xs muted">INC-24817 przypisano automatycznie. Akcji nie trzeba.</p></div>
+<div class="st" style="border-color: rgba(255,181,71,.45)"><div class="row between"><span class="sm"><b>Niepełne: zbierz więcej</b></span><span class="mono xs">0.71 · 0.52</span></div><p class="xs muted">INC-24610: wynik obiecujący, ale brak HAR i kitu.</p><div class="row" style="gap: 8px"><a class="btn btn-sm" href="S02-Analyze.dc.html">Przechwyć ponownie</a><a class="btn btn-sm" href="S07-Investigation.dc.html">Uruchom agenta</a></div></div>
+<div class="st" style="border-color: rgba(255,93,108,.45)"><div class="row between"><span class="sm"><b>Strona błędu</b></span><span class="mono xs">502</span></div><p class="xs muted">Zrzut i DOM wyzerowane. Ponowna próba z innego wyjścia sieciowego (proxy PL) za 30 min.</p></div>
+</div>
+</section>
+</div>
+</div>
+
+<section class="panel" aria-labelledby="q-h">
+<div class="ph"><h2 class="h3" id="q-h">Mapa: pokrycie × wynik</h2><span class="dim sm">kolejka triage i Lab używają tych stref</span><span class="api">GET triage?sort=coverage</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<svg viewBox="0 0 560 340" style="flex: 1 1 520px; min-width: 0; max-width: 680px; height: auto; display: block" role="img" aria-label="Wykres: oś pozioma pokrycie, oś pionowa wynik. INC-24817 w strefie pewne, INC-24610 w strefie pewne ale niepełne, INC-24768 w strefie do triage, INC-24822 w strefie słabe">
+<rect x="336" y="20" width="184" height="98" fill="rgba(59,240,126,.10)"></rect>
+<rect x="60" y="20" width="276" height="98" fill="rgba(255,181,71,.09)"></rect>
+<rect x="60" y="118" width="460" height="84" fill="rgba(92,200,255,.08)"></rect>
+<rect x="60" y="202" width="460" height="98" fill="rgba(131,153,139,.06)"></rect>
+<g stroke="#2B3F32" stroke-width="1"><line x1="60" y1="300" x2="520" y2="300"></line><line x1="60" y1="20" x2="60" y2="300"></line><line x1="336" y1="20" x2="336" y2="118" stroke-dasharray="4 4"></line><line x1="60" y1="118" x2="520" y2="118" stroke-dasharray="4 4"></line><line x1="60" y1="202" x2="520" y2="202" stroke-dasharray="4 4"></line></g>
+<g font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="600"><text x="510" y="38" text-anchor="end" fill="#3BF07E">pewne</text><text x="72" y="38" fill="#FFB547">pewne, ale niepełne</text><text x="72" y="136" fill="#5CC8FF">do triage (0.35–0.65)</text><text x="72" y="220" fill="#A9BDB0">słabe → kandydat nowej kampanii</text></g>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#83998B"><text x="60" y="316" text-anchor="middle">0</text><text x="336" y="316" text-anchor="middle">0.6</text><text x="520" y="316" text-anchor="middle">1</text><text x="52" y="304" text-anchor="end">0</text><text x="52" y="122" text-anchor="end">0.65</text><text x="52" y="206" text-anchor="end">0.35</text><text x="52" y="24" text-anchor="end">1</text><text x="290" y="334" text-anchor="middle">pokrycie →</text></g>
+<text x="18" y="160" font-family="JetBrains Mono, monospace" font-size="10" fill="#83998B" transform="rotate(-90 18 160)" text-anchor="middle">wynik p →</text>
+<g font-family="JetBrains Mono, monospace" font-size="11">
+<circle cx="419" cy="37" r="6" fill="#3BF07E"></circle><text x="410" y="60" fill="#DDEBE2" text-anchor="end">INC-24817</text>
+<circle cx="299" cy="101" r="6" fill="#FFB547"></circle><text x="290" y="88" fill="#DDEBE2" text-anchor="end">INC-24610</text>
+<circle cx="364" cy="138" r="6" fill="#5CC8FF"></circle><text x="376" y="160" fill="#DDEBE2">INC-24768</text>
+<circle cx="433" cy="238" r="6" fill="#A9BDB0"></circle><text x="424" y="262" fill="#DDEBE2" text-anchor="end">INC-24822</text>
+</g>
+</svg>
+<div class="col" style="gap: 10px; flex: 1 1 280px; min-width: 0">
+<p class="sm"><span class="mono g">INC-24817</span> 0.94 · 0.78: przypisany.</p>
+<p class="sm"><span class="mono am">INC-24610</span> 0.71 · 0.52: dobry trop, za mało danych. Zbierz więcej.</p>
+<p class="sm"><span class="mono cy">INC-24768</span> 0.58 · 0.66: niepewny, idzie do triage z adjudikatorem LLM.</p>
+<p class="sm"><span class="mono muted">INC-24822</span> 0.22 · 0.81: dużo danych i nic nie pasuje. Silny kandydat nowej kampanii (X5).</p>
+</div>
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="ctr-h">
+<div class="ph"><h2 class="h3" id="ctr-h">Kontrakt danych</h2><span class="api">GET incidents/{id}</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted">Pola <span class="mono">quality</span> ze schematu Incident (§4) plus wyliczone <span class="mono">coverage</span> i <span class="mono">layers</span> z <span class="mono">GET /api/v1/incidents/{id}</span>. Akcje: <span class="mono">POST /api/v1/analyze</span> (ponowny capture) i <span class="mono">POST /api/v1/investigations</span>.</p>
+<pre class="code">{
+  <span class="ck">"quality"</span>: {
+    <span class="ck">"available"</span>: [<span class="cs">"har"</span>, <span class="cs">"dom"</span>, <span class="cs">"screenshot"</span>, <span class="cs">"adlibrary"</span>, <span class="cs">"ocr"</span>, <span class="cs">"faces"</span>, <span class="cs">"dns"</span>, <span class="cs">"crtsh"</span>],
+    <span class="ck">"missing"</span>:   [<span class="cs">"video"</span>, <span class="cs">"audio"</span>],
+    <span class="ck">"errors"</span>:    [{ <span class="ck">"source"</span>: <span class="cs">"rdap"</span>, <span class="ck">"error"</span>: <span class="cs">"timeout"</span>, <span class="ck">"attempts"</span>: <span class="cg">3</span>, <span class="ck">"retry_at"</span>: <span class="cs">"…"</span> }]
+  },
+  <span class="ck">"coverage"</span>: <span class="cg">0.78</span>,
+  <span class="ck">"layers"</span>: [
+    { <span class="ck">"layer"</span>: <span class="cs">"tracking"</span>, <span class="ck">"state"</span>: <span class="cs">"available"</span>, <span class="ck">"weight"</span>: <span class="cg">0.18</span>, <span class="ck">"reason"</span>: <span class="cg">null</span> },
+    { <span class="ck">"layer"</span>: <span class="cs">"infra"</span>, <span class="ck">"state"</span>: <span class="cs">"partial"</span>, <span class="ck">"weight"</span>: <span class="cg">0.16</span>, <span class="ck">"reason"</span>: <span class="cs">"RDAP: timeout"</span> },
+    { <span class="ck">"layer"</span>: <span class="cs">"media"</span>, <span class="ck">"state"</span>: <span class="cs">"missing"</span>, <span class="ck">"weight"</span>: <span class="cg">0.06</span>, <span class="ck">"reason"</span>: <span class="cs">"brak wideo/audio"</span> }
+  ]  <span class="cc">// state: available|partial|missing|error</span>
+}</pre>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="beh-h">
+<div class="ph"><h2 class="h3" id="beh-h">Zachowanie i miejsca</h2></div>
+<div class="pb">
+<ul class="rules">
+<li>Kompaktowy wskaźnik: S02 werdykt, S04 nagłówek incydentu, S05 kolumna „Pokrycie”, S03 lista triage, X2 metryki.</li>
+<li>Hover lub fokus (Tab) rozwija listę warstw z powodami. Klik w warstwę przewija S04 do tej sekcji cech.</li>
+<li>Pokrycie poniżej 0.6 przy wyniku ≥ 0.65 dodaje akcje „Przechwyć ponownie” i „Uruchom agenta”.</li>
+</ul>
+</div>
+</section>
+<section class="panel" aria-labelledby="rul-h">
+<div class="ph"><h2 class="h3" id="rul-h">Zasady</h2></div>
+<div class="pb">
+<ul class="rules">
+<li><b class="g">Tak:</b> wynik nigdy nie stoi bez pokrycia.</li>
+<li><b class="g">Tak:</b> „nie znaleziono” (np. brak pixela w pełnym HAR) to wynik ekstrakcji, a nie brak danych. Rozróżniaj te stany.</li>
+<li><b class="rd">Nie:</b> nie koloruj braku na czerwono. Czerwień jest dla błędów i konfliktów.</li>
+<li><b class="rd">Nie:</b> nie obniżaj wyniku za brakującą warstwę.</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+<p class="footnote" style="max-width: 1240px; margin: 0 auto">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1280,"height":2150}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

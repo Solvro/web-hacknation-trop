@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Śledztwo INV-0092</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.nd{position:absolute;box-sizing:border-box;padding:8px 10px;border-radius:8px;background:#0A100C;border:1px solid #2B3F32;display:flex;flex-direction:column;gap:3px;box-shadow:0 6px 18px -10px rgba(0,0,0,.8)}
+.nd .k{font:600 9.5px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+.nd .m{font:500 12.5px/1.2 "JetBrains Mono",ui-monospace,monospace;color:#DDEBE2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nd .s{font:11px/1.25 Inter,system-ui,sans-serif;color:#A9BDB0}
+.cf{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.cf li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid #1D2B22}
+.cf li:last-child{border-bottom:0}
+.sn{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 10.5px "JetBrains Mono",monospace;border:1px solid #178A43;color:#3BF07E;background:rgba(59,240,126,.10)}
+.q{font:12px/1.5 "JetBrains Mono",ui-monospace,monospace;color:#A9BDB0;background:#050806;border:1px solid #1D2B22;border-radius:4px;padding:4px 8px;overflow-wrap:anywhere}
+.cur{display:inline-block;width:8px;height:14px;background:#3BF07E;vertical-align:-2px;animation:rp-pulse 1s steps(2) infinite}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="invest" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><a href="S07-Investigation.dc.html">Śledztwa</a><span class="sep">/</span><b>INV-0092 · velmoria.click</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section class="panel hot" aria-labelledby="inv-h">
+<div class="pb" style="display: flex; flex-direction: column; gap: 14px">
+<div class="row between" style="align-items: flex-start; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 520px; min-width: 0">
+<div class="row"><span class="eb">Śledztwo · Agent Smith</span><span class="pill rd"><span class="dot rd live"></span>live</span><span class="api">GET /investigations/INV-0092</span><span class="api">SSE /investigations/INV-0092/stream</span></div>
+<h1 class="h1" id="inv-h"><span class="id" style="font-size: 22px">INV-0092</span> · ziarno <span class="mono" style="font-size: 22px">velmoria.click</span></h1>
+<p class="muted sm">Claude (orkiestracja) + narzędzia OSINT · uruchomione z KMP-017 przez analityka AN o 08:48 · każdy wniosek ma odnośnik do wywołania narzędzia</p>
+</div>
+<div class="row" style="gap: 8px">
+<button class="btn" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"></path></svg>Pauza</button>
+<button class="btn btn-d" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"></path></svg>Stop</button>
+<span class="api">POST /investigations/{id}/stop</span>
+</div>
+</div>
+<div class="kpis" style="grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr))">
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb">Krok</span><div class="row" style="gap: 10px"><span class="num" style="font-size: 22px">14<span class="dim" style="font-size: 16px">/20</span></span><div class="bar grow"><i style="width: 70%"></i></div></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb">Czas</span><span class="num" style="font-size: 22px">01:32</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb">Budżet tokenów</span><div class="row" style="gap: 10px"><span class="mono sm">61k / 150k</span><div class="bar grow"><i class="cy" style="width: 41%"></i></div></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb">Znalezione</span><span class="num" style="font-size: 22px">14 <span class="sm muted" style="font-family: Inter, sans-serif; font-weight: 500">domen · 3 z certyfikatem dziś</span></span></div>
+</div>
+<form class="row" style="gap: 8px" aria-label="Kieruj agenta">
+<label class="fld grow" style="flex: 1 1 420px">
+<span class="lbl">Kieruj agenta</span>
+<input class="inp" placeholder="np. sprawdź ten sam kit na domenach .live">
+</label>
+<button class="btn btn-p" type="button" style="align-self: flex-end">Wyślij</button>
+<span class="api" style="align-self: flex-end">POST /investigations/{id}/steer</span>
+</form>
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+
+<section class="panel" aria-labelledby="cv-h">
+<div class="ph"><h2 class="h3" id="cv-h">Mapa śledztwa</h2><span class="dim sm">węzły dochodzą na żywo · React Flow</span><span class="api">SSE graph.node_added, graph.edge_added</span></div>
+<div class="gridbg" style="overflow: auto; border-radius: 0 0 10px 10px">
+<div style="position: relative; width: 740px; height: 560px; margin: 16px" role="group" aria-label="Mapa pivotów agenta od domeny velmoria.click">
+<svg width="740" height="560" viewBox="0 0 740 560" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke-width="1.5" stroke-linecap="round">
+<path d="M180 69L230 69" stroke="#B794FF"></path>
+<path d="M400 69C450 69 450 36 500 36" stroke="#B794FF"></path>
+<path d="M400 69C450 69 450 100 500 100" stroke="#B794FF"></path>
+<path d="M400 69C450 69 450 164 500 164" stroke="#B794FF"></path>
+<path d="M400 69C450 69 450 222 500 222" stroke="#B794FF" stroke-opacity=".6"></path>
+<path d="M105 98L105 180" stroke="#FFB547"></path>
+<path d="M190 209C210 209 210 282 230 282" stroke="#5CC8FF"></path>
+<path d="M420 282C460 282 460 352 500 352" stroke="#FF5D6C" stroke-opacity=".8"></path>
+<path d="M325 314L325 400" stroke="#C9E265"></path>
+<path d="M680 472C720 472 720 164 650 164" stroke="#5CC8FF" stroke-dasharray="5 5"></path>
+<path d="M680 472C730 472 730 100 650 100" stroke="#5CC8FF" stroke-dasharray="5 5"></path>
+<path d="M105 238L105 470" stroke="#83998B" stroke-dasharray="4 4"></path>
+</g>
+</svg>
+
+<div class="nd" style="left: 20px; top: 40px; width: 160px; height: 58px; border-color: #3BF07E; box-shadow: 0 0 0 1px rgba(59,240,126,.38), 0 0 24px -8px rgba(59,240,126,.6)"><span class="k" style="color: #3BF07E">ziarno · domena</span><span class="m">velmoria.click</span><span class="s">CERT PL · KMP-017</span></div>
+
+<div class="nd" style="left: 230px; top: 40px; width: 170px; height: 58px; border-color: rgba(183,148,255,.6)"><span class="k" style="color: #B794FF">certyfikat · partia</span><span class="m">Let's Encrypt R11</span><span class="s">krok 2 · crt.sh · 6 SAN</span></div>
+
+<div class="nd" style="left: 500px; top: 10px; width: 150px; height: 52px; border-color: rgba(59,240,126,.6)"><span class="k row" style="color: #FFB547; gap: 5px"><span class="dot am live"></span>nowe 00:47</span><span class="m">plessuro.live</span></div>
+<div class="nd" style="left: 500px; top: 74px; width: 150px; height: 52px; border-color: rgba(59,240,126,.6)"><span class="k row" style="color: #FFB547; gap: 5px"><span class="dot am live"></span>nowe 01:12</span><span class="m">orvinta.click</span></div>
+<div class="nd" style="left: 500px; top: 138px; width: 150px; height: 52px; border-color: rgba(59,240,126,.6)"><span class="k row" style="color: #FFB547; gap: 5px"><span class="dot am live"></span>nowe 02:31</span><span class="m">morvanta.click</span></div>
+<div class="nd" style="left: 500px; top: 202px; width: 150px; height: 40px; border-style: dashed"><span class="m" style="color: #A9BDB0">+3 domeny SAN</span></div>
+
+<div class="nd" style="left: 20px; top: 180px; width: 170px; height: 58px; border-color: rgba(255,181,71,.6)"><span class="k" style="color: #FFB547">ip · origin</span><span class="m">198.51.100.23</span><span class="s">AS64500 · za Cloudflare</span></div>
+
+<div class="nd" style="left: 230px; top: 250px; width: 190px; height: 64px; border-color: rgba(92,200,255,.6)"><span class="k" style="color: #5CC8FF">wynik zapytania · urlscan</span><span class="m">path:/api/v2/relay/lead/</span><span class="s">14 domen · 31 skanów</span></div>
+
+<div class="nd" style="left: 230px; top: 400px; width: 190px; height: 64px; border-color: rgba(201,226,101,.6)"><span class="k" style="color: #C9E265">reklamy · Ad Library</span><span class="m">9 aktywnych reklam</span><span class="s">4 strony reklamodawców</span></div>
+
+<div class="nd" style="left: 500px; top: 320px; width: 180px; height: 64px; border-color: rgba(255,93,108,.55)"><span class="k" style="color: #FF5D6C">status listy · CERT PL</span><span class="m">11 / 14 bez ostrzeżenia</span><span class="s">3 już na liście</span></div>
+
+<div class="nd" style="left: 500px; top: 440px; width: 180px; height: 64px; border-color: rgba(92,200,255,.6); border-style: dashed"><span class="k" style="color: #5CC8FF">oracle · predykcja</span><span class="m">2 / 3 oflagowane</span><span class="s">orvinta 20.11 · morvanta 19.11</span></div>
+
+<div class="nd scan" style="left: 20px; top: 470px; width: 190px; height: 56px; border-style: dashed; border-color: #3B5444"><span class="k" style="color: #83998B">krok 15 · w toku</span><span class="m">Wayback: velmoria.click</span></div>
+</div>
+</div>
+<div class="row" style="gap: 6px; padding: 12px 16px; border-top: 1px solid #1D2B22">
+<span class="eb" style="margin-right: 6px">Narzędzia</span>
+<span class="pill">crt.sh 3</span><span class="pill">DNS 4</span><span class="pill">RDAP 2</span><span class="pill">urlscan 3</span><span class="pill">Ad Library 2</span><span class="pill">CERT PL 1</span><span class="pill">Wayback 1</span><span class="pill g">Indeks RED PILL 4</span>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="leg-h">
+<div class="ph"><h2 class="h3" id="leg-h">Rodzaje węzłów</h2></div>
+<div class="pb row" style="gap: 16px">
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #3BF07E"></span>domena</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #B794FF"></span>certyfikat</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #FFB547"></span>IP / ASN</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #5CC8FF"></span>wynik zapytania</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #C9E265"></span>reklama</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw" style="background: #FF5D6C"></span>status listy</span>
+<span class="row xs muted" style="gap: 6px"><span class="dot am"></span>certyfikat wydany dziś w nocy</span>
+</div>
+</section>
+
+</div>
+<div class="b">
+
+<section class="panel" aria-labelledby="cf-h">
+<div class="ph"><h2 class="h3" id="cf-h">Akta sprawy</h2><span class="pill">14 kroków</span><span class="api">SSE agent.step, casefile.delta</span></div>
+<div class="pb" style="padding-top: 4px">
+<ol class="cf">
+<li><span class="sn">1</span><div class="col" style="gap: 6px"><div class="row"><span class="pill g">Indeks RED PILL</span><span class="when">08:48:02</span></div><div class="q">lookup domain=velmoria.click</div><p class="sm">Domena należy do KMP-017 (3 incydenty) i jest na liście CERT PL.</p><p class="dim xs">Dlaczego: zaczynam od tego, co już wiemy o ziarnie.</p></div></li>
+<li><span class="sn">2</span><div class="col" style="gap: 6px"><div class="row"><span class="pill">crt.sh</span><span class="when">08:48:09</span></div><div class="q">certs where SAN ∋ velmoria.click → issuer, not_before, SAN</div><p class="sm">Certyfikat LE R11 dzielony z 6 innymi domenami, wydany w partii 17 min.</p><p class="dim xs">Dlaczego: partie certyfikatów to typowy ślad operatora.</p></div></li>
+<li><span class="sn">4</span><div class="col" style="gap: 6px"><div class="row"><span class="pill">DNS</span><span class="pill">RDAP</span><span class="when">08:48:31</span></div><div class="q">A, NS velmoria.click · rdap domain</div><p class="sm">Origin 198.51.100.23 (AS64500) za Cloudflare. Rejestrator R-114, utworzona 05.11.</p><p class="dim xs">Dlaczego: IP Cloudflare ma wagę 0, szukam prawdziwego originu.</p></div></li>
+<li><span class="sn">7</span><div class="col" style="gap: 6px"><div class="row"><span class="pill">urlscan</span><span class="when">08:49:02</span></div><div class="q">page.url:"/api/v2/relay/lead/" date:&gt;now-14d</div><p class="sm">14 domen z tym samym endpointem kitu, w tym 3 spoza partii certyfikatów.</p><p class="dim xs">Dlaczego: endpoint kitu to dowód siły H.</p></div></li>
+<li><span class="sn">10</span><div class="col" style="gap: 6px"><div class="row"><span class="pill">Ad Library</span><span class="when">08:49:21</span></div><div class="q">ads where link_url ∈ {14 domen} · country=PL</div><p class="sm">9 aktywnych reklam, 4 strony reklamodawców o losowych nazwach.</p><p class="dim xs">Dlaczego: łączę infrastrukturę z reklamami do zgłoszenia DSA.</p></div></li>
+<li><span class="sn">12</span><div class="col" style="gap: 6px"><div class="row"><span class="pill">CERT PL</span><span class="when">08:49:30</span></div><div class="q">warning_list ∩ {14 domen}</div><p class="sm"><b class="rd">11 z 14</b> domen nie ma jeszcze na liście ostrzeżeń.</p></div></li>
+<li><span class="sn">13</span><div class="col" style="gap: 6px"><div class="row"><span class="pill g">Indeks RED PILL</span><span class="when">08:49:33</span></div><div class="q">oracle.predictions ∩ {plessuro, orvinta, morvanta}</div><p class="sm">Oracle oflagowała orvinta.click (20.11) i morvanta.click (19.11), zanim pojawiły się reklamy.</p></div></li>
+<li><span class="sn" style="border-color: #5CC8FF; color: #5CC8FF; background: rgba(92,200,255,.10)">14</span><div class="col" style="gap: 6px"><div class="row"><span class="pill cy">Wayback</span><span class="when">08:49:34</span></div><div class="q">snapshots velmoria.click 2026-10..11</div><p class="sm">Pierwszy zrzut 06.11: pre-lander «Kurier Dnia», wariant V1, ten sam układ DOM<span class="cur" aria-hidden="true"></span></p></div></li>
+</ol>
+<p class="dim xs" style="padding-top: 8px">Kroki 3, 5–6, 8–9 i 11 zwinięte · <a href="#cf-h">pokaż wszystkie</a></p>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="wn-h">
+<div class="ph"><h2 class="h3" id="wn-h">Wnioski robocze</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 14px">
+<ul class="sm" style="display: flex; flex-direction: column; gap: 8px; line-height: 1.5">
+<li>14 domen należy do KMP-017: ten sam kit <a class="mono xs" href="#cf-h">[krok 7]</a> i ta sama partia certyfikatów <a class="mono xs" href="#cf-h">[krok 2]</a>.</li>
+<li>3 certyfikaty wydano dziś w nocy (00:47, 01:12, 02:31). plessuro.live nie ma jeszcze reklam <a class="mono xs" href="#cf-h">[krok 10]</a>.</li>
+<li>11 domen nie ma ostrzeżenia CERT PL <a class="mono xs" href="#cf-h">[krok 12]</a>. Oracle przewidziała 2 z 3 nowych <a class="mono xs" href="#cf-h">[krok 13]</a>.</li>
+</ul>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<a class="btn btn-p" href="S05-Campaign.dc.html">Dodaj 14 domen do KMP-017</a>
+<a class="btn" href="S10-Act.dc.html">Wyślij do CERT PL (Act)</a>
+<button class="btn btn-gh" type="button">Eksportuj akta (MD/PDF)</button>
+</div>
+<div class="row"><span class="api">POST /investigations/{id}/promote</span><span class="api">POST /act/packages {kind: certpl}</span></div>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

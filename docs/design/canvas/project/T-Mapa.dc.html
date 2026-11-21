@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: mapa przepływu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.node{position:absolute;box-sizing:border-box;height:132px;padding:14px 16px;background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.07);display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#0A0A0A}
+.node:hover{border-color:#D4D4D4}
+.node .n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font:600 12px/1 Geist,sans-serif;flex:none}
+.node b{font-size:17px;font-weight:600;letter-spacing:-.02em}
+.node span.t{font-size:13.5px;line-height:1.4;color:#525252}
+.lbl{position:absolute;font-size:12.5px;line-height:1.4;color:#6B6B6B}
+.dots{display:flex;gap:4px;margin-top:auto}
+.dots i{display:block;width:10px;height:10px;border-radius:4px}
+.tb{width:100%;border-collapse:collapse;font-size:14px;line-height:1.5}
+.tb th{text-align:left;font-size:12.5px;font-weight:500;color:#6B6B6B;padding:0 16px 10px 0;border-bottom:1px solid #E5E5E5;vertical-align:bottom}
+.tb td{padding:16px 16px 16px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;color:#262626}
+.tb tr:last-child td{border-bottom:0}
+.tb td:first-child a{display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;text-decoration:none;letter-spacing:-.015em;white-space:nowrap}
+.tb .n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font:600 12px/1 Geist,sans-serif}
+.nx{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:#F5F5F5;color:#404040;font-size:12.5px;font-weight:500;white-space:nowrap}
+</style>
+</helmet>
+<div style="min-height: 1400px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; gap: 16px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <span style="color: #D4D4D4; font-size: 20px" aria-hidden="true">/</span>
+      <span style="font-size: 16px; font-weight: 600">Mapa przepływu</span>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 40px 24px 64px; display: flex; flex-direction: column; gap: 40px">
+
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 760px">
+      <h1 style="margin: 0; font-size: 44px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Co się dzieje po kolei</h1>
+      <p style="margin: 0; font-size: 17px; line-height: 1.5; color: #525252">Jeden materiał prowadzi do całej kampanii, a kampania do jednego zgłoszenia. Każdy krok ma swój ekran i swoją zakładkę na górze.</p>
+    </div>
+
+    <section aria-label="Diagram przepływu" style="position: relative; height: 540px">
+      <svg width="1192" height="540" viewBox="0 0 1192 540" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0A0A0A"></path></marker>
+          <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#A3A3A3"></path></marker>
+        </defs>
+        <g fill="none" stroke-width="1.75" stroke-linecap="round">
+          <path d="M200 86 C226 86 224 172 248 176" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M200 286 C226 286 224 200 248 196" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M450 186 L498 186" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M700 186 L748 186" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M950 160 C976 160 974 70 998 66" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M950 212 C976 212 974 302 998 306" stroke="#0A0A0A" marker-end="url(#ar)"></path>
+          <path d="M1030 134 C1010 160 990 150 958 134" stroke="#A3A3A3" stroke-dasharray="5 6" marker-end="url(#arg)"></path>
+          <path d="M1096 374 L1096 470 L100 470 L100 356" stroke="#A3A3A3" stroke-dasharray="5 6" marker-end="url(#arg)"></path>
+        </g>
+      </svg>
+
+      <a class="node" href="Sprawdz.dc.html" style="left: 0px; top: 20px; width: 200px">
+        <span style="display: flex; align-items: center; gap: 8px"><span class="n">1</span><b>Sprawdź</b></span>
+        <span class="t">Wklejasz link albo wrzucasz zrzut, HAR, wideo lub ZIP.</span>
+      </a>
+      <a class="node" href="T-Kolejka.dc.html" style="left: 0px; top: 220px; width: 200px">
+        <span style="display: flex; align-items: center; gap: 8px"><span class="n" style="background: #FFFFFF; color: #0A0A0A; box-shadow: inset 0 0 0 1.5px #0A0A0A">0</span><b>Kolejka</b></span>
+        <span class="t">Hunter, Oracle i wtyczka przynoszą materiały same.</span>
+      </a>
+      <a class="node" href="Sprawdz.dc.html" style="left: 250px; top: 120px; width: 200px">
+        <b>Boty analizują</b>
+        <span class="t">Sześć botów, każdy robi jeden krok. Około 20 sekund.</span>
+        <span class="dots" aria-hidden="true"><i style="background: #2563EB"></i><i style="background: #F97316"></i><i style="background: #14B8A6"></i><i style="background: #8B5CF6"></i><i style="background: #EC4899"></i><i style="background: #0A0A0A"></i></span>
+      </a>
+      <a class="node" href="Sprawdz.dc.html" style="left: 500px; top: 120px; width: 200px">
+        <b>Raport ⇄ Graf</b>
+        <span class="t">Werdykt, dowody od botów i dlaczego nie inna kampania.</span>
+      </a>
+      <a class="node" href="T-Kampania.dc.html" style="left: 750px; top: 120px; width: 200px">
+        <span style="display: flex; align-items: center; gap: 8px"><span class="n">2</span><b>Kampania</b></span>
+        <span class="t">Domeny, DNA, osoby, operator i domeny przewidziane.</span>
+      </a>
+      <a class="node" href="T-Sledztwo.dc.html" style="left: 1000px; top: 0px; width: 192px">
+        <span style="display: flex; align-items: center; gap: 8px"><span class="n">3</span><b>Śledztwo</b></span>
+        <span class="t">Agent z botami szuka reszty kampanii.</span>
+      </a>
+      <a class="node" href="T-Zgloszenia.dc.html" style="left: 1000px; top: 240px; width: 192px">
+        <span style="display: flex; align-items: center; gap: 8px"><span class="n">4</span><b>Zgłoszenie</b></span>
+        <span class="t">Jedno na całą kampanię. Potem widzisz, co usunięto.</span>
+      </a>
+
+      <span class="lbl" style="left: 500px; top: 262px; width: 200px">„To błąd” w raporcie od razu uczy model.</span>
+      <span class="lbl" style="left: 1000px; top: 146px; width: 192px">Znalezione domeny dodajesz do kampanii.</span>
+      <span class="lbl" style="left: 300px; top: 484px; width: 600px; text-align: center">Nowe materiały tej kampanii trafiają do kolejki i dołączają same. Zgłoszenie dostaje uzupełnienie.</span>
+    </section>
+
+    <section aria-labelledby="mp-steps" style="display: flex; flex-direction: column; gap: 16px">
+      <h2 id="mp-steps" style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.03em">Ekran po ekranie</h2>
+      <table class="tb">
+        <thead><tr><th style="width: 170px">Ekran</th><th>Co widzisz</th><th>Co robią boty</th><th>Co robisz ty</th><th style="width: 150px">Dalej</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="T-Kolejka.dc.html"><span class="n" style="background: #FFFFFF; color: #0A0A0A; box-shadow: inset 0 0 0 1.5px #0A0A0A">0</span>Kolejka</a></td>
+            <td>Listę materiałów z Huntera, Oracle i wtyczki. Każdy ma już werdykt albo pasek postępu.</td>
+            <td>Sprawdzają każdy materiał zaraz po przyjściu, całą dobę.</td>
+            <td>Zatwierdzasz pewne jednym kliknięciem, otwierasz niepewne i nowe.</td>
+            <td><span class="nx">Raport</span></td>
+          </tr>
+          <tr>
+            <td><a href="Sprawdz.dc.html"><span class="n">1</span>Sprawdź</a></td>
+            <td>Jedno pole i śpiące boty. Po kliknięciu listę botów, które po kolei kończą pracę.</td>
+            <td>Zwiadowca otwiera stronę, Tropiciel szuka śladów, Czytelnik czyta treść, Notariusz sprawdza domenę, Archiwista porównuje z bazą, Sędzia waży dowody.</td>
+            <td>Wklejasz link albo wrzucasz plik i czekasz około 20 sekund.</td>
+            <td><span class="nx">Raport</span></td>
+          </tr>
+          <tr>
+            <td><a href="Sprawdz.dc.html">Raport ⇄ Graf</a></td>
+            <td>Werdykt z pewnością, dowody od każdego bota z wagą, dlaczego nie inna kampania. Graf pokazuje to samo jako sieć.</td>
+            <td>Sędzia tłumaczy decyzję. Każdy krok botów da się rozwinąć.</td>
+            <td>Zatwierdzasz albo poprawiasz. Poprawka uczy model.</td>
+            <td><span class="nx">Kampania</span> <span class="nx" style="margin-top: 6px">Śledztwo</span></td>
+          </tr>
+          <tr>
+            <td><a href="T-Kampania.dc.html"><span class="n">2</span>Kampania</a></td>
+            <td>Oś czasu, domeny ze statusem, osoby i marki, operatora i domeny, które Oracle przewidział przed reklamą.</td>
+            <td>Pilnują nowych certyfikatów i reklam tej kampanii.</td>
+            <td>Decydujesz: szukać dalej czy zgłaszać.</td>
+            <td><span class="nx">Śledztwo</span> <span class="nx" style="margin-top: 6px">Zgłoszenie</span></td>
+          </tr>
+          <tr>
+            <td><a href="T-Sledztwo.dc.html"><span class="n">3</span>Śledztwo</a></td>
+            <td>Rozmowę agenta z botami krok po kroku i rosnącą listę znalezisk.</td>
+            <td>Pytają crt.sh, urlscan, Ad Library i listę CERT PL. Agent pyta cię, gdy nie jest pewien.</td>
+            <td>Odpowiadasz na pytania, zaznaczasz, co dodać do kampanii.</td>
+            <td><span class="nx">Kampania</span></td>
+          </tr>
+          <tr>
+            <td><a href="T-Zgloszenia.dc.html"><span class="n">4</span>Zgłoszenie</a></td>
+            <td>Jedno zgłoszenie na całą kampanię z podglądem treści. Po wysłaniu: ile reklam i domen już usunięto.</td>
+            <td>Sędzia pisze treść, dołącza dowody, listę reklam i plik STIX.</td>
+            <td>Wybierasz odbiorców, czytasz, wysyłasz. Gdy kampania rośnie, wysyłasz uzupełnienie.</td>
+            <td><span class="nx">Kolejka</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

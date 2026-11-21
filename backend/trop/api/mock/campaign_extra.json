@@ -1,0 +1,317 @@
+{
+ "model": "dict",
+ "data": {
+  "phylogeny": {
+   "KMP-017": {
+    "campaign_id": "KMP-017",
+    "nodes": [
+     {
+      "id": "KMP-017",
+      "kind": "campaign",
+      "label": "KMP-017"
+     },
+     {
+      "id": "V2",
+      "kind": "variant",
+      "label": "V2 — PILNE: {PER} przerywa milczenie po napaści…",
+      "n": 22
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — «Wiem, kto to zrobił»: atak na {PER}",
+      "n": 19
+     },
+     {
+      "id": "V3",
+      "kind": "variant",
+      "label": "V3 — nagranie wideo (deepfake)",
+      "n": 5
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-017",
+      "b": "V2"
+     },
+     {
+      "a": "KMP-017",
+      "b": "V1"
+     },
+     {
+      "a": "KMP-017",
+      "b": "V3"
+     }
+    ]
+   },
+   "KMP-034": {
+    "campaign_id": "KMP-034",
+    "nodes": [
+     {
+      "id": "KMP-034",
+      "kind": "campaign",
+      "label": "KMP-034"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 12
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-034",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-022": {
+    "campaign_id": "KMP-022",
+    "nodes": [
+     {
+      "id": "KMP-022",
+      "kind": "campaign",
+      "label": "KMP-022"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 31
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-022",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-031": {
+    "campaign_id": "KMP-031",
+    "nodes": [
+     {
+      "id": "KMP-031",
+      "kind": "campaign",
+      "label": "KMP-031"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 58
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-031",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-040": {
+    "campaign_id": "KMP-040",
+    "nodes": [
+     {
+      "id": "KMP-040",
+      "kind": "campaign",
+      "label": "KMP-040"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 3
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-040",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-043": {
+    "campaign_id": "KMP-043",
+    "nodes": [
+     {
+      "id": "KMP-043",
+      "kind": "campaign",
+      "label": "KMP-043"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 4
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-043",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-011": {
+    "campaign_id": "KMP-011",
+    "nodes": [
+     {
+      "id": "KMP-011",
+      "kind": "campaign",
+      "label": "KMP-011"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 22
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-011",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-029": {
+    "campaign_id": "KMP-029",
+    "nodes": [
+     {
+      "id": "KMP-029",
+      "kind": "campaign",
+      "label": "KMP-029"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 17
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-029",
+      "b": "V1"
+     }
+    ]
+   },
+   "KMP-036": {
+    "campaign_id": "KMP-036",
+    "nodes": [
+     {
+      "id": "KMP-036",
+      "kind": "campaign",
+      "label": "KMP-036"
+     },
+     {
+      "id": "V1",
+      "kind": "variant",
+      "label": "V1 — wariant główny",
+      "n": 14
+     }
+    ],
+    "edges": [
+     {
+      "a": "KMP-036",
+      "b": "V1"
+     }
+    ]
+   }
+  },
+  "summary": {
+   "KMP-017": {
+    "campaign_id": "KMP-017",
+    "text": "Zamach — fałszywy portal → „inwestycja”: Fałszywy portal „Kurier Dnia” z newsem o napaści prowadzi do „inwestycji”. 46 incydentów, 19 domen, 11 reklamodawców.",
+    "bullets": [
+     "46 incydentów w korpusie (N = 1284)",
+     "19 domen, 4 reklamodawców usuniętych",
+     "Operator: OP-03"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-034": {
+    "campaign_id": "KMP-034",
+    "text": "Cukrzyca — Glikonor: Deepfake lekarza reklamuje „cud-preparat” Glikonor na cukrzycę. 12 incydentów, 3 domen, 4 reklamodawców.",
+    "bullets": [
+     "12 incydentów w korpusie (N = 1284)",
+     "3 domen, 1 reklamodawców usuniętych",
+     "Operator: OP-03"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-022": {
+    "campaign_id": "KMP-022",
+    "text": "Stawy — fałszywy lekarz: Syntetyczny głos „lekarza” poleca Artovita Forte na stawy. 31 incydentów, 6 domen, 7 reklamodawców.",
+    "bullets": [
+     "31 incydentów w korpusie (N = 1284)",
+     "6 domen, 5 reklamodawców usuniętych",
+     "Operator: OP-07"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-031": {
+    "campaign_id": "KMP-031",
+    "text": "Platforma AI — inwestycje: „Platforma AI” z udziałem sportowca i prezenterki obiecuje zyski z inwestycji. 58 incydentów, 9 domen, 9 reklamodawców.",
+    "bullets": [
+     "58 incydentów w korpusie (N = 1284)",
+     "9 domen, 6 reklamodawców usuniętych",
+     "Operator: OP-05"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-040": {
+    "campaign_id": "KMP-040",
+    "text": "Bon energetyczny (kandydat): Dopłata „bon energetyczny” — wyłudzenie danych; brak wspólnej infrastruktury ze znanymi kampaniami. 3 incydentów, 2 domen, 2 reklamodawców.",
+    "bullets": [
+     "3 incydentów w korpusie (N = 1284)",
+     "2 domen, 0 reklamodawców usuniętych",
+     "Operator: nieustalony"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-043": {
+    "campaign_id": "KMP-043",
+    "text": "Zamach — wariant z nagraniem (kandydat scalenia): Ten sam szablon V3 (deepfake) co w KMP-017, osobny klaster. 4 incydentów, 2 domen, 2 reklamodawców.",
+    "bullets": [
+     "4 incydentów w korpusie (N = 1284)",
+     "2 domen, 0 reklamodawców usuniętych",
+     "Operator: OP-03"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-011": {
+    "campaign_id": "KMP-011",
+    "text": "Kredyt bez BIK: Pożyczki „bez BIK” z fałszywą stroną banku. 22 incydentów, 5 domen, 5 reklamodawców.",
+    "bullets": [
+     "22 incydentów w korpusie (N = 1284)",
+     "5 domen, 5 reklamodawców usuniętych",
+     "Operator: OP-01"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-029": {
+    "campaign_id": "KMP-029",
+    "text": "Bon paliwowy: „Bon na paliwo” z ankietą zbierającą dane karty. 17 incydentów, 4 domen, 4 reklamodawców.",
+    "bullets": [
+     "17 incydentów w korpusie (N = 1284)",
+     "4 domen, 2 reklamodawców usuniętych",
+     "Operator: OP-04"
+    ],
+    "generated_by": "mock"
+   },
+   "KMP-036": {
+    "campaign_id": "KMP-036",
+    "text": "Kryptowaluta — bot handlowy: Bot handlowy „AutoProfit” promowany przez deepfake sportowca. 14 incydentów, 4 domen, 3 reklamodawców.",
+    "bullets": [
+     "14 incydentów w korpusie (N = 1284)",
+     "4 domen, 1 reklamodawców usuniętych",
+     "Operator: OP-09"
+    ],
+    "generated_by": "mock"
+   }
+  }
+ }
+}

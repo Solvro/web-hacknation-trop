@@ -1,0 +1,192 @@
+{
+ "model": "dict",
+ "data": {
+  "predictions": [
+   {
+    "domain": "morvanta.click",
+    "issued_at": "2026-11-19T19:28:00Z",
+    "issuer": "R11",
+    "dna_score": 0.91,
+    "campaign_id": "KMP-017",
+    "status": "confirmed",
+    "first_ad_at": "2026-11-21T02:31:00Z",
+    "lead_time_h": 31.1,
+    "reasons": [
+     "gramatyka CVCCVCV",
+     "tld .click",
+     "partia LE R11 w oknie nocnym",
+     "ASN AS64500"
+    ]
+   },
+   {
+    "domain": "orvinta.click",
+    "issued_at": "2026-11-20T21:40:00Z",
+    "issuer": "R11",
+    "dna_score": 0.93,
+    "campaign_id": "KMP-017",
+    "status": "confirmed",
+    "first_ad_at": "2026-11-21T06:55:00Z",
+    "lead_time_h": 9.3,
+    "reasons": [
+     "gramatyka CVCCVCV",
+     "tld .click",
+     "partia LE R11"
+    ]
+   },
+   {
+    "domain": "plessuro.live",
+    "issued_at": "2026-11-21T00:48:00Z",
+    "issuer": "R11",
+    "dna_score": 0.88,
+    "campaign_id": "KMP-017",
+    "status": "predicted",
+    "first_ad_at": null,
+    "lead_time_h": null,
+    "reasons": [
+     "gramatyka CVCCVCV",
+     "tld .live",
+     "okno nocne"
+    ]
+   },
+   {
+    "domain": "tranvello.click",
+    "issued_at": "2026-11-21T02:49:00Z",
+    "issuer": "R10",
+    "dna_score": 0.71,
+    "campaign_id": "KMP-017",
+    "status": "predicted",
+    "first_ad_at": null,
+    "lead_time_h": null,
+    "reasons": [
+     "gramatyka",
+     "tld .click"
+    ]
+   },
+   {
+    "domain": "kelvaro.live",
+    "issued_at": "2026-11-21T01:30:00Z",
+    "issuer": "R10",
+    "dna_score": 0.64,
+    "campaign_id": "KMP-034",
+    "status": "predicted",
+    "first_ad_at": null,
+    "lead_time_h": null,
+    "reasons": [
+     "tld .live",
+     "długość 7"
+    ]
+   },
+   {
+    "domain": "brustia.click",
+    "issued_at": "2026-11-21T03:10:00Z",
+    "issuer": "R10",
+    "dna_score": 0.42,
+    "campaign_id": "KMP-017",
+    "status": "below_threshold",
+    "first_ad_at": null,
+    "lead_time_h": null,
+    "reasons": [
+     "tylko tld"
+    ]
+   }
+  ],
+  "dna": [
+   {
+    "campaign_id": "KMP-017",
+    "grammar": "CVCCVCV-like pseudo-words 7–9 liter, .click|.live",
+    "examples": [
+     "morvanta.click",
+     "orvinta.click",
+     "plessuro.live",
+     "tranvello.click"
+    ],
+    "tld_dist": {
+     "click": 0.62,
+     "live": 0.38
+    },
+    "length_hist": {
+     "7": 9,
+     "8": 16,
+     "9": 11
+    },
+    "registrars": [
+     "R-114 (anonimizowany)"
+    ],
+    "issuance_hours": [
+     0,
+     1,
+     2
+    ],
+    "asns": [
+     "AS64500"
+    ],
+    "model": {
+     "name": "gbm-domain-dna",
+     "auc": 0.94
+    },
+    "threshold": 0.6
+   },
+   {
+    "campaign_id": "KMP-034",
+    "grammar": "produkt-pl.shop / pseudo-słowo.live",
+    "examples": [
+     "glikonor-pl.shop",
+     "kelvaro.live"
+    ],
+    "tld_dist": {
+     "shop": 0.5,
+     "live": 0.5
+    },
+    "length_hist": {
+     "7": 9,
+     "8": 16,
+     "9": 11
+    },
+    "registrars": [
+     "R-114 (anonimizowany)"
+    ],
+    "issuance_hours": [
+     0,
+     1,
+     2
+    ],
+    "asns": [
+     "AS64500"
+    ],
+    "model": {
+     "name": "gbm-domain-dna",
+     "auc": 0.94
+    },
+    "threshold": 0.6
+   }
+  ],
+  "metrics": {
+   "flagged_24h": 5,
+   "confirmed": 2,
+   "precision_at_20": 0.85,
+   "median_lead_h": 31.0,
+   "ct_rate_per_h": 1840.0,
+   "false_alarms_24h": 1,
+   "backtest": [
+    {
+     "domain": "velmoria.click",
+     "flagged_at": "2026-11-16T22:00:00Z",
+     "first_ad_at": "2026-11-18T05:20:00Z",
+     "lead_h": 31.3
+    },
+    {
+     "domain": "trastino.live",
+     "flagged_at": "2026-11-15T20:10:00Z",
+     "first_ad_at": "2026-11-17T04:00:00Z",
+     "lead_h": 31.8
+    },
+    {
+     "domain": "quorvex.click",
+     "flagged_at": "2026-11-14T21:00:00Z",
+     "first_ad_at": "2026-11-16T07:30:00Z",
+     "lead_h": 34.5
+    }
+   ]
+  }
+ }
+}

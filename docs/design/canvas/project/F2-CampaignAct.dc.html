@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F2: kampania → Act → pakiet DSA</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.stc{flex:1 1 250px;max-width:300px;min-width:0;background:#0A100C;border:1px solid #1D2B22;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.stc.hot{border-color:rgba(59,240,126,.38)}.stc.amb{border-color:rgba(255,181,71,.45)}.stc.cyn{border-color:rgba(92,200,255,.45)}
+.stc.opt{border-style:dashed}
+.stn{display:flex;align-items:center;gap:8px}
+.stn b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 11px "JetBrains Mono",monospace;background:rgba(59,240,126,.10);color:#3BF07E;border:1px solid rgba(59,240,126,.38);flex:none}
+.stn.vi b{background:rgba(183,148,255,.12);color:#B794FF;border-color:rgba(183,148,255,.45)}
+.stn .h3{flex:1 1 auto;min-width:0}
+.chev{display:flex;align-items:center;justify-content:center;width:20px;flex:none;color:#3B5444}
+.thumb{height:90px;border-radius:6px;border:1px solid #2B3F32;background:#050806;padding:6px;display:flex;gap:5px;overflow:hidden}
+.thumb .s{display:block;width:13%;background:#0F1812;border-radius:3px;flex:none}
+.thumb .m{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;min-width:0}
+.thumb .tr{display:flex;gap:4px;flex:1 1 auto;min-height:0}
+.thumb i{display:block;border-radius:2px;background:#16231A;min-height:5px}
+.thumb .gf{background:#178A43}.thumb .gl{border:1px solid rgba(59,240,126,.5);background:rgba(59,240,126,.08)}
+.thumb .al{border:1px solid rgba(255,181,71,.5);background:rgba(255,181,71,.08)}.thumb .af{background:#8A6420}
+.thumb .rf{background:#7A2E36}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ln b{color:#DDEBE2;font-weight:600}
+.apiln{font:11.5px/1.45 "JetBrains Mono",monospace;color:#5CC8FF;overflow-wrap:anywhere}
+.dur{font:11px "JetBrains Mono",monospace;color:#83998B;white-space:nowrap}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.ec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.eci{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#DDEBE2}
+.chk::before{content:"";width:14px;height:14px;border-radius:3px;border:1.5px solid #3B5444;flex:none;margin-top:3px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.side-lane{border:1px dashed rgba(183,148,255,.45);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div class="row"><span class="eb">Przepływ F2</span><span class="pill g">rdzeń demo</span><span class="pill">flow (b)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1">Kampania → Act → pakiet DSA dla całej kampanii</h1>
+<div class="meta">
+<div><span class="eb">Aktor</span><span class="sm">Analityk NASK, zespół reagowania</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">KMP-017 rośnie +38% / 48 h, 3 certyfikaty wydane dziś w nocy</span></div>
+<div><span class="eb">Cel</span><span class="sm">Jedno zgłoszenie z art. 16 DSA na całą kampanię: 58 reklam, 11 reklamodawców, 19 domen, z dowodami</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">~4 min analityka · status po 18 h</span></div>
+</div>
+<p class="muted sm"><b class="g">Sukces:</b> platforma dostaje pakiet obejmujący całą kampanię, a nie pojedynczą reklamę. Każda pozycja ma dowód, wysyłka jest jawnie potwierdzona, a status widać per reklama.</p>
+</section>
+
+<section class="lane" aria-labelledby="f2-main">
+<div class="lane-h"><h2 class="h2" id="f2-main">Ścieżka główna</h2><span class="dim sm">KMP-017 «Zamach» · OP-03 «Kestrel»</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn"><b>1</b><h3 class="h3">Kampania w natarciu</h3><span class="dur">5 s</span></div>
+<a class="mono xs" href="S01-Command.dc.html">Ekran: S01 · Centrum dowodzenia</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><span class="tr" style="flex: none"><i style="flex: 1; height: 16px"></i><i style="flex: 1; height: 16px"></i><i style="flex: 1; height: 16px"></i><i style="flex: 1; height: 16px"></i></span><i class="gl" style="height: 12px"></i><i style="height: 8px"></i><i style="height: 8px"></i><i style="height: 8px"></i></span></div>
+<p class="ln"><b>Analityk:</b> widzi KMP-017 na szczycie listy (+38% / 48 h) i klika wiersz.</p>
+<p class="ln"><b>System:</b> ranking „heat” z liczby nowych członków, domen i certyfikatów.</p>
+<p class="apiln">GET /campaigns?sort=-heat · SSE campaign.updated</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>2</b><h3 class="h3">Deep-dive</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="S05-Campaign.dc.html">Ekran: S05 · Kampania</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><i style="width: 60%; height: 10px"></i><span class="tr" style="flex: none"><i style="flex: 1; height: 12px"></i><i style="flex: 1; height: 12px"></i><i style="flex: 1; height: 12px"></i></span><span class="tr"><i class="gl" style="flex: 2"></i><i style="flex: 1"></i></span></span></div>
+<p class="ln"><b>Analityk:</b> czyta DNA, oś czasu i podsumowanie z odnośnikami do incydentów.</p>
+<p class="ln"><b>System:</b> każda cecha DNA ma częstość wśród członków.</p>
+<p class="apiln">GET /campaigns/{id} · /dna · /timeline · /summary</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc amb">
+<div class="stn"><b>3</b><h3 class="h3">Przegląd słabych członków</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="X4-Coverage.dc.html">Komponent: X4 · pokrycie</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i style="height: 10px"></i><i style="height: 10px"></i><i class="al" style="height: 10px"></i><i style="height: 10px"></i><i class="al" style="height: 10px"></i></span></div>
+<p class="ln"><b>Analityk:</b> filtr „pokrycie &lt; 0.6”. INC-24610 (brak HAR, 502) zostaje, ale bez zrzutu landingu.</p>
+<p class="ln"><b>System:</b> „Dlaczego połączone” dla każdego słabego członka.</p>
+<p class="apiln">GET /campaigns/{id}/members?coverage_lt=0.6 · GET /links/{a}/{b}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc opt">
+<div class="stn"><b>4</b><h3 class="h3">Scal / rozdziel (opcja)</h3><span class="dur">rzadko</span></div>
+<a class="mono xs" href="S06-Graph.dc.html">Ekran: S06 · Graf powiązań</a>
+<div class="thumb" aria-hidden="true"><svg width="100%" height="76" viewBox="0 0 200 76" preserveAspectRatio="xMidYMid meet"><g stroke="#2B3F32"><line x1="40" y1="30" x2="70" y2="50"></line><line x1="70" y1="50" x2="100" y2="24"></line><line x1="130" y1="40" x2="160" y2="22" stroke-dasharray="3 3"></line></g><g fill="#3BF07E"><circle cx="40" cy="30" r="6"></circle><circle cx="70" cy="50" r="6"></circle><circle cx="100" cy="24" r="6"></circle></g><g fill="#FFB547"><circle cx="130" cy="40" r="6"></circle><circle cx="160" cy="22" r="6"></circle></g></svg></div>
+<p class="ln"><b>Analityk:</b> podgląd wpływu: „wydziel V3 (5 incydentów, deepfake)”. Pokazuje, które dowody wtedy znikają.</p>
+<p class="apiln">POST /campaigns/{id}/split {members} | POST /campaigns/{id}/merge</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>5</b><h3 class="h3">Builder pakietu DSA</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · Act center, zakładka DSA</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr"><span style="display: flex; flex-direction: column; gap: 4px; flex: 1"><i style="height: 8px"></i><i style="height: 8px"></i><i class="gf" style="height: 8px; width: 70%"></i><i style="height: 8px"></i><i style="height: 8px; width: 60%"></i></span><i style="flex: 1; background: #DDEBE2; opacity: .85"></i></span></span></div>
+<p class="ln"><b>Analityk:</b> sprawdza zakres (58 reklam z 46 incydentów, po deduplikacji), wybiera dowody per reklama, czyta podgląd PDF.</p>
+<p class="ln"><b>System:</b> szablon art. 16 DSA: lokalizacja treści, uzasadnienie z odnośnikami, oświadczenie dobrej wiary.</p>
+<p class="apiln">POST /act/packages {campaign_id:"KMP-017", kind:"dsa"} → GET /act/packages/{id}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc amb">
+<div class="stn"><b>6</b><h3 class="h3">Potwierdź i wyślij</h3><span class="dur">30 s</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · okno potwierdzenia</a>
+<div class="thumb" aria-hidden="true"><span class="m" style="align-items: center; justify-content: center"><i class="al" style="width: 70%; height: 66px"></i></span></div>
+<p class="ln"><b>Analityk:</b> czyta podsumowanie (58 reklam, kanał: formularz zaufanego sygnalisty), zaznacza potwierdzenie i klika „Wyślij”.</p>
+<p class="ln"><b>System:</b> nigdy jednym kliknięciem; zapis w logu audytu (kto, kiedy, co, kanał).</p>
+<p class="apiln">POST /act/packages/{id}/submit {confirm:true, channel}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>7</b><h3 class="h3">Śledzenie statusu</h3><span class="dur">godziny</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · historia pakietów</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i class="gf" style="width: 71%; height: 10px"></i><i class="af" style="width: 20%; height: 10px"></i><i class="rf" style="width: 9%; height: 10px"></i><i style="height: 8px"></i><i style="height: 8px"></i></span></div>
+<p class="ln"><b>System:</b> status per reklama: po 18 h usunięto 41/58, 12 aktywnych, 5 odrzuconych. Alert recydywy, gdy kampania wypuści nową reklamę po zgłoszeniu.</p>
+<p class="apiln">GET /act/packages/{id} · SSE campaign.updated · alert.created</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>8</b><h3 class="h3">Dalsze kroki</h3><span class="dur">~1 min</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · CERT PL · STIX</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr"><i style="flex: 1"></i><i class="gl" style="flex: 1"></i><i style="flex: 1"></i></span><i style="height: 8px"></i><i style="height: 8px; width: 70%"></i></span></div>
+<p class="ln"><b>Analityk:</b> zgłoszenie do CERT PL dla 14 domen spoza listy; eksport STIX 2.1 i MISP dla partnerów.</p>
+<p class="apiln">POST /act/packages {kind:"certpl"} · {kind:"stix"} → GET /act/packages/{id}/download</p>
+</article>
+</div>
+</section>
+
+<section class="side-lane" aria-labelledby="f2-rules">
+<div class="lane-h"><span class="brl vi">Gałąź boczna</span><h2 class="h2" id="f2-rules">Reguły → testuj na zbiorze → publikuj do Hunter</h2></div>
+<div class="strip">
+<article class="stc" style="max-width: 420px; flex-basis: 340px">
+<div class="stn vi"><b>R1</b><h3 class="h3">Wygeneruj reguły</h3><span class="dur">2 s</span></div>
+<a class="mono xs" href="S10-Act.dc.html">Ekran: S10 · zakładka Reguły</a>
+<pre class="code" style="font-size: 11.5px"><span class="ck">urlscan</span>  page.url:"/api/v2/relay/lead/"
+<span class="ck">regex</span>    ^https://[a-z]{7,9}\.(click|live)/\?utm_
+<span class="ck">html</span>     relay-kit v2 · 3 sygnatury DOM</pre>
+<p class="apiln">POST /act/packages {kind:"rules"} · GET /act/rules</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc" style="max-width: 420px; flex-basis: 340px">
+<div class="stn vi"><b>R2</b><h3 class="h3">Testuj na zbiorze</h3><span class="dur">4 s</span></div>
+<p class="ln"><b>System:</b> 47 trafień w KMP-017 (TP) i 0 fałszywych na 1 284 incydentach; 0 trafień na 20 000 stron neutralnych.</p>
+<div class="row" style="gap: 6px"><span class="pill g">TP 47</span><span class="pill">FP 0</span><span class="pill">benign 0 / 20 000</span></div>
+<p class="apiln">POST /act/rules/test {rule} → {tp, fp, hits[]}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc" style="max-width: 420px; flex-basis: 340px">
+<div class="stn vi"><b>R3</b><h3 class="h3">Publikuj do Hunter</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="S12-Hunter.dc.html">Ekran: S12 · Hunter i źródła</a>
+<p class="ln"><b>System:</b> zapytanie trafia do źródła urlscan; nowe trafienia przychodzą jako capture i są przypisywane automatycznie (F1).</p>
+<p class="apiln">PATCH /hunter/sources/{id} · SSE hunter.capture</p>
+</article>
+</div>
+</section>
+
+<div class="split">
+<section class="panel a" aria-labelledby="f2-edge">
+<div class="ph"><h2 class="h3" id="f2-edge">Stany brzegowe</h2><span class="dim sm">jak UI je pokazuje</span></div>
+<div class="pb ec">
+<div class="eci"><span class="brl g">Duplikaty L0</span><p class="ln">Pakiet deduplikuje reklamy po ID z Ad Library: 46 incydentów daje 58 unikalnych reklam. Licznik pokazuje obie liczby.</p></div>
+<div class="eci"><span class="brl am">Reklama już usunięta</span><p class="ln">Oznaczona „już nieaktywna” i zachowana jako dowód kontekstu, ale nie trafia do listy żądań usunięcia.</p></div>
+<div class="eci"><span class="brl am">Słaby członek</span><p class="ln">Pokrycie &lt; 0.5 lub wynik &lt; 0.6: domyślnie odznaczony w pakiecie, z adnotacją. Analityk może go dołączyć świadomie.</p></div>
+<div class="eci"><span class="brl am">Brak ID reklamy</span><p class="ln">Materiał tylko ze zrzutu: zgłoszenie po URL landingu i zrzucie, z etykietą „bez ID z Ad Library”.</p></div>
+<div class="eci"><span class="brl rd">Platforma odrzuca</span><p class="ln">Status „odrzucone” z powodem. Przycisk „Uzupełnij i wyślij ponownie” tworzy nową wersję pakietu z historią.</p></div>
+<div class="eci"><span class="brl cy">Brak klucza LLM</span><p class="ln">Uzasadnienie z deterministycznego szablonu (lista dowodów i liczności), bez generowanego tekstu.</p></div>
+<div class="eci"><span class="brl rd">Dane osobowe w dowodach</span><p class="ln">Automatyczna redakcja numerów telefonów, IBAN i e-maili ofiar w zrzutach i tekstach przed eksportem; podgląd pokazuje zakryte pola.</p></div>
+</div>
+</section>
+<section class="panel b" aria-labelledby="f2-acc">
+<div class="ph"><h2 class="h3" id="f2-acc">Kryteria akceptacji</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="chk">Pakiet obejmuje całą kampanię: wszystkie aktywne reklamy, reklamodawców i domeny, po deduplikacji.</p>
+<p class="chk">Każda pozycja ma dowód (chip z odnośnikiem do incydentu) i zrzut.</p>
+<p class="chk">Wysyłka wymaga jawnego potwierdzenia i zostawia wpis w logu audytu.</p>
+<p class="chk">Podgląd PDF jest dokładnie tym, co zostanie wysłane.</p>
+<p class="chk">Status per reklama i alert recydywy po zgłoszeniu.</p>
+<p class="chk">Eksport JSON / CSV / PDF; STIX 2.1 przechodzi walidację.</p>
+<p class="chk">Reguły nie da się opublikować bez testu na zbiorze z widocznym FP.</p>
+<p class="dnote">Implementacja: pakiet jest wersjonowany (packages/{id}?v=); submit działa tylko na zamrożonej wersji z hashem treści.</p>
+</div>
+</section>
+</div>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

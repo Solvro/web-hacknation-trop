@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Triage</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.rp a.qi{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:12px 14px;border-bottom:1px solid #1D2B22;color:#DDEBE2}
+.rp a.qi:hover{background:#0F1812;color:#DDEBE2}
+.rp a.qi[aria-current="true"]{background:#16231A;box-shadow:inset 0 0 0 1px rgba(59,240,126,.38)}
+.qi .tt{font-size:13px;font-weight:500}
+.qi .sg{grid-column:1/-1;font-size:12.5px;color:#A9BDB0}
+.cand{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.cc{border:1px solid #2B3F32;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;background:#0F1812}
+.decide{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-top:1px solid #1D2B22;background:#0F1812;border-radius:0 0 10px 10px}
+.rs li{font-size:13px;color:#A9BDB0;line-height:1.6}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="triage" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><b>Triage</b><span class="sep">·</span><span>23 otwarte</span></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section class="row between" style="align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span class="eb">Monitoring · decyzje analityka</span>
+<h1 class="h1">Triage <span class="dim mono" style="font-size: 18px">23</span></h1>
+<p class="muted">Tu trafia to, czego model nie powinien rozstrzygać sam. Każda decyzja uczy model M1.</p>
+</div>
+<div class="row" style="gap: 6px">
+<span class="kbd">A</span><span class="xs dim">akceptuj</span>
+<span class="kbd">R</span><span class="xs dim">odrzuć</span>
+<span class="kbd">M</span><span class="xs dim">przenieś</span>
+<span class="kbd">S</span><span class="xs dim">pomiń</span>
+<span class="kbd">J</span><span class="kbd">K</span><span class="xs dim">następny / poprzedni</span>
+</div>
+</section>
+
+<section class="row between" aria-label="Filtry kolejki">
+<div class="row" style="gap: 6px">
+<button class="fchip on" type="button" style="--c: #5CC8FF">Niepewne <span class="n">7</span></button>
+<button class="fchip on" type="button" style="--c: #FFB547">Nowa kampania <span class="n">3</span></button>
+<button class="fchip on" type="button" style="--c: #B794FF">Oracle <span class="n">6</span></button>
+<button class="fchip on" type="button" style="--c: #3BF07E">Hunter <span class="n">4</span></button>
+<button class="fchip on" type="button" style="--c: #FF9A62">Wtyczka <span class="n">2</span></button>
+<button class="fchip off" type="button" style="--c: #FF8FB8">Scalenie <span class="n">1</span></button>
+</div>
+<div class="row"><span class="lbl">Sortuj</span><div class="seg" role="group" aria-label="Sortowanie"><button class="on" type="button">priorytet</button><button type="button">wiek</button></div><span class="api">GET /triage?status=open&amp;sort=priority</span></div>
+</section>
+
+<div class="split">
+<div class="b">
+<section class="panel" aria-labelledby="q-h">
+<div class="ph"><h2 class="h3" id="q-h">Kolejka</h2><span class="dim xs">22 widoczne</span><span class="api">SSE /events · triage.created</span></div>
+<nav aria-label="Elementy kolejki">
+<a class="qi" href="#det" aria-current="true"><span class="row" style="gap: 6px"><span class="pill cy">niepewne</span><span class="tt"><span class="id">INC-24768</span></span></span><span class="when">12 min</span><span class="sg">KMP-022 0.58 czy KMP-034 0.49 · margines 0.09</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill" style="color: #B794FF; border-color: rgba(183,148,255,.45)">oracle</span><span class="tt mono">tranvello.click</span></span><span class="when">8 min</span><span class="sg">DNA 0.71 → KMP-017 · reklamy jeszcze brak</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill am">nowa</span><span class="tt"><span class="id am">KMP-040</span></span></span><span class="when">51 min</span><span class="sg">3 incydenty, zbiór konformalny pusty</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill g">hunter</span><span class="tt"><span class="id">INC-24829</span></span></span><span class="when">3 min</span><span class="sg">fraza „nagranie usunięte” · propozycja KMP-017 0.86</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill" style="color: #FF9A62; border-color: rgba(255,154,98,.45)">wtyczka</span><span class="tt"><span class="id">INC-24826</span></span></span><span class="when">17 min</span><span class="sg">zgłoszenie obywatela · KMP-017 0.92</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill cy">niepewne</span><span class="tt"><span class="id">INC-24771</span></span></span><span class="when">25 min</span><span class="sg">KMP-031 0.47 · pokrycie 0.41 (brak HAR)</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill" style="color: #FF8FB8; border-color: rgba(255,143,184,.45)">scalenie</span><span class="tt mono">KMP-022 + KMP-029</span></span><span class="when">2 h</span><span class="sg">wspólny pixel 870011223344556 w 9 incydentach</span></a>
+<a class="qi" href="#det"><span class="row" style="gap: 6px"><span class="pill" style="color: #B794FF; border-color: rgba(183,148,255,.45)">oracle</span><span class="tt mono">plessuro.live</span></span><span class="when">8 h</span><span class="sg">DNA 0.88 → KMP-017 · certyfikat 00:47</span></a>
+</nav>
+</section>
+</div>
+
+<div class="a">
+<section class="panel" id="det" aria-labelledby="det-h">
+<div class="ph">
+<h2 class="h3" id="det-h"><span class="id">INC-24768</span> · Niepewne przypisanie</h2>
+<span class="pill cy">pasmo 0.35–0.65</span>
+<span class="pill">pokrycie 0.52</span>
+<span class="api">GET /triage/{id}</span>
+</div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 16px">
+<p class="sm muted">Źródło: HAR z analizy ręcznej · 08:02 · landing „lekarz ujawnia” · brak zrzutu ekranu i twarzy.</p>
+
+<div class="cand">
+<div class="cc">
+<div class="row between"><a class="id" href="S05-Campaign.dc.html">KMP-022 «Stawy»</a><span class="mono cy">0.58</span></div>
+<span class="bar"><i class="cy" style="width: 58%"></i></span>
+<span class="eb">Za</span>
+<div class="evs">
+<span class="ev t-content"><span class="t">Treść</span><span class="v">„{PRODUKT}: lekarz ujawnia…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+1.9</span></span>
+<span class="ev t-ad"><span class="t">Reklama</span><span class="v">strona „Zdrowie Natura”</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+1.2</span></span>
+<span class="ev t-persons"><span class="t">Osoby</span><span class="v">dr Piotr Wiśniewski</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.8</span></span>
+</div>
+<span class="eb">Przeciw / brak</span>
+<div class="evs">
+<span class="ev t-kit conf"><span class="t">Kit</span><span class="v">clickid/key ≠ relay v1</span><span class="w">−1.2</span></span>
+<span class="ev t-tracking miss"><span class="t">Tracking</span><span class="v">pixel 8700…556: brak</span></span>
+</div>
+</div>
+<div class="cc">
+<div class="row between"><a class="id" href="S05-Campaign.dc.html">KMP-034 «Glikonor»</a><span class="mono cy">0.49</span></div>
+<span class="bar"><i class="cy" style="width: 49%"></i></span>
+<span class="eb">Za</span>
+<div class="evs">
+<span class="ev t-kit"><span class="t">Kit</span><span class="v">relay/lead v1</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.4</span><span class="r">58/1 284</span></span>
+<span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+1.6</span></span>
+<span class="ev t-persons"><span class="t">Osoby</span><span class="v">dr Piotr Wiśniewski</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.8</span></span>
+</div>
+<span class="eb">Przeciw / brak</span>
+<div class="evs">
+<span class="ev t-content conf"><span class="t">Treść</span><span class="v">produkt: stawy ≠ Glikonor</span><span class="w">−1.4</span></span>
+<span class="ev t-visual miss"><span class="t">Obraz</span><span class="v">brak zrzutu</span></span>
+</div>
+</div>
+</div>
+
+<div class="panel" style="background: #0F1812">
+<div class="pb" style="display: flex; flex-direction: column; gap: 6px">
+<span class="eb">Co wspólne, co różne</span>
+<p class="sm">Z KMP-034 łączy go kit i bramka CAPI, czyli poziom operatora OP-03. Z KMP-022 łączy go szablon treści, persona i strona reklamodawcy. Różni się produkt i gramatyka URL.</p>
+<a class="xs" href="X2-WhyLinked.dc.html">Pełne porównanie par: dlaczego połączone / dlaczego nie</a>
+</div>
+</div>
+
+<section class="verdict unsure" aria-labelledby="adj-h">
+<div class="row between"><h3 class="h3" id="adj-h">Adjudykator · PLLuM, lokalnie</h3><span class="row" style="gap: 8px"><span class="mono xs">pewność 0.62</span><span class="api">GET /links/{a}/{b}?adjudicate=1</span></span></div>
+<p class="sm" style="line-height: 1.6">„Raczej <b>KMP-034</b>: wspólny kit relay v1 i bramka CAPI. Pixel KMP-022 nie występuje po obu stronach (brak ≠ różnica).”</p>
+<ul class="rs">
+<li>Kit i bramka CAPI to dowody wysokiej siły, a treść bywa kopiowana między operatorami.</li>
+<li>Persona dr Piotr Wiśniewski występuje w obu kampaniach, więc nie rozstrzyga.</li>
+<li>Inny produkt sugeruje nowy wariant (L1) w KMP-034, nie nową kampanię.</li>
+</ul>
+<p class="dim xs">Werdykt zapisany jako dowód typu „adjudykacja”. Nie zmienia przypisania bez decyzji analityka.</p>
+</section>
+
+<div class="fld">
+<label class="lbl" for="note">Notatka do decyzji (trafia do historii incydentu)</label>
+<textarea id="note" class="inp" rows="2" placeholder="np. produkt zmieniony, kit ten sam: wariant KMP-034"></textarea>
+</div>
+</div>
+<div class="decide">
+<button class="btn" type="button">Akceptuj KMP-022 <span class="kbd">A</span></button>
+<button class="btn btn-p" type="button">Przypisz do KMP-034 <span class="kbd">M</span></button>
+<button class="btn btn-d" type="button">Odrzuć <span class="kbd">R</span></button>
+<button class="btn btn-a" type="button">Nowa kampania</button>
+<button class="btn btn-gh" type="button">Pomiń <span class="kbd">S</span></button>
+<span class="grow"></span>
+<span class="api">POST /triage/{id}/decision</span>
+</div>
+</section>
+<p class="dim xs">Decyzja trafia do aktywnego uczenia M1 (retrening ≈ 8 s) i do zbioru par walidacyjnych.</p>
+</div>
+</div>
+
+<section class="panel" aria-label="Statystyki dnia">
+<div class="pb row between">
+<span class="sm">Dziś: <b>14 decyzji</b> · zgodność z modelem <b class="g">86%</b> · <b>2</b> korekty progów</span>
+<span class="row" style="gap: 8px"><span class="mono xs dim">ostatni retrening M1: 08:31 · 2 412 par</span><span class="api">GET /feedback/stats?window=24h</span></span>
+</div>
+</section>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

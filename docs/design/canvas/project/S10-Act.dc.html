@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Act center — pakiet DSA KMP-017</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.cols{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.cols>.l{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.cols>.m{flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.cols>.r{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.pkg{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-bottom:1px solid #1D2B22;color:#DDEBE2}
+.pkg:last-child{border-bottom:0}
+.pkg.on{background:#16231A}
+.chk{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid #1D2B22}
+.chk:last-child{border-bottom:0}
+.chk input{width:16px;height:16px;margin:2px 0 0;accent-color:#3BF07E}
+.doc{background:#0D1510;border:1px solid #2B3F32;border-radius:8px;padding:28px 32px;display:flex;flex-direction:column;gap:14px;font-size:13.5px;line-height:1.6}
+.doc h3{font:600 17px/1.3 "Space Grotesk",Inter,sans-serif}
+.doc h4{font:600 13px/1.3 Inter,sans-serif;color:#A9BDB0;text-transform:uppercase;letter-spacing:.06em}
+.confirm{display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid rgba(255,181,71,.45);border-radius:10px;background:rgba(255,181,71,.05)}
+.confirm label{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}
+.confirm input{width:18px;height:18px;margin:1px 0 0;accent-color:#3BF07E;flex:none}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="act" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><a href="S10-Act.dc.html">Act center</a><span class="sep">/</span><a href="S05-Campaign.dc.html">KMP-017</a><span class="sep">/</span><b>DSA-0031</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div class="row"><span class="eb">Act center · pakiety działań</span><span class="api">GET /act/packages</span></div>
+<div class="row between" style="align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 520px; min-width: 0">
+<h1 class="h1">Zgłoszenie całej kampanii <span class="id" style="font-size: 22px">KMP-017</span>, nie pojedynczych reklam</h1>
+<p class="muted">Jeden pakiet obejmuje wszystkie reklamy, reklamodawców i domeny kampanii, a każdy element ma dowody. Platforma dostaje wzorzec, po którym znajdzie kolejne reklamy.</p>
+</div>
+<div class="row"><a class="btn" href="S05-Campaign.dc.html">Wróć do kampanii</a><button class="btn" type="button">Nowy pakiet</button></div>
+</div>
+</section>
+
+<div class="cols">
+
+<aside class="l">
+<section class="panel" aria-labelledby="pk-h">
+<div class="ph"><h2 class="h3" id="pk-h">Pakiety</h2><span class="dim mono xs">4</span></div>
+<div>
+<a class="pkg on" href="S10-Act.dc.html" aria-current="page"><span class="row between"><span class="id">DSA-0031</span><span class="pill am">szkic</span></span><span class="sm">KMP-017 · zgłoszenie DSA</span><span class="when">utworzono dziś 08:41</span></a>
+<a class="pkg" href="S10-Act.dc.html"><span class="row between"><span class="id">CERTPL-0102</span><span class="pill g">wysłane</span></span><span class="sm">KMP-017 · 14 domen na listę</span><span class="when">20.11 17:05 · 5 dodanych</span></a>
+<a class="pkg" href="S10-Act.dc.html"><span class="row between"><span class="id">STIX-0045</span><span class="pill cy">eksport</span></span><span class="sm">KMP-022 · STIX 2.1 + MISP</span><span class="when">19.11 12:30 · pobrano 2×</span></a>
+<a class="pkg" href="S10-Act.dc.html"><span class="row between"><span class="id">DSA-0029</span><span class="pill g">wysłane</span></span><span class="sm">KMP-031 · zgłoszenie DSA</span><span class="when">16.11 · platforma usunęła 41/58 reklam</span></a>
+</div>
+</section>
+<section class="panel" aria-labelledby="eff-h">
+<div class="ph"><h2 class="h3" id="eff-h">Skuteczność</h2><span class="api">GET /act/packages?status=sent</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<div class="row between sm"><span>DSA-0029 · usunięte</span><span class="mono">41/58</span></div>
+<div class="bar"><i style="width: 71%"></i></div>
+<p class="dim xs">17 reklam wciąż aktywnych, Hunter sprawdza je co 6 h.</p>
+</div>
+</section>
+</aside>
+
+<div class="m">
+<section class="panel" aria-labelledby="bld-h">
+<div class="ph"><h2 class="h3" id="bld-h">Kreator pakietu · KMP-017</h2><span class="pill am">szkic</span><span class="api">POST /act/packages {campaign_id, kind}</span></div>
+<nav class="tabs" style="padding: 0 8px" aria-label="Rodzaj pakietu"><a class="tab on" href="#bld-h" aria-current="page">Zgłoszenie DSA (art. 16)</a><a class="tab" href="#bld-h">CERT PL <span class="n">14</span></a><a class="tab" href="#bld-h">STIX 2.1 / MISP</a><a class="tab" href="#bld-h">Reguły detekcji <span class="n">3</span></a></nav>
+<div class="pb" style="display: flex; flex-direction: column; gap: 20px">
+
+<div class="row" style="gap: 20px; align-items: flex-start">
+<div style="flex: 1 1 300px; min-width: 0">
+<p class="eb" style="margin-bottom: 6px">Zawartość pakietu</p>
+<div class="chk"><input type="checkbox" checked id="c1"><label for="c1" class="sm">Reklamy z ID Ad Library i zrzutem</label><span class="mono xs g">46</span></div>
+<div class="chk"><input type="checkbox" checked id="c2"><label for="c2" class="sm">Strony reklamodawców</label><span class="mono xs g">11</span></div>
+<div class="chk"><input type="checkbox" checked id="c3"><label for="c3" class="sm">Domeny docelowe (z łańcuchem przekierowań)</label><span class="mono xs g">19</span></div>
+<div class="chk"><input type="checkbox" checked id="c4"><label for="c4" class="sm">Dowody dla każdego elementu (chipy + rzadkość)</label><span class="mono xs g">312</span></div>
+<div class="chk"><input type="checkbox" checked id="c5"><label for="c5" class="sm">Opis wzorca kampanii (DNA, szablony nagłówków)</label><span class="mono xs g">1</span></div>
+<div class="chk"><input type="checkbox" checked id="c6"><label for="c6" class="sm">Uzasadnienie prawne i opis szkody</label><span class="mono xs g">1</span></div>
+<div class="chk"><input type="checkbox" id="c7"><label for="c7" class="sm">Dane zgłaszającego (podmiot, kontakt)</label><span class="mono xs am">uzupełnij</span></div>
+</div>
+<div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div class="fld"><label class="lbl" for="rcp">Odbiorca</label><select class="inp" id="rcp"><option>Punkt kontaktowy DSA platformy (formularz art. 16)</option><option>Zaufany podmiot sygnalizujący — kanał priorytetowy</option></select></div>
+<div class="fld"><span class="lbl">Formaty</span><div class="row"><span class="pill g">PDF</span><span class="pill g">JSON</span><span class="pill g">CSV</span><span class="pill">ZIP z dowodami</span></div></div>
+<div class="fld"><span class="lbl">Język</span><div class="seg" role="group" aria-label="Język zgłoszenia"><button class="on" type="button">PL</button><button type="button">EN</button><button type="button">PL + EN</button></div></div>
+<p class="dim xs">Treść opisu: szkic LLM (PLLuM, lokalnie), każde zdanie z odnośnikiem do dowodu.</p>
+</div>
+</div>
+
+<article class="doc" aria-label="Podgląd dokumentu zgłoszenia">
+<div class="row between"><span class="mono xs dim">DSA-0031 · szkic · 21.11.2026</span><span class="api">GET /act/packages/{id}</span></div>
+<h3>Zgłoszenie nielegalnych treści — kampania KMP-017</h3>
+<p><b>Zgłaszamy całą kampanię, nie pojedyncze reklamy.</b> 46 reklam od 11 reklamodawców prowadzi do 19 domen tej samej infrastruktury. Strony podszywają się pod portal «Kurier Dnia» i wizerunek osób publicznych, aby nakłonić do wpłat na fałszywą „platformę inwestycyjną”.</p>
+<h4>Wzorzec rozpoznawczy</h4>
+<ul class="sm" style="line-height: 1.7"><li>Kreacje-wabiki (krajobraz, zwierzę) i link wyświetlany OKAZJE-DNIA.COM.</li><li>Nagłówek według szablonu „PILNE: {osoba} przerywa milczenie po napaści…”.</li><li>Wspólny kit stron (<span class="mono xs">/api/v2/relay/lead/{uuid}/</span>) i bramka Conversions API.</li></ul>
+<h4>Wykaz reklam (fragment)</h4>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">ID Ad Library</th><th scope="col">Reklamodawca</th><th scope="col">Domena</th><th scope="col">Dowody</th></tr></thead>
+<tbody>
+<tr><td class="mono xs">AL-5521-0098-11</td><td class="sm">Puzzle Mania PL</td><td class="mono xs">morvanta.click</td><td><div class="evs"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI</span></span><span class="ev t-kit"><span class="t">Kit</span><span class="v">relay/lead</span></span></div></td></tr>
+<tr><td class="mono xs">AL-5521-0102-47</td><td class="sm">Ogród i Pasja 24</td><td class="mono xs">orvinta.click</td><td><div class="evs"><span class="ev t-content"><span class="t">Treść</span><span class="v">szablon</span></span><span class="ev t-kit"><span class="t">Kit</span><span class="v">relay/lead</span></span></div></td></tr>
+<tr><td class="mono xs">AL-5520-8871-03</td><td class="sm">Lena Kwiatkowska Sklep</td><td class="mono xs">dunvarra.click</td><td><div class="evs"><span class="ev t-infra"><span class="t">Infra</span><span class="v">partia LE R11</span></span></div></td></tr>
+</tbody>
+</table>
+</div>
+<p class="dim xs">… oraz 43 kolejne pozycje w załączniku CSV.</p>
+</article>
+
+<div class="confirm" role="group" aria-labelledby="cf-h">
+<h3 class="h3" id="cf-h">Sprawdź i potwierdź wysyłkę</h3>
+<p class="sm muted">Wysyłka trafia do platformy i jest nieodwracalna. Przed wysłaniem sprawdzamy kompletność pakietu.</p>
+<div class="row" style="gap: 6px"><span class="pill g">46/46 reklam z dowodem</span><span class="pill g">19/19 domen</span><span class="pill am">brak danych zgłaszającego</span></div>
+<label><input type="checkbox" id="ok"><span>Sprawdziłem/am treść, wykaz i dowody. Potwierdzam wysłanie zgłoszenia DSA-0031 do punktu kontaktowego platformy.</span></label>
+<div class="row"><button class="btn btn-p btn-lg" type="button" disabled aria-describedby="cf-h">Wyślij zgłoszenie</button><button class="btn btn-lg" type="button">Pobierz PDF + JSON + CSV</button><span class="api">POST /act/packages/{id}/submit</span></div>
+<p class="dim xs">Przycisk aktywny dopiero po potwierdzeniu i uzupełnieniu danych zgłaszającego.</p>
+</div>
+
+</div>
+</section>
+</div>
+
+<aside class="r">
+<section class="panel" aria-labelledby="rt-h">
+<div class="ph"><h2 class="h3" id="rt-h">Reguły · test na zbiorze</h2><span class="api">POST /act/rules/test</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<div class="fld"><label class="lbl" for="r1">Zapytanie urlscan</label><input class="inp mono" id="r1" value='page.url:"/api/v2/relay/lead/"'></div>
+<div class="fld"><label class="lbl" for="r2">Regex URL</label><input class="inp mono" id="r2" value="^https://[a-z]{7,9}\.(click|live)/\?utm_.*utm_visit=[0-9a-f-]{36}"></div>
+<div class="fld"><label class="lbl" for="r3">Sygnatura HTML</label><input class="inp mono" id="r3" value='fetch("/api/v2/relay/lead/" + visitId'></div>
+<button class="btn btn-p" type="button">Testuj na zbiorze</button>
+<div class="panel" style="background: #0F1812">
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<div class="row between"><span class="sm">Korpus RED PILL</span><span class="mono g">47 / 1 284</span></div>
+<div class="row" style="gap: 6px"><span class="pill g">46 TP</span><span class="pill am">1 do weryfikacji</span><span class="pill">0 FP</span></div>
+<div class="row between"><span class="sm">Korpus benign</span><span class="mono">0 / 20 000</span></div>
+<div class="row between"><span class="sm">Precyzja</span><span class="mono g">0.98</span></div>
+</div>
+</div>
+<a class="btn btn-sm" href="S03-Triage.dc.html" style="align-self: flex-start">Otwórz 1 trafienie w triage</a>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="stx-h">
+<div class="ph"><h2 class="h3" id="stx-h">STIX 2.1 · podgląd</h2><button class="btn btn-sm" type="button">Kopiuj</button><span class="api">GET /act/packages/{id}/download?format=stix</span></div>
+<div class="pb">
+<pre class="code">{
+  <span class="ck">"type"</span>: <span class="cs">"bundle"</span>,
+  <span class="ck">"objects"</span>: [
+    { <span class="ck">"type"</span>: <span class="cs">"campaign"</span>,
+      <span class="ck">"name"</span>: <span class="cs">"KMP-017 Zamach"</span> },
+    { <span class="ck">"type"</span>: <span class="cs">"indicator"</span>,
+      <span class="ck">"pattern"</span>: <span class="cs">"[domain-name:value
+        = 'morvanta.click']"</span>,
+      <span class="ck">"pattern_type"</span>: <span class="cs">"stix"</span> },
+    { <span class="ck">"type"</span>: <span class="cs">"relationship"</span>,
+      <span class="ck">"relationship_type"</span>:
+        <span class="cs">"indicates"</span> }
+  ]
+}
+<span class="cc">// + 18 wskaźników, 2 wzorce URL</span></pre>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="hs-h">
+<div class="ph"><h2 class="h3" id="hs-h">Historia wysyłek</h2><span class="api">GET /act/packages?campaign_id=KMP-017</span></div>
+<div class="feed">
+<div class="fi"><span class="dot"></span><span class="sm">CERTPL-0102 · 14 domen · 5 dodanych do listy ostrzeżeń</span><span class="when">20.11</span></div>
+<div class="fi"><span class="dot cy"></span><span class="sm">Reguła urlscan zapisana w Hunterze</span><span class="when">20.11</span></div>
+<div class="fi"><span class="dot off"></span><span class="sm">DSA-0031 · szkic utworzony</span><span class="when">dziś 08:41</span></div>
+</div>
+</section>
+</aside>
+
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

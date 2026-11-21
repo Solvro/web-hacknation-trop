@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: wynik, strona nie odpowiada</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.lnk{display:inline-flex;align-items:center;min-height:40px;font-size:14px;color:#525252;text-decoration:underline;text-decoration-color:#D4D4D4;text-underline-offset:4px}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.06)}
+.sh{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.fc{display:flex;align-items:center;gap:12px;height:64px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.fc.miss{background:#FAFAFA;border-style:dashed;box-shadow:none}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc.miss .fl{color:#525252}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st{flex:none;display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500}
+.op{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #F0F0F0}
+.op:last-child{border-bottom:0}
+.op b{display:block;font-size:14px;font-weight:600}
+.op span{display:block;font-size:12.5px;color:#6B6B6B}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1000px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 30px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+    <section aria-labelledby="bl-h" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+      <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h1 id="bl-h" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Strona nie odpowiada</h1>
+        <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">selqueno.live od 17.11 zwraca błąd 502. Bez strony boty nie zobaczą kitu ani formularza, więc nie potwierdzą kampanii.</p>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">INC-24830 · selqueno.live · 3 próby, ostatnia 09:14</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+        <button type="button" class="pri">Sprawdź kopię z archiwum<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        <a class="lnk" href="Sprawdz.dc.html">albo wrzuć zrzut ekranu reklamy</a>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+
+      <section aria-labelledby="bl-f" style="flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="bl-f" style="margin: 0 0 2px; font-size: 13px; font-weight: 500; color: #6B6B6B">Co udało się ustalić</h2>
+        <div class="fc"><span data-jelly="auto" data-color="#8B5CF6" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Domena ma DNA KMP-017: 8 liter, .live, certyfikat nocą</span><span class="fm">Notariusz · z rejestru i crt.sh, bez strony</span></span><span class="st" style="background: #F0FDF4; color: #166534">ustalone</span></div>
+        <div class="fc"><span data-jelly="auto" data-color="#EC4899" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ta domena działała w KMP-017 do 17.11</span><span class="fm">Archiwista · nasza baza</span></span><span class="st" style="background: #F0FDF4; color: #166534">ustalone</span></div>
+        <div class="fc miss"><span data-jelly="auto" data-color="#2563EB" data-state="asleep" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Strona: błąd 502 przy 3 próbach</span><span class="fm">Zwiadowca · przechwycenie</span></span><span class="st" style="background: #FEF2F2; color: #B91C1C">nie udało się</span></div>
+        <div class="fc miss"><span data-jelly="auto" data-color="#F97316" data-state="asleep" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Ślady techniczne: piksele, bramka, kit</span><span class="fm">Tropiciel · potrzebuje strony</span></span><span class="st" style="background: #F5F5F5; color: #525252">brak</span></div>
+        <div class="fc miss"><span data-jelly="auto" data-color="#14B8A6" data-state="asleep" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span><span class="ft"><span class="fl">Treść i osoby</span><span class="fm">Czytelnik · potrzebuje strony albo zrzutu</span></span><span class="st" style="background: #F5F5F5; color: #525252">brak</span></div>
+      </section>
+
+      <aside style="flex: 0 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section class="card" aria-labelledby="bl-w" style="padding: 18px 20px">
+          <span style="font-size: 12.5px; font-weight: 500; color: #6B6B6B">Wstępnie</span>
+          <h2 id="bl-w" class="sh" style="margin-top: 2px">Najpewniej KMP-017 «Zamach»</h2>
+          <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: #525252">Domena i jej historia wskazują na tę kampanię, ale bez strony tego nie potwierdzimy i nie dołączymy materiału.</p>
+        </section>
+        <section class="card" aria-labelledby="bl-o" style="padding: 18px 20px 8px">
+          <h2 id="bl-o" class="sh" style="padding-bottom: 2px">Czym jeszcze możemy sprawdzić</h2>
+          <div class="op"><span><b>Kopia z archiwum</b><span>Wayback ma zapis strony z 16.11</span></span><span style="font-size: 12.5px; color: #166534">dostępna</span></div>
+          <div class="op"><span><b>Zrzut ekranu reklamy</b><span>Czytelnik przeczyta tekst i twarz</span></span><span style="font-size: 12.5px; color: #6B6B6B">wrzuć plik</span></div>
+          <div class="op"><span><b>Plik HAR</b><span>jeśli zapisałeś ruch strony wcześniej</span></span><span style="font-size: 12.5px; color: #6B6B6B">wrzuć plik</span></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.tryMount(0); }
+  componentWillUnmount() {
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  tryMount(n) {
+    if (this.jelly) return;
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      if (n < 60) this.retryT = setTimeout(() => this.tryMount(n + 1), 100);
+      return;
+    }
+    this.jelly = J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    return { refCv: this.refCv, refRt: this.refRt };
+  }
+}
+</script>
+</body>
+</html>

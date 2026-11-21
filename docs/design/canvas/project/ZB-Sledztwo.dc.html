@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Śledztwo INV-0092 jako tablica, styl zgrai</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/4a45834733cab3a8558aaac01529657b">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid #e5e5e5;background:#fafafa}
+.zr a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#525252}
+.zr a:hover{background:#f0f0f0;color:#0a0a0a}
+.zr a.on{background:#ffffff;color:#0a0a0a;box-shadow:0 0 0 1px #e5e5e5,0 1px 2px rgba(0,0,0,.05)}
+.zr svg{width:20px;height:20px}
+.bd{position:relative;width:980px;height:860px}
+.bc{position:absolute;background:#ffffff;border:1px solid #e5e5e5;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28);padding:10px 13px;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.bc .k{display:flex;align-items:center;gap:6px;font:500 10.5px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#737373}
+.bc .k i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--kc,#171717)}
+.bc .m{font:500 13px/1.25 "Geist Mono",monospace;color:#0a0a0a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bc .s{font:12px/1.3 Geist,sans-serif;color:#525252}
+.bub{--bb:#e5e5e5;position:absolute;background:#ffffff;border:1px solid var(--bb);border-radius:16px;padding:11px 14px;font:400 13px/1.45 Geist,sans-serif;color:#262626;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28)}
+.bub::after{content:"";position:absolute;width:12px;height:12px;background:inherit;border-right:1px solid var(--bb);border-bottom:1px solid var(--bb)}
+.bub.tb::after{left:28px;bottom:-7px;transform:rotate(45deg)}
+.bub.tt::after{left:28px;top:-7px;transform:rotate(225deg)}
+.bub.note{--bb:#fde68a;background:#fffbeb}
+.bub .who{display:flex;align-items:center;gap:8px;margin-bottom:5px;font:600 12px/1 Geist,sans-serif;color:#0a0a0a}
+.bub .av{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:600 9.5px Geist,sans-serif;background:#171717;color:#fafafa;flex:none}
+.typ{display:inline-flex;gap:3px;margin-left:4px;vertical-align:middle}
+.typ i{display:block;width:5px;height:5px;border-radius:50%;background:#a3a3a3;animation:rp-pulse 1.2s ease-in-out infinite}
+.typ i:nth-child(2){animation-delay:.2s}.typ i:nth-child(3){animation-delay:.4s}
+.stp2{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.stp2:last-child{border-bottom:0}
+.stp2 .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:600 10px "Geist Mono",monospace;background:#171717;color:#fafafa}
+</style>
+</helmet>
+<div class="rp" style="min-height: 100vh; background: #ffffff; color: #0a0a0a; display: flex">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a href="Z-S01-Command.dc.html" aria-label="redpill, centrum dowodzenia" style="width: 40px; height: 40px; background: #0a0a0a; color: #ffffff; border-radius: 11px; font: 700 15px/1 Geist, sans-serif; letter-spacing: -0.04em; margin-bottom: 10px">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum dowodzenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a href="ZB-Werdykt.dc.html" aria-label="Analizuj materiał"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a href="Z-S05-Campaign.dc.html" aria-label="Kampanie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a class="on" href="ZB-Sledztwo.dc.html" aria-label="Śledztwa" title="Śledztwa" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 12px 20px; border-bottom: 1px solid #e5e5e5">
+<nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="ZB-Sledztwo.dc.html">Śledztwa</a><span class="sep">/</span><b>INV-0092 · velmoria.click</b></nav>
+<span class="pill rd"><span class="dot rd live"></span>agent pracuje · krok 14/20</span>
+<div style="flex: 1 1 auto"></div>
+<div class="seg" role="group" aria-label="Widok"><button class="on" type="button">Tablica</button><button type="button">Akta</button></div>
+</header>
+
+<div style="flex: 1 1 auto; min-height: 0; display: flex; flex-wrap: wrap">
+
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div class="gridbg" style="flex: 1 1 auto; overflow: auto" role="group" aria-label="Tablica śledztwa: pivoty agenta od velmoria.click">
+<div class="bd">
+
+<svg width="980" height="860" viewBox="0 0 980 860" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke-linecap="round">
+<path d="M240 422 C280 422 280 235 320 235" stroke="#171717" stroke-width="1.75"></path>
+<path d="M240 422 C280 422 280 455 320 455" stroke="#a3a3a3" stroke-width="1.5"></path>
+<path d="M240 422 C280 422 280 637 320 637" stroke="#171717" stroke-width="1.75"></path>
+<path d="M530 235 C570 235 570 100 610 100" stroke="#171717" stroke-width="1.5"></path>
+<path d="M530 235 C570 235 570 180 610 180" stroke="#171717" stroke-width="1.5"></path>
+<path d="M530 235 C570 235 570 260 610 260" stroke="#171717" stroke-width="1.5"></path>
+<path d="M530 235 C570 235 570 332 610 332" stroke="#d4d4d4" stroke-width="1.5" stroke-dasharray="4 5"></path>
+<path d="M550 637 L620 637" stroke="#171717" stroke-width="1.75"></path>
+<path d="M780 730 L780 770" stroke="#a3a3a3" stroke-width="1.5"></path>
+</g>
+</svg>
+
+<div class="bc" style="left: 40px; top: 380px; width: 200px; height: 84px; background: #0a0a0a; border-color: #0a0a0a"><span class="k" style="color: #a3a3a3; --kc: #fafafa"><i></i>ziarno · domena</span><span class="m" style="color: #fafafa; font-size: 15px">velmoria.click</span><span class="s" style="color: #d4d4d4">KMP-017 · na liście CERT PL</span></div>
+
+<div class="bc" style="left: 320px; top: 200px; width: 210px; height: 70px"><span class="k" style="--kc: #7c3aed"><i></i>certyfikat · partia</span><span class="m">Let's Encrypt R11</span><span class="s">6 domen w 17 minut</span></div>
+
+<div class="bc" style="left: 610px; top: 70px; width: 190px; height: 60px"><span class="k" style="--kc: #d97706; color: #b45309"><i class="dot live"></i>nowy cert 00:47</span><span class="m">plessuro.live</span></div>
+<div class="bc" style="left: 610px; top: 150px; width: 190px; height: 60px"><span class="k" style="--kc: #d97706; color: #b45309"><i class="dot live"></i>nowy cert 01:12 · <span style="color: #1d4ed8">oracle</span></span><span class="m">orvinta.click</span></div>
+<div class="bc" style="left: 610px; top: 230px; width: 190px; height: 60px"><span class="k" style="--kc: #d97706; color: #b45309"><i class="dot live"></i>nowy cert 02:31 · <span style="color: #1d4ed8">oracle</span></span><span class="m">morvanta.click</span></div>
+<div class="bc" style="left: 610px; top: 310px; width: 190px; height: 44px; border-style: dashed; box-shadow: none; background: #fafafa"><span class="m" style="color: #525252">+3 domeny SAN</span></div>
+
+<div class="bc" style="left: 320px; top: 420px; width: 210px; height: 70px"><span class="k" style="--kc: #d97706"><i></i>ip · origin</span><span class="m">198.51.100.23</span><span class="s">AS64500 · za Cloudflare</span></div>
+
+<div class="bc" style="left: 320px; top: 600px; width: 230px; height: 74px"><span class="k" style="--kc: #2563eb"><i></i>urlscan · kit</span><span class="m">path:/api/v2/relay/lead/</span><span class="s">14 domen · 31 skanów</span></div>
+
+<div style="position: absolute; left: 620px; top: 520px; width: 320px; height: 210px; border: 1.5px dashed #a3a3a3; border-radius: 18px; background: rgba(255,255,255,.75); padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="eb">Grupa · 14 domen z kitem</span><span class="mono xs dim">KMP-017</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span class="pill mono" style="font-size: 11.5px">morvanta.click</span><span class="pill mono" style="font-size: 11.5px">orvinta.click</span><span class="pill mono" style="font-size: 11.5px">plessuro.live</span><span class="pill mono" style="font-size: 11.5px">quorvex.click</span><span class="pill mono" style="font-size: 11.5px">dunvarra.click</span><span class="pill mono" style="font-size: 11.5px">tranvello.click</span><span class="pill mono" style="font-size: 11.5px">+8</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; margin-top: auto; padding: 8px 10px; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; font: 500 13px Geist, sans-serif; color: #c10012"><span class="dot rd"></span>11 z 14 bez ostrzeżenia CERT PL</div>
+</div>
+
+<div class="bc" style="left: 680px; top: 770px; width: 200px; height: 64px"><span class="k" style="--kc: #65a30d"><i></i>Ad Library</span><span class="m">9 aktywnych reklam</span><span class="s">4 strony reklamodawców</span></div>
+
+<div class="bub tb" style="left: 300px; top: 92px; width: 250px">
+<div class="who"><span class="av" style="background: #ffffff; color: #0a0a0a; box-shadow: inset 0 0 0 1px #d4d4d4">2</span>Agent · crt.sh</div>
+Partie certyfikatów to typowy ślad operatora, więc rozwijam SAN.
+</div>
+
+<div class="bub tt" style="left: 300px; top: 700px; width: 260px">
+<div class="who"><span class="av" style="background: #ffffff; color: #0a0a0a; box-shadow: inset 0 0 0 1px #d4d4d4">7</span>Agent · urlscan</div>
+Ten sam endpoint kitu na 14 domenach. To dowód o wysokiej sile.
+</div>
+
+<div class="bub tt" style="left: 40px; top: 486px; width: 230px">
+<div class="who"><span class="av" style="background: #ffffff; color: #0a0a0a; box-shadow: inset 0 0 0 1px #d4d4d4">15</span>Agent · Wayback</div>
+Sprawdzam pierwszy zrzut velmoria.click<span class="typ" aria-label="agent pisze"><i></i><i></i><i></i></span>
+</div>
+
+<div class="bub note tb" style="left: 700px; top: 404px; width: 240px">
+<div class="who"><span class="av" style="background: #fef3c7; color: #92400e"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"></path></svg></span>Notatka · 08:49</div>
+Sprawdź też domeny .live z tym kitem.
+</div>
+
+<div style="position: absolute; left: 926px; top: 20px; display: flex; flex-direction: column; gap: 4px; padding: 4px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,.05)">
+<button class="btn btn-gh btn-i" type="button" aria-label="Przybliż" style="width: 32px; height: 32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+<button class="btn btn-gh btn-i" type="button" aria-label="Oddal" style="width: 32px; height: 32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+</div>
+
+</div>
+</div>
+
+<form aria-label="Kieruj agenta" style="margin: 0 20px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px; border: 1px solid #d4d4d4; border-radius: 18px; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 -12px 32px -28px rgba(0,0,0,.25)">
+<label for="zb-steer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Kieruj agenta</label>
+<input id="zb-steer" placeholder="Kieruj agenta, np. pomiń Wayback, sprawdź reklamy z plessuro.live" style="flex: 1 1 320px; min-width: 0; min-height: 44px; border: 0; outline: none; padding: 0 14px; font: 400 15px Geist, sans-serif; color: #0a0a0a; background: transparent">
+<button class="btn" type="button" style="height: 40px"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"></path></svg>Pauza</button>
+<button class="btn btn-d" type="button" style="height: 40px">Stop</button>
+<button class="btn btn-p" type="button" style="height: 40px">Wyślij</button>
+</form>
+</div>
+
+<aside style="flex: 1 1 340px; min-width: 0; border-left: 1px solid #e5e5e5; padding: 20px; display: flex; flex-direction: column; gap: 18px" aria-label="Akta sprawy">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Akta sprawy · INV-0092</span>
+<h1 style="font: 600 26px/1.1 Geist, sans-serif; letter-spacing: -0.04em; margin: 0">Od jednej domeny do 14.</h1>
+<div style="display: flex; align-items: center; gap: 10px"><div class="bar grow"><i style="width: 70%"></i></div><span class="mono xs dim">14/20 · 01:32</span></div>
+</div>
+
+<div>
+<div class="stp2"><span class="n">1</span><div class="sm"><b style="font-weight: 600">Indeks redpill.</b> Domena należy do KMP-017.</div></div>
+<div class="stp2"><span class="n">2</span><div class="sm"><b style="font-weight: 600">crt.sh.</b> Partia LE R11, 6 domen w 17 min.</div></div>
+<div class="stp2"><span class="n">4</span><div class="sm"><b style="font-weight: 600">DNS, RDAP.</b> Origin 198.51.100.23, AS64500.</div></div>
+<div class="stp2"><span class="n">7</span><div class="sm"><b style="font-weight: 600">urlscan.</b> Ten sam kit na 14 domenach.</div></div>
+<div class="stp2"><span class="n">10</span><div class="sm"><b style="font-weight: 600">Ad Library.</b> 9 reklam, 4 strony.</div></div>
+<div class="stp2"><span class="n">12</span><div class="sm"><b style="font-weight: 600">CERT PL.</b> <span class="rd">11 z 14</span> bez ostrzeżenia.</div></div>
+<div class="stp2"><span class="n" style="background: #ffffff; color: #1d4ed8; box-shadow: inset 0 0 0 1.5px #2563eb">15</span><div class="sm"><b style="font-weight: 600">Wayback.</b> <span class="dim">w toku…</span></div></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; background: #fafafa; border: 1px solid #e5e5e5">
+<span class="eb">Wnioski</span>
+<ul class="sm" style="display: flex; flex-direction: column; gap: 6px; line-height: 1.5">
+<li>14 domen należy do KMP-017 (kit + partia certów).</li>
+<li>3 certyfikaty dziś w nocy, Oracle przewidziała 2.</li>
+<li>11 domen do zgłoszenia na listę CERT PL.</li>
+</ul>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<a class="btn btn-p btn-lg" href="Z-S05-Campaign.dc.html">Dodaj 14 domen do KMP-017</a>
+<a class="btn btn-lg" href="Z-S10-Act.dc.html">Zgłoś 11 domen do CERT PL</a>
+<button class="btn btn-gh" type="button">Eksportuj akta</button>
+</div>
+</aside>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

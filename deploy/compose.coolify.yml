@@ -1,0 +1,67 @@
+# Coolify (devops.solvro.pl, server solvro-stacja-web, project "Hackatony") — docker-compose build pack.
+# Domain: trop.b.solvro.pl → web:3000; Next.js proxies /api/* to api:8000 (single host, no CORS).
+# No published ports (Traefik routes). Memory budget ≤ 5 GiB total. No local ML models in the images.
+# Owner: WS2 (keep in sync with compose.yml).
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: trop
+      POSTGRES_PASSWORD: ${SERVICE_PASSWORD_POSTGRES}
+      POSTGRES_DB: trop
+    command: postgres -c shared_buffers=512MB -c work_mem=32MB -c jit=off
+    volumes: [pgdata:/var/lib/postgresql/data]
+    mem_limit: 1536m
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U trop -d trop"], interval: 5s, timeout: 3s, retries: 30}
+
+  redis:
+    image: redis:7.2-alpine
+    command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru --save ""
+    mem_limit: 256m
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
+
+  api:
+    build: {context: ., dockerfile: deploy/Dockerfile.api}
+    command: ["trop", "serve", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
+      REDIS_URL: redis://redis:6379/0
+      TROP_MODE: ${TROP_MODE:-mock}
+      DATA_DIR: /data
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      URLSCAN_API_KEY: ${URLSCAN_API_KEY}
+      META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
+    volumes: [trop-data:/data]
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
+    mem_limit: 1g
+
+  worker:
+    build: {context: ., dockerfile: deploy/Dockerfile.api}
+    command: ["trop", "worker"]
+    healthcheck: {disable: true}
+    environment:
+      DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
+      REDIS_URL: redis://redis:6379/0
+      TROP_MODE: ${TROP_MODE:-mock}
+      DATA_DIR: /data
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      URLSCAN_API_KEY: ${URLSCAN_API_KEY}
+      META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
+    volumes: [trop-data:/data]
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
+    mem_limit: 1536m
+
+  web:
+    build: {context: ./web, dockerfile: Dockerfile}
+    environment:
+      SERVICE_FQDN_WEB_3000: trop.b.solvro.pl
+      API_INTERNAL_URL: http://api:8000
+      NEXT_PUBLIC_API_BASE: /api/v1
+    depends_on: [api]
+    mem_limit: 512m
+
+volumes:
+  pgdata:
+  trop-data:

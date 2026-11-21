@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>trop: sprawdź materiał</title>
+<script src="./support.js"></script>
+<script src="/_blob/447ba70c53dcf0658fce4d6785aa5ed7"></script>
+<script src="/_blob/8330ca0d163fc8da1b2601518af3de91"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+sc-if,sc-for{display:contents}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:#525252;text-decoration:none}
+.tab:hover{background:#F5F5F5;color:#0A0A0A}
+.tab b{font:500 11px/1 'Geist Mono',ui-monospace,monospace;padding:3px 6px;border-radius:999px;background:#0A0A0A;color:#FFFFFF}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #E5E5E5;background:#FFFFFF;font-family:inherit;font-size:13px;color:#404040;cursor:pointer}
+.chip svg{width:14px;height:14px;flex:none}
+.pri{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:14px;border:none;background:#0A0A0A;color:#FFFFFF;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+a.pri:hover{color:#FFFFFF;background:#262626}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:14px;border:1px solid #E5E5E5;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.card{background:#FFFFFF;border:1px solid #E5E5E5;border-radius:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.07)}
+.spin{display:inline-block;width:18px;height:18px;flex:none;box-sizing:border-box;border-radius:999px;border:2px solid #D4D4D4;border-top-color:#0A0A0A;animation:spin .9s linear infinite}
+.okc{width:20px;height:20px;flex:none;border-radius:999px;background:#0A0A0A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font:700 12px/1 Geist,sans-serif}
+.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.si{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;border:1px solid #F0F0F0;background:#FFFFFF;min-width:0;transition:border-color .3s ease}
+.si b{display:block;font-size:13.5px;font-weight:600;white-space:nowrap}
+.si span.s{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acols{display:grid;grid-template-columns:340px minmax(0,1fr) 300px;gap:20px;align-items:start}
+.colh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 4px 10px}
+.colh h2{margin:0;font-size:16px;font-weight:600;letter-spacing:-.015em}
+.colh span{font-size:12.5px;color:#6B6B6B}
+.pg{position:relative;height:560px;border:1px solid #E5E5E5;border-radius:18px;overflow:hidden;background:#FFFFFF}
+.hl{position:relative;border-radius:8px;transition:box-shadow .4s ease}
+.tagc{position:absolute;top:-10px;right:6px;padding:2px 7px;border-radius:999px;color:#FFFFFF;font:600 10.5px/1.35 Geist,sans-serif;transition:opacity .4s ease}
+.gb{display:block;height:7px;border-radius:4px;background:#EDEDED}
+.evc{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #E5E5E5;border-radius:16px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);animation:pop .4s ease}
+.meter{display:block;height:6px;border-radius:999px;background:#F0F0F0;overflow:hidden}
+.meter i{display:block;height:100%;background:#0A0A0A}
+.skel{height:66px;border-radius:16px;border:1px dashed #E5E5E5;background:#FAFAFA}
+.rk{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-bottom:1px solid #F0F0F0}
+.rk:last-child{border-bottom:0}
+.rkb{display:block;height:8px;border-radius:999px;background:#F0F0F0;overflow:hidden}
+.rkb i{display:block;height:100%;border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.fadeN{transition:opacity .45s ease}
+.seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:#F5F5F5}
+.seg button{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 16px;border-radius:999px;border:0;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.seg svg{width:15px;height:15px}
+.stage{position:relative;height:600px;margin-top:18px}
+.mv{position:absolute;box-sizing:border-box;transition:left .7s cubic-bezier(.2,.8,.2,1),top .7s cubic-bezier(.2,.8,.2,1),width .7s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+.fade{transition:opacity .45s ease .3s}
+.fcard{height:64px;display:flex;align-items:center;gap:12px;padding:0 16px 0 14px;border:1px solid #E5E5E5;border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fl{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs{font:500 13px/1.3 'Geist Mono',ui-monospace,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fm{font-size:12.5px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw{flex:none;font:600 15px/1 'Geist Mono',ui-monospace,monospace}
+.panel{background:#F6F6F6;border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:4px}
+.step{border-radius:18px;overflow:hidden}
+.step>button{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:8px 14px;border:none;background:none;font-family:inherit;text-align:left;cursor:pointer;color:#0A0A0A}
+.tag{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:#262626;color:#FAFAFA;font-size:12px;font-weight:500;text-decoration:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div ref="{{refRt}}" style="position: relative; min-height: 1000px; overflow: hidden; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A; display: flex; flex-direction: column">
+
+  <canvas ref="{{refCv}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3"></canvas>
+
+  <header style="position: relative; z-index: 1; border-bottom: 1px solid {{hdrLine}}">
+    <div data-jelly-clear style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+      <a href="Sprawdz.dc.html" aria-label="trop, strona główna" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 24px; font-weight: 700; letter-spacing: -0.04em">tr<span style="margin-left: 2px; padding: 0 7px 2px; border-radius: 9px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">op</span></a>
+      <nav aria-label="Sekcje" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px">
+        <a class="tab" href="Sprawdz.dc.html" aria-current="page" style="background: #F0F0F0; color: #0A0A0A; font-weight: 600">Sprawdź</a>
+        <a class="tab" href="Kampanie.dc.html">Kampanie</a>
+        <a class="tab" href="Sledztwo.dc.html">Śledztwa</a>
+      </nav>
+    </div>
+  </header>
+
+  <sc-if value="{{isPole}}" hint-placeholder-val="{{ true }}">
+    <main style="position: relative; z-index: 1; flex: 1; display: flex; align-items: center; justify-content: center; padding: 16px 24px 120px">
+      <div data-jelly-clear style="width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center">
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: center">
+          <h1 style="margin: 0; font-size: 48px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Co sprawdzamy?</h1>
+          <p style="margin: 0; max-width: 560px; font-size: 17px; line-height: 1.5; color: #525252">Wklej link, wrzuć zrzut albo wpisz ślad: domenę, piksel czy nazwisko. Boty pokażą, do której kampanii to należy i dlaczego.</p>
+        </div>
+        <div class="card" style="width: 100%; box-sizing: border-box; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px; text-align: left">
+          <label for="rp-in" style="font-size: 13px; font-weight: 500; color: #6B6B6B">Link, plik albo ślad</label>
+          <textarea id="rp-in" rows="2" style="border: none; outline: none; resize: none; padding: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 16px; line-height: 1.55; color: #0A0A0A; background: transparent">https://morvanta.click/?utm_source=fb&amp;utm_visit=0193a7c2-…</textarea>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 6px">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <button type="button" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5"></path></svg>Zrzut ekranu</button><button type="button" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h11v12H4zM15 10l5-3v10l-5-3"></path></svg>Wideo</button><button type="button" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v4h4"></path></svg>HAR lub ZIP</button><button type="button" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg>Domena lub osoba</button>
+            </div>
+            <button type="button" class="pri" onClick="{{wake}}">{{goLabel}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{isAna}}" hint-placeholder-val="{{ false }}">
+    <main style="position: relative; z-index: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 22px 24px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+      <section class="card" aria-label="Sprawdzany materiał" style="border-radius: 18px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 14px">
+        <span style="width: 72px; height: 54px; flex: none; border-radius: 10px; border: 1px dashed #D4D4D4; background: repeating-linear-gradient(135deg, #FAFAFA 0 8px, #F5F5F5 8px 16px); display: grid; place-items: center; font: 10px 'Geist Mono', monospace; color: #8A8A8A">zrzut</span>
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+          <span style="font: 500 14px 'Geist Mono', ui-monospace, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">https://morvanta.click/?utm_source=fb&amp;utm_visit=0193a7c2-…</span>
+          <span style="font-size: 13px; color: #6B6B6B">INC-24817 · link i zrzut reklamy «Puzzle Mania PL»</span>
+        </span>
+        <span role="status" style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #F0FDF4; color: #166534; font-size: 13px; font-weight: 500; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #22C55E; animation: pulse 1.6s ease-out infinite"></span>{{pillTxt}} · {{elapsed}}</span>
+        <button type="button" onClick="{{reset}}" style="min-height: 40px; padding: 0 12px; border: none; background: none; font-family: inherit; font-size: 14px; color: #525252; cursor: pointer">Anuluj</button>
+      </section>
+
+      <ol class="strip" aria-label="Kroki analizy" style="margin: 0; padding: 0; list-style: none">
+        <sc-for list="{{strip}}" as="s" hint-placeholder-count="6">
+          <li class="si" style="border-color: {{s.bd}}">
+            <span data-jelly="{{s.shape}}" data-color="{{s.c}}" data-state="{{s.state}}" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span>
+            <span style="min-width: 0"><b style="color: {{s.nameC}}">{{s.name}}</b><span class="s" style="color: {{s.subC}}">{{s.sub}}</span></span>
+          </li>
+        </sc-for>
+      </ol>
+
+      <div class="acols">
+
+        <section aria-labelledby="an-page">
+          <div class="colh"><h2 id="an-page">Strona po przechwyceniu</h2></div>
+          <div class="pg">
+            <div style="height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 10px; background: #FAFAFA; border-bottom: 1px solid #F0F0F0">
+              <i style="width: 7px; height: 7px; border-radius: 999px; background: #D4D4D4"></i><i style="width: 7px; height: 7px; border-radius: 999px; background: #D4D4D4"></i><i style="width: 7px; height: 7px; border-radius: 999px; background: #D4D4D4"></i>
+              <span style="margin-left: 6px; font: 10.5px 'Geist Mono', monospace; color: #8A8A8A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">morvanta.click/?utm_source=fb&amp;utm_visit=0193a7c2…</span>
+            </div>
+            <div style="padding: 16px 14px 0; display: flex; flex-direction: column; gap: 12px">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0A0A0A; padding-bottom: 6px"><b style="font-size: 15px; font-weight: 800; letter-spacing: .12em">KURIER DNIA</b><span style="font-size: 10px; color: #8A8A8A">21.11.2026</span></div>
+              <p class="hl" style="margin: 0; padding: 4px 6px; font-size: 16px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; box-shadow: 0 0 0 2px {{hl.txt}}">PILNE: Jan Kowalski przerywa milczenie po napaści<span class="tagc" style="background: #14B8A6; opacity: {{hl.txtO}}">Treść</span></p>
+              <div style="display: flex; gap: 10px">
+                <span class="hl" style="width: 92px; height: 92px; flex: none; border-radius: 10px; background: #F0F0F0; display: grid; place-items: center; font: 10px 'Geist Mono', monospace; color: #8A8A8A; box-shadow: 0 0 0 2px {{hl.per}}">twarz<span class="tagc" style="background: #14B8A6; opacity: {{hl.perO}}; right: auto; left: 6px">Osoby</span></span>
+                <span style="flex: 1; display: flex; flex-direction: column; gap: 7px; padding-top: 4px"><span class="gb"></span><span class="gb" style="width: 92%"></span><span class="gb" style="width: 96%"></span><span class="gb" style="width: 70%"></span><span class="gb" style="width: 86%"></span><span class="gb" style="width: 60%"></span></span>
+              </div>
+              <span style="display: flex; flex-direction: column; gap: 7px"><span class="gb"></span><span class="gb" style="width: 94%"></span><span class="gb" style="width: 80%"></span></span>
+              <div class="hl" style="padding: 10px; border: 1px solid #E5E5E5; display: flex; flex-direction: column; gap: 7px; box-shadow: 0 0 0 2px {{hl.kit}}">
+                <span style="font-size: 11.5px; font-weight: 600">Zostaw numer, doradca oddzwoni</span>
+                <span style="height: 22px; border-radius: 6px; border: 1px solid #E5E5E5"></span>
+                <span style="height: 22px; border-radius: 6px; border: 1px solid #E5E5E5"></span>
+                <span style="height: 26px; border-radius: 6px; background: #0A0A0A; color: #FFFFFF; font-size: 11px; font-weight: 600; display: grid; place-items: center">Zarejestruj się</span>
+                <span class="tagc" style="background: #F97316; opacity: {{hl.kitO}}">Kit</span>
+              </div>
+            </div>
+            <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; background: #FAFAFA; border-top: 1px solid #F0F0F0; display: flex; flex-direction: column; gap: 6px; font: 10.5px/1.3 'Geist Mono', monospace; color: #525252">
+              <span style="font: 600 11px Geist, sans-serif; color: #0A0A0A">Sieć · 212 żądań</span>
+              <span>GET morvanta.click/ · 200</span>
+              <span class="hl" style="padding: 2px 4px; box-shadow: 0 0 0 2px {{hl.trk}}">POST cg-7f3a91e0…/events · 204<span class="tagc" style="background: #F97316; opacity: {{hl.trkO}}; top: -9px">Tracking</span></span>
+              <span class="hl" style="padding: 2px 4px; box-shadow: 0 0 0 2px {{hl.inf}}">TLS · LE R11 · dziś 02:31<span class="tagc" style="background: #8B5CF6; opacity: {{hl.infO}}; top: -9px">Infra</span></span>
+            </div>
+            <div class="fadeN" style="position: absolute; inset: 30px 0 0; background: rgba(255,255,255,.92); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; opacity: {{capO}}; pointer-events: none">
+              <span class="spin"></span>
+              <span style="font-size: 14px; color: #525252">Otwieram stronę w piaskownicy…</span>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="an-found" aria-live="polite">
+          <div class="colh"><h2 id="an-found">Co znaleźliśmy</h2><span>{{foundCount}}</span></div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{found}}" as="f" hint-placeholder-count="4">
+              <div class="evc">
+                <span data-jelly="auto" data-color="{{f.c}}" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+                  <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 12px; font-weight: 600; color: {{f.c}}">{{f.type}}</span><span style="font-size: 12px; color: #8A8A8A">znalazł {{f.bot}}</span></span>
+                  <span style="font: 500 14px 'Geist Mono', ui-monospace, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {{f.vc}}; text-decoration: {{f.dec}}">{{f.value}}</span>
+                  <span style="font-size: 12.5px; color: #6B6B6B">{{f.rare}}</span>
+                </span>
+                <span style="flex: none; width: 92px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px"><span class="meter" style="width: 92px"><i style="width: {{f.s}}%"></i></span><span style="font-size: 12px; color: #6B6B6B">{{f.sl}}</span></span>
+              </div>
+            </sc-for>
+            <sc-if value="{{hasRun}}" hint-placeholder-val="{{ true }}">
+              <div class="evc" style="border-style: dashed; box-shadow: none; background: #FAFAFA">
+                <span data-jelly="{{run.shape}}" data-color="{{run.c}}" data-state="speaking" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; font-weight: 600; color: #0A0A0A">{{run.name}} pracuje</span><span style="font-size: 14px; line-height: 1.4; color: #404040">{{run.text}}</span></span>
+                <span class="spin" role="img" aria-label="w toku"></span>
+              </div>
+            </sc-if>
+            <sc-for list="{{skel}}" as="k" hint-placeholder-count="1">
+              <div class="skel" aria-hidden="true"></div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section aria-labelledby="an-rank">
+          <div class="colh"><h2 id="an-rank">Najbliższe kampanie</h2></div>
+          <div class="card" style="border-radius: 18px; padding: 12px 16px 8px">
+            <sc-for list="{{rank}}" as="r" hint-placeholder-count="3">
+              <div class="rk">
+                <span style="display: flex; justify-content: space-between; gap: 8px; font-size: 14px"><span style="font-weight: 600; color: {{r.nc}}">{{r.name}}</span><span style="font: 600 13px 'Geist Mono', monospace; color: {{r.nc}}">{{r.score}}</span></span>
+                <span class="rkb"><i style="width: {{r.w}}%; background: {{r.bc}}"></i></span>
+              </div>
+            </sc-for>
+          </div>
+          <div class="card" style="border-radius: 18px; padding: 12px 12px 8px; margin-top: 12px">
+            <span style="display: block; font-size: 12.5px; color: #6B6B6B; padding: 0 4px 6px">Tak to się łączy</span>
+            <svg viewBox="0 0 270 150" role="img" aria-label="Materiał łączy się przez znalezione ślady z kampanią KMP-017" style="width: 100%; height: auto; display: block">
+              <g fill="none" stroke-linecap="round">
+                <path class="fadeN" d="M40 75 C70 75 80 22 112 22" stroke="#171717" stroke-width="2.2" style="opacity: {{g.e1}}"></path>
+                <path class="fadeN" d="M40 75 C70 75 80 48 112 48" stroke="#171717" stroke-width="2" style="opacity: {{g.e2}}"></path>
+                <path class="fadeN" d="M40 75 C70 75 80 75 112 75" stroke="#171717" stroke-width="1.8" style="opacity: {{g.e3}}"></path>
+                <path class="fadeN" d="M40 75 C70 75 80 102 112 102" stroke="#A3A3A3" stroke-width="1.4" style="opacity: {{g.e4}}"></path>
+                <path class="fadeN" d="M40 75 C70 75 80 128 112 128" stroke="#A3A3A3" stroke-width="1.4" style="opacity: {{g.e5}}"></path>
+                <g class="fadeN" style="opacity: {{g.k}}" stroke="#171717" stroke-width="1.6">
+                  <path d="M120 22 C170 22 180 70 222 70"></path><path d="M120 48 C170 48 180 70 222 70"></path><path d="M120 75 C170 75 180 70 222 70"></path><path d="M120 102 C170 102 180 70 222 70" stroke="#A3A3A3"></path><path d="M120 128 C170 128 180 70 222 70" stroke="#A3A3A3"></path>
+                </g>
+              </g>
+              <rect x="22" y="63" width="22" height="24" rx="6" fill="#0A0A0A"></rect>
+              <g>
+                <circle class="fadeN" cx="116" cy="22" r="6" fill="#F97316" style="opacity: {{g.e1}}"></circle>
+                <circle class="fadeN" cx="116" cy="48" r="6" fill="#F97316" style="opacity: {{g.e2}}"></circle>
+                <circle class="fadeN" cx="116" cy="75" r="6" fill="#14B8A6" style="opacity: {{g.e3}}"></circle>
+                <circle class="fadeN" cx="116" cy="102" r="6" fill="#14B8A6" style="opacity: {{g.e4}}"></circle>
+                <circle class="fadeN" cx="116" cy="128" r="6" fill="#8B5CF6" style="opacity: {{g.e5}}"></circle>
+              </g>
+              <circle class="fadeN" cx="232" cy="70" r="13" fill="#0A0A0A" style="opacity: {{g.k}}"></circle>
+              <text x="33" y="104" text-anchor="middle" font-family="Geist Mono, monospace" font-size="9.5" fill="#525252">INC</text>
+              <text class="fadeN" x="232" y="98" text-anchor="middle" font-family="Geist Mono, monospace" font-size="9.5" fill="#0A0A0A" style="opacity: {{g.k}}">KMP-017</text>
+            </svg>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{isRep}}" hint-placeholder-val="{{ false }}">
+    <main style="position: relative; z-index: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 30px 24px 32px; box-sizing: border-box">
+
+      <section aria-labelledby="rp-verdict" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 28px">
+        <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+          <h1 id="rp-verdict" style="margin: 0; font-size: 42px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Fałszywe newsy, które prowadzą do „inwestycji”</h1>
+          <p style="margin: 0; max-width: 720px; font-size: 17px; line-height: 1.5; color: #525252">Reklama udaje pilną wiadomość z «Kurier Dnia», a link prowadzi do fałszywej „platformy inwestycyjnej”, która wyłudza pieniądze.</p>
+          <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: #8A8A8A">KMP-017 «Zamach» · 46 reklam · 19 domen · INC-24817 · morvanta.click</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+          <a class="pri" href="Kampania-KMP017.dc.html">Otwórz kampanię<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="Sledztwo.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; color: #525252; text-decoration: underline; text-decoration-color: #D4D4D4; text-underline-offset: 4px">albo szukaj reszty z agentem</a>
+        </div>
+      </section>
+
+      <div style="margin-top: 26px">
+        <div class="seg" role="group" aria-label="Widok wyniku">
+            <button type="button" onClick="{{showRep}}" aria-pressed="{{repPressed}}" style="background: {{segRbg}}; color: {{segRc}}; box-shadow: {{segRsh}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg>Raport</button>
+            <button type="button" onClick="{{showGraf}}" aria-pressed="{{grafPressed}}" style="background: {{segGbg}}; color: {{segGc}}; box-shadow: {{segGsh}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8 7l8 4M8 17l8-4"></path></svg>Graf</button>
+          </div>
+      </div>
+
+      <div class="stage" role="group" aria-label="{{stageLabel}}">
+
+        <span class="mv" style="left: 0px; top: 6px; opacity: {{rO}}; font-size: 13px; font-weight: 500; color: #6B6B6B">Co znalazły boty</span>
+
+        <svg class="fade" width="1192" height="600" viewBox="0 0 1192 600" aria-hidden="true" style="position: absolute; left: 0; top: 0; opacity: {{gO}}">
+          <g fill="none" stroke-linecap="round">
+            <path d="M240 300 C270 300 270 52 300 52" stroke="#171717" stroke-width="3"></path>
+            <path d="M240 300 C270 300 270 148 300 148" stroke="#171717" stroke-width="2.6"></path>
+            <path d="M240 300 C270 300 270 244 300 244" stroke="#171717" stroke-width="2.2"></path>
+            <path d="M240 300 C270 300 270 340 300 340" stroke="#A3A3A3" stroke-width="1.6"></path>
+            <path d="M240 300 C270 300 270 436 300 436" stroke="#A3A3A3" stroke-width="1.2"></path>
+            <path d="M240 300 C270 300 270 532 300 532" stroke="#D4D4D4" stroke-width="1.2" stroke-dasharray="4 5"></path>
+            <path d="M560 52 C610 52 610 300 660 300" stroke="#171717" stroke-width="3"></path>
+            <path d="M560 148 C610 148 610 300 660 300" stroke="#171717" stroke-width="2.6"></path>
+            <path d="M560 244 C610 244 610 300 660 300" stroke="#171717" stroke-width="2.2"></path>
+            <path d="M560 340 C610 340 610 300 660 300" stroke="#A3A3A3" stroke-width="1.6"></path>
+            <path d="M560 436 C610 436 610 300 660 300" stroke="#A3A3A3" stroke-width="1.2"></path>
+            <path d="M810 410 L810 476" stroke="#6D28D9" stroke-width="1.5" stroke-dasharray="6 6"></path>
+            <g stroke="#E5E5E5" stroke-width="1">
+              <path d="M960 300 L1012 182"></path><path d="M960 300 L1048 142"></path><path d="M960 300 L1092 172"></path><path d="M960 300 L1136 150"></path><path d="M960 300 L1170 198"></path><path d="M960 300 L1026 242"></path><path d="M960 300 L1082 226"></path><path d="M960 300 L1142 252"></path><path d="M960 300 L1012 330"></path><path d="M960 300 L1062 302"></path><path d="M960 300 L1122 320"></path><path d="M960 300 L1166 362"></path><path d="M960 300 L1040 402"></path><path d="M960 300 L1102 430"></path>
+            </g>
+          </g>
+          <g fill="#FFFFFF" stroke="#171717" stroke-width="1.5"><circle cx="240" cy="300" r="4"></circle><circle cx="660" cy="300" r="4"></circle></g>
+          <g fill="#0A0A0A">
+            <circle cx="1012" cy="182" r="5"></circle><circle cx="1048" cy="142" r="4" opacity=".7"></circle><circle cx="1092" cy="172" r="6"></circle><circle cx="1136" cy="150" r="4" opacity=".6"></circle><circle cx="1170" cy="198" r="5" opacity=".8"></circle><circle cx="1026" cy="242" r="4" opacity=".7"></circle><circle cx="1082" cy="226" r="5"></circle><circle cx="1142" cy="252" r="4" opacity=".6"></circle><circle cx="1012" cy="330" r="5" opacity=".8"></circle><circle cx="1062" cy="302" r="6"></circle><circle cx="1122" cy="320" r="4" opacity=".7"></circle><circle cx="1166" cy="362" r="5" opacity=".6"></circle><circle cx="1040" cy="402" r="4" opacity=".8"></circle><circle cx="1102" cy="430" r="5" opacity=".7"></circle>
+          </g>
+        </svg>
+
+        <div class="mv fade" style="left: 0px; top: 215px; width: 240px; height: 170px; opacity: {{gO}}; pointer-events: {{gPE}}; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05)">
+          <span style="font-size: 12px; font-weight: 500; color: #6B6B6B">Ten materiał</span>
+          <span style="height: 56px; border-radius: 10px; border: 1px dashed #D4D4D4; background: repeating-linear-gradient(135deg, #FAFAFA 0 10px, #F5F5F5 10px 20px); display: grid; place-items: center; font: 11px 'Geist Mono', monospace; color: #8A8A8A">zrzut «Puzzle Mania PL»</span>
+          <b style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em">INC-24817</b>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6B6B6B">morvanta.click · 02:31</span>
+        </div>
+
+        <sc-for list="{{finds}}" as="f" hint-placeholder-count="6">
+          <div class="mv fcard" style="left: {{f.x}}px; top: {{f.y}}px; width: {{f.w}}px; background: {{f.bg}}; border-style: {{f.bs}}">
+            <span data-jelly="auto" data-color="{{f.c}}" aria-hidden="true" style="flex: none; display: block; width: 34px; height: 34px"></span>
+            <span class="ft">
+              <sc-if value="{{f.r}}" hint-placeholder-val="{{ true }}"><span class="fl">{{f.long}}</span><span class="fm">{{f.bot}} · {{f.meta}}</span></sc-if>
+              <sc-if value="{{f.g}}" hint-placeholder-val="{{ false }}"><span class="fs">{{f.short}}</span><span class="fm">{{f.bot}}</span></sc-if>
+            </span>
+            <b class="fw" style="color: {{f.wc}}">{{f.w}}</b>
+          </div>
+        </sc-for>
+
+        <article class="mv fade" aria-label="Kampania KMP-017" style="left: 660px; top: 190px; width: 300px; height: 220px; opacity: {{gO}}; pointer-events: {{gPE}}; background: #0A0A0A; color: #FAFAFA; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 16px 40px rgba(0,0,0,.18)">
+          <span style="font-size: 12px; font-weight: 500; color: #A3A3A3">Kampania · dopasowanie 0.94</span>
+          <h2 style="margin: 0; font-size: 30px; line-height: 1; letter-spacing: -0.045em; font-weight: 600">KMP-017<br>«Zamach»</h2>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #D4D4D4">Fałszywy «Kurier Dnia», potem „platforma inwestycyjna”.</p>
+          <div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px"><span class="tag">OP-03 «Kestrel»</span><a class="tag" href="Kampania-KMP017.dc.html" style="background: #FFFFFF; color: #0A0A0A">Otwórz kampanię</a></div>
+        </article>
+
+
+        <div class="mv fade" style="left: 690px; top: 476px; width: 240px; height: 92px; opacity: {{gO}}; pointer-events: {{gPE}}; background: #FFFFFF; border: 1.5px dashed #C4B5FD; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+          <span style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 12px; font-weight: 500; color: #6D28D9">Inna kampania</span><b style="font: 600 14px 'Geist Mono', monospace">0.41</b></span>
+          <b style="font-size: 16px; font-weight: 600; letter-spacing: -0.02em">KMP-034 «Glikonor»</b>
+          <span style="font-size: 12.5px; color: #6B6B6B">ten sam operator OP-03</span>
+        </div>
+
+        <span class="mv fade" style="left: 1000px; top: 462px; width: 190px; opacity: {{gO}}; font-size: 12px; line-height: 1.4; color: #6B6B6B">46 materiałów i 19 domen tej kampanii</span>
+
+
+        <div class="mv" role="group" aria-label="Ocena werdyktu" style="left: 0px; top: 540px; width: 700px; opacity: {{rO}}; pointer-events: {{rPE}}; display: flex; flex-wrap: wrap; align-items: center; gap: 6px">
+          <span style="font-size: 14px; font-weight: 600; margin-right: 6px">Werdykt trafny?</span>
+          <button type="button" class="chip">Tak</button>
+          <button type="button" class="chip">Inna kampania</button>
+          <button type="button" class="chip">Nowa kampania</button>
+          <button type="button" class="chip">To nie oszustwo</button>
+        </div>
+
+        <aside class="mv panel" aria-labelledby="rp-sum" style="left: {{pX}}px; top: 0px; width: 452px; opacity: {{rO}}; pointer-events: {{rPE}}">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 2px 4px 10px">
+            <span data-jelly="square" data-master data-color="#0A0A0A" aria-hidden="true" style="flex: none; display: block; width: 42px; height: 42px"></span>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+              <h2 id="rp-sum" style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.015em">Jak pracowały boty</h2>
+              <span style="font-size: 13px; color: #6B6B6B">6 z 6 kroków · 19,6 s</span>
+            </div>
+          </div>
+          <sc-for list="{{steps}}" as="s" hint-placeholder-count="6">
+            <div class="step" style="background: {{s.bg}}">
+              <button type="button" onClick="{{s.toggle}}" aria-expanded="{{s.expanded}}">
+                <sc-if value="{{s.ok}}" hint-placeholder-val="{{ true }}"><span class="okc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></sc-if>
+                <sc-if value="{{s.warn}}" hint-placeholder-val="{{ false }}"><span class="okc" style="background: #EA580C">!</span></sc-if>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{s.name}}</span><span style="font-size: 13px; color: {{s.outC}}">{{s.out}}</span></span>
+                <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8A8A8A">{{s.tm}}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: {{s.chev}}; transition: transform .2s ease"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <sc-if value="{{s.open}}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 0 14px 14px; display: flex; gap: 10px; align-items: flex-start">
+                  <span data-jelly="{{s.shape}}" data-color="{{s.c}}" aria-hidden="true" style="flex: none; display: block; width: 30px; height: 30px"></span>
+                  <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 12px; color: #6B6B6B">{{s.bot}}</span><span style="font-size: 14px; line-height: 1.45; color: #262626">{{s.d1}}</span><span style="font-size: 14px; line-height: 1.45; color: #262626">{{s.d2}}</span></span>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <a href="C3-Porownanie.dc.html" style="align-self: flex-start; margin-top: 4px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; text-decoration: none">Szczegóły warstwa po warstwie<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </aside>
+
+      </div>
+    </main>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"etap":{"editor":"enum","options":["pole","analiza","raport","graf"],"default":"pole","section":"Przepływ"},"$preview":{"width":1440,"height":1000}}'>
+const FIELD = ['#2563EB', '#F97316', '#14B8A6', '#8B5CF6', '#EC4899'];
+const ELAPSED = ['0,4 s', '6,8 s', '7,4 s', '11,3 s', '13,7 s', '14,1 s', '19,6 s'];
+const DELAY = [0, 1300, 900, 1000, 1800, 1000, 1300];
+const BOTS = [
+  { name: 'Zwiadowca', c: '#2563EB', shape: 'auto', run: 'Otwieram stronę w piaskownicy. Formularzy nie wysyłam.', tm: '6,8 s' },
+  { name: 'Tropiciel', c: '#F97316', shape: 'auto', run: 'Szukam pikseli, bramek konwersji i kitu w ruchu sieciowym.', tm: '0,6 s' },
+  { name: 'Czytelnik', c: '#14B8A6', shape: 'auto', run: 'Czytam nagłówek i tekst, rozpoznaję twarze.', tm: '3,9 s' },
+  { name: 'Notariusz', c: '#8B5CF6', shape: 'auto', run: 'Pytam RDAP i crt.sh. RDAP nie odpowiada, ponawiam.', tm: '2,4 s' },
+  { name: 'Archiwista', c: '#EC4899', shape: 'auto', run: 'Porównuję ślady z 1 284 materiałami w bazie.', tm: '0,4 s' },
+  { name: 'Sędzia', c: '#0A0A0A', shape: 'square', run: 'Ważę dowody i piszę raport.', tm: '5,5 s' }
+];
+const EV = [
+  { type: 'Tracking', bot: 'Tropiciel', c: '#F97316', value: 'bramka CAPI cg-7f3a91e0…', rare: '47 z 1 284 materiałów ma ten ślad', s: 100, sl: 'silny' },
+  { type: 'Kit', bot: 'Tropiciel', c: '#F97316', value: '/api/v2/relay/lead/{uuid}/', rare: '58 z 1 284', s: 87, sl: 'silny' },
+  { type: 'Treść', bot: 'Czytelnik', c: '#14B8A6', value: '„PILNE: {PER} przerywa milczenie…”', rare: 'szablon z 22 materiałów', s: 71, sl: 'silny' },
+  { type: 'Osoby', bot: 'Czytelnik', c: '#14B8A6', value: 'Jan Kowalski · twarz 0.91', rare: '61 z 1 284', s: 26, sl: 'średni' },
+  { type: 'Infra', bot: 'Notariusz', c: '#8B5CF6', value: 'certyfikat LE R11, nocna partia', rare: '6 z 1 284 · RDAP częściowo', s: 45, sl: 'średni' },
+  { type: 'Wspólne', bot: 'Archiwista', c: '#EC4899', value: 'Cloudflare 203.0.113.0/24', rare: 'ma go 512 niepowiązanych spraw', s: 0, sl: 'pomijam', zero: true }
+];
+const COUNT = [0, 0, 2, 4, 5, 6, 6];
+const FIND = [
+  { bot: 'Tropiciel', c: '#F97316', long: 'Ta sama bramka CAPI co 47 materiałów tej kampanii', short: 'bramka CAPI cg-7f3a…', meta: 'tracking · 47 z 1 284 materiałów', w: '+3.1' },
+  { bot: 'Tropiciel', c: '#F97316', long: 'Ten sam kit: /api/v2/relay/lead/{uuid}/', short: 'kit relay v1', meta: 'kit · 58 z 1 284', w: '+2.7' },
+  { bot: 'Czytelnik', c: '#14B8A6', long: 'Tekst z szablonu „PILNE: {PER} przerywa…”', short: 'szablon „PILNE: {PER}…”', meta: 'treść · podobieństwo 0.93 · 22 z 1 284', w: '+2.2' },
+  { bot: 'Notariusz', c: '#8B5CF6', long: 'Certyfikat z tej samej nocnej partii LE R11', short: 'certyfikaty LE R11, noc', meta: 'infra · 6 z 1 284 · RDAP częściowo', w: '+1.4' },
+  { bot: 'Czytelnik', c: '#14B8A6', long: 'W reklamie ta sama twarz: Jan Kowalski', short: 'Jan Kowalski · 0.91', meta: 'osoby · 61 z 1 284', w: '+0.8' },
+  { bot: 'Archiwista', c: '#EC4899', long: 'Cloudflare pominięty: ma go 512 niepowiązanych spraw', short: 'Cloudflare · pominięty', meta: 'wspólna infrastruktura · waga 0', w: '0', zero: true }
+];
+const STEPS = [
+  { id: 'cap', name: 'Przechwycenie strony', bot: 'Zwiadowca', c: '#2563EB', shape: 'auto', out: '4 przekierowania · 212 żądań', tm: '6,8 s', d1: 'Otworzyłem stronę w piaskownicy. Formularzy nie wysyłam.', d2: 'Droga: l.facebook.com → morvanta.click/?utm_visit=0193a7c2-…' },
+  { id: 'trk', name: 'Ślady techniczne', bot: 'Tropiciel', c: '#F97316', shape: 'auto', out: 'bramka CAPI · kit relay v1', tm: '0,6 s', d1: 'Bramka CAPI cg-7f3a… ma 47 materiałów, wszystkie z KMP-017.', d2: 'Ścieżka /api/v2/relay/lead/{uuid}/ występuje też w KMP-034.' },
+  { id: 'txt', name: 'Treść i osoby', bot: 'Czytelnik', c: '#14B8A6', shape: 'auto', out: 'szablon „PILNE” · Jan Kowalski', tm: '3,9 s', d1: 'Tekst pasuje do szablonu „PILNE: {PER} przerywa…” (0.93).', d2: 'Twarz w reklamie: Jan Kowalski, podobieństwo 0.91.' },
+  { id: 'reg', name: 'Domena i certyfikaty', bot: 'Notariusz', c: '#8B5CF6', shape: 'auto', warn: true, out: 'częściowo: RDAP nie odpowiedział', tm: '2,4 s', d1: 'Certyfikat z nocnej partii 6 certyfikatów LE R11.', d2: 'RDAP milczał 3 razy, więc rejestratora nie znam. Werdykt liczony bez tej informacji.' },
+  { id: 'cmp', name: 'Porównanie z bazą', bot: 'Archiwista', c: '#EC4899', shape: 'auto', out: '312 podobnych · 9 kampanii', tm: '0,4 s', d1: 'Najbliżej: KMP-017 0.94, KMP-034 0.41, KMP-022 0.08.', d2: 'Cloudflare 203.0.113.0/24 pomijam: ma go 512 niepowiązanych spraw.' },
+  { id: 'jdg', name: 'Werdykt', bot: 'Sędzia', c: '#0A0A0A', shape: 'square', out: 'KMP-017 · pewność 0.94', tm: '5,5 s', d1: 'Tylko KMP-017 przekracza próg pewności.', d2: 'Najwięcej ważyły bramka CAPI i kit.' }
+];
+
+class Component extends DCLogic {
+  stage() { return (this.state && this.state.stage) || this.props.etap || 'pole'; }
+  componentDidMount() { this.syncJelly(0); }
+  componentDidUpdate(prevProps) {
+    if (prevProps.etap !== this.props.etap) {
+      this.stopRun();
+      if (this.state && (this.state.stage || this.state.t != null || this.state.waking)) { this.setState({ stage: null, t: null, waking: false }); return; }
+    }
+    this.syncJelly(0);
+  }
+  componentWillUnmount() {
+    this.stopRun();
+    clearTimeout(this.retryT);
+    if (this.jelly) { this.jelly.dispose(); this.jelly = null; }
+  }
+  stopRun() { clearTimeout(this.runT); this.runT = null; }
+  syncJelly(n) {
+    const J = window.ZgraiJelly;
+    if (!J || !this.cv || !this.rt) {
+      clearTimeout(this.retryT);
+      if (n < 60) this.retryT = setTimeout(() => this.syncJelly(n + 1), 100);
+      return;
+    }
+    const s = this.stage();
+    const mode = s === 'pole' ? 'field' : 'plain';
+    if (this.jelly && this.jMode !== mode) { this.jelly.dispose(); this.jelly = null; }
+    if (!this.jelly) {
+      this.jelly = mode === 'field'
+        ? J.mountOverlay(this.cv, this.rt, { costume: 'detective', field: { bots: FIELD.map((c) => ({ color: c, shape: 'auto' })), master: true, state: 'asleep' } })
+        : J.mountOverlay(this.cv, this.rt, { costume: 'detective' });
+      this.jMode = mode;
+    }
+  }
+  run() {
+    this.stopRun();
+    this.setState({ waking: true });
+    if (this.jelly && this.jMode === 'field') this.jelly.wake();
+    const next = (t) => {
+      if (t > 6) { this.runT = setTimeout(() => this.setState({ stage: 'raport', t: null }), 900); return; }
+      this.runT = setTimeout(() => { this.setState({ t: t }); next(t + 1); }, DELAY[t]);
+    };
+    this.runT = setTimeout(() => { this.setState({ stage: 'analiza', t: 0, waking: false }); next(1); }, 900);
+  }
+  renderVals() {
+    if (!this.refCv) {
+      this.refCv = (el) => { this.cv = el; };
+      this.refRt = (el) => { this.rt = el; };
+    }
+    const s = this.stage();
+    const isGraf = s === 'graf';
+    const isRep = s === 'raport' || isGraf;
+    const isAna = s === 'analiza';
+    const t = (this.state && this.state.t != null) ? this.state.t : (isAna ? 3 : 6);
+    const strip = BOTS.map((b, i) => {
+      const done = i < t, run = i === t;
+      return {
+        name: b.name, c: b.c, shape: b.shape,
+        state: done ? 'awake' : (run ? 'speaking' : 'asleep'),
+        sub: done ? 'gotowe · ' + b.tm : (run ? 'pracuje…' : 'czeka'),
+        nameC: (done || run) ? '#0A0A0A' : '#8A8A8A',
+        subC: run ? '#166534' : '#6B6B6B',
+        bd: run ? '#0A0A0A' : '#F0F0F0'
+      };
+    });
+    const cnt = COUNT[Math.max(0, Math.min(t, 6))];
+    const found = EV.slice(0, cnt).map((e) => Object.assign({}, e, {
+      vc: e.zero ? '#8A8A8A' : '#0A0A0A', dec: e.zero ? 'line-through' : 'none'
+    }));
+    const hasRun = t < 6;
+    const rb = BOTS[Math.min(t, 5)];
+    const skelN = Math.max(0, 6 - cnt - (hasRun ? 1 : 0));
+    const on = (k) => (k ? 1 : 0);
+    const hl = {
+      trk: t >= 2 ? '#F97316' : 'transparent', trkO: on(t >= 2),
+      kit: t >= 2 ? '#F97316' : 'transparent', kitO: on(t >= 2),
+      txt: t >= 3 ? '#14B8A6' : 'transparent', txtO: on(t >= 3),
+      per: t >= 3 ? '#14B8A6' : 'transparent', perO: on(t >= 3),
+      inf: t >= 4 ? '#8B5CF6' : 'transparent', infO: on(t >= 4)
+    };
+    const RW = t < 4 ? [0, 0, 0] : (t === 4 ? [82, 44, 12] : [94, 41, 8]);
+    const RS = t < 4 ? ['—', '—', '—'] : (t === 4 ? ['0.9…', '0.4…', '0.1…'] : ['0.94', '0.41', '0.08']);
+    const rank = [
+      { name: 'KMP-017 «Zamach»', w: RW[0], score: RS[0], bc: '#0A0A0A', nc: '#0A0A0A' },
+      { name: 'KMP-034 «Glikonor»', w: RW[1], score: RS[1], bc: '#A3A3A3', nc: '#525252' },
+      { name: 'KMP-022 «Stawy»', w: RW[2], score: RS[2], bc: '#D4D4D4', nc: '#8A8A8A' }
+    ];
+    const g = { e1: on(t >= 2), e2: on(t >= 2), e3: on(t >= 3), e4: on(t >= 3), e5: on(t >= 4), k: on(t >= 5) };
+
+    const sel = (this.state && this.state.sel !== undefined) ? this.state.sel : 'reg';
+    const steps = STEPS.map((st) => {
+      const open = sel === st.id;
+      return Object.assign({}, st, {
+        open: open, expanded: open ? 'true' : 'false',
+        bg: open ? '#FFFFFF' : 'transparent', chev: open ? 'rotate(180deg)' : 'none',
+        toggle: () => this.setState({ sel: open ? null : st.id }),
+        ok: !st.warn, warn: !!st.warn, outC: st.warn ? '#9A3412' : '#525252'
+      });
+    });
+    const finds = FIND.map((f, k) => Object.assign({}, f, {
+      x: isGraf ? 300 : 0, y: isGraf ? 20 + 96 * k : 36 + 76 * k, w: isGraf ? 260 : 700,
+      g: isGraf, r: !isGraf,
+      bs: f.zero ? 'dashed' : 'solid', bg: f.zero ? '#FAFAFA' : '#FFFFFF', wc: f.zero ? '#A3A3A3' : '#0A0A0A'
+    }));
+    const onS = { bg: '#FFFFFF', c: '#0A0A0A', sh: '0 1px 2px rgba(0,0,0,.08)' };
+    const offS = { bg: 'transparent', c: '#525252', sh: 'none' };
+    const R = isGraf ? offS : onS, G = isGraf ? onS : offS;
+    const waking = !!(this.state && this.state.waking);
+    return {
+      refCv: this.refCv, refRt: this.refRt,
+      isPole: s === 'pole', isAna: isAna, isRep: isRep,
+      hdrLine: s === 'pole' ? 'transparent' : '#F0F0F0',
+      goLabel: waking ? 'Budzę boty…' : 'Sprawdź',
+      pillTxt: t >= 6 ? 'Raport gotowy' : 'Analiza trwa',
+      elapsed: ELAPSED[Math.max(0, Math.min(t, 6))],
+      strip: strip, found: found, hasRun: hasRun,
+      run: { name: rb.name, c: rb.c, shape: rb.shape, text: rb.run },
+      skel: Array.from({ length: skelN }, (_, i) => ({ i: i })),
+      foundCount: cnt + ' z 6 śladów',
+      hl: hl, capO: t >= 1 ? 0 : 1,
+      rank: rank, rankNote: t < 4 ? 'Czekam, aż boty zbiorą ślady.' : '312 podobnych materiałów, 9 kampanii do oceny',
+      g: g,
+      steps: steps, finds: finds,
+      gO: isGraf ? 1 : 0, gPE: isGraf ? 'auto' : 'none',
+      rO: isGraf ? 0 : 1, rPE: isGraf ? 'none' : 'auto',
+      pX: isGraf ? 800 : 740,
+      segRbg: R.bg, segRc: R.c, segRsh: R.sh, segGbg: G.bg, segGc: G.c, segGsh: G.sh,
+      repPressed: isGraf ? 'false' : 'true', grafPressed: isGraf ? 'true' : 'false',
+      stageLabel: isGraf ? 'Graf: materiał, dowody i dopasowane kampanie' : 'Raport botów',
+      wake: () => { if (!waking) this.run(); },
+      reset: () => { this.stopRun(); this.setState({ stage: 'pole', t: null, waking: false }); },
+      again: () => { this.stopRun(); this.setState({ stage: 'pole', t: null, waking: false }); },
+      showRep: () => this.setState({ stage: 'raport' }),
+      showGraf: () => this.setState({ stage: 'graf' })
+    };
+  }
+}
+</script>
+</body>
+</html>

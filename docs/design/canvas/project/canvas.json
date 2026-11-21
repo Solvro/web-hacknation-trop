@@ -1,0 +1,1057 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "C1-Pole.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "check",
+      "title": "C1 · Jedno pole: wklej i sprawdź",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "C2-Tablica.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "check",
+      "title": "C2 · Tablica rośnie w trakcie analizy",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "C3-Porownanie.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "check",
+      "title": "C3 · Porównanie z kandydatami, warstwa po warstwie",
+      "w": 1440,
+      "x": 0,
+      "y": 1420
+    },
+    "C4-Skrzynka.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "check",
+      "title": "C4 · Skrzynka: sygnały i ręczne w jednej kolejce",
+      "w": 1440,
+      "x": 1520,
+      "y": 1420
+    },
+    "DesignSystem.dc.html": {
+      "expand": "fill",
+      "h": 3800,
+      "page": "start",
+      "title": "01 · Identyfikacja i komponenty bazowe",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "E1-Extension.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "page": "citizen",
+      "title": "E1 · Wtyczka: nakładka na post sponsorowany",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "E2-SprawdzReklame.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "citizen",
+      "title": "E2 · Sprawdź reklamę (strona publiczna)",
+      "w": 1280,
+      "x": 1520,
+      "y": 0
+    },
+    "E2b-Sprawdz-Zgrai.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "citizen",
+      "title": "E2 · wariant B: minimal (styl zgrai)",
+      "w": 1280,
+      "x": 2880,
+      "y": 0
+    },
+    "E2c-Sprawdz-Znak.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "citizen",
+      "title": "E2 · wariant C: znak ostrzegawczy",
+      "w": 1280,
+      "x": 4240,
+      "y": 0
+    },
+    "E2d-Sprawdz-Rozmowa.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "citizen",
+      "title": "E2 · wariant D: rozmowa",
+      "w": 1280,
+      "x": 5600,
+      "y": 0
+    },
+    "F1-NewMaterial.dc.html": {
+      "expand": "fill",
+      "h": 2450,
+      "page": "flows",
+      "title": "F1 · Nowy materiał → werdykt",
+      "w": 1600,
+      "x": 0,
+      "y": 0
+    },
+    "F2-CampaignAct.dc.html": {
+      "expand": "fill",
+      "h": 2200,
+      "page": "flows",
+      "title": "F2 · Kampania → Act → pakiet DSA",
+      "w": 1600,
+      "x": 1680,
+      "y": 0
+    },
+    "F3-AgentInvestigation.dc.html": {
+      "expand": "fill",
+      "h": 2150,
+      "page": "flows",
+      "title": "F3 · Śledztwo agenta od domeny",
+      "w": 1600,
+      "x": 0,
+      "y": 2570
+    },
+    "F4-AlertTriage.dc.html": {
+      "expand": "fill",
+      "h": 2400,
+      "page": "flows",
+      "title": "F4 · Alert → triage → feedback",
+      "w": 1600,
+      "x": 1680,
+      "y": 2570
+    },
+    "F5-Citizen.dc.html": {
+      "expand": "fill",
+      "h": 2500,
+      "page": "flows",
+      "title": "F5 · Wtyczka i Sprawdź reklamę",
+      "w": 1600,
+      "x": 0,
+      "y": 5090
+    },
+    "F6-JudgeDemo.dc.html": {
+      "expand": "fill",
+      "h": 2300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "F6 · Demo dla jury (3 min)",
+      "w": 1600,
+      "x": 1680,
+      "y": 5090
+    },
+    "K1-Akta.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "page": "kierunki",
+      "title": "K1 · Akta sprawy (redakcyjny)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "K2-Tablica.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "page": "kierunki",
+      "title": "K2 · Tablica powiązań (przestrzenny)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "K3-Plakat.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "page": "kierunki",
+      "title": "K3 · Plakat (typografia szwajcarska)",
+      "w": 1440,
+      "x": 0,
+      "y": 1620
+    },
+    "K4-Terminal.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "page": "kierunki",
+      "title": "K4 · Terminal (klawiatura)",
+      "w": 1440,
+      "x": 1520,
+      "y": 1620
+    },
+    "M1-Fosfor.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "matrix",
+      "title": "M1 · Klasyczny fosfor",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "M2-Ciemny.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "matrix",
+      "title": "M2 · Ciemny, jeden zielony akcent",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "M3-Deszcz.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "matrix",
+      "title": "M3 · Deszcz kodu",
+      "w": 1440,
+      "x": 0,
+      "y": 1420
+    },
+    "M4-Pigulki.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "matrix",
+      "title": "M4 · Czerwona i niebieska pigułka",
+      "w": 1440,
+      "x": 1520,
+      "y": 1420
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "is_interactive": true,
+      "page": "start",
+      "title": "00 · IA i mapa aplikacji (pierwsza wersja, nazwa robocza RED PILL)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Nav.dc.html": {
+      "h": 960,
+      "is_interactive": true,
+      "page": "start",
+      "title": "Komponent · Nav (sidebar)",
+      "w": 240,
+      "x": 3040,
+      "y": 0
+    },
+    "NavZ.dc.html": {
+      "h": 960,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Komponent · Nav (styl zgrai)",
+      "w": 240,
+      "x": 4560,
+      "y": 0
+    },
+    "S01-Command.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S01 · Centrum dowodzenia",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "S02-Analyze.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S02 · Analizuj materiał",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "S03-Triage.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S03 · Triage",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "S04-Incident.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S04 · Incydent",
+      "w": 1440,
+      "x": 0,
+      "y": 1620
+    },
+    "S05-Campaign.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S05 · Kampania",
+      "w": 1440,
+      "x": 1520,
+      "y": 1620
+    },
+    "S06-Graph.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S06 · Graf powiązań",
+      "w": 1440,
+      "x": 3040,
+      "y": 1620
+    },
+    "S07-Investigation.dc.html": {
+      "expand": "fill",
+      "h": 1900,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S07 · Śledztwo (Agent Smith)",
+      "w": 1440,
+      "x": 0,
+      "y": 3840
+    },
+    "S08-Oracle.dc.html": {
+      "expand": "fill",
+      "h": 1650,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S08 · Oracle",
+      "w": 1440,
+      "x": 1520,
+      "y": 3840
+    },
+    "S09-Radar.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S09 · Radar podszyć",
+      "w": 1440,
+      "x": 3040,
+      "y": 3840
+    },
+    "S10-Act.dc.html": {
+      "expand": "fill",
+      "h": 1800,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S10 · Act center",
+      "w": 1440,
+      "x": 0,
+      "y": 5860
+    },
+    "S11-Lab.dc.html": {
+      "expand": "fill",
+      "h": 1800,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S11 · Lab",
+      "w": 1440,
+      "x": 1520,
+      "y": 5860
+    },
+    "S12-Hunter.dc.html": {
+      "expand": "fill",
+      "h": 1900,
+      "is_interactive": true,
+      "page": "screens",
+      "title": "S12 · Hunter i źródła",
+      "w": 1440,
+      "x": 3040,
+      "y": 5860
+    },
+    "Sprawdz-2-Analiza.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "2 · Analiza: boty pracują, dowody spływają na bieżąco",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Sprawdz-3-Raport.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "3 · Raport: werdykt i dowody",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Sprawdz-4-Graf.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "4 · Graf: te same karty jako sieć z kampanią (węzły są klikalne)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Sprawdz.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "1 · Pole: wklejasz i klikasz „Sprawdź” (cały przepływ działa po kliknięciu)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "T-Kampania.dc.html": {
+      "expand": "fill",
+      "h": 1250,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Kampania (odrzucone: za bardzo zgrai)",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "T-Kolejka.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Kolejka (odrzucone: za bardzo zgrai)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "T-Mapa.dc.html": {
+      "expand": "fill",
+      "h": 1400,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Mapa przepływu (do przepisania)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "T-Sledztwo.dc.html": {
+      "expand": "fill",
+      "h": 1150,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Śledztwo jako czat (odrzucone)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "T-Zgloszenia.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Zgłoszenia (odrzucone: za bardzo zgrai)",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "X1-EvidenceChip.dc.html": {
+      "expand": "fill",
+      "h": 2550,
+      "page": "explain",
+      "title": "X1 · Chip dowodu",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "X2-WhyLinked.dc.html": {
+      "expand": "fill",
+      "h": 2250,
+      "page": "explain",
+      "title": "X2 · Dlaczego połączone / dlaczego NIE",
+      "w": 1280,
+      "x": 1360,
+      "y": 0
+    },
+    "X3-TemplateDiff.dc.html": {
+      "expand": "fill",
+      "h": 2300,
+      "page": "explain",
+      "title": "X3 · Diff szablonów",
+      "w": 1280,
+      "x": 2720,
+      "y": 0
+    },
+    "X4-Coverage.dc.html": {
+      "expand": "fill",
+      "h": 2350,
+      "page": "explain",
+      "title": "X4 · Pewność i pokrycie danych",
+      "w": 1280,
+      "x": 0,
+      "y": 2670
+    },
+    "X5-Conformal.dc.html": {
+      "expand": "fill",
+      "h": 2150,
+      "is_interactive": true,
+      "page": "explain",
+      "title": "X5 · Decyzja konformalna: nowa kampania",
+      "w": 1280,
+      "x": 1360,
+      "y": 2670
+    },
+    "Z-Chmura.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · Chmura powiązań (styl zgrai)",
+      "w": 1440,
+      "x": 4880,
+      "y": 1420
+    },
+    "Z-E1-Extension.dc.html": {
+      "expand": "fill",
+      "h": 1050,
+      "page": "zgrai",
+      "title": "Z · E1 Wtyczka (styl zgrai)",
+      "w": 1440,
+      "x": 3040,
+      "y": 2220
+    },
+    "Z-S01-Command.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · S01 Centrum dowodzenia (styl zgrai)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Z-S02-Analyze.dc.html": {
+      "expand": "fill",
+      "h": 1150,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · S02 Analizuj materiał (styl zgrai)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Z-S05-Campaign.dc.html": {
+      "expand": "fill",
+      "h": 1200,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · S05 Kampania (styl zgrai)",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Z-S07-Investigation.dc.html": {
+      "expand": "fill",
+      "h": 1150,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · S07 Śledztwo (styl zgrai)",
+      "w": 1440,
+      "x": 0,
+      "y": 2220
+    },
+    "Z-S10-Act.dc.html": {
+      "expand": "fill",
+      "h": 1050,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "Z · S10 Act center (styl zgrai)",
+      "w": 1440,
+      "x": 1520,
+      "y": 2220
+    },
+    "ZB-Sledztwo.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "ZB · Śledztwo agenta jako tablica (zgrai + powiązania)",
+      "w": 1440,
+      "x": 6400,
+      "y": 0
+    },
+    "ZB-Werdykt.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "zgrai",
+      "title": "ZB · Werdykt jako tablica (zgrai + powiązania)",
+      "w": 1440,
+      "x": 4880,
+      "y": 0
+    },
+    "Kampanie.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "5 · Kampanie: operatorzy, Oracle i osoby w jednym miejscu",
+      "w": 1440,
+      "x": 0,
+      "y": 1500
+    },
+    "Kampania-KMP017.dc.html": {
+      "expand": "fill",
+      "h": 1900,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "6 · Kampania KMP-017",
+      "w": 1440,
+      "x": 1520,
+      "y": 1500
+    },
+    "Zgloszenie-KMP017.dc.html": {
+      "expand": "fill",
+      "h": 1200,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "7 · Nowe zgłoszenie całej kampanii",
+      "w": 1440,
+      "x": 3040,
+      "y": 1500
+    },
+    "Zgloszenia.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "parked",
+      "title": "Zgłoszenia jako osobna zakładka (przeniesione do kampanii)",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    },
+    "Sledztwo.dc.html": {
+      "expand": "fill",
+      "h": 1150,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "9 · Śledztwo w toku: graf rośnie, Sędzia pyta o decyzję",
+      "w": 1440,
+      "x": 0,
+      "y": 3700
+    },
+    "Sledztwo-Koniec.dc.html": {
+      "expand": "fill",
+      "h": 1150,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "10 · Śledztwo zakończone: co dodać do kampanii",
+      "w": 1440,
+      "x": 1520,
+      "y": 3700
+    },
+    "Sprawdz-Nowa.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "11 · Wynik: nowa kampania",
+      "w": 1440,
+      "x": 0,
+      "y": 5150
+    },
+    "Sprawdz-Niepewne.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "12 · Wynik: niepewne, dwie kampanie",
+      "w": 1440,
+      "x": 1520,
+      "y": 5150
+    },
+    "Sprawdz-Blad.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "13 · Wynik: strona nie odpowiada",
+      "w": 1440,
+      "x": 3040,
+      "y": 5150
+    },
+    "Slad.dc.html": {
+      "expand": "fill",
+      "h": 1350,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "14 · Ślad: wpisujesz sam ślad, boty-detektywi krążą wokół pola",
+      "w": 1440,
+      "x": 4560,
+      "y": 5150
+    },
+    "Scal-Kampanie.dc.html": {
+      "expand": "fill",
+      "h": 1250,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "8 · Scal kampanie",
+      "w": 1440,
+      "x": 4560,
+      "y": 1500
+    },
+    "Graf-Domena.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "4a · Graf: klik w domenę",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "Graf-Slad.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "4b · Graf: klik w ślad techniczny (kit)",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    },
+    "Graf-Osoba.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "4c · Graf: klik w osobę",
+      "w": 1440,
+      "x": 9120,
+      "y": 0
+    },
+    "Graf-Material.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "page": "flow",
+      "title": "4d · Graf: klik w inny materiał kampanii",
+      "w": 1440,
+      "x": 10640,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-21T13:05:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "start",
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "tCitizen",
+    "tE2var",
+    "tExplain",
+    "tFlows",
+    "tScreens",
+    "tZgrai",
+    "tZB",
+    "tFlow",
+    "tFlow2",
+    "tParked",
+    "tCheck",
+    "tMatrix",
+    "tKier",
+    "tStart",
+    "tSled",
+    "tWyniki"
+  ],
+  "notes": {
+    "tCheck": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "check",
+      "text": "Sprawdź materiał · 4 opcje przepływu · tweak „etap”: start → analiza → werdykt",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tCitizen": {
+      "kind": "title1",
+      "maxW": 2800,
+      "page": "citizen",
+      "text": "Warstwa obywatelska",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tE2var": {
+      "kind": "title1",
+      "maxW": 4000,
+      "page": "citizen",
+      "text": "Sprawdź reklamę — warianty stylu B · C · D",
+      "w": 240,
+      "x": 2880,
+      "y": -300
+    },
+    "tExplain": {
+      "kind": "title1",
+      "maxW": 4000,
+      "page": "explain",
+      "text": "Komponenty wyjaśnialności",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tFlow": {
+      "kind": "title1",
+      "maxW": 6000,
+      "page": "flow",
+      "text": "TROP · Sprawdź: pole → analiza → raport → graf",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tFlows": {
+      "kind": "title1",
+      "maxW": 3280,
+      "page": "flows",
+      "text": "Kluczowe przepływy end-to-end",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tKier": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "kierunki",
+      "text": "Cztery inne kierunki · ten sam ekran: werdykt INC-24817",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tMatrix": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "matrix",
+      "text": "Motyw Matrix · ten sam ekran werdyktu w 4 odsłonach",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tParked": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "parked",
+      "text": "Odłożone · za dużo zgrai i czat · do przerobienia od analizy",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tScreens": {
+      "kind": "title1",
+      "maxW": 4480,
+      "page": "screens",
+      "text": "Ekrany aplikacji — analityk NASK",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tStart": {
+      "kind": "title1",
+      "maxW": 3280,
+      "page": "start",
+      "text": "TROP — Follow the fake",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tZB": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "zgrai",
+      "text": "zgrai + tablica powiązań i chmurki",
+      "w": 240,
+      "x": 4880,
+      "y": -300
+    },
+    "tZgrai": {
+      "kind": "title1",
+      "maxW": 4800,
+      "page": "zgrai",
+      "text": "Ekrany aplikacji w stylu zgrai",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tFlow2": {
+      "kind": "title1",
+      "maxW": 6000,
+      "page": "flow",
+      "text": "Kampanie → Zgłoszenia",
+      "w": 240,
+      "x": 0,
+      "y": 1200
+    },
+    "tSled": {
+      "kind": "title1",
+      "maxW": 3000,
+      "page": "flow",
+      "text": "Śledztwa",
+      "w": 240,
+      "x": 0,
+      "y": 3450
+    },
+    "tWyniki": {
+      "kind": "title1",
+      "maxW": 6000,
+      "page": "flow",
+      "text": "Inne wyniki Sprawdź i ślad",
+      "w": 240,
+      "x": 0,
+      "y": 4900
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "DesignSystem.dc.html",
+    "Nav.dc.html",
+    "S01-Command.dc.html",
+    "S02-Analyze.dc.html",
+    "S03-Triage.dc.html",
+    "S04-Incident.dc.html",
+    "S05-Campaign.dc.html",
+    "S06-Graph.dc.html",
+    "S07-Investigation.dc.html",
+    "S08-Oracle.dc.html",
+    "S09-Radar.dc.html",
+    "S10-Act.dc.html",
+    "S11-Lab.dc.html",
+    "S12-Hunter.dc.html",
+    "X1-EvidenceChip.dc.html",
+    "X2-WhyLinked.dc.html",
+    "X3-TemplateDiff.dc.html",
+    "X4-Coverage.dc.html",
+    "X5-Conformal.dc.html",
+    "F1-NewMaterial.dc.html",
+    "F2-CampaignAct.dc.html",
+    "F3-AgentInvestigation.dc.html",
+    "F4-AlertTriage.dc.html",
+    "F5-Citizen.dc.html",
+    "F6-JudgeDemo.dc.html",
+    "E1-Extension.dc.html",
+    "E2-SprawdzReklame.dc.html",
+    "E2b-Sprawdz-Zgrai.dc.html",
+    "E2c-Sprawdz-Znak.dc.html",
+    "E2d-Sprawdz-Rozmowa.dc.html",
+    "Z-S01-Command.dc.html",
+    "Z-S02-Analyze.dc.html",
+    "Z-S05-Campaign.dc.html",
+    "NavZ.dc.html",
+    "Z-S07-Investigation.dc.html",
+    "Z-S10-Act.dc.html",
+    "Z-E1-Extension.dc.html",
+    "ZB-Werdykt.dc.html",
+    "ZB-Sledztwo.dc.html",
+    "Z-Chmura.dc.html",
+    "Sprawdz.dc.html",
+    "Sprawdz-2-Analiza.dc.html",
+    "Sprawdz-3-Raport.dc.html",
+    "Sprawdz-4-Graf.dc.html",
+    "Graf-Domena.dc.html",
+    "Graf-Slad.dc.html",
+    "Graf-Osoba.dc.html",
+    "Graf-Material.dc.html",
+    "Kampanie.dc.html",
+    "Kampania-KMP017.dc.html",
+    "Zgloszenie-KMP017.dc.html",
+    "Scal-Kampanie.dc.html",
+    "Zgloszenia.dc.html",
+    "Sledztwo.dc.html",
+    "Sledztwo-Koniec.dc.html",
+    "Sprawdz-Nowa.dc.html",
+    "Sprawdz-Niepewne.dc.html",
+    "Sprawdz-Blad.dc.html",
+    "Slad.dc.html",
+    "T-Kolejka.dc.html",
+    "T-Mapa.dc.html",
+    "T-Kampania.dc.html",
+    "T-Sledztwo.dc.html",
+    "T-Zgloszenia.dc.html",
+    "C1-Pole.dc.html",
+    "C2-Tablica.dc.html",
+    "C3-Porownanie.dc.html",
+    "C4-Skrzynka.dc.html",
+    "K1-Akta.dc.html",
+    "K2-Tablica.dc.html",
+    "K3-Plakat.dc.html",
+    "K4-Terminal.dc.html",
+    "M1-Fosfor.dc.html",
+    "M2-Ciemny.dc.html",
+    "M3-Deszcz.dc.html",
+    "M4-Pigulki.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "start",
+      "name": "Start · IA · system"
+    },
+    {
+      "id": "screens",
+      "name": "Ekrany"
+    },
+    {
+      "id": "explain",
+      "name": "Wyjaśnialność"
+    },
+    {
+      "id": "flows",
+      "name": "Przepływy"
+    },
+    {
+      "id": "citizen",
+      "name": "Obywatel"
+    },
+    {
+      "id": "zgrai",
+      "name": "Styl zgrai"
+    },
+    {
+      "id": "flow",
+      "name": "TROP · Sprawdź"
+    },
+    {
+      "id": "parked",
+      "name": "Odłożone"
+    },
+    {
+      "id": "check",
+      "name": "Sprawdź materiał · opcje"
+    },
+    {
+      "id": "kierunki",
+      "name": "Nowe kierunki"
+    },
+    {
+      "id": "matrix",
+      "name": "Motyw Matrix"
+    }
+  ],
+  "title": "TROP — app design"
+}

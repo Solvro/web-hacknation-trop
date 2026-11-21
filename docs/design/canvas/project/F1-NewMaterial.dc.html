@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Przepływ F1: nowy materiał → werdykt</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.fl{max-width:1600px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:24px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.stc{flex:1 1 250px;max-width:300px;min-width:0;background:#0A100C;border:1px solid #1D2B22;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.stc.hot{border-color:rgba(59,240,126,.38)}.stc.amb{border-color:rgba(255,181,71,.45)}.stc.cyn{border-color:rgba(92,200,255,.45)}
+.stc.wide{max-width:none}
+.stn{display:flex;align-items:center;gap:8px}
+.stn b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 11px "JetBrains Mono",monospace;background:rgba(59,240,126,.10);color:#3BF07E;border:1px solid rgba(59,240,126,.38);flex:none}
+.stn.am b{background:rgba(255,181,71,.12);color:#FFB547;border-color:rgba(255,181,71,.45)}
+.stn.cy b{background:rgba(92,200,255,.10);color:#5CC8FF;border-color:rgba(92,200,255,.45)}
+.stn .h3{flex:1 1 auto;min-width:0}
+.chev{display:flex;align-items:center;justify-content:center;width:20px;flex:none;color:#3B5444}
+.chev.dn{width:100%;height:18px}
+.thumb{height:90px;border-radius:6px;border:1px solid #2B3F32;background:#050806;padding:6px;display:flex;gap:5px;overflow:hidden}
+.thumb .s{display:block;width:13%;background:#0F1812;border-radius:3px;flex:none}
+.thumb .m{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;min-width:0}
+.thumb .tr{display:flex;gap:4px;flex:1 1 auto;min-height:0}
+.thumb i{display:block;border-radius:2px;background:#16231A;min-height:5px}
+.thumb .gf{background:#178A43}.thumb .gl{border:1px solid rgba(59,240,126,.5);background:rgba(59,240,126,.08)}
+.thumb .al{border:1px solid rgba(255,181,71,.5);background:rgba(255,181,71,.08)}.thumb .cl{border:1px solid rgba(92,200,255,.5);background:rgba(92,200,255,.08)}
+.thumb .dz{border:1px dashed #3B5444;background:transparent}
+.ln{font-size:12.5px;line-height:1.5;color:#A9BDB0}
+.ln b{color:#DDEBE2;font-weight:600}
+.apiln{font:11.5px/1.45 "JetBrains Mono",monospace;color:#5CC8FF;overflow-wrap:anywhere}
+.dur{font:11px "JetBrains Mono",monospace;color:#83998B;white-space:nowrap}
+.brl{font:600 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:16px}
+.bcol{display:flex;flex-direction:column;gap:6px;border-radius:12px;padding:14px;border:1px dashed #2B3F32}
+.ec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.eci{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#DDEBE2}
+.chk::before{content:"";width:14px;height:14px;border-radius:3px;border:1.5px solid #3B5444;flex:none;margin-top:3px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.meta>div{background:#0F1812;border:1px solid #1D2B22;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="fl">
+
+<section class="panel" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div class="row"><span class="eb">Przepływ F1</span><span class="pill g">rdzeń demo</span><span class="pill">flow (a)</span><a class="btn btn-sm" href="Main.dc.html">Mapa aplikacji</a></div>
+<h1 class="h1">Nowy materiał → werdykt: „dołącza do kampanii X” albo „nowa kampania”</h1>
+<div class="meta">
+<div><span class="eb">Aktor</span><span class="sm">Analityk NASK, albo Hunter automatycznie</span></div>
+<div><span class="eb">Wyzwalacz</span><span class="sm">URL, zrzut, HAR, wideo lub zip od zgłaszającego</span></div>
+<div><span class="eb">Cel</span><span class="sm">Przypisać materiał albo uczciwie oznaczyć nową kampanię, z dowodem dla każdego połączenia</span></div>
+<div><span class="eb">Czas trwania</span><span class="sm mono">~20 s z capture · &lt; 1 s dla duplikatu</span></div>
+</div>
+<p class="muted sm"><b class="g">Sukces:</b> werdykt w ≤ 30 s; każde połączenie ma chipy dowodów z wagą i rzadkością; „nowa kampania” pokazuje najbliższą kampanię i to, czego zabrakło.</p>
+</section>
+
+<section class="lane" aria-labelledby="f1-in">
+<div class="lane-h"><h2 class="h2" id="f1-in">Wejścia</h2><span class="dim sm">trzy drogi do tego samego zadania <span class="mono">job</span></span></div>
+<div class="strip">
+<div class="stc wide" style="flex-basis: 300px"><span class="brl g">Ręcznie</span><p class="ln"><b>Analizuj (S02):</b> upuść lub wklej URL, zrzut, HAR, wideo, zip pakietu archiwum.</p><a class="mono xs" href="S02-Analyze.dc.html">Ekran: S02 · Analizuj materiał</a></div>
+<div class="stc wide" style="flex-basis: 300px"><span class="brl g">Omnibox</span><p class="ln"><b>Ctrl K, wklej URL:</b> podpowiedź „Analizuj ten URL” uruchamia to samo zadanie bez zmiany ekranu.</p><span class="apiln">GET /search?q= → akcja analyze</span></div>
+<div class="stc wide" style="flex-basis: 300px"><span class="brl cy">Automatycznie</span><p class="ln"><b>Hunter:</b> nowa reklama z Ad Library lub URL z CERT PL. Zadanie bez analityka; wynik trafia do feedu i do triage.</p><span class="apiln">SSE hunter.capture → job</span></div>
+</div>
+</section>
+
+<section class="lane" aria-labelledby="f1-main">
+<div class="lane-h"><h2 class="h2" id="f1-main">Ścieżka główna</h2><span class="dim sm">INC-24817 · morvanta.click · zrzut z Ad Library</span></div>
+<div class="strip">
+<article class="stc">
+<div class="stn"><b>1</b><h3 class="h3">Dodaj materiał</h3><span class="dur">&lt; 1 s</span></div>
+<a class="mono xs" href="S02-Analyze.dc.html">Ekran: S02 · Analizuj</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><i class="dz" style="height: 40px"></i><span class="tr" style="flex: none"><i style="width: 30%; height: 14px"></i><i style="width: 30%; height: 14px"></i></span><i style="width: 40%; height: 10px" class="gf"></i></span></div>
+<p class="ln"><b>Analityk:</b> upuszcza zrzut reklamy i wkleja URL; wybiera „Pełny capture (sandbox)”.</p>
+<p class="ln"><b>System:</b> rozpoznaje typy plików, sprawdza rozmiar, pokazuje podgląd.</p>
+<p class="apiln">POST /analyze (multipart) → {job_id}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>2</b><h3 class="h3">Zadanie w kolejce</h3><span class="dur">0.2 s</span></div>
+<a class="mono xs" href="S02-Analyze.dc.html">Ekran: S02 · pipeline</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><i style="width: 50%; height: 10px"></i><i style="width: 80%; height: 6px"></i><i style="width: 80%; height: 6px"></i><i style="width: 80%; height: 6px"></i><i style="width: 80%; height: 6px"></i><i style="width: 80%; height: 6px"></i></span></div>
+<p class="ln"><b>System:</b> tworzy job, rysuje wszystkie kroki jako oczekujące, podaje pozycję w kolejce.</p>
+<p class="ln"><b>Analityk:</b> może wyjść z ekranu; o wyniku powiadomi dzwonek.</p>
+<p class="apiln">GET /jobs/{id} · SSE /jobs/{id}/stream</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>3</b><h3 class="h3">Capture i ekstrakcja na żywo</h3><span class="dur">~17 s</span></div>
+<a class="mono xs" href="S02-Analyze.dc.html">Ekran: S02 · pipeline</a>
+<div class="thumb" aria-hidden="true"><span class="s"></span><span class="m"><i style="width: 50%; height: 10px"></i><i class="gf" style="width: 80%; height: 6px"></i><i class="gf" style="width: 80%; height: 6px"></i><i class="gf" style="width: 80%; height: 6px"></i><i class="cl" style="width: 80%; height: 6px"></i><span class="tr" style="flex: none"><i class="cl" style="width: 22%; height: 10px"></i><i class="cl" style="width: 22%; height: 10px"></i></span></span></div>
+<p class="ln"><b>System:</b> każdy krok przychodzi z czasem: capture 6.8 s, OCR+VLM 3.9 s, twarze 1.7 s, enrichment 2.4 s. Pierwsze chipy pojawiają się przed decyzją.</p>
+<p class="apiln">SSE job.step {step, status, ms, partial}</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc">
+<div class="stn"><b>4</b><h3 class="h3">Dopasowanie i decyzja</h3><span class="dur">0.8 s</span></div>
+<a class="mono xs" href="X5-Conformal.dc.html">Komponent: X5 · decyzja konformalna</a>
+<div class="thumb" aria-hidden="true"><span class="m"><span class="tr"><i style="flex: 1"></i><i style="flex: 1"></i><i style="flex: 1"></i><i class="gl" style="flex: 1"></i><i style="flex: 1"></i></span><i class="gf" style="width: 60%; height: 8px"></i><i style="width: 35%; height: 8px"></i></span></div>
+<p class="ln"><b>System:</b> blocking: 312 kandydatów → 9 kampanii; model M1 z kalibracją; zbiór konformalny przy α = 0.05.</p>
+<p class="apiln">SSE job.step {step:"decide"} → GET /incidents/{id}/decision</p>
+</article>
+<span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+<article class="stc hot">
+<div class="stn"><b>5</b><h3 class="h3">Karta werdyktu</h3><span class="dur">od razu</span></div>
+<a class="mono xs" href="S02-Analyze.dc.html">Ekran: S02 → S04</a>
+<div class="thumb" aria-hidden="true"><span class="m"><i class="gl" style="height: 76px; padding: 6px"></i></span></div>
+<p class="ln"><b>System:</b> karta w jednym z trzech stanów: dołącza, nowa kampania, niepewne. Zawsze z p, zbiorem, runner-upem i pokryciem.</p>
+<p class="ln"><b>Analityk:</b> rozwija chipy, klika „Dlaczego?”.</p>
+<p class="apiln">GET /incidents/{id}/matches?k=5</p>
+</article>
+</div>
+</section>
+
+<section class="lane" aria-labelledby="f1-br">
+<div class="lane-h"><h2 class="h2" id="f1-br">Rozgałęzienie po kroku 5</h2><span class="dim sm">stan karty wyznacza dalszą ścieżkę</span></div>
+<div class="branches">
+
+<div class="bcol" style="border-color: rgba(59,240,126,.38)">
+<span class="brl g">Gałąź A · dołącza do KMP-017</span>
+<article class="stc hot wide">
+<div class="stn"><b>A1</b><h3 class="h3">Werdykt: dołącza</h3><span class="dur">p 0.94</span></div>
+<a class="mono xs" href="X2-WhyLinked.dc.html">Komponent: X2 · Dlaczego połączone</a>
+<div class="evs"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span><span class="w">+3.1</span></span><span class="ev t-kit"><span class="t">Kit</span><span class="v">relay/lead</span><span class="w">+2.7</span></span><span class="ev t-content"><span class="t">Treść</span><span class="v">„PILNE: {PER}…”</span><span class="w">+2.2</span></span></div>
+<p class="ln"><b>System:</b> zbiór {KMP-017}, runner-up KMP-034 0.41 (ta sama rodzina OP-03), margines 0.53, pokrycie 0.78.</p>
+<p class="apiln">GET /links/INC-24817/KMP-017</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn"><b>A2</b><h3 class="h3">Incydent w kampanii</h3><span class="dur">&lt; 1 s</span></div>
+<a class="mono xs" href="S05-Campaign.dc.html">Ekran: S05 · Kampania KMP-017</a>
+<p class="ln"><b>System:</b> INC-24817 na górze listy członków, DNA i oś czasu przeliczone (+1 członek, 47).</p>
+<p class="apiln">SSE incident.attributed · campaign.updated · GET /campaigns/KMP-017/members</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn"><b>A3</b><h3 class="h3">Korekta (opcjonalna)</h3><span class="dur">analityk</span></div>
+<p class="ln"><b>Analityk:</b> „Nie zgadzam się” przenosi element do triage z komentarzem.</p>
+<p class="ln"><b>Wynik:</b> para oznaczona jako negatywna, M1 douczy się w kilka sekund (F4).</p>
+<p class="apiln">POST /feedback {pair, label, note}</p>
+</article>
+</div>
+
+<div class="bcol" style="border-color: rgba(255,181,71,.45)">
+<span class="brl am">Gałąź B · nowa kampania (kandydat KMP-040)</span>
+<article class="stc amb wide">
+<div class="stn am"><b>B1</b><h3 class="h3">Pusty zbiór konformalny</h3><span class="dur">p max 0.22</span></div>
+<a class="mono xs" href="X5-Conformal.dc.html">Komponent: X5 · nowa kampania</a>
+<div class="evs"><span class="ev miss t-infra"><span class="t">Infra</span><span class="v">brak wspólnej</span></span><span class="ev conf t-content"><span class="t">Treść</span><span class="v">inny szablon</span><span class="w">−0.8</span></span></div>
+<p class="ln"><b>System:</b> żadna kampania nie przechodzi progu. Najbliższa KMP-031 (0.22), z listą tego, czego zabrakło.</p>
+<p class="apiln">GET /incidents/{id}/decision</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn am"><b>B2</b><h3 class="h3">Utwórz kandydata lub odłóż</h3><span class="dur">analityk</span></div>
+<p class="ln"><b>Analityk:</b> „Utwórz KMP-040 «Bon energetyczny»” albo „Do triage”.</p>
+<p class="ln"><b>System:</b> kampania ma stan „kandydat”, dopóki nie zbierze ≥ 3 członków.</p>
+<p class="apiln">POST /campaigns {seed_incident, name, status:"candidate"}</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn am"><b>B3</b><h3 class="h3">Obserwacja</h3><span class="dur">w tle</span></div>
+<a class="mono xs" href="S12-Hunter.dc.html">Ekran: S12 · Hunter</a>
+<p class="ln"><b>System:</b> Hunter dostaje frazę i domenę do monitoringu. Oracle uczy się DNA, gdy kampania ma ≥ 3 domeny.</p>
+<p class="apiln">PATCH /hunter/sources/{id} {queries+}</p>
+</article>
+</div>
+
+<div class="bcol" style="border-color: rgba(92,200,255,.45)">
+<span class="brl cy">Gałąź C · niepewne → triage</span>
+<article class="stc cyn wide">
+<div class="stn cy"><b>C1</b><h3 class="h3">Pasmo 0.35–0.65</h3><span class="dur">+4 s</span></div>
+<a class="mono xs" href="X4-Coverage.dc.html">Komponent: X4 · pewność i pokrycie</a>
+<p class="ln"><b>System:</b> w zbiorze są dwie kampanie, {KMP-022, KMP-034}, albo wynik leży w paśmie. Adjudykator (PLLuM lokalnie) dostaje oba dossier dowodów.</p>
+<p class="apiln">SSE job.step {step:"adjudicate"}</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn cy"><b>C2</b><h3 class="h3">Element w Triage</h3><span class="dur">analityk</span></div>
+<a class="mono xs" href="S03-Triage.dc.html">Ekran: S03 · Triage</a>
+<p class="ln"><b>System:</b> element z kandydatami i uzasadnieniem adjudykatora. <b>Analityk:</b> A akceptuj, R odrzuć, M przenieś.</p>
+<p class="apiln">SSE triage.created · POST /triage/{id}/decision</p>
+</article>
+<span class="chev dn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+<article class="stc wide">
+<div class="stn cy"><b>C3</b><h3 class="h3">Feedback</h3><span class="dur">~8 s</span></div>
+<a class="mono xs" href="F4-AlertTriage.dc.html">Przepływ: F4 · triage → feedback</a>
+<p class="ln"><b>Wynik:</b> decyzja daje oznaczone pary, M1 się douczy, metryki w Lab się odświeżą.</p>
+<p class="apiln">POST /feedback · GET /lab/metrics</p>
+</article>
+</div>
+
+</div>
+</section>
+
+<div class="split">
+<section class="panel a" aria-labelledby="f1-edge">
+<div class="ph"><h2 class="h3" id="f1-edge">Stany brzegowe</h2><span class="dim sm">jak UI je pokazuje</span></div>
+<div class="pb ec">
+<div class="eci"><span class="brl am">Landing 502 / parking</span><p class="ln">Detektor roli strony (M5) oznacza „błąd”. Waga warstwy obraz spada do 0, chip „Obraz: brak (502)”, pokrycie maleje. Werdykt nadal możliwy z tracking i kit z HAR przekierowań.</p></div>
+<div class="eci"><span class="brl am">Tylko zrzut, brak HAR</span><p class="ln">Krok capture jest pominięty (przerywana ikona). OCR+VLM wyciąga URL i tekst. Karta pokazuje „pokrycie 0.41, werdykt ostrożny” i przycisk „Capture z URL z OCR”.</p></div>
+<div class="eci"><span class="brl am">RDAP timeout</span><p class="ln">Krok enrichment ma stan ostrzeżenia, infra jest częściowe (połówkowy segment pokrycia). Ponowienie idzie w tle, a decyzja nie czeka dłużej niż 3 s.</p></div>
+<div class="eci"><span class="brl g">Duplikat L0</span><p class="ln">Zgodność hasha lub URL daje werdykt w &lt; 1 s z etykietą „L0 duplikat INC-24701”. Reszta pipeline'u jest pominięta, jest link do oryginału.</p></div>
+<div class="eci"><span class="brl cy">Tryb offline / cache</span><p class="ln">Odznaka DEMO. Capture i enrichment z cache, wyraźnie oznaczone: „dane z cache 20.11 22:10”. Bez sieci i bez kluczy API.</p></div>
+<div class="eci"><span class="brl rd">Plik za duży / nieobsługiwany</span><p class="ln">Walidacja przed wysłaniem, limit 200 MB, lista typów: URL, PNG/JPG/WebP, HAR, MP4/WebM, HTML/MHTML, zip pakietu. Zip rozpakowany w sandboxie.</p></div>
+<div class="eci"><span class="brl rd">Cloaking geo / UA</span><p class="ln">Capture dostaje stronę-wabik, bo tekst reklamy ≠ landing. Automatyczne ponowienie z profilem PL-mobile. Jeśli nadal wabik: chip „Reklama: cloaking” i flaga dla Hunter.</p></div>
+</div>
+</section>
+<section class="panel b" aria-labelledby="f1-acc">
+<div class="ph"><h2 class="h3" id="f1-acc">Kryteria akceptacji</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="chk">Werdykt w ≤ 30 s dla URL z pełnym capture, ≤ 1 s dla duplikatu.</p>
+<p class="chk">Każdy krok ma status i czas; kroki pominięte i częściowe są widoczne, nie ukryte.</p>
+<p class="chk">Karta werdyktu zawsze ma: decyzję, p, zbiór konformalny z α, runner-up z marginesem, pokrycie i ≥ 3 chipy.</p>
+<p class="chk">„Nowa kampania” pokazuje najbliższą kampanię i powód odmowy.</p>
+<p class="chk">Brak wartości nigdy nie liczy się jako dowód różnicy (chip „brak”, waga 0).</p>
+<p class="chk">Wynik ma stały URL incydentu i trafia do strumienia events.</p>
+<p class="chk">Działa bez klucza LLM: adjudykator jest pominięty, element idzie do triage.</p>
+<p class="dnote">Implementacja: jedna subskrypcja EventSource na job; UI odtwarza stan z GET /jobs/{id} po odświeżeniu strony.</p>
+</div>
+</section>
+</div>
+
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1600,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

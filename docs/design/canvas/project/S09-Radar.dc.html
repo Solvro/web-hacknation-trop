@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Radar podszyć</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.pc{display:flex;flex-direction:column;gap:12px;padding:16px}
+.sc{display:grid;grid-template-columns:minmax(0,1fr) 56px 34px;gap:8px;align-items:center;font-size:12px;color:#A9BDB0}
+.hm{width:100%;border-collapse:separate;border-spacing:3px;font:12px "JetBrains Mono",ui-monospace,monospace}
+.hm th{font:500 10.5px/1.2 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#83998B;text-align:center;padding:4px;white-space:nowrap}
+.hm th[scope=row]{text-align:left;text-transform:none;letter-spacing:0;font:500 12.5px Inter,system-ui,sans-serif;color:#DDEBE2;padding-right:10px}
+.hm td{height:34px;min-width:44px;text-align:center;border-radius:4px;background:rgba(255,154,98,.04);color:#DDEBE2}
+.hm td.k{color:#03140A;font-weight:600}
+.adc{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;padding:10px;border:1px solid #1D2B22;border-radius:8px;background:#0F1812}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="radar" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><b>Radar podszyć · tydzień 47</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section class="row between" style="align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 560px; min-width: 0">
+<div class="row"><span class="eb">Radar podszyć · 17–23.11.2026</span><span class="api">GET /persons?window=7d</span></div>
+<h1 class="h1">Kto jest podszywany <span class="g">w tym tygodniu</span></h1>
+<p class="muted" style="max-width: 820px">Osoby rozpoznane po twarzy (galeria referencyjna) i po nazwisku (NER), z oceną deepfake i głosu syntetycznego. Każda liczba prowadzi do reklam i kampanii.</p>
+</div>
+<div class="row" style="gap: 8px">
+<div class="seg" role="group" aria-label="Tydzień"><button type="button">tydzień 45</button><button type="button">tydzień 46</button><button class="on" type="button">tydzień 47</button></div>
+<button class="btn btn-p" type="button">Przygotuj notkę dla komunikacji NASK</button>
+<span class="api">GET /persons?window=7d&amp;format=brief</span>
+</div>
+</section>
+
+<section class="cards" style="grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr))" aria-label="Najczęściej podszywane osoby">
+
+<article class="panel hot pc" aria-current="true">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">Jan Kowalski</a><span class="xs dim">przedsiębiorca</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">34</span><span class="xs muted">reklamy</span><span class="delta am">+42%</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-017</span><span class="id xs">KMP-031</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 12%"></i></span><span class="mono">0.12</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="mut" style="width: 0%"></i></span><span class="mono dim">—</span></div>
+</article>
+
+<article class="panel pc">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">dr Piotr Wiśniewski</a><span class="xs dim">lekarz</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">27</span><span class="xs muted">reklam</span><span class="delta am">+17%</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-022</span><span class="id xs">KMP-034</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 78%"></i></span><span class="mono rd">0.78</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="t-media" style="width: 87%"></i></span><span class="mono rd">0.87</span></div>
+</article>
+
+<article class="panel pc">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">Marek Zieliński</a><span class="xs dim">sportowiec</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">19</span><span class="xs muted">reklam</span><span class="delta g">−10%</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-031</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 64%"></i></span><span class="mono am">0.64</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="t-media" style="width: 71%"></i></span><span class="mono am">0.71</span></div>
+</article>
+
+<article class="panel pc">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">Katarzyna Wójcik</a><span class="xs dim">prezenterka</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">15</span><span class="xs muted">reklam</span><span class="delta dim">bez zmian</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-031</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 55%"></i></span><span class="mono am">0.55</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="t-media" style="width: 22%"></i></span><span class="mono">0.22</span></div>
+</article>
+
+<article class="panel pc">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">Anna Nowak</a><span class="xs dim">dziennikarka</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">12</span><span class="xs muted">reklam</span><span class="delta am">+9%</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-017</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 8%"></i></span><span class="mono">0.08</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="mut" style="width: 0%"></i></span><span class="mono dim">—</span></div>
+</article>
+
+<article class="panel pc">
+<div class="row" style="gap: 12px; flex-wrap: nowrap"><span class="sil" style="width: 48px; height: 48px"><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span><div style="display: flex; flex-direction: column; min-width: 0"><a href="#det-h" style="color: #DDEBE2; font-weight: 600">Tomasz Lewandowski</a><span class="xs dim">dziennikarz</span></div></div>
+<div class="row" style="gap: 8px; align-items: baseline"><span class="num" style="font-size: 24px">6</span><span class="xs muted">reklam</span><span class="pill am">nowy</span></div>
+<div class="row" style="gap: 4px"><span class="id xs">KMP-017</span></div>
+<div class="sc"><span>deepfake</span><span class="bar"><i class="t-media" style="width: 5%"></i></span><span class="mono">0.05</span></div>
+<div class="sc"><span>głos synt.</span><span class="bar"><i class="mut" style="width: 0%"></i></span><span class="mono dim">—</span></div>
+</article>
+
+</section>
+
+<div class="split">
+<div class="a">
+
+<section class="panel" aria-labelledby="hm-h">
+<div class="ph"><h2 class="h3" id="hm-h">Osoby × tygodnie</h2><span class="dim sm">liczba reklam z daną osobą · tygodnie 40–47</span><span class="api">GET /persons?window=8w&amp;bucket=week</span></div>
+<div class="pb scroll-x">
+<table class="hm">
+<caption class="xs dim" style="text-align: left; padding-bottom: 8px; caption-side: top">Im ciemniejszy pomarańcz, tym więcej reklam. Wzrost u Jana Kowalskiego od tygodnia 44 to start KMP-017.</caption>
+<thead><tr><th scope="col"><span style="position: absolute; left: -9999px">Osoba</span></th><th scope="col">t40</th><th scope="col">t41</th><th scope="col">t42</th><th scope="col">t43</th><th scope="col">t44</th><th scope="col">t45</th><th scope="col">t46</th><th scope="col">t47</th></tr></thead>
+<tbody>
+<tr><th scope="row">Jan Kowalski</th><td style="background: rgba(255,154,98,.06)">2</td><td style="background: rgba(255,154,98,.09)">3</td><td style="background: rgba(255,154,98,.15)">5</td><td style="background: rgba(255,154,98,.24)">8</td><td style="background: rgba(255,154,98,.35)">12</td><td style="background: rgba(255,154,98,.53)">18</td><td class="k" style="background: rgba(255,154,98,.71)">24</td><td class="k" style="background: rgba(255,154,98,1)">34</td></tr>
+<tr><th scope="row">dr Piotr Wiśniewski</th><td style="background: rgba(255,154,98,.41)">14</td><td style="background: rgba(255,154,98,.47)">16</td><td class="k" style="background: rgba(255,154,98,.56)">19</td><td class="k" style="background: rgba(255,154,98,.65)">22</td><td class="k" style="background: rgba(255,154,98,.59)">20</td><td class="k" style="background: rgba(255,154,98,.74)">25</td><td class="k" style="background: rgba(255,154,98,.68)">23</td><td class="k" style="background: rgba(255,154,98,.79)">27</td></tr>
+<tr><th scope="row">Marek Zieliński</th><td class="k" style="background: rgba(255,154,98,.88)">30</td><td class="k" style="background: rgba(255,154,98,.82)">28</td><td class="k" style="background: rgba(255,154,98,.76)">26</td><td class="k" style="background: rgba(255,154,98,.74)">25</td><td class="k" style="background: rgba(255,154,98,.65)">22</td><td class="k" style="background: rgba(255,154,98,.71)">24</td><td class="k" style="background: rgba(255,154,98,.62)">21</td><td class="k" style="background: rgba(255,154,98,.56)">19</td></tr>
+<tr><th scope="row">Katarzyna Wójcik</th><td style="background: rgba(255,154,98,.24)">8</td><td style="background: rgba(255,154,98,.26)">9</td><td style="background: rgba(255,154,98,.32)">11</td><td style="background: rgba(255,154,98,.29)">10</td><td style="background: rgba(255,154,98,.35)">12</td><td style="background: rgba(255,154,98,.41)">14</td><td style="background: rgba(255,154,98,.44)">15</td><td style="background: rgba(255,154,98,.44)">15</td></tr>
+<tr><th scope="row">Anna Nowak</th><td class="dim">·</td><td class="dim">·</td><td style="background: rgba(255,154,98,.06)">1</td><td style="background: rgba(255,154,98,.09)">3</td><td style="background: rgba(255,154,98,.18)">6</td><td style="background: rgba(255,154,98,.26)">9</td><td style="background: rgba(255,154,98,.32)">11</td><td style="background: rgba(255,154,98,.35)">12</td></tr>
+<tr><th scope="row">Tomasz Lewandowski</th><td class="dim">·</td><td class="dim">·</td><td class="dim">·</td><td class="dim">·</td><td class="dim">·</td><td class="dim">·</td><td class="dim">·</td><td style="background: rgba(255,154,98,.18)">6</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="br-h">
+<div class="ph"><h2 class="h3" id="br-h">Marki podszywane</h2><span class="dim sm">logo + tekst · tydzień 47</span><span class="api">GET /brands?window=7d</span></div>
+<div class="pb cards" style="grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr))">
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="row between"><span style="font-weight: 600">«Kurier Dnia»</span><span class="mono">41</span></div><span class="bar"><i class="t-content" style="width: 100%"></i></span><span class="xs dim">portal informacyjny · KMP-017</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="row between"><span style="font-weight: 600">«TV Info24»</span><span class="mono">17</span></div><span class="bar"><i class="t-content" style="width: 41%"></i></span><span class="xs dim">telewizja · KMP-031, KMP-022</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="row between"><span style="font-weight: 600">«Bank Przykładowy»</span><span class="mono">9</span></div><span class="bar"><i class="t-content" style="width: 22%"></i></span><span class="xs dim">bank · KMP-031</span></div>
+</div>
+</section>
+
+</div>
+<div class="b">
+
+<section class="panel hot" aria-labelledby="det-h">
+<div class="ph"><h2 class="h3" id="det-h">Jan Kowalski</h2><span class="pill am">+42% t/t</span><span class="api">GET /persons/per_jan_kowalski</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 16px">
+<div class="row" style="gap: 14px; flex-wrap: nowrap">
+<span class="sil" style="width: 72px; height: 72px"><svg viewBox="0 0 48 48" width="72" height="72" aria-hidden="true"><circle cx="24" cy="19" r="9" fill="currentColor"></circle><path d="M6 48c2-11 9-16 18-16s16 5 18 16z" fill="currentColor"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-weight: 600">przedsiębiorca</span><span class="xs dim">w galerii od 10.2026 · 4 zdjęcia referencyjne</span><span class="xs dim">wizerunek: generyczna sylwetka na makiecie</span></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Kampanie za podszyciami</span>
+<div class="sc" style="grid-template-columns: 72px minmax(0, 1fr) 30px"><a class="id" href="S05-Campaign.dc.html">KMP-017</a><span class="bar"><i style="width: 82%"></i></span><span class="mono">28</span></div>
+<div class="sc" style="grid-template-columns: 72px minmax(0, 1fr) 30px"><span class="id">KMP-031</span><span class="bar"><i style="width: 18%"></i></span><span class="mono">6</span></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Dowody</span>
+<div class="evs">
+<span class="ev t-persons"><span class="t">Osoby</span><span class="v">twarz ↔ galeria 0.91</span><span class="sb m"><i></i><i></i><i></i></span></span>
+<span class="ev t-persons"><span class="t">Osoby</span><span class="v">NER w nagłówku 31/34</span><span class="sb m"><i></i><i></i><i></i></span></span>
+<span class="ev t-media"><span class="t">Media</span><span class="v">deepfake 0.12 · statyczne zdjęcie</span><span class="sb l"><i></i><i></i><i></i></span></span>
+<span class="ev miss t-media"><span class="t">Media</span><span class="v">głos: brak nagrania</span></span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Narracje</span>
+<div class="row between sm"><span>fałszywy news o napaści</span><span class="mono muted">28</span></div>
+<div class="row between sm"><span>„platforma inwestycyjna”</span><span class="mono muted">6</span></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb">Przykładowe reklamy</span>
+<div class="adc"><div class="ph-img" style="height: 56px">kreacja: krajobraz (wabik)</div><div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span class="sm">„PILNE: Jan Kowalski przerywa milczenie po napaści…”</span><span class="row xs dim" style="gap: 6px"><a class="mono" href="S04-Incident.dc.html">INC-24817</a>· KMP-017 V2 · «Kurier Dnia»</span></div></div>
+<div class="adc"><div class="ph-img" style="height: 56px">kreacja: zwierzę (wabik)</div><div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span class="sm">„«Wiem, kto to zrobił»: atak na Jana Kowalskiego”</span><span class="row xs dim" style="gap: 6px"><span class="mono">INC-24655</span>· KMP-017 V1</span></div></div>
+<div class="adc"><div class="ph-img" style="height: 56px">kreacja: sylwetka + wykres</div><div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span class="sm">„Jan Kowalski: ta platforma zarabia za mnie 8 400 zł tygodniowo”</span><span class="row xs dim" style="gap: 6px"><span class="mono">INC-24588</span>· KMP-031</span></div></div>
+</div>
+
+<div class="row">
+<a class="btn btn-sm" href="S05-Campaign.dc.html">Otwórz KMP-017</a>
+<a class="btn btn-sm" href="S06-Graph.dc.html">Pokaż w grafie</a>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

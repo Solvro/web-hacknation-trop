@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>redpill: wtyczka, ostrzeżenie przy reklamie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0A0A0A}a:hover{color:#404040}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1050px; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #0A0A0A">
+
+  <header style="border-bottom: 1px solid #F0F0F0">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <a href="E2b-Sprawdz-Zgrai.dc.html" style="display: inline-flex; align-items: baseline; text-decoration: none; color: #0A0A0A; font-size: 19px; font-weight: 700; letter-spacing: -0.04em">red<span style="margin-left: 2px; padding: 0 6px 2px; border-radius: 8px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">pill</span></a>
+        <span style="color: #D4D4D4; font-size: 20px" aria-hidden="true">/</span>
+        <span style="font-size: 17px; font-weight: 600">Wtyczka</span>
+      </div>
+      <a href="E2b-Sprawdz-Zgrai.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #E5E5E5; font-size: 14px; font-weight: 500; text-decoration: none">Sprawdź reklamę ręcznie</a>
+    </div>
+  </header>
+
+  <main style="max-width: 1040px; margin: 0 auto; padding: 48px 24px 64px; display: flex; flex-direction: column; gap: 36px">
+
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center">
+      <h1 style="margin: 0; font-size: 44px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 600">Ostrzeżenie tam, gdzie widać reklamę.</h1>
+      <p style="margin: 0; font-size: 17px; line-height: 1.5; color: #525252; max-width: 560px">Wtyczka oznacza tylko reklamy ze znanych kampanii oszustw. Wysyła odcisk reklamy, nigdy dane o Tobie.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; justify-content: center">
+
+      <article aria-label="Post sponsorowany z ostrzeżeniem (schemat kanału, nie interfejs platformy)" style="flex: 1 1 440px; max-width: 520px; min-width: 0; border: 1px solid #E5E5E5; border-radius: 22px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.07)">
+        <div style="padding: 14px; display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border-bottom: 1px solid #F0F0F0">
+          <span aria-hidden="true" style="flex: none; width: 36px; height: 36px; border-radius: 10px; background: #FEF2F2; border: 1px solid #FECACA; color: #C10012; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"></path></svg></span>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Ta reklama pasuje do znanej kampanii oszustwa.</span>
+            <span style="font-size: 14px; line-height: 1.45; color: #525252">Widzieliśmy 46 takich reklam od 7 listopada. Link prowadzi do strony udającej portal informacyjny.</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px">
+              <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 999px; border: none; background: #0A0A0A; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Zgłoś</button>
+              <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #E5E5E5; background: #FFFFFF; font-family: inherit; font-size: 13px; cursor: pointer">Dlaczego?</button>
+              <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 999px; border: none; background: none; font-family: inherit; font-size: 13px; color: #525252; cursor: pointer">Ukryj</button>
+            </div>
+          </div>
+        </div>
+        <div style="background: #FAFAFA; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 34px; height: 34px; border-radius: 999px; background: #E5E5E5" aria-hidden="true"></span><span style="display: flex; flex-direction: column"><b style="font-size: 14px">Puzzle Mania PL</b><span style="font-size: 12px; color: #6B6B6B">Sponsorowane</span></span></div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.5">Nie uwierzysz, co wydarzyło się wczoraj wieczorem… Cała Polska o tym mówi.</p>
+          <div style="height: 180px; border-radius: 12px; border: 1px dashed #D4D4D4; background: repeating-linear-gradient(135deg, #FAFAFA 0 10px, #F5F5F5 10px 20px); display: grid; place-items: center; font: 12px 'Geist Mono', monospace; color: #737373">kreacja-wabik: krajobraz</div>
+          <div style="display: flex; align-items: center; gap: 10px"><span style="flex: 1; display: flex; flex-direction: column"><span style="font: 12px 'Geist Mono', monospace; color: #737373">OKAZJE-DNIA.COM</span><b style="font-size: 14px">Zobacz, zanim usuną</b></span><span style="min-height: 34px; padding: 0 12px; border-radius: 10px; background: #E5E5E5; display: inline-flex; align-items: center; font-size: 13px; color: #525252">Dowiedz się więcej</span></div>
+        </div>
+      </article>
+
+      <aside aria-label="Okno wtyczki" style="flex: 0 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 13px; color: #6B6B6B; padding-left: 6px">Okno wtyczki</span>
+        <div style="background: #F6F6F6; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; justify-content: space-between">
+            <span style="display: inline-flex; align-items: baseline; font-size: 19px; font-weight: 700; letter-spacing: -0.04em">red<span style="margin-left: 2px; padding: 0 6px 2px; border-radius: 8px; background: #0A0A0A; color: #FFFFFF; letter-spacing: -0.02em">pill</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #F0FDF4; color: #166534; font-size: 12px; font-weight: 500"><span style="width: 7px; height: 7px; border-radius: 999px; background: #22C55E"></span>działa</span>
+          </div>
+          <div style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 15px">2 reklamy na tej stronie</b>
+            <div style="display: flex; justify-content: space-between; font-size: 14px"><span>Puzzle Mania PL</span><span style="color: #C10012; font-weight: 500">znane oszustwo</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 14px"><span>Zdrowie Natura Shop</span><span style="color: #9A3412">sprawdzamy</span></div>
+          </div>
+          <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; padding: 0 4px">Oznaczaj reklamy<input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #0A0A0A"></label>
+          <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; padding: 0 4px">Wysyłaj anonimowe zgłoszenia<input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #0A0A0A"></label>
+          <span style="font-size: 13px; color: #6B6B6B; padding: 0 4px">Twoje zgłoszenia: 4, w tym 2 potwierdzone.</span>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1050}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

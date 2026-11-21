@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Lab — metryki i metodologia</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.pert{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1D2B22;font-size:13px}
+.pert:last-child{border-bottom:0}
+.pert input{width:16px;height:16px;margin:0;accent-color:#3BF07E;flex:none}
+.loco{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;font-size:13px}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="lab" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><a href="S11-Lab.dc.html">Lab</a><span class="sep">/</span><b>ewaluacja 21.11 08:40</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div class="row"><span class="eb">Lab · metodologia</span><span class="pill am">przykładowe wartości · podmieniane z eval/ przy buildzie</span><span class="api">GET /lab/metrics</span></div>
+<div class="row between" style="align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 520px; min-width: 0">
+<h1 class="h1">Jak dobrze łączymy i jak dobrze odmawiamy połączenia</h1>
+<p class="muted">Zbiór ewaluacyjny: 1 284 incydentów, 41 kampanii z etykietami (eval/labels.yaml). Odmowa błędnego połączenia liczy się tak samo jak trafne przypisanie.</p>
+</div>
+<div class="row"><button class="btn" type="button">Pobierz raport (PDF)</button><a class="btn" href="S11-Lab.dc.html#reg-h">METHODOLOGY.md</a></div>
+</div>
+</section>
+
+<section class="kpis" aria-label="Główne metryki">
+<div class="panel kpi"><span class="eb">B-cubed F1</span><span class="num g">0.91</span><span class="delta dim">P 0.94 · R 0.88</span></div>
+<div class="panel kpi"><span class="eb">ARI</span><span class="num">0.87</span><span class="delta dim">vs etykiety ręczne</span></div>
+<div class="panel kpi"><span class="eb">Pairwise precision</span><span class="num">0.96</span><span class="delta dim">fałszywe scalenia rzadkie</span></div>
+<div class="panel kpi"><span class="eb">Open-set accuracy</span><span class="num">0.93</span><span class="delta dim">znane + nieznane kampanie</span></div>
+<div class="panel kpi"><span class="eb">Precyzja „nowa kampania”</span><span class="num g">0.95</span><span class="delta dim">decyzje odmowy połączenia</span></div>
+<div class="panel kpi"><span class="eb">Błąd konformalny</span><span class="num">4.1%</span><span class="delta g">cel ≤ 5% (α = 0.05)</span></div>
+</section>
+
+<div class="split">
+<div class="a">
+
+<section class="panel" aria-labelledby="cmp-h">
+<div class="ph"><h2 class="h3" id="cmp-h">Porównanie metod · B-cubed F1</h2><span class="api">GET /lab/metrics?view=baselines</span></div>
+<div class="pb">
+<svg viewBox="0 0 760 210" style="width: 100%; height: auto; display: block" role="img" aria-label="F1: model M1 0.91, ręczne wagi 0.78, M2 bez infrastruktury 0.74, HDBSCAN na embeddingach 0.61">
+<g stroke="#1D2B22"><line x1="250" y1="16" x2="250" y2="186"></line><line x1="372" y1="16" x2="372" y2="186"></line><line x1="494" y1="16" x2="494" y2="186"></line><line x1="616" y1="16" x2="616" y2="186"></line><line x1="738" y1="16" x2="738" y2="186" stroke="#2B3F32"></line></g>
+<g font-family="Inter, sans-serif" font-size="13" fill="#DDEBE2">
+<text x="0" y="42">M1 · LightGBM + kalibracja</text>
+<text x="0" y="86">Ręczne wagi (IDF × siła)</text>
+<text x="0" y="130">M2 · treść bez infrastruktury</text>
+<text x="0" y="174">HDBSCAN na embeddingach</text>
+</g>
+<rect x="250" y="24" width="400" height="26" rx="3" fill="#3BF07E"></rect>
+<rect x="250" y="68" width="273" height="26" rx="3" fill="#3B5444"></rect>
+<rect x="250" y="112" width="234" height="26" rx="3" fill="#5CC8FF"></rect>
+<rect x="250" y="156" width="107" height="26" rx="3" fill="#3B5444"></rect>
+<g font-family="JetBrains Mono, monospace" font-size="12" fill="#DDEBE2"><text x="658" y="42">0.91</text><text x="531" y="86">0.78</text><text x="492" y="130">0.74</text><text x="365" y="174">0.61</text></g>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#83998B" text-anchor="middle"><text x="250" y="204">0.5</text><text x="372" y="204">0.625</text><text x="494" y="204">0.75</text><text x="616" y="204">0.875</text><text x="738" y="204">1.0</text></g>
+</svg>
+<p class="dim xs" style="margin-top: 8px">M2 widzi tylko treść i obraz (infrastruktura zamaskowana), a mimo to odnajduje warianty po pełnej rotacji domen.</p>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="st-h">
+<div class="ph"><h2 class="h3" id="st-h">Stres-test odporności</h2><span class="dim sm">zaburz dane i przelicz decyzje jednym kliknięciem</span><span class="api">POST /lab/stress</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<fieldset style="flex: 1 1 240px; min-width: 0; border: 0; margin: 0; padding: 0">
+<legend class="eb" style="margin-bottom: 6px">Zaburzenia</legend>
+<label class="pert"><input type="checkbox" checked>Usuń HAR</label>
+<label class="pert"><input type="checkbox" checked>Usuń zrzut ekranu</label>
+<label class="pert"><input type="checkbox" checked>Podmień domenę na nową</label>
+<label class="pert"><input type="checkbox" checked>Landing zwraca 502</label>
+<label class="pert"><input type="checkbox">Wstrzyknij duplikaty</label>
+<label class="pert"><input type="checkbox">Inny format eksportu</label>
+<label class="pert"><input type="checkbox">Maskuj całą infrastrukturę</label>
+<button class="btn btn-p" type="button" style="margin-top: 12px">Uruchom stres-test</button>
+</fieldset>
+<div style="flex: 999 1 420px; min-width: 0">
+<div class="row between" style="margin-bottom: 8px"><span class="eb">Wynik · run LR-0412 · 41 s</span><span class="api">GET /lab/runs/{id}</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Zaburzenie</th><th scope="col" class="r">Stabilność decyzji</th><th scope="col" class="r">F1</th><th scope="col" class="r">→ nowa kampania</th></tr></thead>
+<tbody>
+<tr><td>Brak (punkt odniesienia)</td><td class="r mono">100%</td><td class="r mono">0.91</td><td class="r mono">0</td></tr>
+<tr><td>Usuń HAR</td><td class="r mono">94%</td><td class="r mono">0.87</td><td class="r mono">11</td></tr>
+<tr><td>Usuń zrzut ekranu</td><td class="r mono">98%</td><td class="r mono">0.90</td><td class="r mono">3</td></tr>
+<tr><td>Podmień domenę</td><td class="r mono">97%</td><td class="r mono">0.89</td><td class="r mono">5</td></tr>
+<tr><td>Landing 502</td><td class="r mono am">88%</td><td class="r mono am">0.82</td><td class="r mono">24</td></tr>
+<tr><td>Wszystkie 4 razem</td><td class="r mono am">81%</td><td class="r mono am">0.78</td><td class="r mono">39</td></tr>
+</tbody>
+</table>
+</div>
+<p class="dim xs" style="margin-top: 8px">Przy brakach danych system częściej mówi „nowa kampania” zamiast łączyć na siłę: brak wartości nie jest dowodem różnicy.</p>
+</div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="abl-h">
+<div class="ph"><h2 class="h3" id="abl-h">Ablacja warstw</h2><span class="dim sm">usunięta warstwa → zmiana F1</span><span class="api">GET /lab/ablation</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Warstwa</th><th scope="col" class="r">ΔF1</th><th scope="col">Wpływ</th></tr></thead>
+<tbody>
+<tr class="t-tracking"><td><span class="row" style="gap: 8px"><span class="sw"></span>Tracking</span></td><td class="r mono rd">−0.08</td><td style="width: 50%"><div class="bar"><i style="width: 100%"></i></div></td></tr>
+<tr class="t-kit"><td><span class="row" style="gap: 8px"><span class="sw"></span>Kit</span></td><td class="r mono rd">−0.06</td><td><div class="bar"><i style="width: 75%"></i></div></td></tr>
+<tr class="t-content"><td><span class="row" style="gap: 8px"><span class="sw"></span>Treść</span></td><td class="r mono rd">−0.05</td><td><div class="bar"><i style="width: 62%"></i></div></td></tr>
+<tr class="t-infra"><td><span class="row" style="gap: 8px"><span class="sw"></span>Infra</span></td><td class="r mono">−0.03</td><td><div class="bar"><i style="width: 37%"></i></div></td></tr>
+<tr class="t-ad"><td><span class="row" style="gap: 8px"><span class="sw"></span>Reklama</span></td><td class="r mono">−0.02</td><td><div class="bar"><i style="width: 25%"></i></div></td></tr>
+<tr class="t-persons"><td><span class="row" style="gap: 8px"><span class="sw"></span>Osoby</span></td><td class="r mono">−0.01</td><td><div class="bar"><i style="width: 12%"></i></div></td></tr>
+<tr class="t-visual"><td><span class="row" style="gap: 8px"><span class="sw"></span>Obraz</span></td><td class="r mono">−0.01</td><td><div class="bar"><i style="width: 12%"></i></div></td></tr>
+<tr class="t-media"><td><span class="row" style="gap: 8px"><span class="sw"></span>Media</span></td><td class="r mono dim">0.00</td><td><div class="bar"><i style="width: 0%"></i></div></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+</div>
+<div class="b">
+
+<section class="panel" aria-labelledby="cal-h">
+<div class="ph"><h2 class="h3" id="cal-h">Kalibracja konformalna</h2><span class="api">GET /lab/metrics?view=conformal</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<svg viewBox="0 0 320 240" style="width: 100%; height: auto; display: block" role="img" aria-label="Osiągnięty błąd przypisania względem docelowego alfa: punkty leżą tuż pod przekątną, przy alfa 0.05 błąd 4.1 procent">
+<g stroke="#1D2B22"><line x1="44" y1="20" x2="44" y2="200"></line><line x1="44" y1="200" x2="304" y2="200" stroke="#2B3F32"></line><line x1="44" y1="110" x2="304" y2="110"></line><line x1="174" y1="20" x2="174" y2="200"></line></g>
+<line x1="44" y1="200" x2="304" y2="20" stroke="#3B5444" stroke-dasharray="4 4"></line>
+<polyline points="70,184 96,168 122,152 148,135 174,119 200,103 226,88 252,70 278,55" fill="none" stroke="#3BF07E" stroke-width="2"></polyline>
+<g fill="#3BF07E"><circle cx="70" cy="184" r="3"></circle><circle cx="96" cy="168" r="3"></circle><circle cx="122" cy="152" r="3"></circle><circle cx="148" cy="135" r="3"></circle><circle cx="174" cy="119" r="3"></circle><circle cx="200" cy="103" r="3"></circle><circle cx="226" cy="88" r="3"></circle><circle cx="252" cy="70" r="3"></circle><circle cx="278" cy="55" r="3"></circle></g>
+<circle cx="109" cy="163" r="3" fill="#FFB547"></circle><circle cx="109" cy="163" r="7" fill="none" stroke="#FFB547" stroke-width="1.5"></circle>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#83998B"><text x="40" y="204" text-anchor="end">0</text><text x="40" y="114" text-anchor="end">.10</text><text x="40" y="24" text-anchor="end">.20</text><text x="174" y="216" text-anchor="middle">.10</text><text x="304" y="216" text-anchor="middle">.20</text><text x="174" y="234" text-anchor="middle">docelowe α</text></g>
+<text x="120" y="176" font-family="JetBrains Mono, monospace" font-size="10" fill="#FFB547">α .05 → 4.1%</text>
+</svg>
+<p class="dim xs">Linia przerywana: idealna kalibracja. Punkty pod nią: błąd nie większy niż obiecany.</p>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="loco-h">
+<div class="ph"><h2 class="h3" id="loco-h">Leave-one-campaign-out</h2><span class="pill g">9/10</span><span class="api">GET /lab/metrics?view=loco</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="sm muted">Kampania ukryta przy treningu powinna wrócić jako „nowa kampania”.</p>
+<div class="loco">
+<span class="mono">KMP-017</span><span class="pill g">nowa · OK</span>
+<span class="mono">KMP-022</span><span class="pill g">nowa · OK</span>
+<span class="mono">KMP-031</span><span class="pill g">nowa · OK</span>
+<span class="mono">KMP-034</span><span class="pill rd">dołączona do KMP-017</span>
+<span class="mono">6 kolejnych</span><span class="pill g">nowa · OK</span>
+</div>
+<p class="dim xs">KMP-034 ma ten sam kit i bramkę co KMP-017. Model łączy je na poziomie L3 (operator), a nie L2, i to jest oczekiwane.</p>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="reg-h">
+<div class="ph"><h2 class="h3" id="reg-h">Rejestr modeli</h2><span class="api">GET /lab/metrics?view=models</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Model</th><th scope="col">Wersja</th><th scope="col">Uruchomienie</th></tr></thead>
+<tbody>
+<tr><td><span class="mono g">M1</span> <span class="sm">linkage GBM + izotoniczna</span><div class="dim xs">pary z etykiet + weak labels</div></td><td class="mono xs">1.4.0</td><td><span class="pill">CPU</span></td></tr>
+<tr><td><span class="mono g">M2</span> <span class="sm">enkoder treści (kontrastowy)</span><div class="dim xs">pary z pewnej infrastruktury</div></td><td class="mono xs">0.3.1</td><td><span class="pill cy">WCSS → ONNX</span></td></tr>
+<tr><td><span class="mono g">M3</span> <span class="sm">DNA domen (char n-gram)</span><div class="dim xs">domeny kampanii vs próbka CT</div></td><td class="mono xs">0.9.2</td><td><span class="pill">CPU</span></td></tr>
+<tr><td><span class="mono g">M4</span> <span class="sm">narracja / wertykał</span><div class="dim xs">destylacja z PLLuM / Bielik</div></td><td class="mono xs">0.2.0</td><td><span class="pill cy">WCSS → ONNX</span></td></tr>
+<tr><td><span class="mono g">M5</span> <span class="sm">rola strony i wabik</span><div class="dim xs">etykiety VLM</div></td><td class="mono xs">0.2.3</td><td><span class="pill">CPU</span></td></tr>
+<tr><td><span class="mono g">M6</span> <span class="sm">dopasowanie osób (twarz + głos)</span><div class="dim xs">galeria ~25 osób, bez treningu</div></td><td class="mono xs">0.1.0</td><td><span class="pill">CPU</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="row" style="padding: 10px 16px; border-top: 1px solid #1D2B22; gap: 6px"><a class="btn btn-sm" href="S11-Lab.dc.html#reg-h">§ Dowody i wagi</a><a class="btn btn-sm" href="S11-Lab.dc.html#reg-h">§ Open-set</a><a class="btn btn-sm" href="S11-Lab.dc.html#reg-h">§ Modele M1–M6</a></div>
+</section>
+
+</div>
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

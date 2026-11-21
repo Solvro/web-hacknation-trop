@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Kierunek K4: terminal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0E0D0B}
+.tm{font:14px/1.6 "IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;color:#EDE6D6;background:#0E0D0B;-webkit-font-smoothing:antialiased}
+.tm *{box-sizing:border-box}
+.tm p,.tm h1,.tm h2{margin:0}
+.tm a{color:#FFB000}
+.tm-a{color:#FFB000}.tm-d{color:#C9A24A}.tm-m{color:#9C8E72}.tm-r{color:#FF6B5B}.tm-c{color:#7FD4FF}
+.tm-pane{position:relative;border:1px solid #5C4A1C;padding:20px 18px 16px;min-width:0}
+.tm-title{position:absolute;top:-10px;left:14px;background:#0E0D0B;padding:0 8px;color:#FFB000;font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.tm-row{display:flex;flex-wrap:wrap;gap:22px;align-items:stretch}
+.tm-pre{margin:0;white-space:pre;overflow-x:auto;font:inherit}
+.tm-key{display:inline-block;min-width:64px;padding:0 6px;background:#FFB000;color:#0E0D0B;font-weight:600;text-align:center;margin-right:10px}
+.tm-cur{display:inline-block;width:9px;height:18px;background:#FFB000;vertical-align:-3px;animation:tmb 1s steps(2) infinite}
+@keyframes tmb{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.tm-cur{animation:none}}
+</style>
+</helmet>
+<div class="tm" style="min-height: 100vh; display: flex; flex-direction: column">
+
+<header style="background: #FFB000; color: #0E0D0B; display: flex; flex-wrap: wrap; gap: 0; font-weight: 600; font-size: 13px">
+<span style="padding: 6px 14px; background: #0E0D0B; color: #FFB000">redpill 0.9</span>
+<span style="padding: 6px 14px; border-right: 1px solid rgba(14,13,11,.35)">1:sprawy*</span>
+<span style="padding: 6px 14px; border-right: 1px solid rgba(14,13,11,.35)">2:kampanie</span>
+<span style="padding: 6px 14px; border-right: 1px solid rgba(14,13,11,.35)">3:graf</span>
+<span style="padding: 6px 14px; border-right: 1px solid rgba(14,13,11,.35)">4:oracle</span>
+<span style="padding: 6px 14px; border-right: 1px solid rgba(14,13,11,.35)">5:act</span>
+<span style="flex: 1 1 auto"></span>
+<span style="padding: 6px 14px">SSE ● · triage 23 · demo · 08:50</span>
+</header>
+
+<main style="flex: 1 1 auto; padding: 28px 24px 16px; display: flex; flex-direction: column; gap: 26px">
+
+<p class="tm-m">redpill:<span class="tm-a">INC-24817</span>&gt; analyze https://morvanta.click/?utm_source=fb …  <span class="tm-d">ukończono w 19.6 s</span></p>
+
+<div class="tm-row">
+
+<section class="tm-pane" style="flex: 1 1 380px" aria-label="Pipeline">
+<span class="tm-title">pipeline</span>
+<pre class="tm-pre" style="font-size: 13px; line-height: 1.75"><span class="tm-m">02:31:04.1</span>  <span class="tm-a">ok</span>  ingest     url + zrzut           0.2s
+<span class="tm-m">02:31:10.9</span>  <span class="tm-a">ok</span>  capture    4 redir · 212 req     6.8s
+<span class="tm-m">02:31:11.5</span>  <span class="tm-a">ok</span>  tracking   CAPI · kit relay      0.6s
+<span class="tm-m">02:31:14.8</span>  <span class="tm-a">ok</span>  ocr+vlm    «Kurier Dnia»         3.9s
+<span class="tm-m">02:31:12.6</span>  <span class="tm-a">ok</span>  faces      Kowalski 0.91         1.7s
+<span class="tm-m">02:31:12.3</span>  <span class="tm-a">ok</span>  text/ner   szablon {PER}         0.8s
+<span class="tm-m">02:31:17.2</span>  <span class="tm-r">!!</span>  enrich     <span class="tm-r">RDAP timeout</span>          2.4s
+<span class="tm-m">02:31:17.6</span>  <span class="tm-a">ok</span>  evidence   312 kand → 9 kamp     0.4s
+<span class="tm-m">02:31:17.9</span>  <span class="tm-a">ok</span>  m1+calib                         0.3s
+<span class="tm-m">02:31:18.0</span>  <span class="tm-a">ok</span>  conformal  α=0.05 → {KMP-017}    0.1s</pre>
+</section>
+
+<section class="tm-pane" style="flex: 1.4 1 460px; border-color: #FFB000" aria-label="Werdykt">
+<span class="tm-title">werdykt</span>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="font: 700 30px/1.15 'IBM Plex Mono', monospace; color: #FFB000; letter-spacing: -0.02em">DOŁĄCZA → KMP-017 «Zamach»</h1>
+<pre class="tm-pre" style="font-size: 15px; line-height: 1.8">p          <span class="tm-a">█████████████████████████████</span><span class="tm-m">░░</span>  <b>0.94</b>
+zbiór      {KMP-017}            α = 0.05
+drugi      KMP-034  0.41  Δ 0.53  <span class="tm-c">(ten sam operator OP-03)</span>
+pokrycie   <span class="tm-a">▮▮</span><span class="tm-d">▮</span><span class="tm-a">▮▮▮▮</span><span class="tm-m">▯</span>  6/8   <span class="tm-m">infra częściowe · media brak</span></pre>
+<p class="tm-d" style="font-size: 13px">Brak danych nie liczy się jako różnica. Cloudflare wyzerowany (512/1 284).</p>
+</div>
+</section>
+
+</div>
+
+<div class="tm-row">
+
+<section class="tm-pane" style="flex: 1.6 1 560px" aria-label="Dowody">
+<span class="tm-title">dowody · 6 + 2 pominięte</span>
+<pre class="tm-pre" style="font-size: 13.5px; line-height: 1.85"><span class="tm-m">typ        wartość                               siła  waga   df/N</span>
+<span class="tm-c">tracking</span>   cg-7f3a91e0.ecs.eu-west-1.on.aws      <span class="tm-a">███</span>   +3.1   47/1284
+<span class="tm-c">kit</span>        /api/v2/relay/lead/{uuid}/            <span class="tm-a">███</span>   +2.7   58/1284
+<span class="tm-c">treść</span>      „PILNE: {PER} przerywa milczenie…”     <span class="tm-a">███</span>   +2.2   22/1284
+<span class="tm-c">infra</span>      LE R11 · 00:47 01:12 02:31            <span class="tm-a">██</span><span class="tm-m">░</span>   +1.4    6/1284
+<span class="tm-c">obraz</span>      landing pHash Δ4                      <span class="tm-a">██</span><span class="tm-m">░</span>   +0.9        —
+<span class="tm-c">osoby</span>      Jan Kowalski · twarz 0.91             <span class="tm-a">██</span><span class="tm-m">░</span>   +0.8   61/1284
+<span class="tm-m">infra      203.0.113.0/24 (cloudflare)           ░░░    0.0  512/1284
+media      —  (brak wideo)                        ···      —        —</span></pre>
+</section>
+
+<section class="tm-pane" style="flex: 1 1 340px" aria-label="Akcje">
+<span class="tm-title">akcje</span>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<li><span class="tm-key">enter</span>otwórz kampanię KMP-017</li>
+<li><span class="tm-key">d</span>pakiet DSA dla kampanii</li>
+<li><span class="tm-key">a</span>śledź z agentem</li>
+<li><span class="tm-key">w</span>dlaczego / dlaczego nie</li>
+<li><span class="tm-key">g</span>pokaż w grafie</li>
+<li><span class="tm-key">x</span>to błąd, do triage</li>
+<li><span class="tm-key">/</span>szukaj wszędzie</li>
+</ul>
+</section>
+
+</div>
+
+<section class="tm-pane" aria-label="Dlaczego nie KMP-034">
+<span class="tm-title">w · dlaczego nie KMP-034</span>
+<pre class="tm-pre" style="font-size: 13.5px; line-height: 1.8"><span class="tm-a">=</span> kit        relay v1 → v2              wspólny  <span class="tm-c">→ ten sam operator, nie ta sama kampania</span>
+<span class="tm-r">≠</span> treść      szablon „Cukrzyca…” vs „PILNE: {PER}…”   −0.9
+<span class="tm-r">≠</span> osoby      dr P. Wiśniewski vs J. Kowalski          −0.6
+<span class="tm-m">?</span> tracking   pixel tylko po jednej stronie            0.0  <span class="tm-m">(brak ≠ różnica)</span>
+<span class="tm-m">→ gdyby szablon treści był wspólny: p 0.71, nadal poniżej τ 0.80</span></pre>
+</section>
+
+</main>
+
+<footer style="border-top: 1px solid #5C4A1C; padding: 12px 24px 14px; display: flex; flex-direction: column; gap: 8px">
+<div class="tm-m" style="font-size: 13px; display: flex; flex-wrap: wrap; gap: 18px"><span>tab: podpowiedź</span><span>↑↓: historia</span><span>ctrl+k: paleta</span><span>?: skróty</span></div>
+<label style="display: flex; align-items: center; gap: 0; font-size: 15px"><span class="tm-a" style="font-weight: 600">redpill:INC-24817&gt;&nbsp;</span><span>śledź velmoria.click</span><span class="tm-cur" aria-hidden="true"></span><input aria-label="Polecenie" style="position: absolute; width: 1px; height: 1px; opacity: 0"></label>
+<p class="tm-m" style="font-size: 12px">Kierunek K4 · wszystkie dane fikcyjne · HackNation 2026</p>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Dlaczego połączone i dlaczego nie — specyfikacja</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.cn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid rgba(92,200,255,.55);color:#5CC8FF;font:600 11px "JetBrains Mono",ui-monospace,monospace;flex:none}
+.duo{display:flex;flex-wrap:wrap;gap:20px;align-items:stretch}
+.duo>section{flex:1 1 520px;min-width:0;display:flex;flex-direction:column}
+.erow{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);gap:12px;align-items:center;padding:6px 0;border-bottom:1px solid #1D2B22}
+.erow:last-child{border-bottom:0}
+.grp{display:flex;flex-direction:column;gap:8px}
+.cf{display:grid;grid-template-columns:minmax(0,1fr) 120px 52px;gap:12px;align-items:center;padding:6px 0;font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.metrics>div{display:flex;flex-direction:column;gap:3px}
+.rules{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="page" style="max-width: 1240px; margin: 0 auto">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px">
+<span class="eb">Komponent wyjaśnialności · X2</span>
+<h1 class="h1">Dlaczego połączone / dlaczego NIE</h1>
+<p class="muted" style="max-width: 900px; line-height: 1.6">Analityk pyta: <b style="color: #DDEBE2">„czemu to trafiło do tej kampanii, a nie do sąsiedniej?”</b> Panel zawsze pokazuje obie strony decyzji. Po lewej dowody za przypisaniem, ułożone według wagi. Po prawej najbliższa odrzucona kampania: co jest wspólne, co sprzeczne, czego brakuje i co musiałoby się zmienić, żeby wynik był inny. Dzięki temu widać też fałszywe scalenia.</p>
+</header>
+
+<div class="duo">
+
+<section class="panel hot" aria-labelledby="a-h">
+<div class="ph"><span class="cn">A</span><h2 class="h3" id="a-h">Dlaczego połączone · <span class="id">INC-24817</span> ↔ <span class="id">KMP-017</span></h2><span class="pill g">przypisano</span><span class="api">GET links/INC-24817/KMP-017</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 16px; flex: 1 1 auto">
+<p style="font-size: 15px; line-height: 1.55">INC-24817 dołącza do KMP-017. Ma tę samą bramkę CAPI i ścieżkę kitu (rzadkie, siła H) oraz ten sam szablon nagłówka. Zgodność potwierdzają 4 niezależne warstwy.</p>
+<div class="metrics">
+<div class="ring" style="--p: 94"><span>0.94</span></div>
+<div><span class="eb">M1 · skalibrowane</span><span class="mono">p = 0.94 · τ = 0.80</span></div>
+<div><span class="eb">margines</span><span class="mono g">+0.53 nad KMP-034</span></div>
+<div><span class="eb">konformalnie α 5%</span><span class="mono">zbiór {KMP-017}</span></div>
+<div><span class="eb">pokrycie 0.78</span><div class="cov" style="width: 96px"><i class="t-tracking"></i><i class="t-kit"></i><i class="t-infra part"></i><i class="t-content"></i><i class="t-persons"></i><i class="t-visual"></i><i class="t-ad"></i><i class="miss"></i></div></div>
+</div>
+<div class="col" style="gap: 8px">
+<div class="row between"><span class="eb">Wkład warstw (suma log-odds 11.4)</span><span class="pill g">niezależne warstwy: 4 (wymagane ≥ 2)</span></div>
+<div class="bar lg" role="img" aria-label="Wkład warstw: tracking 27 procent, kit 24, treść 19, infra 12, obraz 8, osoby 7, reklama 3"><i class="t-tracking" style="width: 27.2%"></i><i class="t-kit" style="width: 23.7%"></i><i class="t-content" style="width: 19.3%"></i><i class="t-infra" style="width: 12.3%"></i><i class="t-visual" style="width: 7.9%"></i><i class="t-persons" style="width: 7%"></i><i class="t-ad" style="width: 2.6%"></i></div>
+<div class="row" style="gap: 12px">
+<span class="row xs muted" style="gap: 6px"><span class="sw t-tracking"></span>tracking 3.1</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-kit"></span>kit 2.7</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-content"></span>treść 2.2</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-infra"></span>infra 1.4</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-visual"></span>obraz 0.9</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-persons"></span>osoby 0.8</span>
+<span class="row xs muted" style="gap: 6px"><span class="sw t-ad"></span>reklama 0.3</span>
+</div>
+</div>
+<div class="col" style="gap: 2px">
+<span class="eb" style="padding-bottom: 4px">Dowody według wagi</span>
+<div class="erow"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a91e0…on.aws</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+3.1</span><span class="r">47/1 284</span></span><span class="dim xs">ta sama bramka zdarzeń Meta, rzadka</span></div>
+<div class="erow"><span class="ev t-kit"><span class="t">Kit</span><span class="v">/api/v2/relay/lead/{uuid}/</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.7</span><span class="r">58/1 284</span></span><span class="dim xs">ten sam szablon endpointu kitu</span></div>
+<div class="erow"><span class="ev t-content"><span class="t">Treść</span><span class="v">„PILNE: {PER} przerywa milczenie…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+2.2</span><span class="r">22/1 284</span></span><span class="dim xs">nagłówek po zamaskowaniu osoby</span></div>
+<div class="erow"><span class="ev t-infra"><span class="t">Infra</span><span class="v">partia LE R11 · 00:47–02:31</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+1.4</span><span class="r">6/1 284</span></span><span class="dim xs">certyfikaty z jednej nocnej partii</span></div>
+<div class="erow"><span class="ev t-visual"><span class="t">Obraz</span><span class="v">landing pHash Δ 4</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.9</span><span class="r">9/1 284</span></span><span class="dim xs">prawie identyczny zrzut strony</span></div>
+<div class="erow"><span class="ev t-persons"><span class="t">Osoby</span><span class="v">Jan Kowalski · twarz 0.91</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">+0.8</span><span class="r">61/1 284</span></span><span class="dim xs">ta sama podszyta osoba</span></div>
+<div class="erow"><span class="ev t-ad"><span class="t">Reklama</span><span class="v">kreacja-wabik</span><span class="sb l"><i></i><i></i><i></i></span><span class="w">+0.3</span><span class="r">402/1 284</span></span><span class="dim xs">wzorzec wabika, słaby kontekst</span></div>
+<div class="erow"><span class="ev zero t-infra"><span class="t">Infra</span><span class="v">Cloudflare 203.0.113.0/24</span><span class="w">0.0</span><span class="r">512/1 284</span></span><span class="dim xs">wyzerowane: wspólne dla wszystkich</span></div>
+</div>
+</div>
+</section>
+
+<section class="panel warn" aria-labelledby="b-h">
+<div class="ph"><span class="cn">B</span><h2 class="h3" id="b-h">Dlaczego NIE · <span class="id">INC-24817</span> ✕ <span class="id">KMP-034</span></h2><span class="pill am">nie przypisano</span><span class="api">GET links/INC-24817/KMP-034</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 16px; flex: 1 1 auto">
+<p style="font-size: 15px; line-height: 1.55">Wspólne są tylko sygnały operatora (kit i bramka CAPI), a treść, narracja i osoby się różnią. To ten sam operator, ale inna kampania.</p>
+<div class="metrics">
+<div class="ring am" style="--p: 41"><span>0.41</span></div>
+<div><span class="eb">M1 · skalibrowane</span><span class="mono">p = 0.41 · τ = 0.80</span></div>
+<div><span class="eb">konformalnie α 5%</span><span class="mono am">poza zbiorem</span></div>
+<div><span class="eb">wspólny poziom</span><a class="lvl l3" href="S06-Graph.dc.html"><b>L3</b> operator OP-03</a></div>
+</div>
+<div class="grp">
+<span class="eb">Wspólne, ale nie wystarczy</span>
+<div class="evs"><span class="ev t-kit"><span class="t">Kit</span><span class="v">relay-kit v1 → v2</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+1.6</span><span class="r">58/1 284</span></span><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">+1.9</span><span class="r">47/1 284</span></span></div>
+<p class="dim xs">Sygnały infrastruktury operatora łączą kampanie w rodzinę (L3). Do przypisania na poziomie kampanii (L2) potrzebna jest też zgodna treść lub narracja.</p>
+</div>
+<div class="grp">
+<span class="eb rd">Sprzeczne</span>
+<div class="evs">
+<span class="ev conf t-content"><span class="t">Treść</span><span class="v">„Lekarze ukrywają…” ≠ „PILNE: {PER}…”</span><span class="sb h"><i></i><i></i><i></i></span><span class="w">−1.2</span></span>
+<span class="ev conf t-content"><span class="t">Treść</span><span class="v">narracja: zdrowie ≠ inwestycja</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">−0.9</span></span>
+<span class="ev conf t-persons"><span class="t">Osoby</span><span class="v">dr Piotr Wiśniewski ≠ Jan Kowalski</span><span class="sb m"><i></i><i></i><i></i></span><span class="w">−0.6</span></span>
+</div>
+</div>
+<div class="grp">
+<span class="eb">Brakujące: nie liczymy jako różnicy</span>
+<div class="evs"><span class="ev miss t-media"><span class="t">Media</span><span class="v">brak wideo w INC-24817</span><span class="r">nie liczone</span></span><span class="ev miss t-infra"><span class="t">Infra</span><span class="v">RDAP: timeout</span><span class="r">nie liczone</span></span></div>
+</div>
+<div class="grp">
+<span class="eb">Zbyt powszechne</span>
+<div class="evs"><span class="ev zero t-infra"><span class="t">Infra</span><span class="v">Cloudflare 203.0.113.0/24</span><span class="w">0.0</span><span class="r">512/1 284</span></span><span class="ev zero t-kit"><span class="t">Kit</span><span class="v">jquery 3.7.1 (cdnjs)</span><span class="w">0.0</span><span class="r">1 102/1 284</span></span></div>
+</div>
+<div class="grp" style="border-top: 1px solid #1D2B22; padding-top: 12px">
+<span class="eb cy">Co zmieniłoby decyzję</span>
+<div class="cf"><span>gdyby wspólny był też szablon treści</span><span class="bar"><i class="cy" style="width: 71%"></i></span><span class="mono xs">0.71</span></div>
+<div class="cf"><span>+ ta sama podszyta osoba</span><span class="bar"><i class="cy" style="width: 83%"></i></span><span class="mono xs">0.83</span></div>
+<div class="cf"><span>bez sprzecznej narracji</span><span class="bar"><i class="cy" style="width: 52%"></i></span><span class="mono xs">0.52</span></div>
+<p class="dim xs">Wspólny szablon treści dałby p = 0.71, wciąż poniżej progu τ = 0.80. Dopiero ta sama osoba przekracza próg, ale z marginesem 0.11 (wymagane δ ≥ 0.15), więc materiał trafiłby do triage.</p>
+</div>
+</div>
+</section>
+
+</div>
+
+<section class="panel" aria-labelledby="c-h">
+<div class="ph"><h2 class="h3" id="c-h">Wariant kompaktowy (inline)</h2><span class="dim sm">w karcie werdyktu S02 i w inspektorze krawędzi S06</span><span class="api">GET links/{a}/{b}?compact=1</span></div>
+<div class="pb" style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 1 1 440px; min-width: 0; border: 1px solid rgba(59,240,126,.38); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; background: #0F1812">
+<div class="row between"><span class="sm"><b>Dlaczego KMP-017?</b> <span class="dim">4 warstwy · p 0.94 · pokrycie 0.78</span></span><a class="btn btn-sm btn-gh" href="#a-h">Szczegóły</a></div>
+<div class="evs"><span class="ev t-tracking"><span class="t">Tracking</span><span class="v">CAPI cg-7f3a…</span></span><span class="ev t-kit"><span class="t">Kit</span><span class="v">relay/lead</span></span><span class="ev t-content"><span class="t">Treść</span><span class="v">szablon {PER}</span></span><span class="pill">+4 więcej</span></div>
+</div>
+<div style="flex: 1 1 440px; min-width: 0; border: 1px solid rgba(255,181,71,.45); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; background: #0F1812">
+<div class="row between"><span class="sm"><b>Najbliższa odrzucona: KMP-034</b> <span class="dim">p 0.41</span></span><a class="btn btn-sm btn-gh" href="#b-h">Dlaczego nie?</a></div>
+<p class="sm muted">Wspólny tylko operator (L3). Sprzeczna treść i osoby.</p>
+</div>
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="beh-h">
+<div class="ph"><h2 class="h3" id="beh-h">Zachowanie</h2></div>
+<div class="pb">
+<ul class="rules">
+<li>Otwiera się z: przycisku „Dlaczego?” w werdykcie (S02), zakładki Dopasowania (S04), kliknięcia krawędzi w grafie (S06), szczegółu pozycji w triage (S03).</li>
+<li>Przełącznik <span class="mono">Dlaczego / Dlaczego nie</span> na wąskim ekranie; na szerokim oba panele obok siebie. Skróty: <span class="kbd">W</span> dlaczego, <span class="kbd">N</span> dlaczego nie.</li>
+<li>Panel B domyślnie pokazuje najbliższą odrzuconą kampanię. Lista rozwijana pozwala wybrać dowolną inną z top-5.</li>
+<li>Klik w chip otwiera szufladę dowodu (X1). Klik w <span class="lvl l3"><b>L3</b></span> przechodzi do grafu operatora.</li>
+<li>Kontrfakty są liczone po stronie serwera (M1 z podmienionymi cechami), a nie zgadywane w UI.</li>
+</ul>
+</div>
+</section>
+<section class="panel" aria-labelledby="ctr-h">
+<div class="ph"><h2 class="h3" id="ctr-h">Kontrakt danych</h2><span class="api">GET links/{a}/{b}</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted"><span class="mono">GET /api/v1/links/{a}/{b}</span>, gdzie a i b to incydent lub kampania (np. <span class="mono">INC-24817</span>, <span class="mono">KMP-034</span>).</p>
+<pre class="code">{
+  <span class="ck">"a"</span>: <span class="cs">"INC-24817"</span>, <span class="ck">"b"</span>: <span class="cs">"KMP-034"</span>,
+  <span class="ck">"p"</span>: <span class="cg">0.41</span>, <span class="ck">"tau"</span>: <span class="cg">0.80</span>, <span class="ck">"delta"</span>: <span class="cg">0.15</span>,
+  <span class="ck">"decision"</span>: <span class="cs">"not_linked"</span>,      <span class="cc">// linked|not_linked|triage</span>
+  <span class="ck">"shared_level"</span>: <span class="cs">"L3"</span>, <span class="ck">"operator_id"</span>: <span class="cs">"OP-03"</span>,
+  <span class="ck">"layers_independent"</span>: <span class="cg">1</span>, <span class="ck">"layers_required"</span>: <span class="cg">2</span>,
+  <span class="ck">"coverage"</span>: <span class="cg">0.78</span>,
+  <span class="ck">"contributions"</span>: [{ <span class="ck">"layer"</span>: <span class="cs">"kit"</span>, <span class="ck">"value"</span>: <span class="cg">1.6</span> }, …],
+  <span class="ck">"evidence"</span>:  [ <span class="cc">/* chip, state=match (X1) */</span> ],
+  <span class="ck">"conflicts"</span>: [ <span class="cc">/* chip, state=conflict */</span> ],
+  <span class="ck">"missing"</span>:   [ <span class="cc">/* chip, state=missing + reason */</span> ],
+  <span class="ck">"zeroed"</span>:    [ <span class="cc">/* chip, state=zero */</span> ],
+  <span class="ck">"counterfactuals"</span>: [
+    { <span class="ck">"change"</span>: <span class="cs">"shared content template"</span>, <span class="ck">"p_new"</span>: <span class="cg">0.71</span>, <span class="ck">"decision_new"</span>: <span class="cs">"not_linked"</span> },
+    { <span class="ck">"change"</span>: <span class="cs">"+ same person"</span>, <span class="ck">"p_new"</span>: <span class="cg">0.83</span>, <span class="ck">"decision_new"</span>: <span class="cs">"triage"</span> }
+  ],
+  <span class="ck">"summary"</span>: <span class="cs">"Wspólne tylko sygnały operatora…"</span>,
+  <span class="ck">"conformal"</span>: { <span class="ck">"alpha"</span>: <span class="cg">0.05</span>, <span class="ck">"in_set"</span>: <span class="cg">false</span> }
+}</pre>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="rul-h">
+<div class="ph"><h2 class="h3" id="rul-h">Zasady</h2></div>
+<div class="pb">
+<ul class="rules">
+<li><b class="g">Tak:</b> zawsze pokazuj obie strony: dlaczego tak i najbliższą alternatywę.</li>
+<li><b class="g">Tak:</b> braki trzymaj osobno od sprzeczności. Brak nigdy nie obniża wyniku.</li>
+<li><b class="g">Tak:</b> „ten sam operator, inna kampania” (L3) nazywaj wprost. To wiedza, nie błąd.</li>
+<li><b class="rd">Nie:</b> nie pokazuj więcej niż 3 kontrfakty i tylko takie, które mogą realnie wystąpić.</li>
+<li><b class="rd">Nie:</b> nie mieszaj skal: p jest skalibrowane, a τ i δ zawsze stoją obok liczby.</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+<p class="footnote" style="max-width: 1240px; margin: 0 auto">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1280,"height":2100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

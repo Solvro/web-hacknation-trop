@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>redpill: kampania KMP-017</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/4a45834733cab3a8558aaac01529657b">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid #e5e5e5;background:#fafafa}
+.zr a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#525252}
+.zr a:hover{background:#f0f0f0;color:#0a0a0a}
+.zr a.on{background:#ffffff;color:#0a0a0a;box-shadow:0 0 0 1px #e5e5e5,0 1px 2px rgba(0,0,0,.05)}
+.zr svg{width:20px;height:20px}
+.card{background:#ffffff;border:1px solid #e5e5e5;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28)}
+.ch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #e5e5e5}
+.ch h2{margin:0;font:600 16px Geist,sans-serif;letter-spacing:-.01em;flex:1 1 auto}
+.tr{display:grid;grid-template-columns:12px minmax(0,1fr) 84px 46px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.tr:last-child{border-bottom:0}
+.tr i{display:block;width:10px;height:10px;border-radius:50%;background:var(--c)}
+.mt td{padding:11px 14px;border-bottom:1px solid #f0f0f0;font-size:13.5px}
+.mt th{padding:10px 14px;border-bottom:1px solid #e5e5e5;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#737373;text-align:left;white-space:nowrap}
+.mt tr:last-child td{border-bottom:0}
+.lv{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:8px;font:500 12px Geist,sans-serif}
+</style>
+</helmet>
+<div class="rp" style="min-height: 100vh; background: #ffffff; color: #0a0a0a; display: flex">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a href="Z-S01-Command.dc.html" aria-label="redpill" style="width: 40px; height: 40px; background: #0a0a0a; color: #ffffff; border-radius: 11px; font: 700 15px/1 Geist, sans-serif; letter-spacing: -0.04em; margin-bottom: 10px">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum" title="Centrum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a href="Z-S02-Analyze.dc.html" aria-label="Analizuj materiał" title="Analizuj materiał"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a class="on" href="Z-S05-Campaign.dc.html" aria-label="Kampanie" title="Kampanie" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a href="Z-S07-Investigation.dc.html" aria-label="Śledztwa" title="Śledztwa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 12px 20px; border-bottom: 1px solid #e5e5e5">
+<nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="Z-S01-Command.dc.html">Kampanie</a><span class="sep">/</span><a href="Z-Chmura.dc.html">OP-03 «Kestrel»</a><span class="sep">/</span><b>KMP-017</b></nav>
+<div class="seg" role="group" aria-label="Widok"><button class="on" type="button">Przegląd</button><button type="button">Członkowie</button><button type="button">Domeny</button></div>
+<div style="flex: 1 1 auto"></div>
+<label class="omni" style="flex: 0 1 300px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj w kampanii" aria-label="Szukaj w kampanii"><span class="kbd">Ctrl K</span></label>
+<span class="pill g"><span class="dot live"></span>na żywo</span>
+</header>
+
+<main style="padding: 28px; display: flex; flex-direction: column; gap: 22px; max-width: 1360px; width: 100%">
+
+<section style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 560px; min-width: 0">
+<div class="row"><span class="eb">Kampania · L2</span><span class="pill g">aktywna</span><span class="pill am">rośnie +38% / 48 h</span></div>
+<h1 style="margin: 0; font: 600 36px/1.05 Geist, sans-serif; letter-spacing: -0.045em">KMP-017 «Zamach»</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #525252; max-width: 780px">Artykuł udający «Kurier Dnia» opisuje napaść na znaną osobę, a po kilku przekierowaniach prosi o telefon i wpłatę na „platformę inwestycyjną”.</p>
+</div>
+<div class="row" style="gap: 8px"><a class="btn btn-lg" href="ZB-Sledztwo.dc.html">Śledź z agentem</a><a class="btn btn-lg" href="Z-Chmura.dc.html">Pokaż w chmurze</a></div>
+</section>
+
+<section aria-label="Kampania w liczbach" style="display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr))">
+<div class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 28px/1 Geist, sans-serif; letter-spacing: -0.04em">46</span><span class="sm dim">reklam · +9 w nocy</span></div>
+<div class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 28px/1 Geist, sans-serif; letter-spacing: -0.04em">19</span><span class="sm dim">domen · 3 nowe dziś</span></div>
+<div class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 28px/1 Geist, sans-serif; letter-spacing: -0.04em">11</span><span class="sm dim">reklamodawców</span></div>
+<div class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 28px/1 Geist, sans-serif; letter-spacing: -0.04em">3</span><span class="sm dim">podszyte osoby</span></div>
+<div class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 28px/1 Geist, sans-serif; letter-spacing: -0.04em; color: #9a3412">14</span><span class="sm dim">domen bez ostrzeżenia</span></div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start">
+
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+
+<section class="card" aria-labelledby="tl-h">
+<div class="ch"><h2 id="tl-h">Oś czasu</h2><div class="seg" role="group" aria-label="Zakres"><button class="on" type="button">14 dni</button><button type="button">30 dni</button></div></div>
+<div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<svg viewBox="0 0 800 190" style="width: 100%; height: auto; display: block" role="img" aria-label="Reklamy dziennie od 8 do 21 listopada rosną z 1 do 7. Nowe domeny i certyfikaty skupiają się w ostatnich trzech nocach. Oracle wskazał dwie domeny przed reklamą.">
+<g stroke="#f0f0f0"><line x1="40" y1="64" x2="780" y2="64"></line><line x1="40" y1="98" x2="780" y2="98"></line><line x1="40" y1="132" x2="780" y2="132"></line><line x1="40" y1="166" x2="780" y2="166" stroke="#d4d4d4"></line></g>
+<g font-family="Geist Mono, monospace" font-size="10" fill="#737373"><text x="32" y="67" text-anchor="end">6</text><text x="32" y="101" text-anchor="end">4</text><text x="32" y="135" text-anchor="end">2</text></g>
+<g fill="#171717"><rect x="48" y="149" width="28" height="17" rx="5"></rect><rect x="152" y="132" width="28" height="34" rx="5"></rect><rect x="204" y="115" width="28" height="51" rx="5"></rect><rect x="256" y="132" width="28" height="34" rx="5"></rect><rect x="308" y="98" width="28" height="68" rx="5"></rect><rect x="360" y="115" width="28" height="51" rx="5"></rect><rect x="412" y="81" width="28" height="85" rx="5"></rect><rect x="464" y="132" width="28" height="34" rx="5"></rect><rect x="516" y="115" width="28" height="51" rx="5"></rect><rect x="568" y="98" width="28" height="68" rx="5"></rect><rect x="620" y="64" width="28" height="102" rx="5"></rect><rect x="672" y="47" width="28" height="119" rx="5"></rect><rect x="724" y="98" width="28" height="68" rx="5" fill="none" stroke="#171717" stroke-dasharray="3 3"></rect></g>
+<g fill="#d97706"><circle cx="62" cy="22" r="4"></circle><circle cx="218" cy="22" r="4"></circle><circle cx="322" cy="22" r="4"></circle><circle cx="634" cy="22" r="4"></circle><circle cx="686" cy="22" r="4"></circle><circle cx="738" cy="22" r="4"></circle></g>
+<g fill="#2563eb"><path d="M686 30l5 5-5 5-5-5z"></path><path d="M738 30l5 5-5 5-5-5z"></path></g>
+<g font-family="Geist Mono, monospace" font-size="10" fill="#737373" text-anchor="middle"><text x="62" y="184">08.11</text><text x="218" y="184">11.11</text><text x="374" y="184">14.11</text><text x="530" y="184">17.11</text><text x="738" y="184">dziś</text></g>
+</svg>
+<div class="row" style="gap: 18px"><span class="row xs muted" style="gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #171717"></span>reklamy dziennie</span><span class="row xs muted" style="gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #d97706"></span>nowa domena</span><span class="row xs muted" style="gap: 6px"><span style="width: 8px; height: 8px; transform: rotate(45deg); background: #2563eb"></span>Oracle wskazał przed reklamą</span></div>
+</div>
+</section>
+
+<section class="card" aria-labelledby="mb-h" style="overflow: hidden">
+<div class="ch"><h2 id="mb-h">Członkowie <span class="mono dim">46</span></h2><a class="btn btn-sm" href="S04-Incident.dc.html">Wszyscy</a></div>
+<div class="scroll-x">
+<table class="mt" style="width: 100%; border-collapse: collapse">
+<thead><tr><th scope="col">Reklama</th><th scope="col">Domena</th><th scope="col">Osoba</th><th scope="col">Powiązanie</th><th scope="col" style="text-align: right">Pewność</th><th scope="col">Kiedy</th></tr></thead>
+<tbody>
+<tr><td><a class="id" href="ZB-Werdykt.dc.html">INC-24817</a></td><td class="mono">morvanta.click</td><td>Jan Kowalski</td><td><span class="lv" style="background: #f0fdf4; color: #15803d">ta sama kampania</span></td><td class="mono" style="text-align: right">0.94</td><td class="mono dim">02:31</td></tr>
+<tr><td><a class="id" href="ZB-Werdykt.dc.html">INC-24790</a></td><td class="mono">orvinta.click</td><td>Anna Nowak</td><td><span class="lv" style="background: #eff6ff; color: #1d4ed8">wariant szablonu</span></td><td class="mono" style="text-align: right">0.97</td><td class="mono dim">01:58</td></tr>
+<tr><td><a class="id" href="ZB-Werdykt.dc.html">INC-24733</a></td><td class="mono">selqueno.live</td><td>Jan Kowalski</td><td><span class="lv" style="background: #f5f5f5; color: #525252">duplikat INC-24701</span></td><td class="mono" style="text-align: right">1.00</td><td class="mono dim">wczoraj</td></tr>
+<tr><td><a class="id" href="ZB-Werdykt.dc.html">INC-24702</a></td><td class="mono">dunvarra.click</td><td>Tomasz Lewandowski</td><td><span class="lv" style="background: #f0fdf4; color: #15803d">ta sama kampania</span></td><td class="mono" style="text-align: right">0.88</td><td class="mono dim">wczoraj</td></tr>
+<tr><td><a class="id" href="ZB-Werdykt.dc.html">INC-24610</a></td><td class="mono">quorvex.click</td><td>Anna Nowak</td><td><span class="lv" style="background: #f0fdf4; color: #15803d">ta sama kampania</span></td><td class="mono am" style="text-align: right">0.71</td><td class="mono dim">19.11</td></tr>
+</tbody>
+</table>
+</div>
+<p class="xs dim" style="margin: 0; padding: 10px 18px 14px">INC-24610 ma niższą pewność: brak HAR i strona zwróciła 502. Brak danych nie liczy się jako różnica.</p>
+</section>
+
+</div>
+
+<aside style="flex: 1 1 360px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+
+<section class="card" aria-labelledby="dna-h">
+<div class="ch"><h2 id="dna-h">Co łączy te reklamy</h2></div>
+<div style="padding: 6px 18px 12px">
+<div class="tr" style="--c: #2563eb"><i></i><span style="font-size: 14px">Ta sama bramka śledząca</span><span class="bar"><i style="width: 96%"></i></span><span class="mono xs dim" style="text-align: right">44/46</span></div>
+<div class="tr" style="--c: #7c3aed"><i></i><span style="font-size: 14px">Ten sam kit strony</span><span class="bar"><i style="width: 100%"></i></span><span class="mono xs dim" style="text-align: right">46/46</span></div>
+<div class="tr" style="--c: #d97706"><i></i><span style="font-size: 14px">Domeny z jednego wzoru</span><span class="bar"><i style="width: 100%"></i></span><span class="mono xs dim" style="text-align: right">19/19</span></div>
+<div class="tr" style="--c: #d97706"><i></i><span style="font-size: 14px">Certyfikaty wydawane nocą</span><span class="bar"><i style="width: 79%"></i></span><span class="mono xs dim" style="text-align: right">15/19</span></div>
+<div class="tr" style="--c: #db2777"><i></i><span style="font-size: 14px">Dwa szablony nagłówków</span><span class="bar"><i style="width: 89%"></i></span><span class="mono xs dim" style="text-align: right">41/46</span></div>
+<div class="tr" style="--c: #65a30d"><i></i><span style="font-size: 14px">Kreacje-wabiki</span><span class="bar"><i style="width: 85%"></i></span><span class="mono xs dim" style="text-align: right">39/46</span></div>
+</div>
+</section>
+
+<section class="card" aria-labelledby="op-h">
+<div class="ch"><h2 id="op-h">Ten sam operator</h2><span class="mono xs dim">OP-03 «Kestrel»</span></div>
+<div class="gridbg" style="height: 210px; border-radius: 0 0 16px 16px; overflow: auto" role="img" aria-label="KMP-017 i KMP-034 łączą dwa ślady: ten sam kit strony i ta sama bramka śledząca, więc prowadzi je ten sam operator">
+<div style="position: relative; width: 360px; height: 210px; margin: 0 auto">
+<svg width="360" height="210" viewBox="0 0 360 210" style="position: absolute; left: 0; top: 0" aria-hidden="true"><g fill="none" stroke-width="1.5"><path d="M106 92 C145 92 145 64 180 64" stroke="#171717"></path><path d="M106 116 C145 116 145 140 180 140" stroke="#171717"></path><path d="M264 64 C284 64 284 102 296 102" stroke="#6d28d9" stroke-dasharray="5 5"></path><path d="M284 140 C292 140 292 102 296 102" stroke="#6d28d9" stroke-dasharray="5 5"></path></g></svg>
+<a href="Z-S05-Campaign.dc.html" style="position: absolute; left: 10px; top: 78px; width: 96px; height: 52px; box-sizing: border-box; border-radius: 12px; background: #0a0a0a; color: #ffffff; display: flex; flex-direction: column; justify-content: center; padding: 0 10px; text-decoration: none"><b style="font: 600 13px Geist, sans-serif">KMP-017</b><span style="font-size: 11px; color: #d4d4d4">46 reklam</span></a>
+<span style="position: absolute; left: 180px; top: 50px; width: 84px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: #ffffff; border: 1px solid #e5e5e5; font: 500 12px Geist, sans-serif; white-space: nowrap"><span style="width: 7px; height: 7px; border-radius: 50%; background: #7c3aed; flex: none"></span>kit relay</span>
+<span style="position: absolute; left: 180px; top: 126px; width: 104px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: #ffffff; border: 1px solid #e5e5e5; font: 500 12px Geist, sans-serif; white-space: nowrap"><span style="width: 7px; height: 7px; border-radius: 50%; background: #2563eb; flex: none"></span>bramka CAPI</span>
+<span style="position: absolute; left: 296px; top: 78px; width: 58px; height: 48px; box-sizing: border-box; border-radius: 12px; background: #ffffff; border: 1px dashed #a3a3a3; display: flex; flex-direction: column; justify-content: center; align-items: center"><b style="font: 600 11.5px Geist, sans-serif">KMP-034</b><span style="font-size: 10.5px; color: #737373">12</span></span>
+</div>
+</div>
+</section>
+
+<section class="card" aria-labelledby="dm-h">
+<div class="ch"><h2 id="dm-h">Nowe domeny</h2><a class="btn btn-sm btn-gh" href="Z-S10-Act.dc.html">wszystkie 19</a></div>
+<div style="padding: 4px 18px 10px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid #f0f0f0"><span class="mono">morvanta.click</span><span class="row" style="gap: 4px"><span class="pill am">cert 02:31</span><span class="pill cy">Oracle</span></span></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid #f0f0f0"><span class="mono">orvinta.click</span><span class="row" style="gap: 4px"><span class="pill am">cert 01:12</span><span class="pill cy">Oracle</span></span></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 0"><span class="mono">plessuro.live</span><span class="row" style="gap: 4px"><span class="pill am">cert 00:47</span><span class="pill">bez reklam</span></span></div>
+</div>
+</section>
+
+</aside>
+</div>
+</main>
+
+<section aria-label="Działania dla kampanii" style="margin: 0 28px 24px; padding: 16px 20px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 -12px 32px -28px rgba(0,0,0,.25); display: flex; flex-wrap: wrap; align-items: center; gap: 18px; max-width: 1304px">
+<div style="display: flex; flex-direction: column; gap: 3px; flex: 1 1 320px; min-width: 0">
+<b style="font: 600 18px Geist, sans-serif; letter-spacing: -0.02em">Gotowe do zgłoszenia: 46 reklam, 11 stron, 19 domen</b>
+<span class="sm dim">14 domen nie ma ostrzeżenia CERT PL. Każdy element ma dowód.</span>
+</div>
+<div class="row" style="gap: 8px"><a class="btn btn-p btn-lg" href="Z-S10-Act.dc.html">Zgłoś całą kampanię (DSA)</a><a class="btn btn-lg" href="Z-S10-Act.dc.html">Zgłoś 14 domen do CERT PL</a></div>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

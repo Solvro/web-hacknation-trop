@@ -1,0 +1,88 @@
+{
+ "model": "list[Operation]",
+ "data": [
+  {
+   "id": "OPN-01",
+   "name": "Lejek relay: portal → inwestycja / suplement",
+   "campaigns": [
+    "KMP-017",
+    "KMP-034",
+    "KMP-043"
+   ],
+   "operators": [
+    "OP-03"
+   ],
+   "funnel": [
+    "pre-lander A (klon portalu)",
+    "lander C (relay/lead)",
+    "kit K (relay v1/v2)"
+   ],
+   "shared": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ]
+  },
+  {
+   "id": "OPN-02",
+   "name": "Lejek Keitaro: lekarz → sklep",
+   "campaigns": [
+    "KMP-022"
+   ],
+   "operators": [
+    "OP-07"
+   ],
+   "funnel": [
+    "pre-lander A (wywiad z lekarzem)",
+    "lander C (artovita-forte.shop)"
+   ],
+   "shared": [
+    {
+     "type": "tracking",
+     "field": "fb_pixel",
+     "value": "870011223344556",
+     "display": "FB pixel 8700…556",
+     "strength": "H",
+     "weight": 3.0,
+     "level": "campaign",
+     "df": 29,
+     "N": 1284,
+     "idf": 3.79,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ]
+  }
+ ]
+}

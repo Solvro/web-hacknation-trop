@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>redpill: zgłoszenia</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/4a45834733cab3a8558aaac01529657b">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid #e5e5e5;background:#fafafa}
+.zr a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#525252}
+.zr a:hover{background:#f0f0f0;color:#0a0a0a}
+.zr a.on{background:#ffffff;color:#0a0a0a;box-shadow:0 0 0 1px #e5e5e5,0 1px 2px rgba(0,0,0,.05)}
+.zr svg{width:20px;height:20px}
+.card{background:#ffffff;border:1px solid #e5e5e5;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28)}
+.ch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #e5e5e5}
+.ch h2{margin:0;font:600 16px Geist,sans-serif;letter-spacing:-.01em;flex:1 1 auto}
+.ck{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px solid #f0f0f0;font-size:14.5px}
+.ck:last-child{border-bottom:0}
+.ok{width:22px;height:22px;flex:none;border-radius:999px;background:#0a0a0a;color:#ffffff;display:inline-flex;align-items:center;justify-content:center}
+.pk{display:flex;flex-direction:column;gap:4px;padding:13px 18px;border-bottom:1px solid #f0f0f0}
+.rp a.pk{color:#0a0a0a}
+.pk:last-child{border-bottom:0}
+</style>
+</helmet>
+<div class="rp" style="min-height: 100vh; background: #ffffff; color: #0a0a0a; display: flex">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a href="Z-S01-Command.dc.html" aria-label="redpill" style="width: 40px; height: 40px; background: #0a0a0a; color: #ffffff; border-radius: 11px; font: 700 15px/1 Geist, sans-serif; letter-spacing: -0.04em; margin-bottom: 10px">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum" title="Centrum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a href="Z-S02-Analyze.dc.html" aria-label="Analizuj materiał" title="Analizuj materiał"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a href="Z-S05-Campaign.dc.html" aria-label="Kampanie" title="Kampanie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a href="Z-S07-Investigation.dc.html" aria-label="Śledztwa" title="Śledztwa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a class="on" href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 12px 20px; border-bottom: 1px solid #e5e5e5">
+<nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="Z-S10-Act.dc.html">Zgłoszenia</a><span class="sep">/</span><a href="Z-S05-Campaign.dc.html">KMP-017</a><span class="sep">/</span><b>DSA-0031</b></nav>
+<div class="seg" role="group" aria-label="Rodzaj"><button class="on" type="button">DSA · platforma</button><button type="button">CERT PL · 14 domen</button><button type="button">STIX / MISP</button></div>
+<div style="flex: 1 1 auto"></div>
+<span class="pill am">szkic</span>
+</header>
+
+<main style="padding: 28px; display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start; max-width: 1360px; width: 100%">
+
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font: 600 34px/1.08 Geist, sans-serif; letter-spacing: -0.04em">Zgłoś całą kampanię, nie jedną reklamę.</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #525252; max-width: 760px">Platforma dostaje wszystkie reklamy, strony i domeny KMP-017 z dowodami oraz wzór, po którym znajdzie kolejne.</p>
+</div>
+
+<section class="card" aria-label="Pakiet zgłoszenia" style="padding: 18px; display: flex; flex-direction: column; gap: 16px">
+<div style="padding: 16px 18px; border-radius: 14px; background: #0a0a0a; color: #e5e5e5; font: 14px/1.75 'Geist Mono', ui-monospace, monospace; display: flex; flex-direction: column">
+<span style="color: #ffffff">Zgłoszenie nielegalnych treści: kampania KMP-017</span>
+<span><span style="color: #8a8a8a">Do       </span>punkt kontaktowy DSA platformy</span>
+<span><span style="color: #8a8a8a">Zawiera  </span>46 reklam · 11 stron · 19 domen</span>
+<span><span style="color: #8a8a8a">Dowody   </span>312, przy każdym elemencie</span>
+<span><span style="color: #8a8a8a">Wzór     </span>kit relay · bramka CAPI · szablony nagłówków</span>
+<span><span style="color: #8a8a8a">Pliki    </span>PDF · JSON · CSV</span>
+</div>
+<div>
+<div class="ck"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span>Każda reklama ma dowód</span><span class="sm dim" style="margin-left: auto">46 z 46</span></div>
+<div class="ck"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span>Każda domena ma łańcuch przekierowań</span><span class="sm dim" style="margin-left: auto">19 z 19</span></div>
+<div class="ck"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span>Opis wzorca kampanii</span><a class="sm" href="Z-S05-Campaign.dc.html" style="margin-left: auto; color: #525252">podgląd</a></div>
+<div class="ck"><span style="width: 22px; height: 22px; flex: none; box-sizing: border-box; border-radius: 999px; border: 2px solid #ea580c; display: inline-flex; align-items: center; justify-content: center"><span style="width: 8px; height: 8px; border-radius: 999px; background: #ea580c"></span></span><span>Dane zgłaszającego</span><a class="sm" href="Z-S10-Act.dc.html" style="margin-left: auto; color: #9a3412; font-weight: 500">uzupełnij</a></div>
+</div>
+<label style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: #f6f6f6; font-size: 14px; line-height: 1.45"><input type="checkbox" style="width: 18px; height: 18px; margin: 1px 0 0; accent-color: #171717; flex: none">Sprawdziłem/am wykaz i dowody. Wysyłka trafia do platformy i nie da się jej cofnąć.</label>
+<div class="row" style="gap: 10px"><button class="btn btn-lg" type="button">Pobierz pakiet</button><button class="btn btn-p btn-lg" type="button" disabled>Wyślij zgłoszenie</button><span class="xs dim">aktywne po potwierdzeniu i uzupełnieniu danych</span></div>
+</section>
+</div>
+
+<aside style="flex: 1 1 340px; max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<section class="card" aria-labelledby="pk-h" style="overflow: hidden">
+<div class="ch"><h2 id="pk-h">Zgłoszenia</h2><span class="mono xs dim">4</span></div>
+<a class="pk" href="Z-S10-Act.dc.html" style="background: #f5f5f5"><span class="row" style="justify-content: space-between"><b class="mono">DSA-0031</b><span class="pill am">szkic</span></span><span class="sm muted">KMP-017 · cała kampania</span></a>
+<a class="pk" href="Z-S10-Act.dc.html"><span class="row" style="justify-content: space-between"><b class="mono">CERTPL-0102</b><span class="pill g">wysłane</span></span><span class="sm muted">KMP-017 · 5 z 14 domen już na liście</span></a>
+<a class="pk" href="Z-S10-Act.dc.html"><span class="row" style="justify-content: space-between"><b class="mono">DSA-0029</b><span class="pill g">wysłane</span></span><span class="sm muted">KMP-031 · platforma usunęła 41 z 58 reklam</span><span class="bar" style="margin-top: 4px"><i style="width: 71%"></i></span></a>
+<a class="pk" href="Z-S10-Act.dc.html"><span class="row" style="justify-content: space-between"><b class="mono">STIX-0045</b><span class="pill cy">eksport</span></span><span class="sm muted">KMP-022 · pobrane 2 razy</span></a>
+</section>
+<section class="card" aria-labelledby="rl-h" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="rl-h" style="margin: 0; font: 600 16px Geist, sans-serif">Reguła wykrywania</h2>
+<div class="fld"><label class="lbl" for="rl">Zapytanie urlscan</label><input id="rl" class="inp mono" value='page.url:"/api/v2/relay/lead/"'></div>
+<button class="btn" type="button">Testuj na zbiorze</button>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; background: #f6f6f6; font-size: 14px">
+<span class="row" style="justify-content: space-between"><span>Trafienia w korpusie</span><b class="mono">47 / 1 284</b></span>
+<span class="row" style="justify-content: space-between"><span>Fałszywe alarmy (20 000 stron)</span><b class="mono">0</b></span>
+<span class="row" style="justify-content: space-between"><span>Precyzja</span><b class="mono">0.98</b></span>
+</div>
+</section>
+</aside>
+
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1050}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

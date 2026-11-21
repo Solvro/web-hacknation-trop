@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Motyw Matrix M3: deszcz kodu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#020604}
+.shell{--bg:#020604;--rail:#030a06;--panel:rgba(4,20,11,.86);--panel2:#0a2414;--hover:#0a2414;--line:#0e2a18;--line2:#1d5233;--tx:#e6fff0;--tx2:#97dfb3;--tx3:#62b386;--acc:#39ff88;--onacc:#022410;--accdim:rgba(57,255,136,.08);--accline:rgba(57,255,136,.38);
+--f:"IBM Plex Mono",ui-monospace,Menlo,monospace;--fm:var(--f);--fh:"Space Grotesk",system-ui,sans-serif;--r:10px;--r2:8px;
+--sh:0 0 0 1px rgba(57,255,136,.06),0 22px 44px -26px rgba(0,0,0,.95);
+--lh:#39ff88;--lm:rgba(57,255,136,.38);--lo:#e6fff0;--opbg:#020604;
+--campbg:rgba(3,28,14,.94);--camptx:#e6fff0;--campmut:#97dfb3;--campmut2:#c2efd3;--campline:#39ff88;--campsh:0 0 0 1px rgba(57,255,136,.45),0 0 56px -10px rgba(57,255,136,.6);--tagbg:rgba(57,255,136,.12);--dna:#39ff88;
+--notebg:rgba(22,18,2,.92);--noteline:#6b5a12;--notetx:#ffe9a8;--dockline:rgba(57,255,136,.45);--docksh:0 0 44px -18px rgba(57,255,136,.55);
+--rain:#39ff88;--rainop:.13;--e1:#5cc8ff;--e2:#c08cff;--e3:#ff7ac6;--e4:#ffc24b;--e5:#ff9a62}
+.shell{min-height:100vh;display:flex;background:var(--bg);color:var(--tx);font-family:var(--f);-webkit-font-smoothing:antialiased}
+.shell *{box-sizing:border-box}
+.shell a{color:inherit;text-decoration:none}
+.shell p,.shell h1,.shell h2,.shell h3{margin:0}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid var(--line);background:var(--rail)}
+.zr a{width:44px;height:44px;border-radius:var(--r2);display:grid;place-items:center;color:var(--tx3)}
+.zr a:hover{color:var(--tx);background:var(--hover)}
+.zr a.on{color:var(--acc);background:var(--panel2);box-shadow:0 0 0 1px var(--line2),0 0 18px -6px rgba(57,255,136,.5)}
+.zr svg{width:20px;height:20px}
+.zr .logo{width:40px;height:40px;margin-bottom:10px;background:var(--acc);color:var(--onacc);font:700 15px/1 var(--fh);letter-spacing:-.03em;border-radius:10px;box-shadow:0 0 20px -4px rgba(57,255,136,.7)}
+.mn{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+.hd{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--rail)}
+.trail{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--tx3)}
+.trail a{color:var(--tx2)}.trail b{color:var(--tx);font-weight:500}.trail .sep{color:var(--line2)}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:var(--r2);background:var(--panel2)}
+.seg button{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;color:var(--tx2);font:500 13px var(--f);cursor:pointer}
+.seg button.on{background:#123521;color:var(--acc)}
+.sp{flex:1 1 auto}
+.omni{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;border:1px solid var(--line2);border-radius:var(--r2);background:#041209;color:var(--tx3);flex:0 1 320px;min-width:200px}
+.omni input{flex:1;min-width:0;border:0;outline:none;background:transparent;color:var(--tx);font:14px var(--f)}
+.omni input::placeholder{color:var(--tx3)}
+.kbd{font:11px var(--fm);color:var(--tx3);border:1px solid var(--line2);border-radius:4px;padding:2px 5px}
+.live{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;font:500 12px var(--f);color:var(--acc);background:var(--accdim);border:1px solid var(--accline)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc);animation:pls 1.6s ease-in-out infinite}
+@keyframes pls{50%{opacity:.35}}
+.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--panel2);border:1px solid var(--line2);font:600 11px var(--fm);color:var(--tx2)}
+.board{flex:1 1 auto;overflow:auto;background:radial-gradient(120% 90% at 60% 40%,#04160b 0,#020604 70%)}
+.bd{position:relative;width:1360px;height:880px}
+.links{position:absolute;left:0;top:0}
+.lh{stroke:var(--lh);stroke-width:2;filter:drop-shadow(0 0 4px #39ff88) drop-shadow(0 0 10px rgba(57,255,136,.5))}.lm{stroke:var(--lm);stroke-width:1.5}.lo{stroke:var(--lo);stroke-width:1.5;stroke-dasharray:4 6}
+.pt circle{fill:var(--acc);stroke:none}
+.bc{position:absolute;background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);box-shadow:var(--sh);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.inc{padding:16px;display:flex;flex-direction:column;gap:10px}
+.kk{display:flex;justify-content:space-between;align-items:center}
+.lab{font:500 11px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--tx3)}
+.tm{font:12px var(--fm);color:var(--tx3)}
+.shot{height:138px;border:1px dashed var(--line2);border-radius:8px;display:grid;place-items:center;text-align:center;font:12px/1.4 var(--fm);color:var(--tx3);background:repeating-linear-gradient(0deg,rgba(57,255,136,.06) 0 2px,transparent 2px 4px),#031008}
+.incid{font:700 24px/1 var(--fh);letter-spacing:-.01em}
+.mono{font-family:var(--fm);font-size:13px}
+.sub{font-size:13px;color:var(--tx2);line-height:1.45}
+.ev2{width:240px;height:76px;padding:10px 14px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.ev2 .tp{display:flex;align-items:center;justify-content:space-between;font:500 11px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--tx3)}
+.ev2 .tp i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c);margin-right:6px}
+.ev2 .tp b{font:600 14px var(--fm);color:var(--acc);letter-spacing:0}
+.vl{font:500 13px var(--fm);color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr{font:12px var(--fm);color:var(--tx3)}
+.zero{padding:10px 14px;border-style:dashed;box-shadow:none;background:rgba(2,6,4,.7);display:flex;flex-direction:column;justify-content:center;gap:3px}
+.vl.x{text-decoration:line-through;color:var(--tx3)}
+.camp{position:absolute;padding:20px;display:flex;flex-direction:column;gap:14px;background:var(--campbg);color:var(--camptx);border-radius:var(--r);box-shadow:var(--campsh);border:1px solid var(--campline);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.camp .lab,.camp .tm{color:var(--campmut)}
+.camp h2{font:700 36px/1 var(--fh);letter-spacing:-.03em;color:var(--acc);text-shadow:0 0 18px rgba(57,255,136,.55)}
+.camp p{font-size:13.5px;line-height:1.55;color:var(--campmut2)}
+.dna{display:flex;align-items:flex-end;gap:3px;height:40px}
+.dna i{display:block;width:6px;border-radius:1px;background:var(--dna);box-shadow:0 0 6px rgba(57,255,136,.6)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.tags span{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:999px;background:var(--tagbg);color:var(--camptx);font:500 12px var(--f)}
+.oplabel{position:absolute;display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:var(--opbg);border:1px solid var(--lo);color:var(--lo);font:500 12px var(--f)}
+.runner{padding:14px 16px;border-style:dashed;box-shadow:none;display:flex;flex-direction:column;gap:6px}
+.runner h3{font:700 19px/1.1 var(--fh)}
+.bub{--bb:var(--line2);position:absolute;background:var(--panel);border:1px solid var(--bb);border-radius:var(--r);padding:0 0 12px;font:13px/1.5 var(--f);color:var(--tx2);box-shadow:var(--sh);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:visible}
+.bub .bar{display:flex;align-items:center;gap:6px;padding:7px 12px;border-bottom:1px solid var(--bb);font:500 11px var(--fm);color:var(--tx3);margin-bottom:10px}
+.bub .bar i{display:block;width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.bub .tx{padding:0 14px}
+.bub b{color:var(--tx);font-weight:600}
+.bub::after{content:"";position:absolute;width:12px;height:12px;background:#04140b;border-right:1px solid var(--bb);border-bottom:1px solid var(--bb)}
+.bub.tb::after{left:28px;bottom:-7px;transform:rotate(45deg)}
+.bub.tt::after{left:28px;top:-7px;transform:rotate(225deg)}
+.bub.tl::after{left:-7px;top:22px;transform:rotate(135deg)}
+.bub.note{--bb:var(--noteline);background:var(--notebg);color:var(--notetx)}
+.bub.note::after{background:#161202}
+.bb{display:flex;gap:6px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r2);border:1px solid var(--line2);background:#06180d;color:var(--tx);font:500 14px var(--f);cursor:pointer;white-space:nowrap}
+.btn.sm{height:30px;padding:0 11px;font-size:13px}
+.btn.lg{height:44px;padding:0 18px;font-size:15px}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--onacc);font-weight:600;box-shadow:0 0 22px -6px rgba(57,255,136,.8)}
+.btn.gh{background:transparent;border-color:transparent;color:var(--tx2)}
+.zoom{position:absolute;display:flex;flex-direction:column;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line2);border-radius:var(--r)}
+.zoom button{width:32px;height:32px;border:0;border-radius:6px;background:transparent;color:var(--tx2);display:grid;place-items:center;cursor:pointer}
+.legend{position:absolute;display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:8px 12px;background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);font:12px var(--f);color:var(--tx2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:2px solid var(--lh);box-shadow:0 0 6px var(--lh)}
+.legend i.lgm{border-top-color:var(--lm);box-shadow:none}.legend i.lgo{border-top:2px dashed var(--lo);box-shadow:none}
+.dock{margin:0 20px 20px;padding:16px 20px;background:rgba(4,18,10,.92);border:1px solid var(--dockline);border-radius:14px;box-shadow:var(--docksh);display:flex;flex-wrap:wrap;align-items:center;gap:22px}
+.ring{--p:70;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--acc) calc(var(--p)*1%),var(--panel2) 0);display:grid;place-items:center;flex:none;box-shadow:0 0 24px -6px rgba(57,255,136,.7)}
+.ring::before{content:"";grid-area:1/1;width:calc(100% - 8px);height:calc(100% - 8px);border-radius:50%;background:#041209}
+.ring span{grid-area:1/1;position:relative;font:600 16px var(--fm);color:var(--acc)}
+.dv{display:flex;flex-direction:column;gap:4px;flex:1 1 320px;min-width:0}
+.ok{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.dt{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.dv h1{font:700 28px/1.1 var(--fh);letter-spacing:-.02em}
+.dv .mono{font-size:12px;color:var(--tx3)}
+.cv{display:flex;flex-direction:column;gap:6px;width:160px}
+.cov{display:flex;gap:3px}.cov i{flex:1;height:8px;border-radius:1px;background:var(--acc);box-shadow:0 0 6px rgba(57,255,136,.6)}.cov i.part{background:linear-gradient(90deg,var(--acc) 50%,transparent 50%);box-shadow:inset 0 0 0 1px var(--acc)}.cov i.miss{background:transparent;box-shadow:inset 0 0 0 1px var(--line2)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.rain{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.rain span{position:absolute;top:-50%;writing-mode:vertical-rl;text-orientation:upright;font:15px/1 var(--fm);letter-spacing:3px;color:var(--rain);opacity:var(--rainop);white-space:nowrap;animation:fall 13s linear infinite}
+.rain span:nth-child(2n){animation-duration:9s;animation-delay:-3s;opacity:.08}
+.rain span:nth-child(3n){animation-delay:-6s;opacity:.2}
+.rain span:nth-child(5n){animation-duration:7s;animation-delay:-2s;opacity:.28;text-shadow:0 0 6px #39ff88}
+@keyframes fall{to{transform:translateY(190%)}}
+@media (prefers-reduced-motion:reduce){.rain span,.dot{animation:none}}
+</style>
+</helmet>
+<div class="shell">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a class="logo" href="Z-S01-Command.dc.html" aria-label="redpill">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum" title="Centrum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a class="on" href="Z-S02-Analyze.dc.html" aria-label="Analizuj materiał" title="Analizuj materiał" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a href="Z-S05-Campaign.dc.html" aria-label="Kampanie" title="Kampanie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a href="Z-S07-Investigation.dc.html" aria-label="Śledztwa" title="Śledztwa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div class="mn">
+<header class="hd">
+<nav class="trail" aria-label="Ślad"><a href="Z-S02-Analyze.dc.html">analizuj</a><span class="sep">/</span><b>INC-24817</b><span class="sep">→</span><a href="Z-S05-Campaign.dc.html">KMP-017</a></nav>
+<div class="seg" role="group" aria-label="Widok"><button class="on" type="button">tablica</button><button type="button">lista</button><button type="button">oś czasu</button></div>
+<div class="sp"></div>
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="przypnij domenę, pixel, osobę…" aria-label="Przypnij do tablicy"><span class="kbd">Ctrl K</span></label>
+<span class="live"><span class="dot"></span>na żywo</span>
+</header>
+
+<div class="board" role="group" aria-label="Tablica powiązań: INC-24817 i kampania KMP-017">
+<div class="bd">
+<div class="rain" aria-hidden="true">
+<span style="left: 12px">ﾊﾐﾋｰｳｼﾅﾓﾆ7ｻﾜﾂｵﾘｱ01ﾎﾃﾏｹﾒ</span><span style="left: 58px">0193a7c2ﾑﾀﾁﾄﾉﾌ8ﾔﾖﾙﾚﾛ</span><span style="left: 104px">ｱｲｳ4ｴｵｶｷ9ｸｹﾒｿﾀﾁﾂ</span><span style="left: 150px">/api/v2/relay/lead/ｾｿﾀ</span><span style="left: 196px">ﾃｾﾈ3ｽﾀﾇ8ﾂﾍﾒﾓﾔﾕﾖ</span><span style="left: 242px">ﾁﾄﾉﾌ1ﾔﾕﾖ6ﾗﾘﾙﾚﾛﾜ</span><span style="left: 288px">LE-R11·02:31·ﾐﾑﾒﾓ</span><span style="left: 334px">ﾙﾚﾛﾝ5ｦｲｸ0ﾊﾋﾌﾍﾎ</span><span style="left: 380px">AS64500ﾏﾐﾑﾒﾓﾔﾕ</span><span style="left: 426px">ﾒﾓﾔ2ﾕﾖﾗﾘ7ﾛﾜｦﾝ</span><span style="left: 472px">utm_visit=ﾅﾆﾇﾈﾉ</span><span style="left: 518px">ﾅﾆﾇ9ﾈﾉﾊﾋ4ﾌﾍﾎﾏﾐ</span><span style="left: 564px">{PER}ｼｽｾｿﾀﾁﾂﾃﾄ</span><span style="left: 610px">ﾂﾃﾄﾅﾆﾇ8ﾈﾉﾊﾋﾌﾍﾎ</span><span style="left: 656px">cg-7f3a91e0ﾑﾒﾓﾔ</span><span style="left: 702px">ｦﾝｱｲ3ｳｴｵｶ8ｷｸｹｺ</span><span style="left: 748px">morvanta.clickｻｼｽ</span><span style="left: 794px">ﾀﾁﾂ6ﾃﾄﾅﾆ1ﾇﾈﾉﾊﾋ</span><span style="left: 840px">ﾌﾍﾎ0ﾏﾐﾑﾒ5ﾓﾔﾕﾖﾗ</span><span style="left: 886px">KMP-017ﾘﾙﾚﾛﾜｦﾝ</span><span style="left: 932px">ｱｲｳ2ｴｵｶｷ7ｸｹｺｻｼ</span><span style="left: 978px">orvinta.clickｽｾｿ</span><span style="left: 1024px">ﾀﾁﾂ9ﾃﾄﾅﾆ4ﾇﾈﾉﾊ</span><span style="left: 1070px">ﾋﾌﾍ3ﾎﾏﾐﾑ8ﾒﾓﾔﾕﾖ</span><span style="left: 1116px">plessuro.liveﾗﾘﾙ</span><span style="left: 1162px">ﾚﾛﾜ1ｦﾝｱｲ6ｳｴｵｶ</span><span style="left: 1208px">ｷｸｹ0ｺｻｼｽ5ｾｿﾀﾁ</span><span style="left: 1254px">OP-03ﾂﾃﾄﾅﾆﾇﾈ</span><span style="left: 1300px">ﾉﾊﾋ7ﾌﾍﾎﾏ2ﾐﾑﾒﾓ</span><span style="left: 1340px">ﾔﾕﾖ4ﾗﾘﾙﾚ9ﾛﾜｦ</span>
+</div>
+<svg class="links" width="1360" height="880" viewBox="0 0 1360 880" aria-hidden="true">
+<g fill="none" stroke-linecap="round">
+<path class="lh" d="M320 410 C380 410 380 128 440 128"></path><path class="lh" d="M320 410 C380 410 380 238 440 238"></path><path class="lh" d="M320 410 C380 410 380 348 440 348"></path><path class="lm" d="M320 410 C380 410 380 458 440 458"></path><path class="lm" d="M320 410 C380 410 380 568 440 568"></path>
+<path class="lh" d="M680 128 C750 128 750 410 820 410"></path><path class="lh" d="M680 238 C750 238 750 410 820 410"></path><path class="lh" d="M680 348 C750 348 750 410 820 410"></path><path class="lm" d="M680 458 C750 458 750 410 820 410"></path><path class="lm" d="M680 568 C750 568 750 410 820 410"></path>
+<path class="lo" d="M980 590 L980 696"></path>
+</g>
+<g class="pt"><circle cx="320" cy="410" r="4"></circle><circle cx="820" cy="410" r="4"></circle></g>
+</svg>
+
+<article class="bc inc" style="left: 40px; top: 250px; width: 280px; height: 320px" aria-label="Nowy materiał INC-24817">
+<div class="kk"><span class="lab">nowy materiał</span><span class="tm">02:31</span></div>
+<div class="shot">zrzut reklamy<br>Puzzle Mania PL</div>
+<h2 class="incid">INC-24817</h2>
+<p class="mono">morvanta.click · Ad Library</p>
+<p class="sub">„Nie uwierzysz, co wydarzyło się wczoraj wieczorem…”</p>
+</article>
+
+<div class="bc ev2" style="left: 440px; top: 90px; --c: var(--e1)"><span class="tp"><span><i></i>tracking</span><b>+3.1</b></span><span class="vl">bramka CAPI cg-7f3a…</span><span class="rr">47 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2" style="left: 440px; top: 200px; --c: var(--e2)"><span class="tp"><span><i></i>kit</span><b>+2.7</b></span><span class="vl">/api/v2/relay/lead/{uuid}/</span><span class="rr">58 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2" style="left: 440px; top: 310px; --c: var(--e3)"><span class="tp"><span><i></i>treść</span><b>+2.2</b></span><span class="vl">„PILNE: {PER} przerywa…”</span><span class="rr">22 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2" style="left: 440px; top: 420px; --c: var(--e4)"><span class="tp"><span><i></i>infra</span><b>+1.4</b></span><span class="vl">partia certów LE R11, noc</span><span class="rr">6 z 1 284 · siła średnia</span></div>
+<div class="bc ev2" style="left: 440px; top: 530px; --c: var(--e5)"><span class="tp"><span><i></i>osoby</span><b>+0.8</b></span><span class="vl">Jan Kowalski · twarz 0.91</span><span class="rr">61 z 1 284 · siła średnia</span></div>
+<div class="bc zero" style="left: 440px; top: 640px; width: 240px; height: 60px"><span class="vl x">Cloudflare 203.0.113.0/24</span><span class="rr">waga 0 · wspólne dla 512 spraw</span></div>
+
+<article class="camp" style="left: 820px; top: 230px; width: 320px; height: 360px" aria-label="Kampania KMP-017">
+<div class="kk"><span class="lab">kampania · L2</span><span class="tm">46 spraw</span></div>
+<h2>KMP-017<br>«Zamach»</h2>
+<p>Fałszywy portal «Kurier Dnia», potem „platforma inwestycyjna”. 19 domen, 3 nowe certyfikaty dziś w nocy.</p>
+<div class="dna" aria-hidden="true"><i style="height: 38px"></i><i style="height: 34px"></i><i style="height: 40px"></i><i style="height: 36px"></i><i style="height: 26px"></i><i style="height: 40px"></i><i style="height: 30px"></i><i style="height: 18px"></i><i style="height: 32px"></i><i style="height: 26px"></i><i style="height: 22px"></i><i style="height: 10px"></i></div>
+<div class="tags"><span>OP-03 «Kestrel»</span><span>5/19 na liście CERT PL</span></div>
+</article>
+<span class="oplabel" style="left: 994px; top: 630px">ten sam operator OP-03</span>
+<article class="bc runner" style="left: 850px; top: 700px; width: 260px; height: 120px" aria-label="Drugi kandydat KMP-034">
+<div class="kk"><span class="lab">drugi kandydat</span><b class="mono">0.41</b></div>
+<h3>KMP-034 «Glikonor»</h3>
+<p class="sub">ten sam kit, inna treść i osoby</p>
+</article>
+
+<div class="bub note tb" style="left: 1060px; top: 80px; width: 220px"><div class="bar"><i></i><i></i><i></i>notatka · 08:52</div><div class="tx">Sprawdzić 3 certyfikaty z nocy. plessuro.live nie ma jeszcze reklam.</div></div>
+<div class="bub tl" style="left: 1130px; top: 700px; width: 210px"><div class="bar"><i></i><i></i><i></i>why_not(KMP-034)</div><div class="tx"><b>Ten sam kit</b> to ten sam operator, nie ta sama kampania. Inna treść i osoby, p = 0.41.</div></div>
+<div class="bub tt" style="left: 40px; top: 600px; width: 300px"><div class="bar"><i style="background: #39ff88"></i><i></i><i></i>agent_smith@redpill:~$</div><div class="tx">Z tej samej nocnej partii certyfikatów są jeszcze 2 domeny. Rozwinąć je na tablicy?<div class="bb"><a class="btn sm pri" href="ZB-Sledztwo.dc.html">rozwiń</a><button class="btn sm gh" type="button">później</button></div></div></div>
+
+<div class="zoom" style="left: 1306px; top: 20px"><button type="button" aria-label="Przybliż"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><button type="button" aria-label="Oddal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button></div>
+<div class="legend" style="left: 24px; top: 820px"><span><i></i>siła wysoka</span><span><i class="lgm"></i>średnia</span><span><i class="lgo"></i>ten sam operator</span></div>
+</div>
+</div>
+
+<section class="dock" aria-label="Werdykt">
+<div class="ring" style="--p: 94"><span>0.94</span></div>
+<div class="dv"><span class="ok"><span class="dt"></span>dołącza do kampanii</span><h1>KMP-017 «Zamach»</h1><p class="mono">zbiór konformalny {KMP-017} · α 0.05 · 19.6 s · 5 dowodów, 1 wyzerowany</p></div>
+<div class="cv"><span class="sub">pokrycie 6 z 8 warstw</span><div class="cov" role="img" aria-label="Pokrycie 6 z 8 warstw: infra częściowe, media brak"><i></i><i></i><i class="part"></i><i></i><i></i><i></i><i></i><i class="miss"></i></div></div>
+<div class="acts"><a class="btn lg pri" href="Z-S10-Act.dc.html">pakiet DSA dla kampanii</a><a class="btn lg" href="ZB-Sledztwo.dc.html">śledź z agentem</a><a class="btn lg gh" href="S03-Triage.dc.html">to błąd</a></div>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

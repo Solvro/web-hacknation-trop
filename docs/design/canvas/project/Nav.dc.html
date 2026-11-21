@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Nawigacja RED PILL</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="rp" style="width: 100%; min-height: 100%; display: flex; flex-direction: column; background: #0A100C; color: #DDEBE2; font-family: Inter, system-ui, sans-serif">
+<a class="logo" href="Main.dc.html" aria-label="RED PILL, strona startowa">
+<svg width="30" height="30" viewBox="0 0 28 28" aria-hidden="true"><g transform="rotate(-40 14 14)"><rect x="3" y="9" width="22" height="10" rx="5" fill="none" stroke="#3BF07E" stroke-width="1.5"></rect><path d="M8 9h6v10H8a5 5 0 0 1 0-10z" fill="#FF5D6C"></path></g></svg>
+<span style="display: flex; flex-direction: column"><span class="wm">RED PILL</span><span class="tg">follow the fake</span></span>
+</a>
+<nav class="nav" aria-label="Nawigacja główna">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<div class="nav-g">{{g.label}}</div>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+<a class="nav-i {{it.cls}}" href="{{it.href}}" aria-current="{{it.cur}}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.d}}"></path></svg>
+<span>{{it.label}}</span>
+<sc-if value="{{it.hasBadge}}" hint-placeholder-val="{{false}}"><span class="nav-b {{it.bcls}}">{{it.badge}}</span></sc-if>
+</a>
+</sc-for>
+</sc-for>
+</nav>
+<div style="flex: 1 1 auto"></div>
+<div class="nav-foot">
+<span style="display: flex; align-items: center; gap: 8px"><span class="dot live"></span>SSE · połączono</span>
+<span>workery 6/6 · kolejka 14</span>
+<span>M1 · kalibracja 21.11 08:40</span>
+<span class="am">tryb DEMO · cache offline</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["command","triage","hunter","analyze","incident","campaign","graph","invest","oracle","radar","act","lab","public"],"default":"command"},"$preview":{"width":240,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const active = this.props.active ?? 'command';
+    const I = {
+      command: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+      triage: 'M4 13h4l2 3h4l2-3h4M5.5 5h13l1.5 8v6H4v-6z',
+      hunter: 'M12 3v3M12 18v3M3 12h3M18 12h3M12 12m-6 0a6 6 0 1 0 12 0a6 6 0 1 0-12 0M12 12m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0',
+      analyze: 'M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10',
+      incident: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
+      campaign: 'M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5',
+      graph: 'M6 6m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M18 6m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M12 18m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M8.5 6h7M7.2 8.2l3.6 7.6M16.8 8.2l-3.6 7.6',
+      invest: 'M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21M8 10.5h5M10.5 8v5',
+      oracle: 'M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12zM12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0',
+      radar: 'M12 8m-4 0a4 4 0 1 0 8 0a4 4 0 1 0-8 0M4 21c1-4 4-6.5 8-6.5s7 2.5 8 6.5',
+      act: 'M4 12l16-8-6 16-3-6.5zM11 13.5L20 4',
+      lab: 'M9 3h6M10 3v6l-5.5 9.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3M7.5 15h9',
+      public: 'M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18'
+    };
+    const mk = (id, label, href, badge, bcls) => ({
+      id, label, href, d: I[id], badge: badge || '', hasBadge: !!badge, bcls: bcls || '',
+      cls: id === active ? 'on' : '', cur: id === active ? 'page' : undefined
+    });
+    const groups = [
+      { label: 'Monitoring', items: [
+        mk('command', 'Centrum dowodzenia', 'S01-Command.dc.html'),
+        mk('triage', 'Triage', 'S03-Triage.dc.html', '23', 'hot'),
+        mk('hunter', 'Hunter · źródła', 'S12-Hunter.dc.html')
+      ]},
+      { label: 'Analiza', items: [
+        mk('analyze', 'Analizuj materiał', 'S02-Analyze.dc.html'),
+        mk('incident', 'Incydenty', 'S04-Incident.dc.html', '1 284'),
+        mk('campaign', 'Kampanie', 'S05-Campaign.dc.html', '41'),
+        mk('graph', 'Graf powiązań', 'S06-Graph.dc.html'),
+        mk('invest', 'Śledztwa · Agent Smith', 'S07-Investigation.dc.html', 'live', 'live')
+      ]},
+      { label: 'Wywiad', items: [
+        mk('oracle', 'Oracle', 'S08-Oracle.dc.html', '17'),
+        mk('radar', 'Radar podszyć', 'S09-Radar.dc.html')
+      ]},
+      { label: 'Działanie', items: [
+        mk('act', 'Act center', 'S10-Act.dc.html', '3')
+      ]},
+      { label: 'System', items: [
+        mk('lab', 'Lab · metodologia', 'S11-Lab.dc.html'),
+        mk('public', 'Strona publiczna', 'E2-SprawdzReklame.dc.html')
+      ]}
+    ];
+    return { groups };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+{
+ "model": "list[Operator]",
+ "data": [
+  {
+   "id": "OP-01",
+   "codename": "Marten",
+   "campaigns": [
+    {
+     "id": "KMP-011",
+     "name": "Kredyt bez BIK",
+     "incidents": 22
+    }
+   ],
+   "shared": [
+    {
+     "type": "kit",
+     "field": "kit_tenant",
+     "value": "kit-tenant-b07",
+     "display": "kit tenant b07",
+     "strength": "H",
+     "weight": 2.4,
+     "level": "campaign",
+     "df": 22,
+     "N": 1284,
+     "idf": 4.07,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Pożyczki i kredyty z fałszywymi bankami."
+   ],
+   "operation_id": null
+  },
+  {
+   "id": "OP-03",
+   "codename": "Kestrel",
+   "campaigns": [
+    {
+     "id": "KMP-017",
+     "name": "Zamach — fałszywy portal → „inwestycja”",
+     "incidents": 46
+    },
+    {
+     "id": "KMP-034",
+     "name": "Cukrzyca — Glikonor",
+     "incidents": 12
+    },
+    {
+     "id": "KMP-043",
+     "name": "Zamach — wariant z nagraniem (kandydat scalenia)",
+     "incidents": 4
+    }
+   ],
+   "shared": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "cert_batch",
+     "value": "LE-R11 2026-11-21T00:47Z..02:31Z",
+     "display": "cert batch LE R11 00:47–02:31",
+     "strength": "M",
+     "weight": 1.4,
+     "level": "campaign",
+     "df": 6,
+     "N": 1284,
+     "idf": 5.37,
+     "state": "match",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "asn",
+     "value": "AS64500",
+     "display": "origin AS64500",
+     "strength": "M",
+     "weight": 1.2,
+     "level": "campaign",
+     "df": 60,
+     "N": 1284,
+     "idf": 3.06,
+     "state": "match",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Fałszywe portale newsowe → inwestycje",
+    "Deepfake lekarza → suplementy"
+   ],
+   "operation_id": "OPN-01"
+  },
+  {
+   "id": "OP-04",
+   "codename": "Lynx",
+   "campaigns": [
+    {
+     "id": "KMP-029",
+     "name": "Bon paliwowy",
+     "incidents": 17
+    }
+   ],
+   "shared": [
+    {
+     "type": "kit",
+     "field": "kit_tenant",
+     "value": "kit-tenant-d19",
+     "display": "kit tenant d19",
+     "strength": "H",
+     "weight": 2.2,
+     "level": "campaign",
+     "df": 17,
+     "N": 1284,
+     "idf": 4.32,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Bony i dopłaty rządowe z ankietą."
+   ],
+   "operation_id": null
+  },
+  {
+   "id": "OP-05",
+   "codename": "Heron",
+   "campaigns": [
+    {
+     "id": "KMP-031",
+     "name": "Platforma AI — inwestycje",
+     "incidents": 58
+    }
+   ],
+   "shared": [
+    {
+     "type": "tracking",
+     "field": "google_ads",
+     "value": "AW-11122233344",
+     "display": "Google Ads AW-1112…",
+     "strength": "H",
+     "weight": 3.0,
+     "level": "campaign",
+     "df": 50,
+     "N": 1284,
+     "idf": 3.25,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Platformy AI z udziałem celebrytów."
+   ],
+   "operation_id": null
+  },
+  {
+   "id": "OP-07",
+   "codename": "Orchid",
+   "campaigns": [
+    {
+     "id": "KMP-022",
+     "name": "Stawy — fałszywy lekarz",
+     "incidents": 31
+    }
+   ],
+   "shared": [
+    {
+     "type": "tracking",
+     "field": "fb_pixel",
+     "value": "870011223344556",
+     "display": "FB pixel 8700…556",
+     "strength": "H",
+     "weight": 3.0,
+     "level": "campaign",
+     "df": 29,
+     "N": 1284,
+     "idf": 3.79,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Fałszywy lekarz i syntetyczny głos."
+   ],
+   "operation_id": "OPN-02"
+  },
+  {
+   "id": "OP-09",
+   "codename": "Sable",
+   "campaigns": [
+    {
+     "id": "KMP-036",
+     "name": "Kryptowaluta — bot handlowy",
+     "incidents": 14
+    }
+   ],
+   "shared": [
+    {
+     "type": "infra",
+     "field": "asn",
+     "value": "AS64507",
+     "display": "origin AS64507",
+     "strength": "M",
+     "weight": 1.3,
+     "level": "campaign",
+     "df": 14,
+     "N": 1284,
+     "idf": 4.52,
+     "state": "match",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "narratives": [
+    "Boty handlowe krypto."
+   ],
+   "operation_id": null
+  }
+ ]
+}

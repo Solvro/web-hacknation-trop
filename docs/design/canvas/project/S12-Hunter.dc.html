@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Hunter — źródła i harmonogram</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.tag{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 4px 0 10px;border-radius:999px;border:1px solid #2B3F32;background:#0F1812;font:12px "JetBrains Mono",ui-monospace,monospace;color:#DDEBE2}
+.tag button{width:22px;height:22px;border-radius:50%;border:0;background:transparent;color:#A9BDB0;display:grid;place-items:center;cursor:pointer;padding:0}
+.tag button:hover{background:#16231A;color:#DDEBE2}
+.pol{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #1D2B22;font-size:13px}
+.pol:last-child{border-bottom:0}
+.swl{display:flex;align-items:center;gap:8px}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<div class="app">
+<div class="side"><dc-import name="Nav" active="hunter" hint-size="100%,960px"></dc-import></div>
+<div class="main">
+
+<header class="top">
+<label class="omni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Szukaj: domena, pixel, INC-…, KMP-…, osoba, hash" aria-label="Szukaj w RED PILL"><span class="kbd">Ctrl K</span></label>
+<nav class="trail" aria-label="Ślad"><a href="S12-Hunter.dc.html">Hunter</a><span class="sep">/</span><b>źródła i harmonogram</b></nav>
+<div class="grow"></div>
+<span class="pill g"><span class="dot live"></span>live</span>
+<span class="pill am">demo</span>
+<a class="btn btn-i" href="S03-Triage.dc.html" aria-label="Alerty: 5 nowych"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20h4"></path></svg></a>
+<span class="avatar" aria-label="Zalogowany analityk">AN</span>
+</header>
+
+<main class="page">
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div class="row"><span class="eb">Hunter · ciągłe pozyskiwanie</span><span class="pill g"><span class="dot live"></span>6 z 7 źródeł aktywnych</span></div>
+<div class="row between" style="align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 520px; min-width: 0">
+<h1 class="h1">Źródła, harmonogram i zasady przechwytywania</h1>
+<p class="muted">Każdy nowy materiał jest automatycznie przechwytywany, przypisywany i trafia do triage, jeśli decyzja jest niepewna.</p>
+</div>
+<div class="row"><button class="btn" type="button">Dodaj źródło</button><button class="btn btn-a" type="button">Wstrzymaj wszystkie</button></div>
+</div>
+</section>
+
+<section class="kpis" aria-label="Hunter w ostatnich 24 godzinach">
+<div class="panel kpi"><span class="eb">Nowe materiały · 24 h</span><span class="num">312</span><span class="delta g">+18% d/d</span></div>
+<div class="panel kpi"><span class="eb">Przypisane automatycznie</span><span class="num">271</span><span class="delta dim">87% · reszta w triage</span></div>
+<div class="panel kpi"><span class="eb">Kandydaci nowych kampanii</span><span class="num">3</span><span class="delta am">KMP-040 i 2 pojedyncze</span></div>
+<div class="panel kpi"><span class="eb">Błędy · 24 h</span><span class="num">4</span><span class="delta am">urlscan 429 (limit)</span></div>
+</section>
+
+<section class="panel" aria-labelledby="src-h">
+<div class="ph"><h2 class="h3" id="src-h">Źródła</h2><span class="api">GET /hunter/sources</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Źródło</th><th scope="col">Tryb</th><th scope="col">Harmonogram</th><th scope="col">Ostatnie uruchomienie</th><th scope="col" class="r">Nowe · 24 h</th><th scope="col" class="r">Błędy</th><th scope="col">Włączone</th><th scope="col"><span class="eb" style="font-size: 10.5px">Akcja</span></th></tr></thead>
+<tbody>
+<tr class="sel"><td><span class="swl"><span class="dot"></span><span><b style="font-weight: 600">Meta Ad Library</b><span class="dim xs" style="display: block">frazy, osoby, strony reklamodawców</span></span></span></td><td class="sm">API</td><td class="mono xs">co 15 min</td><td class="mono xs">08:45 · OK</td><td class="r mono g">212</td><td class="r mono">0</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="Meta Ad Library włączone"></button></td><td><button class="btn btn-sm" type="button">Uruchom teraz</button></td></tr>
+<tr><td><span class="swl"><span class="dot"></span><span><b style="font-weight: 600">Google Ads Transparency</b><span class="dim xs" style="display: block">BigQuery, reklamodawcy PL</span></span></span></td><td class="sm">BigQuery</td><td class="mono xs">co 24 h</td><td class="mono xs">04:00 · OK</td><td class="r mono">38</td><td class="r mono">0</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="Google Ads włączone"></button></td><td><button class="btn btn-sm" type="button">Uruchom teraz</button></td></tr>
+<tr><td><span class="swl"><span class="dot"></span><span><b style="font-weight: 600">Lista ostrzeżeń CERT PL</b><span class="dim xs" style="display: block">nowe domeny + status naszych</span></span></span></td><td class="sm">pobranie listy</td><td class="mono xs">co 1 h</td><td class="mono xs">08:00 · OK</td><td class="r mono">19</td><td class="r mono">0</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="CERT PL włączone"></button></td><td><button class="btn btn-sm" type="button">Uruchom teraz</button></td></tr>
+<tr><td><span class="swl"><span class="dot am"></span><span><b style="font-weight: 600">urlscan.io</b><span class="dim xs" style="display: block">zapytania z reguł Act center</span></span></span></td><td class="sm">zapytania</td><td class="mono xs">co 30 min</td><td class="mono xs">08:30 · 429</td><td class="r mono">27</td><td class="r mono am">4</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="urlscan włączone"></button></td><td><button class="btn btn-sm" type="button">Uruchom teraz</button></td></tr>
+<tr><td><span class="swl"><span class="dot live"></span><span><b style="font-weight: 600">Certificate Transparency</b><span class="dim xs" style="display: block">strumień dla Oracle</span></span></span></td><td class="sm">strumień</td><td class="mono xs">na żywo</td><td class="mono xs">teraz · 41 cert/s</td><td class="r mono">17</td><td class="r mono">0</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="CT włączone"></button></td><td><a class="btn btn-sm" href="S08-Oracle.dc.html">Oracle</a></td></tr>
+<tr><td><span class="swl"><span class="dot"></span><span><b style="font-weight: 600">Wtyczka obywatelska</b><span class="dim xs" style="display: block">anonimowe odciski reklam</span></span></span></td><td class="sm">push</td><td class="mono xs">na żywo</td><td class="mono xs">08:39</td><td class="r mono">14</td><td class="r mono">0</td><td><button class="tgl on" type="button" aria-pressed="true" aria-label="Wtyczka włączona"></button></td><td><a class="btn btn-sm" href="E1-Extension.dc.html">Podgląd</a></td></tr>
+<tr><td><span class="swl"><span class="dot off"></span><span><b style="font-weight: 600">Import ręczny</b><span class="dim xs" style="display: block">zip, CSV, katalog próbek</span></span></span></td><td class="sm">ręcznie</td><td class="mono xs">na żądanie</td><td class="mono xs">20.11 16:12</td><td class="r mono">2</td><td class="r mono">0</td><td><button class="tgl" type="button" aria-pressed="false" aria-label="Import ręczny wyłączony"></button></td><td><a class="btn btn-sm" href="S02-Analyze.dc.html">Analizuj</a></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+
+<section class="panel hot" aria-labelledby="det-h">
+<div class="ph"><h2 class="h3" id="det-h">Meta Ad Library · konfiguracja</h2><span class="pill g">aktywne</span><span class="api">PATCH /hunter/sources/{id}</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 20px">
+
+<div class="fld">
+<span class="lbl">Frazy-przynęty (wyszukiwanie w treści reklam)</span>
+<div class="row" style="gap: 6px">
+<span class="tag">PILNE<button type="button" aria-label="Usuń frazę PILNE"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+<span class="tag">przerywa milczenie<button type="button" aria-label="Usuń frazę przerywa milczenie"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+<span class="tag">nagranie usunięte<button type="button" aria-label="Usuń frazę nagranie usunięte"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+<span class="tag">lekarz ujawnia<button type="button" aria-label="Usuń frazę lekarz ujawnia"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+<span class="tag">zarabiaj z AI<button type="button" aria-label="Usuń frazę zarabiaj z AI"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+</div>
+<div class="row"><input class="inp grow" style="max-width: 360px" placeholder="Dodaj frazę, np. „bank ostrzega”" aria-label="Nowa fraza-przynęta"><button class="btn" type="button">Dodaj</button><span class="dim xs">Sugestie z szablonów kampanii: „«Wiem, kto to zrobił»”, „platforma AI”</span></div>
+</div>
+
+<div class="row" style="gap: 24px; align-items: flex-start">
+<div class="fld" style="flex: 1 1 260px">
+<span class="lbl">Obserwowane osoby <a class="xs" href="S09-Radar.dc.html">· z Radaru podszyć</a></span>
+<div class="row" style="gap: 6px"><span class="tag">Jan Kowalski<button type="button" aria-label="Usuń osobę Jan Kowalski"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="tag">Anna Nowak<button type="button" aria-label="Usuń osobę Anna Nowak"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="tag">dr Piotr Wiśniewski<button type="button" aria-label="Usuń osobę dr Piotr Wiśniewski"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="tag">Marek Zieliński<button type="button" aria-label="Usuń osobę Marek Zieliński"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="dim xs">+ 21</span></div>
+</div>
+<div class="fld" style="flex: 1 1 260px">
+<span class="lbl">Obserwowane strony reklamodawców</span>
+<div class="row" style="gap: 6px"><span class="tag">Puzzle Mania PL<button type="button" aria-label="Usuń stronę Puzzle Mania PL"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="tag">Ogród i Pasja 24<button type="button" aria-label="Usuń stronę Ogród i Pasja 24"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span><span class="dim xs">+ 9 z KMP-017</span></div>
+</div>
+</div>
+
+<div class="row" style="gap: 16px; align-items: flex-end">
+<div class="fld" style="flex: 0 1 180px"><label class="lbl" for="cty">Kraj dostarczenia</label><select class="inp" id="cty"><option>PL</option><option>PL + CZ + SK</option></select></div>
+<div class="fld" style="flex: 0 1 200px"><label class="lbl" for="sch">Harmonogram</label><select class="inp" id="sch"><option>co 15 minut</option><option>co 1 godzinę</option><option>co 6 godzin</option></select></div>
+<div class="fld" style="flex: 0 1 220px"><label class="lbl" for="typ">Typ reklam</label><select class="inp" id="typ"><option>wszystkie (DSA: cała UE)</option><option>tylko polityczne</option></select></div>
+<button class="btn btn-p" type="button">Zapisz konfigurację</button>
+</div>
+
+</div>
+</section>
+
+<section class="panel" aria-labelledby="run-h">
+<div class="ph"><h2 class="h3" id="run-h">Ostatnie uruchomienia</h2><span class="api">GET /hunter/runs</span></div>
+<div class="scroll-x">
+<table class="tbl">
+<thead><tr><th scope="col">Czas</th><th scope="col">Źródło</th><th scope="col" class="r">Znaleziono</th><th scope="col" class="r">Nowe</th><th scope="col" class="r">Przypisane</th><th scope="col">Status</th></tr></thead>
+<tbody>
+<tr><td class="mono xs">08:45</td><td class="sm">Meta Ad Library</td><td class="r mono">64</td><td class="r mono">9</td><td class="r mono">8</td><td><span class="pill g">OK · 1 do triage</span></td></tr>
+<tr><td class="mono xs">08:30</td><td class="sm">urlscan.io</td><td class="r mono">—</td><td class="r mono">—</td><td class="r mono">—</td><td><span class="pill am">429 · ponowienie 08:34</span></td></tr>
+<tr><td class="mono xs">08:30</td><td class="sm">Meta Ad Library</td><td class="r mono">71</td><td class="r mono">12</td><td class="r mono">12</td><td><span class="pill g">OK</span></td></tr>
+<tr><td class="mono xs">08:00</td><td class="sm">Lista CERT PL</td><td class="r mono">2 140</td><td class="r mono">19</td><td class="r mono">2</td><td><span class="pill g">OK</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="pb" style="border-top: 1px solid #1D2B22">
+<div class="panel warn" style="background: rgba(255,181,71,.05)">
+<div class="pb" style="display: flex; flex-direction: column; gap: 6px">
+<span class="row" style="gap: 8px"><span class="dot am"></span><b class="sm">urlscan.io · HTTP 429 Too Many Requests</b></span>
+<p class="sm muted">Wykorzystano 80% dziennego limitu. Backoff wykładniczy: 1 → 2 → 4 min, następna próba 08:34. Zapytania o niższym priorytecie przesunięte na 12:00.</p>
+<div class="row"><button class="btn btn-sm" type="button">Pokaż log</button><button class="btn btn-sm" type="button">Zmień priorytety zapytań</button></div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+<div class="b">
+
+<section class="panel" aria-labelledby="cap-h">
+<div class="ph"><h2 class="h3" id="cap-h">Polityka przechwytywania</h2><span class="api">GET /hunter/sources/{id}</span></div>
+<div class="pb">
+<div class="pol"><span>Playwright w izolowanym sandboxie</span><span class="pill g">wł.</span></div>
+<div class="pol"><span>Nigdy nie wysyłaj formularzy</span><span class="pill g">wymuszone</span></div>
+<div class="pol"><span>User-Agent</span><span class="mono xs">mobilny · Android</span></div>
+<div class="pol"><span>Wyjście sieciowe</span><span class="mono xs">PL</span></div>
+<div class="pol"><span>Maks. przekierowań</span><span class="mono xs">6</span></div>
+<div class="pol"><span>Timeout strony</span><span class="mono xs">30 s</span></div>
+<div class="pol"><span>Zapisywane</span><span class="mono xs">HAR · DOM · zrzut · TLS</span></div>
+</div>
+</section>
+
+<section class="panel info" aria-labelledby="dr-h">
+<div class="ph"><h2 class="h3" id="dr-h">Zasady danych</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 10px">
+<p class="sm"><b>Surowe materiały tylko lokalnie lub na WCSS.</b> Do chmurowego LLM trafiają wyłącznie wyekstrahowane cechy i publiczny OSINT.</p>
+<div class="pol"><span>Retencja surowych artefaktów</span><span class="mono xs">90 dni</span></div>
+<div class="pol"><span>Eksport poza system</span><span class="mono xs">tylko pakiety Act</span></div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="key-h">
+<div class="ph"><h2 class="h3" id="key-h">Klucze API</h2><span class="api">GET /hunter/sources?fields=credentials_status</span></div>
+<div class="pb">
+<div class="pol"><span>Meta Ad Library</span><span class="row" style="gap: 6px"><span class="mono xs dim">••••</span><span class="pill g">ustawiony</span></span></div>
+<div class="pol"><span>urlscan.io</span><span class="row" style="gap: 6px"><span class="mono xs dim">••••</span><span class="pill g">ustawiony</span></span></div>
+<div class="pol"><span>Google BigQuery</span><span class="row" style="gap: 6px"><span class="mono xs dim">••••</span><span class="pill g">ustawiony</span></span></div>
+<div class="pol"><span>Claude API (agent)</span><span class="row" style="gap: 6px"><span class="mono xs dim">—</span><span class="pill am">brak · tryb offline</span></span></div>
+<p class="dim xs" style="padding-top: 8px">Klucze ustawia administrator w zmiennych środowiska. Interfejs nigdy nie pokazuje ich wartości.</p>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+<p class="footnote">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1440,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { annot: (this.props.showApi ?? false) ? 'show-api' : '' };
+  }
+}
+</script>
+</body>
+</html>

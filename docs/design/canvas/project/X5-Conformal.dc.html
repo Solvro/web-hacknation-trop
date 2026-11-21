@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Decyzja konformalna: nowa kampania — specyfikacja</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/477be82a65055b423718bfd9aac4ea4d">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050806}
+.srow{display:grid;grid-template-columns:72px minmax(0,1fr) 40px 76px;gap:10px;align-items:center;padding:6px 0}
+.srow>span:first-child{font:500 12.5px "JetBrains Mono",ui-monospace,monospace;color:#A9BDB0}
+.srow.in>span:first-child{color:#3BF07E;font-weight:700}
+.track{position:relative;height:10px;background:#16231A;border-radius:3px}
+.track i{display:block;height:100%;border-radius:3px;background:#3B5444}
+.srow.in .track i{background:#3BF07E}
+.track .tc{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:#DDEBE2;border-radius:1px}
+.track .ta{position:absolute;top:-5px;bottom:-5px;margin-left:-1px;border-left:2px dashed #FFB547}
+.exs{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.dec{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr) minmax(0,1.3fr);gap:0;font-size:13px}
+.dec>span{padding:9px 12px;border-bottom:1px solid #1D2B22}
+.rules{display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div class="rp {{annot}}" style="min-height: 100vh; background: #050806; color: #DDEBE2">
+<main class="page" style="max-width: 1240px; margin: 0 auto">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px">
+<span class="eb">Komponent wyjaśnialności · X5</span>
+<h1 class="h1">Decyzja konformalna: „nowa kampania”</h1>
+<p class="muted" style="max-width: 920px; line-height: 1.6">Analityk pyta: <b style="color: #DDEBE2">„skąd wiadomo, że to nowa kampania, a nie słabe dopasowanie do starej?”</b> Na zbiorze kalibracyjnym (materiały o znanej kampanii) mierzymy, jakie wyniki dostają poprawne kampanie. Próg τ(α) ustawiamy tak, żeby najwyżej α poprawnych przypisań wypadło poza zbiór. Nowy materiał dostaje <b style="color: #DDEBE2">zbiór kampanii</b> z wynikiem ≥ τ(α). Jedna kampania oznacza przypisanie, pusty zbiór oznacza nową kampanię, a kilka kampanii oznacza przypadek niejednoznaczny i triage. Odmowa połączenia jest tu równie ważna jak trafne przypisanie.</p>
+</header>
+
+<div class="split">
+<div class="a">
+<section class="panel hot" aria-labelledby="m-h">
+<div class="ph"><h2 class="h3" id="m-h">Wyniki kampanii dla <a class="id" href="S04-Incident.dc.html">INC-24817</a></h2><span class="mono xs dim">α = {{alpha}}% · τ(α) = {{tauS}}</span><span class="api">GET incidents/{id}/decision</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 8px">
+<div class="srow" style="padding-bottom: 2px"><span class="eb">kampania</span><span class="eb">wynik · linia biała = τ(α) · przerywana = τ auto 0.80</span><span class="eb">s</span><span class="eb">p-wart.</span></div>
+<sc-for list="{{main.rows}}" as="r" hint-placeholder-count="5">
+<div class="{{r.cls}}"><span>{{r.id}}</span><span class="track" aria-hidden="true"><i style="width: {{r.w}}"></i><span class="ta" style="left: 80%"></span><span class="tc" style="left: {{r.tl}}"></span></span><span class="mono sm">{{r.s}}</span><span class="mono xs dim">{{r.pv}}</span></div>
+</sc-for>
+<div class="{{main.d.vcls}}" style="padding: 14px 16px; gap: 6px; margin-top: 8px">
+<div class="row between"><span class="eb">zbiór konformalny</span><span class="mono">{{main.d.set}}</span></div>
+<span style="font: 600 18px/1.3 'Space Grotesk', Inter, sans-serif">{{main.d.label}}</span>
+<span class="xs muted">{{main.d.why}}</span>
+</div>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="al-h">
+<div class="ph"><h2 class="h3" id="al-h">Poziom błędu α</h2><span class="pill">symulacja w specyfikacji</span><span class="api">GET lab/metrics → conformal</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<div class="fld">
+<label class="lbl" for="alpha-r">α: dopuszczalny odsetek błędnych przypisań do istniejących kampanii · <b class="mono" style="color: #DDEBE2">{{alpha}}%</b></label>
+<input id="alpha-r" type="range" min="1" max="20" step="1" value="{{alpha}}" onChange="{{onAlpha}}" style="width: 100%; accent-color: #3BF07E">
+<div class="row between mono xs dim"><span>1%</span><span>5%</span><span>10%</span><span>20%</span></div>
+</div>
+<p class="sm" style="line-height: 1.55">Przy α = {{alpha}}% najwyżej ~{{alpha}}% przypisań do istniejących kampanii będzie błędnych (osiągnięte w walidacji: <b class="g">{{achieved}}%</b>). Niższe α daje szersze zbiory: więcej triage, mniej pomyłek. Wyższe α daje węższe zbiory: więcej „nowych kampanii”.</p>
+<svg viewBox="0 0 300 200" style="width: 100%; height: auto; display: block" role="img" aria-label="Kalibracja: błąd osiągnięty w walidacji leży tuż pod przekątną dla α od 1 do 20 procent, przy 5 procentach wynosi 4,1 procent">
+<g stroke="#1D2B22"><line x1="40" y1="170" x2="280" y2="170" stroke="#2B3F32"></line><line x1="40" y1="20" x2="40" y2="170" stroke="#2B3F32"></line><line x1="40" y1="132.5" x2="280" y2="132.5"></line><line x1="40" y1="95" x2="280" y2="95"></line><line x1="40" y1="57.5" x2="280" y2="57.5"></line></g>
+<line x1="40" y1="170" x2="280" y2="20" stroke="#83998B" stroke-dasharray="4 4"></line>
+<polyline fill="none" stroke="#3BF07E" stroke-width="2" points="52,164 64,157.3 100,139.3 160,101 280,30.5"></polyline>
+<g fill="#3BF07E"><circle cx="52" cy="164" r="3"></circle><circle cx="64" cy="157.3" r="3"></circle><circle cx="100" cy="139.3" r="4.5"></circle><circle cx="160" cy="101" r="3"></circle><circle cx="280" cy="30.5" r="3"></circle></g>
+<g font-family="JetBrains Mono, monospace" font-size="9.5" fill="#83998B"><text x="40" y="184" text-anchor="middle">0</text><text x="100" y="184" text-anchor="middle">5</text><text x="160" y="184" text-anchor="middle">10</text><text x="280" y="184" text-anchor="middle">20</text><text x="34" y="98" text-anchor="end">10</text><text x="34" y="23" text-anchor="end">20</text><text x="160" y="198" text-anchor="middle">α docelowe (%)</text><text x="108" y="134" fill="#DDEBE2">4.1% @ 5%</text></g>
+</svg>
+<p class="dim xs">Kalibracja: n_cal = 412 materiałów, leave-one-campaign-out. Przekątna = idealna kalibracja. α to ustawienie polityki w Lab, nie suwak dla pojedynczego incydentu. Zmiana jest logowana.</p>
+</div>
+</section>
+</div>
+</div>
+
+<section aria-labelledby="ex-h" style="display: flex; flex-direction: column; gap: 12px">
+<div class="row between"><h2 class="h2" id="ex-h">Trzy przykłady</h2><span class="dim sm">przesuń α, żeby zobaczyć, jak zmieniają się zbiory</span></div>
+<div class="exs">
+
+<section class="panel" aria-labelledby="e1-h">
+<div class="ph"><span class="eb">1</span><h3 class="h3" id="e1-h"><a class="id" href="S04-Incident.dc.html">INC-24817</a> · morvanta.click</h3></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ex1.rows}}" as="r" hint-placeholder-count="3">
+<div class="{{r.cls}}"><span>{{r.id}}</span><span class="track" aria-hidden="true"><i style="width: {{r.w}}"></i><span class="ta" style="left: 80%"></span><span class="tc" style="left: {{r.tl}}"></span></span><span class="mono sm">{{r.s}}</span><span class="mono xs dim">{{r.pv}}</span></div>
+</sc-for>
+<div class="{{ex1.d.vcls}}" style="padding: 12px 14px; gap: 4px; margin-top: 8px"><span class="mono sm">zbiór {{ex1.d.set}}</span><b style="font-size: 15px">{{ex1.d.label}}</b><span class="xs muted">{{ex1.d.why}}</span></div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="e2-h">
+<div class="ph"><span class="eb">2</span><h3 class="h3" id="e2-h"><a class="id" href="S04-Incident.dc.html">INC-24822</a> · bon-energia</h3></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ex2.rows}}" as="r" hint-placeholder-count="3">
+<div class="{{r.cls}}"><span>{{r.id}}</span><span class="track" aria-hidden="true"><i style="width: {{r.w}}"></i><span class="ta" style="left: 80%"></span><span class="tc" style="left: {{r.tl}}"></span></span><span class="mono sm">{{r.s}}</span><span class="mono xs dim">{{r.pv}}</span></div>
+</sc-for>
+<div class="{{ex2.d.vcls}}" style="padding: 12px 14px; gap: 4px; margin-top: 8px"><span class="mono sm">zbiór {{ex2.d.set}}</span><b style="font-size: 15px">{{ex2.d.label}}</b><span class="xs muted">{{ex2.d.why}}</span></div>
+</div>
+</section>
+
+<section class="panel" aria-labelledby="e3-h">
+<div class="ph"><span class="eb">3</span><h3 class="h3" id="e3-h"><a class="id" href="S03-Triage.dc.html">INC-24768</a> · artovita-forte.shop</h3></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ex3.rows}}" as="r" hint-placeholder-count="3">
+<div class="{{r.cls}}"><span>{{r.id}}</span><span class="track" aria-hidden="true"><i style="width: {{r.w}}"></i><span class="ta" style="left: 80%"></span><span class="tc" style="left: {{r.tl}}"></span></span><span class="mono sm">{{r.s}}</span><span class="mono xs dim">{{r.pv}}</span></div>
+</sc-for>
+<div class="{{ex3.d.vcls}}" style="padding: 12px 14px; gap: 4px; margin-top: 8px"><span class="mono sm">zbiór {{ex3.d.set}}</span><b style="font-size: 15px">{{ex3.d.label}}</b><span class="xs muted">{{ex3.d.why}}</span></div>
+</div>
+</section>
+
+</div>
+</section>
+
+<div class="split">
+<div class="a">
+<section class="panel" aria-labelledby="dt-h">
+<div class="ph"><h2 class="h3" id="dt-h">Reguła decyzji: dwa progi</h2></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted">τ(α) odpowiada na pytanie „czy to w ogóle znana kampania?” (konformalnie). τ auto = 0.80 i margines δ = 0.15 odpowiadają na pytanie „czy wolno przypisać bez człowieka?”.</p>
+<div class="dec">
+<span class="eb">zbiór</span><span class="eb">warunek</span><span class="eb">decyzja</span>
+<span class="mono">∅</span><span>żadna kampania ≥ τ(α)</span><span class="am">kandydat nowej kampanii</span>
+<span class="mono">{1}</span><span>s ≥ 0.80 i margines ≥ 0.15</span><span class="g">przypisz automatycznie</span>
+<span class="mono">{1}</span><span>s &lt; 0.80 lub margines &lt; 0.15</span><span class="cy">potwierdź w triage</span>
+<span class="mono">{2+}</span><span>kilka kampanii ≥ τ(α)</span><span class="cy">niejednoznaczne → triage + adjudykator LLM</span>
+</div>
+<p class="dim xs">Pusty zbiór przy pokryciu &lt; 0.5 pokazujemy jako „za mało danych” (X4), a nie jako nową kampanię.</p>
+</div>
+</section>
+<section class="panel" aria-labelledby="ctr-h">
+<div class="ph"><h2 class="h3" id="ctr-h">Kontrakt danych</h2><span class="api">GET incidents/{id}/decision</span></div>
+<div class="pb" style="display: flex; flex-direction: column; gap: 12px">
+<p class="sm muted"><span class="mono">GET /api/v1/incidents/{id}/decision</span>. Kalibrację podaje też <span class="mono">GET /api/v1/lab/metrics</span>. Event SSE <span class="mono">incident.attributed</span> niesie to samo pole <span class="mono">decision</span>.</p>
+<pre class="code">{
+  <span class="ck">"incident_id"</span>: <span class="cs">"INC-24822"</span>,
+  <span class="ck">"alpha"</span>: <span class="cg">0.05</span>, <span class="ck">"tau"</span>: <span class="cg">0.55</span>, <span class="ck">"tau_auto"</span>: <span class="cg">0.80</span>, <span class="ck">"delta"</span>: <span class="cg">0.15</span>,
+  <span class="ck">"scores"</span>: [
+    { <span class="ck">"campaign_id"</span>: <span class="cs">"KMP-031"</span>, <span class="ck">"score"</span>: <span class="cg">0.22</span>, <span class="ck">"p_value"</span>: <span class="cg">0.01</span>, <span class="ck">"in_set"</span>: <span class="cg">false</span> },
+    { <span class="ck">"campaign_id"</span>: <span class="cs">"KMP-022"</span>, <span class="ck">"score"</span>: <span class="cg">0.18</span>, <span class="ck">"p_value"</span>: <span class="cg">0.01</span>, <span class="ck">"in_set"</span>: <span class="cg">false</span> }
+  ],
+  <span class="ck">"set"</span>: [],
+  <span class="ck">"decision"</span>: <span class="cs">"new"</span>,             <span class="cc">// assign|new|ambiguous|confirm|insufficient</span>
+  <span class="ck">"candidate_campaign_id"</span>: <span class="cs">"KMP-040"</span>,
+  <span class="ck">"margin"</span>: <span class="cg">0.04</span>, <span class="ck">"coverage"</span>: <span class="cg">0.81</span>,
+  <span class="ck">"calibration"</span>: { <span class="ck">"target"</span>: <span class="cg">0.05</span>, <span class="ck">"achieved"</span>: <span class="cg">0.041</span>, <span class="ck">"n_cal"</span>: <span class="cg">412</span> }
+}</pre>
+</div>
+</section>
+</div>
+<div class="b">
+<section class="panel" aria-labelledby="beh-h">
+<div class="ph"><h2 class="h3" id="beh-h">Zachowanie i miejsca</h2></div>
+<div class="pb">
+<ul class="rules">
+<li>S02: werdykt pokazuje zbiór i linię τ(α) pod kartą „dołącza / nowa kampania”.</li>
+<li>S04: panel „Decyzja” z pełną listą wyników i p-wartości.</li>
+<li>S03: pozycje „niejednoznaczne” i „kandydat nowej kampanii” mają ten wykres w szczególe.</li>
+<li>S11 Lab: krzywa kalibracji i wybór α (zmiana α wymaga potwierdzenia i trafia do dziennika).</li>
+<li>Klik w kampanię w zbiorze otwiera porównanie „dlaczego / dlaczego nie” (X2).</li>
+</ul>
+</div>
+</section>
+<section class="panel" aria-labelledby="rul-h">
+<div class="ph"><h2 class="h3" id="rul-h">Zasady</h2></div>
+<div class="pb">
+<ul class="rules">
+<li><b class="g">Tak:</b> mów „zbiór kampanii”, a nie „najlepsze dopasowanie”. Pusty zbiór to pełnoprawna odpowiedź.</li>
+<li><b class="g">Tak:</b> zawsze pokazuj α i błąd osiągnięty w walidacji.</li>
+<li><b class="g">Tak:</b> nowy kandydat od razu dostaje identyfikator (KMP-040) i zbiera kolejne podobne materiały.</li>
+<li><b class="rd">Nie:</b> nie pokazuj p-wartości jako prawdopodobieństwa tej samej kampanii. To dwie różne liczby.</li>
+<li><b class="rd">Nie:</b> nie wymuszaj przypisania do najbliższej kampanii, gdy zbiór jest pusty.</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+<p class="footnote" style="max-width: 1240px; margin: 0 auto">Wszystkie dane na makiecie są fikcyjne · RED PILL · HackNation 2026</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showApi":{"editor":"boolean","default":false,"section":"Spec"},"$preview":{"width":1280,"height":2050}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { alpha: 5 };
+  }
+  renderVals() {
+    const a = this.state.alpha ?? 5;
+    const tau = 0.36 + 0.19 * Math.log(a) / Math.log(5);
+    const tl = (tau * 100).toFixed(1) + '%';
+    const ach = { 1: 0.8, 2: 1.7, 5: 4.1, 10: 9.2, 20: 18.6 };
+    const achieved = (ach[a] ?? a * 0.88).toFixed(1);
+    const mk = (rows) => rows.map(([id, s, pv]) => ({
+      id, sv: s, s: s.toFixed(2), w: Math.round(s * 100) + '%', pv: 'p ' + pv.toFixed(2),
+      tl, inSet: s >= tau, cls: s >= tau ? 'srow in' : 'srow'
+    }));
+    const decide = (rows, newLabel) => {
+      const set = rows.filter((r) => r.inSet);
+      const top = rows[0].sv, margin = rows[0].sv - rows[1].sv;
+      const setStr = set.length ? '{' + set.map((r) => r.id).join(', ') + '}' : '∅';
+      if (set.length === 0) return { set: setStr, vcls: 'verdict new', label: newLabel, why: 'Żadna kampania nie przekracza τ(α) = ' + tau.toFixed(2) + '. Nie łączymy na siłę.' };
+      if (set.length === 1 && top >= 0.8 && margin >= 0.15) return { set: setStr, vcls: 'verdict', label: 'Przypisz do ' + set[0].id, why: 'Jedna kampania w zbiorze, s ≥ 0.80, margines ' + margin.toFixed(2) + ' ≥ 0.15.' };
+      if (set.length === 1) return { set: setStr, vcls: 'verdict unsure', label: 'Potwierdź w triage', why: 'Jedna kampania w zbiorze, ale poniżej progu automatycznego.' };
+      return { set: setStr, vcls: 'verdict unsure', label: 'Niejednoznaczne → triage', why: set.length + ' kampanie powyżej τ(α). Rozstrzyga analityk z adjudykatorem LLM.' };
+    };
+    const mainRows = mk([['KMP-017', 0.94, 0.88], ['KMP-034', 0.41, 0.02], ['KMP-031', 0.12, 0.0], ['KMP-022', 0.08, 0.0], ['KMP-040', 0.05, 0.0]]);
+    const r1 = mk([['KMP-017', 0.94, 0.88], ['KMP-034', 0.41, 0.02], ['KMP-031', 0.12, 0.0]]);
+    const r2 = mk([['KMP-031', 0.22, 0.01], ['KMP-022', 0.18, 0.01], ['KMP-017', 0.11, 0.0]]);
+    const r3 = mk([['KMP-022', 0.58, 0.09], ['KMP-034', 0.57, 0.08], ['KMP-031', 0.2, 0.01]]);
+    return {
+      annot: (this.props.showApi ?? false) ? 'show-api' : '',
+      alpha: a,
+      tauS: tau.toFixed(2),
+      achieved,
+      onAlpha: (e) => this.setState({ alpha: Number(e.target.value) }),
+      main: { rows: mainRows, d: decide(mainRows, 'Kandydat nowej kampanii') },
+      ex1: { rows: r1, d: decide(r1, 'Kandydat nowej kampanii') },
+      ex2: { rows: r2, d: decide(r2, 'Kandydat nowej kampanii · KMP-040') },
+      ex3: { rows: r3, d: decide(r3, 'Kandydat nowej kampanii') }
+    };
+  }
+}
+</script>
+</body>
+</html>

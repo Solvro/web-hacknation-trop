@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Sprawdź materiał C2: tablica rośnie</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/4a45834733cab3a8558aaac01529657b">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+.zr{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-right:1px solid #e5e5e5;background:#fafafa}
+.zr a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#525252}
+.zr a:hover{background:#f0f0f0;color:#0a0a0a}
+.zr a.on{background:#ffffff;color:#0a0a0a;box-shadow:0 0 0 1px #e5e5e5,0 1px 2px rgba(0,0,0,.05)}
+.zr svg{width:20px;height:20px}
+.hdr{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid #e5e5e5}
+.bd{position:relative;width:1360px;height:880px}
+.bc{position:absolute;background:#ffffff;border:1px solid #e5e5e5;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28)}
+.gh{position:absolute;border:1.5px dashed #d4d4d4;border-radius:16px;background:rgba(255,255,255,.55);display:grid;place-items:center;text-align:center}
+.ev2{width:240px;height:76px;padding:10px 14px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.ev2 .tp{display:flex;align-items:center;justify-content:space-between;gap:8px;font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#737373}
+.ev2 .tp i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:0}
+.ev2 .tp b{font:600 14px/1 "Geist Mono",monospace;color:#0a0a0a;letter-spacing:0}
+.ev2 .vl{font:500 13px/1.3 "Geist Mono",monospace;color:#0a0a0a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev2 .rr{font:12px/1 "Geist Mono",monospace;color:#737373}
+.bub{--bb:#e5e5e5;position:absolute;background:#ffffff;border:1px solid var(--bb);border-radius:16px;padding:12px 14px;font:400 13.5px/1.45 Geist,sans-serif;color:#262626;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28)}
+.bub::after{content:"";position:absolute;width:12px;height:12px;background:inherit;border-right:1px solid var(--bb);border-bottom:1px solid var(--bb)}
+.bub.tb::after{left:28px;bottom:-7px;transform:rotate(45deg)}
+.bub.tt::after{left:28px;top:-7px;transform:rotate(225deg)}
+.bub.tl::after{left:-7px;top:22px;transform:rotate(135deg)}
+.bub.note{--bb:#fde68a;background:#fffbeb}
+.bub .who{display:flex;align-items:center;gap:8px;margin-bottom:6px;font:600 12.5px/1 Geist,sans-serif;color:#0a0a0a}
+.bub .av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:600 10px Geist,sans-serif;background:#ffffff;color:#0a0a0a;box-shadow:inset 0 0 0 1px #d4d4d4;flex:none}
+.bub.note .av{background:#fef3c7;color:#92400e;box-shadow:none}
+.prog{position:absolute;display:flex;align-items:center;gap:14px;height:40px;padding:0 14px;background:#ffffff;border:1px solid #e5e5e5;border-radius:999px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px -18px rgba(0,0,0,.28);font:500 12.5px/1 Geist,sans-serif;color:#525252;white-space:nowrap}
+.prog .s{display:inline-flex;align-items:center;gap:6px}
+.prog .s i{width:14px;height:14px;border-radius:50%;border:1.5px solid #d4d4d4;display:inline-grid;place-items:center;flex:none}
+.prog .s.d{color:#0a0a0a}
+.prog .s.d i{background:#171717;border-color:#171717}
+.prog .s.r i{border-color:#2563eb;border-top-color:transparent;animation:rp-spin 1s linear infinite}
+.spin{display:inline-block;width:12px;height:12px;border-radius:50%;border:1.5px solid #2563eb;border-top-color:transparent;animation:rp-spin 1s linear infinite;flex:none}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) 80px 40px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.cr:last-child{border-bottom:0}
+.grip{display:grid;grid-template-columns:12px minmax(0,1fr);gap:10px;align-items:center;padding:8px 10px;border:1px solid #e5e5e5;border-radius:12px;background:#ffffff;cursor:grab}
+.dock{margin:0 20px 20px;padding:16px 20px;background:#ffffff;border:1px solid #e5e5e5;border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 -12px 32px -28px rgba(0,0,0,.25);display:flex;flex-wrap:wrap;align-items:center;gap:22px;min-height:98px}
+@media (prefers-reduced-motion:reduce){.prog .s.r i,.spin{animation:none}}
+</style>
+</helmet>
+<div class="rp" style="min-height: 100vh; background: #ffffff; color: #0a0a0a; display: flex">
+
+<nav class="zr" aria-label="Nawigacja główna">
+<a href="Z-S01-Command.dc.html" aria-label="redpill, centrum" style="width: 40px; height: 40px; background: #0a0a0a; color: #ffffff; border-radius: 11px; font: 700 15px/1 Geist, sans-serif; letter-spacing: -0.04em; margin-bottom: 10px">rp</a>
+<a href="Z-S01-Command.dc.html" aria-label="Centrum" title="Centrum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg></a>
+<a class="on" href="C2-Tablica.dc.html" aria-label="Sprawdź materiał" title="Sprawdź materiał" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></a>
+<a href="Z-S05-Campaign.dc.html" aria-label="Kampanie" title="Kampanie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"></path></svg></a>
+<a href="Z-Chmura.dc.html" aria-label="Chmura powiązań" title="Chmura powiązań"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M8.5 8.5l2 3M15.5 7.5l-2 4M10.5 14.5l-3 2M13.5 14.5l3 2"></path></svg></a>
+<a href="ZB-Sledztwo.dc.html" aria-label="Śledztwa" title="Śledztwa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></a>
+<a href="Z-S10-Act.dc.html" aria-label="Zgłoszenia" title="Zgłoszenia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6.5zM11 13.5L20 4"></path></svg></a>
+</nav>
+
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+
+<header class="hdr">
+<sc-if value="{{isStart}}" hint-placeholder-val="{{false}}"><nav class="trail" aria-label="Ślad" style="font-size: 14px"><b>Sprawdź materiał</b><span class="sep">/</span><span>nowa tablica</span></nav></sc-if>
+<sc-if value="{{isRun}}" hint-placeholder-val="{{false}}"><nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="C2-Tablica.dc.html">Sprawdź materiał</a><span class="sep">/</span><b>INC-24817</b></nav></sc-if>
+<sc-if value="{{isDone}}" hint-placeholder-val="{{true}}"><nav class="trail" aria-label="Ślad" style="font-size: 14px"><a href="C2-Tablica.dc.html">Sprawdź materiał</a><span class="sep">/</span><b>INC-24817</b><span class="sep">→</span><a href="Z-S05-Campaign.dc.html">KMP-017</a></nav></sc-if>
+<div class="seg" role="group" aria-label="Widok"><button class="on" type="button">Tablica</button><button type="button">Lista</button></div>
+<div style="flex: 1 1 auto"></div>
+<label class="omni" style="flex: 0 1 320px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M16 16l5 5"></path></svg><input placeholder="Przypnij domenę, pixel, osobę…" aria-label="Przypnij do tablicy"><span class="kbd">Ctrl K</span></label>
+<span class="pill g"><span class="dot live"></span>na żywo</span>
+</header>
+
+<div class="gridbg" style="flex: 1 1 auto; overflow: auto" role="group" aria-label="Tablica sprawdzania materiału">
+<div class="bd">
+
+<sc-if value="{{isStart}}" hint-placeholder-val="{{false}}">
+<svg width="1360" height="880" viewBox="0 0 1360 880" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke="#d4d4d4" stroke-width="1.5" stroke-dasharray="5 6" stroke-linecap="round">
+<path d="M320 410 C380 410 380 128 440 128"></path><path d="M320 410 C380 410 380 238 440 238"></path><path d="M320 410 C380 410 380 348 440 348"></path><path d="M320 410 C380 410 380 458 440 458"></path><path d="M320 410 C380 410 380 568 440 568"></path>
+<path d="M680 128 C750 128 750 410 820 410"></path><path d="M680 238 C750 238 750 410 820 410"></path><path d="M680 348 C750 348 750 410 820 410"></path><path d="M680 458 C750 458 750 410 820 410"></path><path d="M680 568 C750 568 750 410 820 410"></path>
+</g>
+</svg>
+<article class="bc" style="left: 40px; top: 250px; width: 280px; height: 320px; padding: 16px; display: flex; flex-direction: column; gap: 10px; border: 1.5px dashed #a3a3a3" aria-label="Upuść nowy materiał">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="eb">Nowy materiał</span><span class="kbd">Ctrl V</span></div>
+<div class="ph-img" style="height: 112px">upuść tutaj<br>zrzut · HAR · wideo · ZIP</div>
+<label for="c2-url" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)">Link reklamy</label>
+<input id="c2-url" class="inp" placeholder="albo wklej link reklamy" style="width: 100%; font-family: 'Geist Mono', monospace; font-size: 13px">
+<button class="btn btn-p" type="button" style="width: 100%">Sprawdź na tablicy</button>
+<span class="row xs muted" style="gap: 8px"><span class="tgl on" aria-hidden="true"></span>Przechwyć stronę na żywo</span>
+</article>
+<div class="gh" style="left: 440px; top: 90px; width: 240px; height: 76px"><span class="eb">tracking</span></div>
+<div class="gh" style="left: 440px; top: 200px; width: 240px; height: 76px"><span class="eb">kit</span></div>
+<div class="gh" style="left: 440px; top: 310px; width: 240px; height: 76px"><span class="eb">treść</span></div>
+<div class="gh" style="left: 440px; top: 420px; width: 240px; height: 76px"><span class="eb">infra</span></div>
+<div class="gh" style="left: 440px; top: 530px; width: 240px; height: 76px"><span class="eb">osoby</span></div>
+<div class="gh" style="left: 820px; top: 230px; width: 320px; height: 360px"><span style="display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 40px"><span class="eb">kampania</span><span class="sm dim">pojawi się tutaj, gdy materiał dopasuje się do bazy 1 284 materiałów</span></span></div>
+<div class="bub tl" style="left: 1170px; top: 300px; width: 170px">Tablica zapełnia się w trakcie analizy: najpierw dowody, potem kampania.</div>
+<section class="bc" style="left: 40px; top: 610px; width: 280px; padding: 14px; display: flex; flex-direction: column; gap: 8px" aria-labelledby="c2-sig">
+<span id="c2-sig" class="eb">Albo przeciągnij sygnał</span>
+<div class="grip"><svg width="12" height="16" viewBox="0 0 12 16" fill="#a3a3a3" aria-hidden="true"><circle cx="3" cy="3" r="1.5"></circle><circle cx="9" cy="3" r="1.5"></circle><circle cx="3" cy="8" r="1.5"></circle><circle cx="9" cy="8" r="1.5"></circle><circle cx="3" cy="13" r="1.5"></circle><circle cx="9" cy="13" r="1.5"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><b class="sm" style="font-weight: 600">«Puzzle Mania PL»</b><span class="xs dim mono">Hunter · morvanta.click · 02:31</span></span></div>
+<div class="grip"><svg width="12" height="16" viewBox="0 0 12 16" fill="#a3a3a3" aria-hidden="true"><circle cx="3" cy="3" r="1.5"></circle><circle cx="9" cy="3" r="1.5"></circle><circle cx="3" cy="8" r="1.5"></circle><circle cx="9" cy="8" r="1.5"></circle><circle cx="3" cy="13" r="1.5"></circle><circle cx="9" cy="13" r="1.5"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><b class="sm" style="font-weight: 600">plessuro.live · nowy certyfikat</b><span class="xs dim mono">Oracle · DNA KMP-017 0.88</span></span></div>
+<div class="grip"><svg width="12" height="16" viewBox="0 0 12 16" fill="#a3a3a3" aria-hidden="true"><circle cx="3" cy="3" r="1.5"></circle><circle cx="9" cy="3" r="1.5"></circle><circle cx="3" cy="8" r="1.5"></circle><circle cx="9" cy="8" r="1.5"></circle><circle cx="3" cy="13" r="1.5"></circle><circle cx="9" cy="13" r="1.5"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><b class="sm" style="font-weight: 600">3 zgłoszenia jednego posta</b><span class="xs dim mono">Wtyczka · zrzut · 08:31</span></span></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isRun}}" hint-placeholder-val="{{false}}">
+<svg width="1360" height="880" viewBox="0 0 1360 880" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke-linecap="round">
+<path d="M320 410 C380 410 380 128 440 128" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 238 440 238" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 348 440 348" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 458 440 458" stroke="#d4d4d4" stroke-width="1.5" stroke-dasharray="5 6"></path>
+<path d="M320 410 C380 410 380 568 440 568" stroke="#171717" stroke-width="1.75"></path>
+<path d="M680 128 C750 128 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5" stroke-dasharray="5 6"></path>
+<path d="M680 238 C750 238 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5" stroke-dasharray="5 6"></path>
+<path d="M680 348 C750 348 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5" stroke-dasharray="5 6"></path>
+<path d="M680 568 C750 568 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5" stroke-dasharray="5 6"></path>
+</g>
+<g fill="#ffffff" stroke="#171717" stroke-width="1.5"><circle cx="320" cy="410" r="4"></circle></g>
+</svg>
+<div class="prog" style="left: 440px; top: 22px" role="status" aria-label="Postęp analizy: krok 4 z 6">
+<span class="s d"><i></i>Przechwycenie</span><span class="s d"><i></i>Ślady</span><span class="s d"><i></i>Treść</span><span class="s r"><i></i>Rejestr domen</span><span class="s"><i></i>Porównanie</span><span class="s"><i></i>Werdykt</span><span class="mono xs dim">11,2 s</span>
+</div>
+<article class="bc" style="left: 40px; top: 250px; width: 280px; height: 320px; padding: 16px; display: flex; flex-direction: column; gap: 10px" aria-label="Nowy materiał INC-24817">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="eb">Nowy materiał</span><span class="mono xs dim">teraz</span></div>
+<div class="ph-img" style="height: 138px">zrzut reklamy<br>Puzzle Mania PL</div>
+<h2 style="font: 600 22px/1 Geist, sans-serif; letter-spacing: -0.03em">INC-24817</h2>
+<p class="mono sm">morvanta.click · Ad Library</p>
+<p class="sm muted">„Nie uwierzysz, co wydarzyło się wczoraj wieczorem…”</p>
+</article>
+<div class="bc ev2 t-tracking" style="left: 440px; top: 90px"><span class="tp"><span><i></i>Tracking</span></span><span class="vl">bramka CAPI cg-7f3a…</span><span class="rr">47 z 1 284 ma ten ślad</span></div>
+<div class="bc ev2 t-kit" style="left: 440px; top: 200px"><span class="tp"><span><i></i>Kit</span></span><span class="vl">/api/v2/relay/lead/{uuid}/</span><span class="rr">58 z 1 284 ma ten ślad</span></div>
+<div class="bc ev2 t-content" style="left: 440px; top: 310px"><span class="tp"><span><i></i>Treść</span></span><span class="vl">„PILNE: {PER} przerywa…”</span><span class="rr">22 z 1 284 ma ten ślad</span></div>
+<div class="gh" style="left: 440px; top: 420px; width: 240px; height: 76px; place-items: stretch; text-align: left; padding: 10px 14px"><span style="display: flex; flex-direction: column; justify-content: center; gap: 4px"><span class="row eb" style="gap: 8px"><span class="spin"></span>Infra</span><span class="mono xs muted">pytam RDAP i crt.sh…</span></span></div>
+<div class="bc ev2 t-persons" style="left: 440px; top: 530px"><span class="tp"><span><i></i>Osoby</span></span><span class="vl">Jan Kowalski · twarz 0.91</span><span class="rr">61 z 1 284 ma ten ślad</span></div>
+<article class="gh" style="left: 820px; top: 230px; width: 320px; height: 360px; place-items: stretch; text-align: left; padding: 20px; background: rgba(255,255,255,.85)" aria-label="Kandydaci">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="row between"><span class="eb">Kandydaci</span><span class="spin"></span></div>
+<p class="sm muted">312 materiałów ma te ślady. Należą do 9 kampanii, oceniam 3 najbliższe.</p>
+<div>
+<div class="cr"><b style="font-weight: 600">KMP-017 «Zamach»</b><div class="bar"><i style="width: 82%"></i></div><span class="mono xs dim">0.9…</span></div>
+<div class="cr"><span>KMP-034 «Glikonor»</span><div class="bar"><i class="mut" style="width: 44%"></i></div><span class="mono xs dim">0.4…</span></div>
+<div class="cr"><span>KMP-022 «Stawy»</span><div class="bar"><i class="mut" style="width: 12%"></i></div><span class="mono xs dim">0.1…</span></div>
+</div>
+<p class="xs dim mono">wstępnie · werdykt po kroku „Rejestr domen”</p>
+</div>
+</article>
+<div class="bub tt" style="left: 40px; top: 600px; width: 300px">
+<div class="who"><span class="av"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></span>Agent Smith</div>
+RDAP nie odpowiada. Ponawiam. Jeśli dalej nic, policzę werdykt bez tej warstwy i to zaznaczę.
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{true}}">
+<svg width="1360" height="880" viewBox="0 0 1360 880" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke-linecap="round">
+<path d="M320 410 C380 410 380 128 440 128" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 238 440 238" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 348 440 348" stroke="#171717" stroke-width="1.75"></path>
+<path d="M320 410 C380 410 380 458 440 458" stroke="#a3a3a3" stroke-width="1.5"></path>
+<path d="M320 410 C380 410 380 568 440 568" stroke="#a3a3a3" stroke-width="1.5"></path>
+<path d="M680 128 C750 128 750 410 820 410" stroke="#171717" stroke-width="1.75"></path>
+<path d="M680 238 C750 238 750 410 820 410" stroke="#171717" stroke-width="1.75"></path>
+<path d="M680 348 C750 348 750 410 820 410" stroke="#171717" stroke-width="1.75"></path>
+<path d="M680 458 C750 458 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5"></path>
+<path d="M680 568 C750 568 750 410 820 410" stroke="#a3a3a3" stroke-width="1.5"></path>
+<path d="M980 590 L980 696" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="6 6"></path>
+</g>
+<g fill="#ffffff" stroke="#171717" stroke-width="1.5"><circle cx="320" cy="410" r="4"></circle><circle cx="820" cy="410" r="4"></circle></g>
+</svg>
+<article class="bc" style="left: 40px; top: 250px; width: 280px; height: 320px; padding: 16px; display: flex; flex-direction: column; gap: 10px" aria-label="Nowy materiał INC-24817">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="eb">Nowy materiał</span><span class="mono xs dim">02:31</span></div>
+<div class="ph-img" style="height: 138px">zrzut reklamy<br>Puzzle Mania PL</div>
+<h2 style="font: 600 22px/1 Geist, sans-serif; letter-spacing: -0.03em">INC-24817</h2>
+<p class="mono sm">morvanta.click · Ad Library</p>
+<p class="sm muted">„Nie uwierzysz, co wydarzyło się wczoraj wieczorem…”</p>
+</article>
+<div class="bc ev2 t-tracking" style="left: 440px; top: 90px"><span class="tp"><span><i></i>Tracking</span><b>+3.1</b></span><span class="vl">bramka CAPI cg-7f3a…</span><span class="rr">47 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2 t-kit" style="left: 440px; top: 200px"><span class="tp"><span><i></i>Kit</span><b>+2.7</b></span><span class="vl">/api/v2/relay/lead/{uuid}/</span><span class="rr">58 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2 t-content" style="left: 440px; top: 310px"><span class="tp"><span><i></i>Treść</span><b>+2.2</b></span><span class="vl">„PILNE: {PER} przerywa…”</span><span class="rr">22 z 1 284 · siła wysoka</span></div>
+<div class="bc ev2 t-infra" style="left: 440px; top: 420px"><span class="tp"><span><i></i>Infra</span><b>+1.4</b></span><span class="vl">partia certów LE R11, noc</span><span class="rr">6 z 1 284 · siła średnia</span></div>
+<div class="bc ev2 t-persons" style="left: 440px; top: 530px"><span class="tp"><span><i></i>Osoby</span><b>+0.8</b></span><span class="vl">Jan Kowalski · twarz 0.91</span><span class="rr">61 z 1 284 · siła średnia</span></div>
+<div class="bc" style="left: 440px; top: 640px; width: 240px; height: 60px; padding: 10px 14px; box-shadow: none; border-style: dashed; background: #fafafa; display: flex; flex-direction: column; justify-content: center; gap: 3px"><span class="mono xs" style="text-decoration: line-through; color: #737373">Cloudflare 203.0.113.0/24</span><span class="mono xs dim">waga 0 · wspólne dla 512 spraw</span></div>
+<article class="bc" style="left: 820px; top: 230px; width: 320px; height: 360px; background: #0a0a0a; border-color: #0a0a0a; color: #fafafa; padding: 20px; display: flex; flex-direction: column; gap: 14px" aria-label="Kampania KMP-017">
+<div style="display: flex; justify-content: space-between; align-items: center"><span style="font: 500 11px/1 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #a3a3a3">Kampania · L2</span><span style="font: 12px 'Geist Mono', monospace; color: #d4d4d4">46 spraw</span></div>
+<h2 style="font: 600 34px/1 Geist, sans-serif; letter-spacing: -0.045em">KMP-017<br>«Zamach»</h2>
+<p style="font-size: 14px; line-height: 1.5; color: #d4d4d4">Fałszywy portal «Kurier Dnia», potem „platforma inwestycyjna”. 19 domen, 3 nowe certyfikaty dziś w nocy.</p>
+<div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 3px; height: 40px"><i style="display: block; width: 6px; height: 38px; border-radius: 2px; background: #38bdf8"></i><i style="display: block; width: 6px; height: 34px; border-radius: 2px; background: #38bdf8"></i><i style="display: block; width: 6px; height: 40px; border-radius: 2px; background: #a78bfa"></i><i style="display: block; width: 6px; height: 36px; border-radius: 2px; background: #a78bfa"></i><i style="display: block; width: 6px; height: 26px; border-radius: 2px; background: #a78bfa"></i><i style="display: block; width: 6px; height: 40px; border-radius: 2px; background: #fbbf24"></i><i style="display: block; width: 6px; height: 30px; border-radius: 2px; background: #fbbf24"></i><i style="display: block; width: 6px; height: 18px; border-radius: 2px; background: #fbbf24"></i><i style="display: block; width: 6px; height: 32px; border-radius: 2px; background: #f472b6"></i><i style="display: block; width: 6px; height: 26px; border-radius: 2px; background: #f472b6"></i><i style="display: block; width: 6px; height: 22px; border-radius: 2px; background: #fb923c"></i><i style="display: block; width: 6px; height: 10px; border-radius: 2px; background: #fb923c"></i></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto"><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 999px; background: #262626; font: 500 12px Geist, sans-serif">OP-03 «Kestrel»</span><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 999px; background: #262626; font: 500 12px Geist, sans-serif">5/19 na liście CERT PL</span></div>
+</article>
+<span style="position: absolute; left: 994px; top: 630px; display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: #f5f3ff; border: 1px solid #ddd6fe; color: #6d28d9; font: 500 12px Geist, sans-serif">ten sam operator OP-03</span>
+<article class="bc" style="left: 850px; top: 700px; width: 260px; height: 120px; padding: 14px 16px; border-style: dashed; box-shadow: none; display: flex; flex-direction: column; gap: 6px" aria-label="Drugi kandydat KMP-034">
+<div style="display: flex; justify-content: space-between"><span class="eb">Drugi kandydat</span><b class="mono">0.41</b></div>
+<h3 style="font: 600 19px/1.1 Geist, sans-serif; letter-spacing: -0.03em">KMP-034 «Glikonor»</h3>
+<p class="sm muted">ten sam kit, inna treść i osoby</p>
+</article>
+<div class="bub note tb" style="left: 1060px; top: 96px; width: 210px">
+<div class="who"><span class="av"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"></path></svg></span>Notatka · 08:52</div>
+Sprawdzić 3 certyfikaty z nocy. plessuro.live nie ma jeszcze reklam.
+</div>
+<div class="bub tl" style="left: 1130px; top: 700px; width: 210px"><b style="font-weight: 600">Dlaczego nie KMP-034?</b> Ten sam kit to ten sam operator, nie ta sama kampania. Inna treść i osoby, p = 0.41.</div>
+<div class="bub tt" style="left: 40px; top: 600px; width: 300px">
+<div class="who"><span class="av"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10.5 10.5m-6.5 0a6.5 6.5 0 1 0 13 0a6.5 6.5 0 1 0-13 0M15.5 15.5L21 21"></path></svg></span>Agent Smith</div>
+Z tej samej nocnej partii certyfikatów są jeszcze 2 domeny. Rozwinąć je na tablicy?
+<div style="display: flex; gap: 6px; margin-top: 10px"><a class="btn btn-sm btn-p" href="ZB-Sledztwo.dc.html">Rozwiń</a><button class="btn btn-sm btn-gh" type="button">Później</button></div>
+</div>
+<div style="position: absolute; left: 24px; top: 820px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 8px 12px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; font: 12px Geist, sans-serif; color: #525252">
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 2px; background: #171717"></span>siła wysoka</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 2px; background: #a3a3a3"></span>średnia</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 0; border-top: 2px dashed #6d28d9"></span>ten sam operator</span>
+</div>
+</sc-if>
+
+<div style="position: absolute; left: 1306px; top: 20px; display: flex; flex-direction: column; gap: 4px; padding: 4px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,.05)">
+<button class="btn btn-gh btn-i" type="button" aria-label="Przybliż" style="width: 32px; height: 32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+<button class="btn btn-gh btn-i" type="button" aria-label="Oddal" style="width: 32px; height: 32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+</div>
+
+</div>
+</div>
+
+<sc-if value="{{isStart}}" hint-placeholder-val="{{false}}">
+<section class="dock" aria-label="Werdykt" style="border-style: dashed; box-shadow: none; background: #fafafa; justify-content: center">
+<span class="sm dim">Tu pojawi się werdykt, zwykle po około 20 sekundach</span>
+</section>
+</sc-if>
+
+<sc-if value="{{isRun}}" hint-placeholder-val="{{false}}">
+<section class="dock" aria-label="Postęp">
+<span class="spin" style="width: 28px; height: 28px; border-width: 3px"></span>
+<div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 320px; min-width: 0">
+<span style="font: 500 12px/1 'Geist Mono', monospace; letter-spacing: .06em; text-transform: uppercase; color: #1d4ed8">Analiza w toku · krok 4 z 6</span>
+<div class="bar lg"><i class="cy" style="width: 56%"></i></div>
+<span class="mono xs dim">11,2 s z ok. 20 s · dowody pojawiają się na tablicy na bieżąco</span>
+</div>
+<button class="btn btn-lg" type="button">Anuluj</button>
+</section>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{true}}">
+<section class="dock" aria-label="Werdykt">
+<div class="ring" style="--p: 94; width: 64px; height: 64px"><span>0.94</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 320px; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1 'Geist Mono', monospace; letter-spacing: .06em; text-transform: uppercase; color: #15803d"><span class="dot"></span>Dołącza do kampanii</span>
+<h1 style="font: 600 26px/1.1 Geist, sans-serif; letter-spacing: -0.035em; margin: 0">KMP-017 «Zamach»</h1>
+<p class="mono xs dim">zbiór konformalny {KMP-017} · α 0.05 · 19,6 s · 5 dowodów, 1 wyzerowany</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 160px">
+<span class="xs dim">pokrycie 6 z 8 warstw</span>
+<div class="cov" role="img" aria-label="Pokrycie 6 z 8 warstw: infra częściowo, media brak"><i class="t-tracking"></i><i class="t-kit"></i><i class="t-infra part"></i><i class="t-content"></i><i class="t-persons"></i><i class="t-visual"></i><i class="t-ad"></i><i class="miss"></i></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<a class="btn btn-p btn-lg" href="Z-S10-Act.dc.html">Pakiet DSA dla kampanii</a>
+<a class="btn btn-lg" href="ZB-Sledztwo.dc.html">Śledź z agentem</a>
+<button class="btn btn-lg btn-gh" type="button">To błąd</button>
+</div>
+</section>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"etap":{"editor":"enum","options":["start","analiza","werdykt"],"default":"werdykt","section":"Przepływ"},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const e = this.props.etap ?? 'werdykt';
+    return { isStart: e === 'start', isRun: e === 'analiza', isDone: e === 'werdykt' };
+  }
+}
+</script>
+</body>
+</html>
