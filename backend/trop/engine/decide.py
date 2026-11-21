@@ -57,7 +57,8 @@ def has_content(inc: dict) -> bool:
 def has_ad(inc: dict) -> bool:
     ad = inc.get("ad") or {}
     return bool(ad.get("advertiser") or ad.get("text") or ad.get("library_id") or ad.get("creative_phash")
-                or (inc.get("media") or {}).get("faces"))
+                or (inc.get("media") or {}).get("faces") or (inc.get("media") or {}).get("asr_text")
+                or ((inc.get("media") or {}).get("video") or {}).get("gemini"))
 
 
 def layer_coverage(inc: dict) -> tuple[list[LayerCoverage], float]:
@@ -197,7 +198,7 @@ def decide(q: dict, corpus, *, tau: float = TAU, delta: float = DELTA) -> tuple[
         same_operator_as=same_op_as, duplicate_of=dup, scores=scores, runner_up=runner, coverage=coverage,
         layers=layers, evidence=ev_items[:40], why_not=why_not, model_version=calibration.MODEL_VERSION,
     )
-    return d, {"rows": rows, "df": df, "n": n, "per_campaign": per_c, "best_row": best_row}
+    return d, {"rows": rows, "df": df, "n": n, "per_campaign": per_c, "best_row": best_row, "query": q}
 
 
 def why_not_bullets(q, cid, sc, rows, corpus, df, n, tau, delta, top) -> list[str]:

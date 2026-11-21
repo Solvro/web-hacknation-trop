@@ -28,6 +28,7 @@ LABEL = {   # short Polish display prefixes for chips
     "entry_url": "Ten sam URL wejścia", "path_shape": "Kształt ścieżki", "chain_etld1": "Domena lejka",
     "advertiser": "Reklamodawca", "ad_text": "Tekst reklamy", "creative_phash": "Kreacja (pHash)", "ad_persons": "Osoby w reklamie",
     "text_emb": "Podobieństwo tekstu", "shot_emb": "Podobieństwo zrzutu", "face_identity": "Twarz",
+    "media_text": "Tekst wideo / transkrypcja", "voice_id": "Ten sam głos (lektor)",
     "kit_tenant_conflict": "Różny tenant kitu", "lang_conflict": "Różny język", "vertical_conflict": "Różna branża",
 }
 
@@ -81,7 +82,7 @@ MATERIAL = {   # step -> engine feature types read from incident['_v'] after evi
     "tracking": ["fb_pixel", "capi_gateway", "google_ads", "ga4", "gtm", "tiktok_pixel", "kit_tenant", "lander_id",
                  "landing_type_id", "video_host", "path_shape", "entry_url", "url_param_schema", "asset_hash", "kit_endpoints"],
     "content": ["headline_template", "persons", "comment_names", "brands", "products", "advertiser", "ad_text",
-                "face_identity"],
+                "face_identity", "voice_id"],
     "infra": ["etld1", "chain_etld1", "ns_pair"],
 }
 COUNT_ONLY = {"asset_hash", "kit_endpoints", "comment_names"}

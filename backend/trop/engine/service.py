@@ -37,7 +37,8 @@ def findings_for(decision: Decision) -> list[Finding]:
     return [Finding(evidence=e, where=where.get(e.type)) for e in decision.evidence if e.state == "match"][:20]
 
 
-def analyze_incident(inc, corpus: Corpus | None = None, *, emit=None, steps: Steps | None = None) -> tuple[Decision, list[Finding]]:
+def analyze_incident(inc, corpus: Corpus | None = None, *, emit=None, steps: Steps | None = None,
+                     adjudicate: bool = True) -> tuple[Decision, list[Finding]]:
     """Steps compare (archiwista) + verdict (sedzia) for an already extracted incident."""
     corpus = corpus or Corpus.load()
     q = copy.deepcopy(_as_dict(inc))
@@ -53,8 +54,16 @@ def analyze_incident(inc, corpus: Corpus | None = None, *, emit=None, steps: Ste
             st.evidence("compare", it)
     st.done("compare", detail=f"{len(corpus.incidents)} znanych incydentów · najlepszy wynik {d.score:.1f}")
     st.start("verdict")
+    note = ""
+    if adjudicate and d.decision == "confirm":
+        from . import adjudicate as _adj
+        before = d.decision
+        note = _adj.apply(d, ctx, corpus)
+        assert d.decision == before and d.campaign_id is None        # veto/annotate only, never a link
     findings = findings_for(d)
-    st.done("verdict", detail=_verdict_line(d, corpus), status="done" if d.decision in ("assign", "new") else "warn")
+    detail = _verdict_line(d, corpus) + (f" · {note}" if note else "")
+    st.done("verdict", detail=detail, status="done" if d.decision in ("assign", "new") else "warn",
+            warnings=[note] if note and d.adjudicator is None else [])
     st.emit("job.done", {"incident_id": d.incident_id, "decision": d.model_dump(mode="json")})
     return d, findings
 
