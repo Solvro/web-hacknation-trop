@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { Campaign, Decision, EvidenceItem, GraphPayload, IncidentSummary, JobStep } from '@/lib/contracts';
-import { prettyEv, BOT_BY_KEY, BOT_BY_STEP, LAYER_LABEL, botColor, botName, evidenceMeta, evidenceSentence, n, p2, secs, w1 } from '@/lib/copy';
+import { isPolish, prettyEv, BOT_BY_KEY, BOT_BY_STEP, LAYER_LABEL, botColor, botName, evidenceMeta, evidenceSentence, n, p2, secs, w1 } from '@/lib/copy';
 import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle, focusIdOf as fid } from '@/lib/graph';
 import { Bot } from '../jelly';
@@ -15,7 +15,7 @@ export function storyOf(c?: Campaign | null): { h1: string; p: string } {
   const d = c?.description ?? '';
   if (d.includes('\n')) { const [h1, ...rest] = d.split('\n'); return { h1, p: rest.join(' ') }; }
   // real mode: Polish descriptive name, English engine narrative → headline from the name, no English lead
-  const pl = (t: string) => /[ąćęłńóśźż]|\b(i|w|z|na|do|się|nie|przez)\b/i.test(t);
+  const pl = (t: string) => isPolish(t);
   const narrative = (c?.narrative ?? '').replace(/\.$/, '');
   if (narrative && pl(narrative)) return { h1: narrative, p: d && d !== c?.narrative && pl(d) ? d : '' };
   return { h1: c?.name ?? narrative, p: d && pl(d) && d !== c?.name ? d : '' };

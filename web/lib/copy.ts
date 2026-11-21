@@ -111,7 +111,8 @@ export function prettyDisplay(s: string | null | undefined): string {
 }
 export const prettyEv = <T extends { display: string }>(e: T): T => ({ ...e, display: prettyDisplay(e.display) });
 /** Real-mode engine narratives are English; the UI only shows Polish copy. */
-export const isPolish = (t?: string | null) => !!t && /[ąćęłńóśźż]|\b(i|w|z|na|do|się|nie|przez|oraz|dla)\b/i.test(t);
+const EN = /\b(the|via|and|of|for|with|investment|cure|fake|interview|pain|loss|story|offer|doctor|platform|news|vs)\b/i;
+export const isPolish = (t?: string | null) => !!t && !EN.test(t) && /[ąćęłńóśźż]|\b(i|w|z|na|do|się|nie|przez|oraz|dla)\b/i.test(t);
 export const plOnly = (t?: string | null) => (isPolish(t) ? t! : '');
 export const BOT_FOR_LAYER: Record<string, BotName> = { tracking: 'tropiciel', kit: 'tropiciel', content: 'czytelnik', persons: 'czytelnik', infra: 'notariusz', visual: 'zwiadowca', ad: 'zwiadowca', media: 'czytelnik' };
 export const plural = (k: number, one: string, few: string, many: string) => `${n(k)} ${k === 1 ? one : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? few : many}`;

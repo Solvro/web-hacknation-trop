@@ -6,7 +6,7 @@ import { useState } from 'react';
 import type { TraceData } from '@/lib/contracts';
 import { useApi } from '@/lib/api';
 import { fmtDate, n } from '@/lib/copy';
-import { campaignTitle } from '@/lib/graph';
+import { campaignTitle, personName } from '@/lib/graph';
 import { JellyRoot } from '@/components/jelly';
 import { CheckField } from '@/components/check-field';
 import { Bars, Card, Empty, Loading } from '@/components/ui';
@@ -40,7 +40,7 @@ export default function SladPage() {
           <>
             <section className="flex flex-col gap-2.5">
               <span className="pill bg-bg3 text-tx1 self-start">Ślad · {TYPE_LABEL[t.type] ?? TYPE_LABEL[type] ?? type}</span>
-              <h1 className="text-[34px] sm:text-[42px] font-semibold tracking-[-0.04em] leading-[1.05] break-words">{t.title ?? t.value}</h1>
+              <h1 className="text-[34px] sm:text-[42px] font-semibold tracking-[-0.04em] leading-[1.05] break-words">{t.title ?? (t.type === 'person' || t.type === 'osoba' ? personName(t.value) : t.value)}</h1>
               {t.description && <p className="max-w-[720px] text-[17px] text-tx2">{t.description}</p>}
               <span className="font-mono text-[12.5px] text-tx4">{n(total)} materiałów · {nCamp} {nCamp === 1 ? 'kampania' : 'kampanie'}{t.latest?.[0]?.captured_at ? ` · ostatni ${fmtDate(t.latest[0].captured_at)}` : ''}</span>
             </section>
@@ -71,16 +71,15 @@ export default function SladPage() {
                 </Card>
               </div>
               <div className="flex flex-col gap-6">
-                <Card title="Jak go wykorzystują">
+                {(t.usage?.length ?? 0) > 0 && <Card title="Jak go wykorzystują">
                   {usageNote && <div className="flex gap-3 pb-3"><span className="ph-img w-16 h-16 flex-none">twarz</span><p className="text-[13.5px] text-tx2">{usageNote.label}</p></div>}
                   <div className="flex flex-wrap gap-2">{usagePills.map((u) => <span key={u.label} className="chip !cursor-default">{u.label}</span>)}</div>
-                  {!t.usage?.length && <Empty>Brak opisu.</Empty>}
-                </Card>
+                </Card>}
                 <Card title="Często razem z">
                   <div className="flex flex-wrap gap-2">
                     {(t.co_traces ?? []).map((c) => {
                       const tp = c.type === 'osoba' || c.type === 'person' ? 'osoba' : c.type === 'domena' ? 'domena' : null;
-                      const body = <>{c.label ?? c.value} <span className="text-[11px] text-tx4">{c.type}</span></>;
+                      const body = <><span className="break-all">{c.label ?? c.value}</span> <span className="text-[11px] text-tx4">{c.type}</span></>;
                       return tp ? <Link key={c.value} href={`/slad/${tp}/${encodeURIComponent(c.value)}`} className="chip">{body}</Link> : <span key={c.value} className="chip !cursor-default">{body}</span>;
                     })}
                   </div>

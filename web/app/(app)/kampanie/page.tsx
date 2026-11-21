@@ -77,12 +77,12 @@ function Kampanie() {
         <section aria-label="Oracle" className="rounded-[22px] border border-[#E9E3FF] bg-[#FAF8FF] p-5 flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill bg-white border border-[#DDD3FF] text-state-violet">Oracle · dziś w nocy</span>
-            <b className="text-[16px] font-semibold">{predicted.length} nowe domeny pasują do znanych kampanii, zanim pojawiła się reklama</b>
+            <b className="text-[16px] font-semibold">{predicted.length} nowe domeny pasują do znanych kampanii lub ich zestawów, zanim pojawiła się reklama</b>
           </div>
           <div className="flex flex-wrap gap-2">
             {predicted.map((o) => (
               <Link key={o.domain} href={`/slad/domena/${o.domain}`} className="inline-flex items-center gap-2 h-10 px-3 rounded-xl border border-line1 bg-white font-mono text-[13px] hover:border-line3">
-                {o.domain} <span className="text-tx4">→</span> <b className="text-state-violet font-semibold">{o.campaign_id} · {p2(o.dna_score)}</b>
+                {o.domain} <span className="text-tx4">→</span> <b className="text-state-violet font-semibold">{all.some((c) => c.id === o.campaign_id) ? o.campaign_id : `rodzina ${o.campaign_id ?? '?'}`} · {p2(o.dna_score)}</b>
               </Link>
             ))}
           </div>

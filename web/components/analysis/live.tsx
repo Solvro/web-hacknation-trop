@@ -77,15 +77,16 @@ export function CapturedPage({ url, headline, evidence, capturing, failed, captu
   );
   const trk = evidence.find((e) => e.type === 'tracking');
   const cert = evidence.find((e) => e.type === 'infra' && e.state !== 'zero');
-  const host = url.replace(/^https?:\/\//, '');
+  const isUrl = /^https?:\/\//i.test(url) || /^[\w.-]+\.[a-z]{2,}(\/|$)/i.test(url);
+  const host = isUrl ? url.replace(/^https?:\/\//, '') : '';
   const brand = evidence.find((e) => e.field === 'brands' || e.field === 'brand')?.value;
-  const masthead = (brand || host.split('/')[0] || 'strona').toUpperCase();
+  const masthead = (brand || host.split('/')[0] || 'przechwycona strona').toUpperCase();
   const kit = evidence.find((e) => e.type === 'kit');
   return (
     <div className="relative h-[560px] border border-line1 rounded-[18px] overflow-hidden bg-bg1">
       <div className="h-[30px] flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
         {[0, 1, 2].map((i) => <i key={i} className="w-[7px] h-[7px] rounded-full bg-line2" />)}
-        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host}</span>
+        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host || url}</span>
       </div>
       <div className="pt-4 px-3.5 flex flex-col gap-3">
         <div className="flex justify-between items-center border-b-2 border-tx1 pb-1.5">
@@ -112,7 +113,7 @@ export function CapturedPage({ url, headline, evidence, capturing, failed, captu
       </div>
       <div className="absolute inset-x-0 bottom-0 px-3 py-2.5 bg-bg2 border-t border-bg4 flex flex-col gap-1.5 font-mono text-[10.5px] leading-tight text-tx2">
         <span className="font-sans font-semibold text-[11px] text-tx1 truncate">Sieć{captureNote ? ` · ${captureNote.split('\n')[0]}` : capturing ? ' · zbieram…' : ''}</span>
-        <span className="truncate">GET {host.split('/')[0]}/{failed ? ' · brak odpowiedzi' : ''}</span>
+        {host && <span className="truncate">GET {host.split('/')[0]}/{failed ? ' · brak odpowiedzi' : ''}</span>}
         <span className="hl px-1 py-0.5" style={box('tracking')}><span className="block truncate">{trk ? trk.display : 'piksele i bramki konwersji'}</span>{tag('tracking', 'Tracking', '!-top-[9px]')}</span>
         <span className="hl px-1 py-0.5" style={box('infra')}><span className="block truncate">{cert ? cert.display : 'domena i certyfikat'}</span>{tag('infra', 'Infra', '!-top-[9px]')}</span>
       </div>

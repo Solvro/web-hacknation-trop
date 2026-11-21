@@ -90,7 +90,7 @@ export default function ZgloszeniePage() {
         <ReportHeader
           title="Zgłoś całą kampanię naraz"
           lead={`Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami i dowodami, zamiast ${n(cnt.ads ?? c.n_incidents)} osobnych.`}
-          meta={`${c.id} ${campaignTitle(c)} · ${n(cnt.ads ?? 0)} reklam · ${n(cnt.domains ?? 0)} domen · ${n(cnt.advertisers ?? 0)} reklamodawców`}
+          meta={`${campaignTitle(c).length <= 28 ? `${c.id} ${campaignTitle(c)}` : c.id} · ${n(cnt.ads ?? 0)} reklam · ${n(cnt.domains ?? 0)} domen · ${n(cnt.advertisers ?? 0)} reklamodawców`}
           primary={<button type="button" className="btn-pri" disabled={!nRec} onClick={() => { setConfirm(false); dlg.current?.showModal(); }}>Wyślij {nRec} {nRec === 1 ? 'zgłoszenie' : 'zgłoszenia'}<IArrow /></button>}
           secondary={<span className="text-[12.5px] text-tx3 max-w-[300px] sm:text-right">Demo: pakiet zostanie przygotowany i wyeksportowany, nic nie wyjdzie na zewnątrz.</span>}
         />
