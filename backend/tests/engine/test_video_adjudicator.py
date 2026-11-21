@@ -65,10 +65,29 @@ def test_adjudicator_never_links(monkeypatch, verdict, conf):
     d, ctx, corpus = _confirm_setup()
     if d.decision != "confirm":
         pytest.skip(f"fixture not in the confirm band ({d.decision}, {d.score})")
+    cand = d.candidate_campaign_id
     adjudicate.apply(d, ctx, corpus)
-    assert d.decision == "confirm" and d.campaign_id is None
+    assert d.campaign_id is None and d.candidate_campaign_id == cand
     assert d.adjudicator is not None and d.adjudicator.verdict == verdict
-    assert d.why_not[0].bullets[0].startswith("Sędzia (LLM)")
+    if verdict == "same":                       # never promotes to a link
+        assert d.decision == "confirm" and d.why_not[0].bullets[0].startswith("Sędzia (LLM)")
+    else:                                       # a veto removes the candidate link: confirm -> new
+        assert d.decision == "new" and d.why_not[0].bullets[0].startswith("Sędzia odrzucił:")
+
+
+@pytest.mark.parametrize("verdict,conf,final", [("different", 0.6, "new"), ("different", 0.25, "confirm"),
+                                                ("unsure", 0.9, "confirm")])
+def test_adjudicator_different_threshold(monkeypatch, verdict, conf, final):
+    import sys
+    import types
+    from trop.engine import adjudicate
+    fake = types.ModuleType("trop.media.adjudicator")
+    fake.adjudicate = lambda dossier: Adjudication(model="fake", verdict=verdict, confidence=conf, rationale=["x"])
+    monkeypatch.setitem(sys.modules, "trop.media.adjudicator", fake)
+    d, ctx, corpus = _confirm_setup()
+    assert d.decision == "confirm"
+    adjudicate.apply(d, ctx, corpus)
+    assert d.decision == final and d.campaign_id is None
 
 
 def test_adjudicator_unavailable_is_silent(monkeypatch):
