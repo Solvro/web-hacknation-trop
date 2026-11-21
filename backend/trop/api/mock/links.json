@@ -1,0 +1,509 @@
+{
+ "model": "dict",
+ "data": {
+  "explain_kmp017": {
+   "a": "INC-24817",
+   "b": "KMP-017",
+   "score_campaign": 11.4,
+   "score_operator": 11.4,
+   "p": 0.94,
+   "tau": 5.0,
+   "delta": 1.0,
+   "decision": "linked",
+   "shared_level": "L2",
+   "operator_id": "OP-03",
+   "layers_independent": 5,
+   "layers_required": 2,
+   "coverage": 0.78,
+   "summary": "Dołącza do KMP-017: 5 niezależnych warstw zgodnych, p = 0.94.",
+   "contributions": [
+    {
+     "layer": "tracking",
+     "value": 3.1
+    },
+    {
+     "layer": "kit",
+     "value": 2.7
+    },
+    {
+     "layer": "content",
+     "value": 2.2
+    },
+    {
+     "layer": "infra",
+     "value": 1.4
+    },
+    {
+     "layer": "visual",
+     "value": 0.9
+    },
+    {
+     "layer": "persons",
+     "value": 0.8
+    },
+    {
+     "layer": "ad",
+     "value": 0.3
+    }
+   ],
+   "evidence": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "content",
+     "field": "headline_template",
+     "value": "PILNE: {PER} przerywa milczenie po napaści…",
+     "display": "szablon „PILNE: {PER}…”",
+     "strength": "H",
+     "weight": 2.2,
+     "level": "campaign",
+     "df": 22,
+     "N": 1284,
+     "idf": 4.07,
+     "state": "match",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "cert_batch",
+     "value": "LE-R11 2026-11-21T00:47Z..02:31Z",
+     "display": "cert batch LE R11 00:47–02:31",
+     "strength": "M",
+     "weight": 1.4,
+     "level": "campaign",
+     "df": 6,
+     "N": 1284,
+     "idf": 5.37,
+     "state": "match",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    },
+    {
+     "type": "visual",
+     "field": "landing_phash",
+     "value": "d4:phash<=4",
+     "display": "landing pHash Δ4",
+     "strength": "M",
+     "weight": 0.9,
+     "level": "campaign",
+     "df": 9,
+     "N": 1284,
+     "idf": 4.96,
+     "state": "match",
+     "sides": null,
+     "bot": "zwiadowca",
+     "shap": null
+    },
+    {
+     "type": "persons",
+     "field": "face_identity",
+     "value": "Jan Kowalski",
+     "display": "Jan Kowalski (twarz 0.91 + NER)",
+     "strength": "M",
+     "weight": 0.8,
+     "level": "campaign",
+     "df": 61,
+     "N": 1284,
+     "idf": 3.05,
+     "state": "match",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "ad",
+     "field": "creative_decoy",
+     "value": "decoy:landscape/animal",
+     "display": "kreacja-wabik (krajobraz/zwierzę)",
+     "strength": "L",
+     "weight": 0.3,
+     "level": "campaign",
+     "df": 140,
+     "N": 1284,
+     "idf": 2.22,
+     "state": "match",
+     "sides": null,
+     "bot": "zwiadowca",
+     "shap": null
+    }
+   ],
+   "missing": [
+    {
+     "type": "media",
+     "field": "asr_text",
+     "value": "",
+     "display": "brak ścieżki audio (ASR)",
+     "strength": "M",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 0,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "infra",
+     "field": "rdap_registrar",
+     "value": "",
+     "display": "RDAP — timeout (częściowe)",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 0,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "conflicts": [],
+   "zeroed": [
+    {
+     "type": "infra",
+     "field": "ip_range",
+     "value": "203.0.113.0/24",
+     "display": "Cloudflare 203.0.113.0/24",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 512,
+     "N": 1284,
+     "idf": 0.92,
+     "state": "zero",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "counterfactuals": [
+    {
+     "change": "bez dowodu CAPI",
+     "p_new": 0.81,
+     "decision_new": "assign"
+    },
+    {
+     "change": "bez CAPI i relay kit",
+     "p_new": 0.52,
+     "decision_new": "confirm"
+    },
+    {
+     "change": "tylko warstwa infrastruktury",
+     "p_new": 0.12,
+     "decision_new": "new"
+    }
+   ],
+   "adjudicator": {
+    "model": "qwen/qwen3.8-27b",
+    "verdict": "same",
+    "confidence": 0.93,
+    "rationale": [
+     "Ta sama bramka CAPI",
+     "Ten sam szablon V2"
+    ]
+   }
+  },
+  "explain_kmp034": {
+   "a": "INC-24817",
+   "b": "KMP-034",
+   "score_campaign": 3.6,
+   "score_operator": 6.4,
+   "p": 0.41,
+   "tau": 5.0,
+   "delta": 1.0,
+   "decision": "not_linked",
+   "shared_level": "L3",
+   "operator_id": "OP-03",
+   "layers_independent": 2,
+   "layers_required": 2,
+   "coverage": 0.78,
+   "summary": "Ten sam operator (OP-03), ale inna kampania: wspólne tylko tracking i kit.",
+   "contributions": [
+    {
+     "layer": "tracking",
+     "value": 3.1
+    },
+    {
+     "layer": "kit",
+     "value": 2.7
+    }
+   ],
+   "evidence": [
+    {
+     "type": "tracking",
+     "field": "capi_gateway",
+     "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+     "display": "CAPI cg-7f3a…",
+     "strength": "H",
+     "weight": 3.1,
+     "level": "campaign",
+     "df": 47,
+     "N": 1284,
+     "idf": 3.31,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    },
+    {
+     "type": "kit",
+     "field": "kit_endpoint",
+     "value": "/api/v2/relay/lead/{uuid}/",
+     "display": "relay/lead template",
+     "strength": "H",
+     "weight": 2.7,
+     "level": "campaign",
+     "df": 58,
+     "N": 1284,
+     "idf": 3.1,
+     "state": "match",
+     "sides": null,
+     "bot": "tropiciel",
+     "shap": null
+    }
+   ],
+   "missing": [
+    {
+     "type": "media",
+     "field": "asr_text",
+     "value": "",
+     "display": "brak ścieżki audio (ASR)",
+     "strength": "M",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 0,
+     "N": 1284,
+     "idf": 7.16,
+     "state": "missing",
+     "sides": null,
+     "bot": "czytelnik",
+     "shap": null
+    }
+   ],
+   "conflicts": [
+    {
+     "type": "content",
+     "field": "headline_template",
+     "value": "PILNE: {PER} przerywa milczenie po napaści…",
+     "display": "szablon nagłówka",
+     "strength": "H",
+     "weight": -1.8,
+     "level": "campaign",
+     "df": 22,
+     "N": 1284,
+     "idf": 4.07,
+     "state": "conflict",
+     "sides": {
+      "a": "PILNE: {PER} przerywa milczenie po napaści…",
+      "b": "Glikonor — cud na cukrzycę"
+     },
+     "bot": "czytelnik",
+     "shap": null
+    },
+    {
+     "type": "persons",
+     "field": "face_identity",
+     "value": "Jan Kowalski",
+     "display": "persona",
+     "strength": "M",
+     "weight": -0.9,
+     "level": "campaign",
+     "df": 61,
+     "N": 1284,
+     "idf": 3.05,
+     "state": "conflict",
+     "sides": {
+      "a": "Jan Kowalski",
+      "b": "dr Piotr Wiśniewski"
+     },
+     "bot": "czytelnik",
+     "shap": null
+    }
+   ],
+   "zeroed": [
+    {
+     "type": "infra",
+     "field": "ip_range",
+     "value": "203.0.113.0/24",
+     "display": "Cloudflare 203.0.113.0/24",
+     "strength": "L",
+     "weight": 0.0,
+     "level": "campaign",
+     "df": 512,
+     "N": 1284,
+     "idf": 0.92,
+     "state": "zero",
+     "sides": null,
+     "bot": "notariusz",
+     "shap": null
+    }
+   ],
+   "counterfactuals": [
+    {
+     "change": "gdyby wspólna była persona",
+     "p_new": 0.77,
+     "decision_new": "confirm"
+    }
+   ],
+   "adjudicator": null
+  },
+  "diff": {
+   "text": {
+    "a_tokens": [
+     {
+      "t": "PILNE:",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "Jan Kowalski",
+      "kind": "slot",
+      "slot": "PER"
+     },
+     {
+      "t": "przerywa",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "milczenie",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "po",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "napaści",
+      "kind": "same",
+      "slot": null
+     }
+    ],
+    "b_tokens": [
+     {
+      "t": "PILNE:",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "Anna Nowak",
+      "kind": "slot",
+      "slot": "PER"
+     },
+     {
+      "t": "przerywa",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "milczenie",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "po",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "napaści",
+      "kind": "same",
+      "slot": null
+     },
+     {
+      "t": "w",
+      "kind": "ins",
+      "slot": null
+     },
+     {
+      "t": "Krakowie",
+      "kind": "ins",
+      "slot": "MIASTO"
+     }
+    ]
+   },
+   "dom": {
+    "matched": [
+     "div.article > h1",
+     "div.comments > ul.fake"
+    ],
+    "differing": [
+     "div.cta"
+    ]
+   },
+   "assets": [
+    {
+     "url": "https://morvanta.click/a/logo.svg",
+     "sha256": "9a1f…c0",
+     "same": true,
+     "third_party": false
+    },
+    {
+     "url": "https://cdn.example.test/lib.js",
+     "sha256": "77be…12",
+     "same": true,
+     "third_party": true
+    }
+   ],
+   "visual": {
+    "phash_distance": 4,
+    "regions": [
+     {
+      "x": 0.05,
+      "y": 0.1,
+      "w": 0.9,
+      "h": 0.12
+     }
+    ]
+   },
+   "metrics": {
+    "minhash": 0.91,
+    "dom_shingles": 0.88,
+    "phash_delta": 4,
+    "shared_assets": [
+     11,
+     14
+    ]
+   }
+  }
+ }
+}

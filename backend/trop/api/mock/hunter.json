@@ -1,0 +1,145 @@
+{
+ "model": "dict",
+ "data": {
+  "sources": [
+   {
+    "id": "SRC-meta",
+    "kind": "meta_adlibrary",
+    "label": "Meta Ad Library",
+    "schedule": "*/30 * * * *",
+    "status": "ok",
+    "last_run_at": "2026-11-21T08:30:00+01:00",
+    "new_24h": 37,
+    "errors_24h": 0,
+    "enabled": true,
+    "credentials_status": "set",
+    "config": {
+     "phrases": [
+      "przerywa milczenie",
+      "napaść",
+      "Glikonor"
+     ],
+     "persons": [
+      "Jan Kowalski",
+      "Anna Nowak"
+     ],
+     "country": "PL"
+    }
+   },
+   {
+    "id": "SRC-gads",
+    "kind": "google_ads_transparency",
+    "label": "Google Ads Transparency",
+    "schedule": "0 * * * *",
+    "status": "degraded",
+    "last_run_at": "2026-11-21T08:00:00+01:00",
+    "new_24h": 4,
+    "errors_24h": 2,
+    "enabled": true,
+    "credentials_status": "not_needed",
+    "config": {
+     "advertisers": [
+      "Ogród i Pasja 24"
+     ],
+     "country": "PL"
+    }
+   },
+   {
+    "id": "SRC-certpl",
+    "kind": "certpl",
+    "label": "Lista ostrzeżeń CERT PL",
+    "schedule": "0 */6 * * *",
+    "status": "ok",
+    "last_run_at": "2026-11-21T06:00:00+01:00",
+    "new_24h": 3,
+    "errors_24h": 0,
+    "enabled": true,
+    "credentials_status": "not_needed",
+    "config": {}
+   },
+   {
+    "id": "SRC-urlscan",
+    "kind": "urlscan",
+    "label": "urlscan.io",
+    "schedule": "*/15 * * * *",
+    "status": "ok",
+    "last_run_at": "2026-11-21T08:45:00+01:00",
+    "new_24h": 14,
+    "errors_24h": 0,
+    "enabled": true,
+    "credentials_status": "set",
+    "config": {
+     "phrases": [
+      "/api/v2/relay/lead/"
+     ]
+    }
+   },
+   {
+    "id": "SRC-ct",
+    "kind": "ct",
+    "label": "Strumień CT (certstream)",
+    "schedule": "live",
+    "status": "ok",
+    "last_run_at": "2026-11-21T08:50:00+01:00",
+    "new_24h": 5,
+    "errors_24h": 0,
+    "enabled": true,
+    "credentials_status": "not_needed",
+    "config": {}
+   },
+   {
+    "id": "SRC-ext",
+    "kind": "extension",
+    "label": "Wtyczka przeglądarkowa",
+    "schedule": "live",
+    "status": "ok",
+    "last_run_at": "2026-11-21T08:41:00+01:00",
+    "new_24h": 2,
+    "errors_24h": 0,
+    "enabled": true,
+    "credentials_status": "not_needed",
+    "config": {}
+   }
+  ],
+  "runs": [
+   {
+    "id": "RUN-901",
+    "source_id": "SRC-meta",
+    "started_at": "2026-11-21T08:30:00+01:00",
+    "finished_at": "2026-11-21T08:31:12+01:00",
+    "status": "ok",
+    "found": 12,
+    "captured": 9,
+    "attributed": 8,
+    "incident_ids": [
+     "INC-24817"
+    ],
+    "error": null
+   },
+   {
+    "id": "RUN-900",
+    "source_id": "SRC-gads",
+    "started_at": "2026-11-21T08:00:00+01:00",
+    "finished_at": "2026-11-21T08:00:40+01:00",
+    "status": "error",
+    "found": 0,
+    "captured": 0,
+    "attributed": 0,
+    "incident_ids": [],
+    "error": "HTTP 429 (limit zapytań)"
+   },
+   {
+    "id": "RUN-899",
+    "source_id": "SRC-urlscan",
+    "started_at": "2026-11-21T08:45:00+01:00",
+    "finished_at": null,
+    "status": "running",
+    "found": 3,
+    "captured": 0,
+    "attributed": 0,
+    "incident_ids": [],
+    "error": null
+   }
+  ]
+ }
+}

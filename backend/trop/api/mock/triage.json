@@ -1,0 +1,1768 @@
+{
+ "model": "list[TriageItem]",
+ "data": [
+  {
+   "id": "TRI-1",
+   "type": "uncertain",
+   "subject_id": "INC-24780",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.2,
+   "priority": 90,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T08:38:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-2",
+   "type": "uncertain",
+   "subject_id": "INC-24660",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.3,
+   "priority": 89,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T07:45:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-3",
+   "type": "uncertain",
+   "subject_id": "INC-24605",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.4,
+   "priority": 88,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:59:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-4",
+   "type": "uncertain",
+   "subject_id": "INC-24772",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.5,
+   "priority": 87,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T05:39:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-5",
+   "type": "uncertain",
+   "subject_id": "INC-24532",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.6,
+   "priority": 86,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T04:38:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-6",
+   "type": "uncertain",
+   "subject_id": "INC-24754",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.7,
+   "priority": 85,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T03:42:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-7",
+   "type": "uncertain",
+   "subject_id": "INC-24866",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.8,
+   "priority": 84,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T08:47:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-8",
+   "type": "uncertain",
+   "subject_id": "INC-24549",
+   "suggestion": "Niepewne przypisanie: KMP-034 vs KMP-017 (p 0.35–0.65)",
+   "score": 3.9,
+   "priority": 83,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T07:22:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-034",
+     "score": 3.9,
+     "p": 0.52,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    },
+    {
+     "campaign_id": "KMP-017",
+     "score": 3.7,
+     "p": 0.42,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-9",
+   "type": "new_campaign",
+   "subject_id": "INC-24901",
+   "suggestion": "Kandydat nowej kampanii: bon energetyczny (KMP-040)",
+   "score": 0.7,
+   "priority": 80,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T08:21:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 0.7,
+     "p": 0.07,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-10",
+   "type": "new_campaign",
+   "subject_id": "INC-24902",
+   "suggestion": "Kandydat nowej kampanii: bon energetyczny (KMP-040)",
+   "score": 0.7,
+   "priority": 79,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T07:42:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 0.7,
+     "p": 0.07,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-11",
+   "type": "new_campaign",
+   "subject_id": "INC-24903",
+   "suggestion": "Kandydat nowej kampanii: bon energetyczny (KMP-040)",
+   "score": 0.7,
+   "priority": 78,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:40:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 0.7,
+     "p": 0.07,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-12",
+   "type": "oracle",
+   "subject_id": "plessuro.live",
+   "suggestion": "Oracle: domena przewidziana (plessuro.live)",
+   "score": 0.88,
+   "priority": 70,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T08:50:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-13",
+   "type": "oracle",
+   "subject_id": "tranvello.click",
+   "suggestion": "Oracle: domena przewidziana (tranvello.click)",
+   "score": 0.71,
+   "priority": 69,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T07:49:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-14",
+   "type": "oracle",
+   "subject_id": "kelvaro.live",
+   "suggestion": "Oracle: domena przewidziana (kelvaro.live)",
+   "score": 0.64,
+   "priority": 68,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:21:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-15",
+   "type": "oracle",
+   "subject_id": "brustia.click",
+   "suggestion": "Oracle: domena przewidziana (brustia.click)",
+   "score": 0.42,
+   "priority": 67,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T05:16:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-16",
+   "type": "hunter",
+   "subject_id": "INC-24910",
+   "suggestion": "Hunter: nowa reklama z Ad Library",
+   "score": 2.0,
+   "priority": 50,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T07:38:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-17",
+   "type": "hunter",
+   "subject_id": "INC-24911",
+   "suggestion": "Hunter: nowa reklama z Ad Library",
+   "score": 2.0,
+   "priority": 49,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:29:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-18",
+   "type": "hunter",
+   "subject_id": "INC-24912",
+   "suggestion": "Hunter: nowa reklama z Ad Library",
+   "score": 2.0,
+   "priority": 48,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T05:19:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-19",
+   "type": "hunter",
+   "subject_id": "INC-24913",
+   "suggestion": "Hunter: nowa reklama z Ad Library",
+   "score": 2.0,
+   "priority": 47,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T04:15:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-20",
+   "type": "extension",
+   "subject_id": "INC-24920",
+   "suggestion": "Zgłoszenie z wtyczki",
+   "score": 1.5,
+   "priority": 40,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:44:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-21",
+   "type": "extension",
+   "subject_id": "INC-24921",
+   "suggestion": "Zgłoszenie z wtyczki",
+   "score": 1.5,
+   "priority": 39,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T05:54:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-22",
+   "type": "merge",
+   "subject_id": "KMP-043",
+   "suggestion": "Propozycja scalenia: KMP-043 → KMP-017",
+   "score": 6.0,
+   "priority": 60,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T06:50:00+01:00",
+   "candidates": [
+    {
+     "campaign_id": "KMP-017",
+     "score": 6.0,
+     "p": 0.77,
+     "for": [
+      {
+       "type": "tracking",
+       "field": "capi_gateway",
+       "value": "cg-7f3a91e0.ecs.eu-west-1.on.aws/events",
+       "display": "CAPI cg-7f3a…",
+       "strength": "H",
+       "weight": 3.1,
+       "level": "campaign",
+       "df": 47,
+       "N": 1284,
+       "idf": 3.31,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      },
+      {
+       "type": "kit",
+       "field": "kit_endpoint",
+       "value": "/api/v2/relay/lead/{uuid}/",
+       "display": "relay/lead template",
+       "strength": "H",
+       "weight": 2.7,
+       "level": "campaign",
+       "df": 58,
+       "N": 1284,
+       "idf": 3.1,
+       "state": "match",
+       "sides": null,
+       "bot": "tropiciel",
+       "shap": null
+      }
+     ],
+     "against": [
+      {
+       "type": "content",
+       "field": "headline_template",
+       "value": "PILNE: {PER} przerywa milczenie po napaści…",
+       "display": "szablon „PILNE: {PER}…”",
+       "strength": "H",
+       "weight": -1.2,
+       "level": "campaign",
+       "df": 22,
+       "N": 1284,
+       "idf": 4.07,
+       "state": "conflict",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ],
+     "missing": [
+      {
+       "type": "media",
+       "field": "asr_text",
+       "value": "",
+       "display": "brak ścieżki audio (ASR)",
+       "strength": "M",
+       "weight": 0.0,
+       "level": "campaign",
+       "df": 0,
+       "N": 1284,
+       "idf": 7.16,
+       "state": "missing",
+       "sides": null,
+       "bot": "czytelnik",
+       "shap": null
+      }
+     ]
+    }
+   ],
+   "adjudicator": null
+  },
+  {
+   "id": "TRI-23",
+   "type": "merge",
+   "subject_id": "KMP-029",
+   "suggestion": "Propozycja scalenia: KMP-029 → KMP-011 (niska pewność)",
+   "score": 2.2,
+   "priority": 20,
+   "status": "open",
+   "version": 1,
+   "created_at": "2026-11-21T03:12:00+01:00",
+   "candidates": [],
+   "adjudicator": null
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+# Build context is the repo root (data/, experiments/, scrapers/ are huge or private): send only what the image needs.
+*
+!backend/pyproject.toml
+!backend/uv.lock
+!backend/trop
+**/__pycache__
+**/*.pyc

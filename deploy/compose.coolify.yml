@@ -15,9 +15,10 @@ services:
     healthcheck: {test: ["CMD-SHELL", "pg_isready -U trop -d trop"], interval: 5s, timeout: 3s, retries: 30}
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.2-alpine
     command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru --save ""
     mem_limit: 256m
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
 
   api:
     build: {context: ., dockerfile: deploy/Dockerfile.api}
@@ -25,30 +26,31 @@ services:
     environment:
       DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
       REDIS_URL: redis://redis:6379/0
-      TROP_MODE: ${TROP_MODE:-live}
+      TROP_MODE: ${TROP_MODE:-mock}
       DATA_DIR: /data
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
       URLSCAN_API_KEY: ${URLSCAN_API_KEY}
       META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
     volumes: [trop-data:/data]
-    depends_on: {postgres: {condition: service_healthy}}
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
     mem_limit: 1g
 
   worker:
     build: {context: ., dockerfile: deploy/Dockerfile.api}
     command: ["trop", "worker"]
+    healthcheck: {disable: true}
     environment:
       DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
       REDIS_URL: redis://redis:6379/0
-      TROP_MODE: ${TROP_MODE:-live}
+      TROP_MODE: ${TROP_MODE:-mock}
       DATA_DIR: /data
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
       URLSCAN_API_KEY: ${URLSCAN_API_KEY}
       META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
     volumes: [trop-data:/data]
-    depends_on: {postgres: {condition: service_healthy}}
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
     mem_limit: 1536m
 
   web:

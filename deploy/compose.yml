@@ -9,7 +9,7 @@ name: trop
 x-backend-env: &backend-env
   DATABASE_URL: postgresql://trop:${POSTGRES_PASSWORD:-trop_dev}@postgres:5432/trop
   REDIS_URL: redis://redis:6379/0
-  TROP_MODE: ${TROP_MODE:-offline}
+  TROP_MODE: ${TROP_MODE:-mock}      # mock = fictional demo universe (no DB wiring needed); lead flips to offline/live at G2
   DATA_DIR: /data
   ARTIFACT_DIR: /data/artifacts
   CACHE_DIR: /data/cache
@@ -31,10 +31,11 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.2-alpine
     command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru --save ""
     ports: ["${TROP_BIND:-127.0.0.1}:${TROP_REDIS_PORT:-56379}:6379"]
     mem_limit: 256m
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
     restart: unless-stopped
 
   api:
@@ -43,18 +44,19 @@ services:
     env_file: [{path: ../.env, required: false}]
     environment: *backend-env
     ports: ["${TROP_BIND:-127.0.0.1}:${TROP_API_PORT:-18000}:8000"]
-    volumes: [trop-data:/data, ../data/seed:/seed:ro]
-    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_started}}
+    volumes: [trop-data:/data]
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
     mem_limit: 1g
     restart: unless-stopped
 
   worker:
     build: {context: .., dockerfile: deploy/Dockerfile.api}
     command: ["trop", "worker"]
+    healthcheck: {disable: true}
     env_file: [{path: ../.env, required: false}]
     environment: *backend-env
     volumes: [trop-data:/data]
-    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_started}}
+    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
     mem_limit: 1536m
     restart: unless-stopped
 

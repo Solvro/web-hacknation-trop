@@ -1,0 +1,29 @@
+# TROP api + worker image (same image, different command). Build context: repo root.
+#   docker build -f deploy/Dockerfile.api -t trop-api .
+# No ML models inside (VLM/LLM/ASR go to Gemini/OpenRouter; faces use the precomputed gallery index).
+FROM python:3.12-slim AS build
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never
+WORKDIR /app/backend
+COPY backend/pyproject.toml backend/uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
+COPY backend/trop ./trop
+RUN uv sync --frozen --no-dev
+
+FROM python:3.12-slim
+# ffmpeg: Debian's `ffmpeg` package drags ~460 MB of X11/VA-API libs, so we link the static binary shipped by
+# imageio-ffmpeg (already a dependency) as /usr/local/bin/ffmpeg instead -- keeps the image ~0.5 GB smaller.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libglib2.0-0 ca-certificates curl \
+ && rm -rf /var/lib/apt/lists/*
+WORKDIR /app/backend
+COPY --from=build /app/backend /app/backend
+RUN ln -s "$(/app/backend/.venv/bin/python -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" /usr/local/bin/ffmpeg \
+ && ffmpeg -version | head -1
+ENV PATH="/app/backend/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
+    DATA_DIR=/data ARTIFACT_DIR=/data/artifacts CACHE_DIR=/data/cache MODELS_DIR=/data/models REPLAY_DIR=/data/replay
+RUN mkdir -p /data/artifacts /data/cache /data/models /data/replay
+EXPOSE 8000
+HEALTHCHECK --interval=15s --timeout=3s --start-period=20s --retries=5 \
+  CMD curl -fsS http://127.0.0.1:8000/api/v1/health || exit 1
+CMD ["trop", "serve", "--host", "0.0.0.0", "--port", "8000"]
