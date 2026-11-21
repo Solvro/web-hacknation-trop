@@ -15,6 +15,8 @@ class _C(BaseModel):
 class Health(_C):
     ok: bool
     mode: str
+    capture: str = "off"       # off | sandbox | local (URL input)
+    llm: str = "off"           # live when a key is set and the gateway is not offline
     db: str
     redis: str
     version: str

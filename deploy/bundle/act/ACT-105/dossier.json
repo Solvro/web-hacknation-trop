@@ -1,0 +1,450 @@
+{
+ "id": "KMP-001",
+ "name": "Fake Gazeta.pl — 'Zyskarnia/Switowin' investment via shocking-news pre-lander (persona swap)",
+ "narrative": "",
+ "vertical": "investment",
+ "fictional": false,
+ "persons": [],
+ "brands": [],
+ "operator_id": null,
+ "incidents": [
+  {
+   "id": "INC-1",
+   "ref": "sample_v1/p1",
+   "domain": "dorquesio.click",
+   "url": "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722",
+   "title": "«Wiem, kto strzelał»: zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl",
+   "captured_at": "2026-10-08 08:57:45",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  },
+  {
+   "id": "INC-2",
+   "ref": "sample_v1/p2",
+   "domain": "dorquesio.click",
+   "url": "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722",
+   "title": "«Wiem, kto strzelał»: zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl",
+   "captured_at": "2026-10-08 08:57:45",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  },
+  {
+   "id": "INC-7",
+   "ref": "sample_v1/p7",
+   "domain": "wernulio.live",
+   "url": "https://wernulio.live/?utm_id=vYucNEqDkS5la2nh0kZZ&utm_medium=dMlggV9b3A&utm_campaign=O8UIp7q5YR&utm_content=vJtqCf4DVv&utm_visit=01a11ad6-58b9-7355-a99b-dc39fb8eeaf9",
+   "title": "«Wiem, kto strzelał»: zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl",
+   "captured_at": "2026-10-08 09:26:52",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  },
+  {
+   "id": "INC-3",
+   "ref": "sample_v1/p3",
+   "domain": "falmurek.live",
+   "url": "https://falmurek.live/?utm_id=7FZnufgpApA7thZalVzF&utm_medium=rydlXhtMDP&utm_campaign=b3lXSkwBuz&utm_content=0JUoIXRj85&utm_visit=01a11b11-242a-7010-90aa-1cd2eb82ef83",
+   "title": "PILNE: Brutalna napaść na Krzysztofa Stanowskiego tuż po publikacji tajnego śledztwa w sprawie polskich banków!",
+   "captured_at": "2026-10-08 10:31:46",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  },
+  {
+   "id": "INC-4",
+   "ref": "sample_v1/p4",
+   "domain": "grentavo.click",
+   "url": "https://grentavo.click/?utm_id=ntLeEY6TPwPOxktkr5uP&utm_medium=1nKj1PUogz&utm_campaign=X7G6ePpqwP&utm_content=VtGj7WNiBA&utm_visit=01a11b13-c3dd-70b9-bfdb-2ba95fcbf755",
+   "title": "PILNE: Brutalna napaść na Tomasza Sekielskiego tuż po publikacji tajnego śledztwa w sprawie polskich banków!",
+   "captured_at": "2026-10-08 10:34:20",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  },
+  {
+   "id": "INC-15",
+   "ref": "sample_v1/p15",
+   "domain": "lundevra.live",
+   "url": "https://lundevra.live/?utm_id=UvW9M8WNnBIk2eR68j2a&utm_medium=aFzU9rQVSx&utm_campaign=9GZRQPE0Wz&utm_content=X2drYjC9dd&utm_visit=01a11b9e-5727-7087-99d7-ae672d78497e",
+   "title": "«Wiem, kto strzelał»: zamach na Rafała Brzoskę, założyciela InPostu — Gazeta.pl",
+   "captured_at": "2026-10-08 13:05:20",
+   "source": "HackNation sample_v1 (teaser CTF backup)"
+  }
+ ],
+ "ads": [
+  {
+   "platform": "meta",
+   "library_id": null,
+   "advertiser": "UniverseFlux Studio",
+   "page_id": null,
+   "text": "Wydarzenie, które wstrząsnęło całą Polską",
+   "display_link": null,
+   "landing_url": null,
+   "library_url": null,
+   "start": null,
+   "incident_id": "INC-1"
+  },
+  {
+   "platform": "meta",
+   "library_id": null,
+   "advertiser": "UniverseFlux Studio",
+   "page_id": null,
+   "text": "Wydarzenie, które wstrząsnęło całą Polską",
+   "display_link": null,
+   "landing_url": null,
+   "library_url": null,
+   "start": null,
+   "incident_id": "INC-2"
+  },
+  {
+   "platform": "meta",
+   "library_id": "2180909792525319",
+   "advertiser": "Exclusive Silver Group",
+   "page_id": null,
+   "text": "Temat, o którym mówi cała Polska",
+   "display_link": "AMAZON.COM",
+   "landing_url": null,
+   "library_url": "https://www.facebook.com/ads/library/?id=2180909792525319",
+   "start": null,
+   "incident_id": "INC-3"
+  },
+  {
+   "platform": "meta",
+   "library_id": "4100374890267408",
+   "advertiser": "Exclusive Silver Group",
+   "page_id": null,
+   "text": "Temat, o którym mówi cała Polska",
+   "display_link": null,
+   "landing_url": null,
+   "library_url": "https://www.facebook.com/ads/library/?id=4100374890267408",
+   "start": null,
+   "incident_id": "INC-4"
+  },
+  {
+   "platform": "meta",
+   "library_id": null,
+   "advertiser": "Letty Zaswer",
+   "page_id": null,
+   "text": "Wydarzenie, które wstrząsnęło całą Polską",
+   "display_link": null,
+   "landing_url": null,
+   "library_url": null,
+   "start": null,
+   "incident_id": "INC-7"
+  },
+  {
+   "platform": "meta",
+   "library_id": null,
+   "advertiser": "Formal Favorable",
+   "page_id": null,
+   "text": "Wydarzenie, które wstrząsnęło całą Polską",
+   "display_link": null,
+   "landing_url": null,
+   "library_url": null,
+   "start": null,
+   "incident_id": "INC-15"
+  }
+ ],
+ "advertisers": [
+  {
+   "name": "UniverseFlux Studio",
+   "page_id": null,
+   "platform": "meta",
+   "n_ads": 2
+  },
+  {
+   "name": "Exclusive Silver Group",
+   "page_id": null,
+   "platform": "meta",
+   "n_ads": 2
+  },
+  {
+   "name": "Letty Zaswer",
+   "page_id": null,
+   "platform": "meta",
+   "n_ads": 1
+  },
+  {
+   "name": "Formal Favorable",
+   "page_id": null,
+   "platform": "meta",
+   "n_ads": 1
+  }
+ ],
+ "domains": [
+  {
+   "fqdn": "dorquesio.click",
+   "registrar": "Dynadot, LLC",
+   "registered_at": "2026-10-07 18:22:47",
+   "cert_issued_at": "2026-10-07 18:53:02",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "on_certpl": false,
+   "source": "campaign",
+   "incidents": [
+    "INC-1",
+    "INC-2"
+   ],
+   "urls": [
+    "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722",
+    "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722"
+   ]
+  },
+  {
+   "fqdn": "falmurek.live",
+   "registrar": "Dynadot Inc",
+   "registered_at": "2026-10-05 18:20:32",
+   "cert_issued_at": "2026-10-05 00:00:00",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "on_certpl": false,
+   "source": "campaign",
+   "incidents": [
+    "INC-3"
+   ],
+   "urls": [
+    "https://falmurek.live/?utm_id=7FZnufgpApA7thZalVzF&utm_medium=rydlXhtMDP&utm_campaign=b3lXSkwBuz&utm_content=0JUoIXRj85&utm_visit=01a11b11-242a-7010-90aa-1cd2eb82ef83"
+   ]
+  },
+  {
+   "fqdn": "grentavo.click",
+   "registrar": "Dynadot, LLC",
+   "registered_at": "2026-10-05 18:20:38",
+   "cert_issued_at": "2026-10-05 18:10:05",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "on_certpl": false,
+   "source": "campaign",
+   "incidents": [
+    "INC-4"
+   ],
+   "urls": [
+    "https://grentavo.click/?utm_id=ntLeEY6TPwPOxktkr5uP&utm_medium=1nKj1PUogz&utm_campaign=X7G6ePpqwP&utm_content=VtGj7WNiBA&utm_visit=01a11b13-c3dd-70b9-bfdb-2ba95fcbf755"
+   ]
+  },
+  {
+   "fqdn": "lundevra.live",
+   "registrar": "Dynadot Inc",
+   "registered_at": "2026-10-07 18:27:41",
+   "cert_issued_at": "2026-10-07 00:00:00",
+   "ns": [
+    "ns1.dyna-ns.net",
+    "ns2.dyna-ns.net"
+   ],
+   "on_certpl": true,
+   "source": "campaign",
+   "incidents": [
+    "INC-15"
+   ],
+   "urls": [
+    "https://lundevra.live/?utm_id=UvW9M8WNnBIk2eR68j2a&utm_medium=aFzU9rQVSx&utm_campaign=9GZRQPE0Wz&utm_content=X2drYjC9dd&utm_visit=01a11b9e-5727-7087-99d7-ae672d78497e"
+   ]
+  },
+  {
+   "fqdn": "wernulio.live",
+   "registrar": "Dynadot Inc",
+   "registered_at": "2026-10-07 18:22:29",
+   "cert_issued_at": "2026-10-07 18:51:34",
+   "ns": [
+    "cartman.ns.cloudflare.com",
+    "fish.ns.cloudflare.com"
+   ],
+   "on_certpl": false,
+   "source": "campaign",
+   "incidents": [
+    "INC-7"
+   ],
+   "urls": [
+    "https://wernulio.live/?utm_id=vYucNEqDkS5la2nh0kZZ&utm_medium=dMlggV9b3A&utm_campaign=O8UIp7q5YR&utm_content=vJtqCf4DVv&utm_visit=01a11ad6-58b9-7355-a99b-dc39fb8eeaf9"
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "type": "kit",
+   "field": "kit_tenant",
+   "value": "f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "display": "konto (tenant) kitu f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "strength": "H",
+   "members_with": 6,
+   "members_total": 6,
+   "df": 7
+  },
+  {
+   "type": "tracking",
+   "field": "fb_pixel",
+   "value": "4567646436826205",
+   "display": "piksel FB 4567646436826205",
+   "strength": "H",
+   "members_with": 5,
+   "members_total": 6,
+   "df": 4
+  },
+  {
+   "type": "kit",
+   "field": "lander_id",
+   "value": "a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "display": "lander a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "strength": "H",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 5
+  },
+  {
+   "type": "content",
+   "field": "headline_template",
+   "value": "«Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+   "display": "szablon nagłówka «Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl",
+   "strength": "H",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 5
+  },
+  {
+   "type": "content",
+   "field": "headline_template",
+   "value": "PILNE: Brutalna napaść na {PER} tuż po publikacji tajnego śledztwa w sprawie polskich banków!",
+   "display": "szablon nagłówka PILNE: Brutalna napaść na {PER} tuż po publikacji tajnego śledztwa …",
+   "strength": "H",
+   "members_with": 2,
+   "members_total": 6,
+   "df": 2
+  },
+  {
+   "type": "ad",
+   "field": "clickbait_template",
+   "value": "Wydarzenie, które wstrząsnęło całą Polską",
+   "display": "szablon reklamy Wydarzenie, które wstrząsnęło całą Polską",
+   "strength": "M",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 3
+  },
+  {
+   "type": "ad",
+   "field": "clickbait_template",
+   "value": "Temat, o którym mówi cała Polska",
+   "display": "szablon reklamy Temat, o którym mówi cała Polska",
+   "strength": "M",
+   "members_with": 2,
+   "members_total": 6,
+   "df": 2
+  },
+  {
+   "type": "infra",
+   "field": "ns_set",
+   "value": "cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+   "display": "para NS cartman.ns.cloudflare.com+fish.ns.cloudflare.com",
+   "strength": "M",
+   "members_with": 5,
+   "members_total": 6,
+   "df": 5
+  },
+  {
+   "type": "infra",
+   "field": "registration_batch",
+   "value": "dynadot|2026-10-07T18",
+   "display": "partia rejestracji dynadot|2026-10-07T18",
+   "strength": "M",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 3
+  },
+  {
+   "type": "infra",
+   "field": "registration_batch",
+   "value": "dynadot|2026-10-05T18",
+   "display": "partia rejestracji dynadot|2026-10-05T18",
+   "strength": "M",
+   "members_with": 2,
+   "members_total": 6,
+   "df": 2
+  },
+  {
+   "type": "infra",
+   "field": "cert_batch",
+   "value": "ye1|2026-10-07T18",
+   "display": "partia certyfikatów ye1|2026-10-07T18",
+   "strength": "M",
+   "members_with": 3,
+   "members_total": 6,
+   "df": 2
+  },
+  {
+   "type": "kit",
+   "field": "asset_sha256",
+   "value": "7395269ab9869b17835f8ebc81c95954d2068d3f5701e02ae4e2d56cb7f96abf",
+   "display": "wspólny plik nav-forum.svg (sha256 7395269ab9…)",
+   "strength": "H",
+   "members_with": 6,
+   "members_total": 6,
+   "df": 8
+  },
+  {
+   "type": "kit",
+   "field": "asset_sha256",
+   "value": "d43d7492f0e97c799eea0883ce4b4dac70e0704037285661172a088f05190d99",
+   "display": "wspólny plik logo-gazeta.svg (sha256 d43d7492f0…)",
+   "strength": "H",
+   "members_with": 6,
+   "members_total": 6,
+   "df": 8
+  },
+  {
+   "type": "persons",
+   "field": "person",
+   "value": "Mateusz Morawiecki",
+   "display": "person Mateusz Morawiecki",
+   "strength": "M",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 7
+  },
+  {
+   "type": "persons",
+   "field": "person",
+   "value": "Rafał Brzoska",
+   "display": "person Rafał Brzoska",
+   "strength": "M",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 28
+  },
+  {
+   "type": "content",
+   "field": "brand",
+   "value": "pko bp",
+   "display": "brand pko bp",
+   "strength": "L",
+   "members_with": 6,
+   "members_total": 6,
+   "df": 12
+  },
+  {
+   "type": "content",
+   "field": "brand",
+   "value": "gazeta.pl",
+   "display": "brand gazeta.pl",
+   "strength": "L",
+   "members_with": 6,
+   "members_total": 6,
+   "df": 27
+  },
+  {
+   "type": "content",
+   "field": "brand",
+   "value": "revolut",
+   "display": "brand revolut",
+   "strength": "L",
+   "members_with": 4,
+   "members_total": 6,
+   "df": 6
+  }
+ ],
+ "counts": {
+  "ads": 6,
+  "advertisers": 4,
+  "domains": 5,
+  "evidence_items": 18,
+  "incidents": 6,
+  "certpl_listed": 1
+ }
+}

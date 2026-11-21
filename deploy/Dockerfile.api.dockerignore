@@ -3,5 +3,8 @@
 !backend/pyproject.toml
 !backend/uv.lock
 !backend/trop
+!deploy/bundle
+!deploy/entrypoint.sh
+!deploy/seed.sh
 **/__pycache__
 **/*.pyc

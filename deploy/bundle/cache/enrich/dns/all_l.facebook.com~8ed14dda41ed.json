@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:l.facebook.com", "status": "ok", "fetched_at": 1795295466.617027, "error": null, "http_status": null, "seeded": true}, "data": {"name": "l.facebook.com", "A": ["57.144.112.6"], "AAAA": ["2a03:2880:f330:6:face:b00c:0:14c9"], "NS": [], "MX": [], "TXT": ["\"v=spf1 a ~all\""]}}

@@ -1,7 +1,37 @@
-# Coolify (devops.solvro.pl, server solvro-stacja-web, project "Hackatony") — docker-compose build pack.
+# Coolify (devops.solvro.pl, server solvro-stacja-web, project "Hackatony") — docker-compose build pack. THE REAL PRODUCT (no mock).
 # Domain: trop.b.solvro.pl → web:3000; Next.js proxies /api/* to api:8000 (single host, no CORS).
-# No published ports (Traefik routes). Memory budget ≤ 5 GiB total. No local ML models in the images.
+# No published ports (Traefik routes). Memory budget ≤ 5 GiB total. No host mounts: the image carries deploy/bundle
+# (organizer-derived runtime data, private repo only); deploy/entrypoint.sh seeds the trop-data volume from it (never
+# overwriting existing files) and the api restores the Postgres seed on an empty DB (TROP_DB_SEED=1).
+# Modes: engine + capture offline (TROP_NO_LIVE=1, TROP_CAPTURE=off -> URL input gives the "page down" job.error),
+# LLM features (White Rabbit, Act notices, adjudicator) are live when GEMINI_API_KEY / OPENROUTER_API_KEY are set
+# (budget LLM_BUDGET_USD). Mock only by explicit TROP_MODE=mock. NOTE: Postgres is pg17 (the seed dump needs it):
+# an old pg16 `pgdata` volume must be removed before the first deploy of this file.
 # Owner: WS2 (keep in sync with compose.yml).
+x-backend-env: &backend-env
+  DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
+  REDIS_URL: redis://redis:6379/0
+  TROP_MODE: ${TROP_MODE:-live}
+  TROP_NO_LIVE: ${TROP_NO_LIVE:-1}
+  TROP_CAPTURE: ${TROP_CAPTURE:-local}   # URL input is captured by the WORKER (Chromium image); off -> board-13 job.error
+  LLM_BUDGET_USD: ${LLM_BUDGET_USD:-10}
+  DATA_DIR: /data
+  ARTIFACT_DIR: /data/artifacts
+  CACHE_DIR: /data/cache
+  MODELS_DIR: /data/models
+  REPLAY_DIR: /data/replay
+  GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+  OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+  URLSCAN_API_KEY: ${URLSCAN_API_KEY:-}
+  META_ACCESS_TOKEN: ${META_ACCESS_TOKEN:-}
+  META_APP_ID: ${META_APP_ID:-}
+  META_APP_SECRET: ${META_APP_SECRET:-}
+  IPINFO_TOKEN: ${IPINFO_TOKEN:-}
+  CERTSPOTTER_API_KEY: ${CERTSPOTTER_API_KEY:-}
+  GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
+  GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS:-}
+  WIKIMEDIA_UA: ${WIKIMEDIA_UA:-}
+
 services:
   postgres:
     image: pgvector/pgvector:pg17
@@ -24,33 +54,23 @@ services:
     build: {context: ., dockerfile: deploy/Dockerfile.api}
     command: ["trop", "serve", "--host", "0.0.0.0", "--port", "8000"]
     environment:
-      DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
-      REDIS_URL: redis://redis:6379/0
-      TROP_MODE: ${TROP_MODE:-mock}
-      DATA_DIR: /data
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
-      URLSCAN_API_KEY: ${URLSCAN_API_KEY}
-      META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
+      <<: *backend-env
+      TROP_DB_SEED: "1"
     volumes: [trop-data:/data]
     depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
+    healthcheck: {test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/api/v1/health || exit 1"], interval: 15s, timeout: 5s, retries: 20, start_period: 120s}
     mem_limit: 1g
 
-  worker:
-    build: {context: ., dockerfile: deploy/Dockerfile.api}
+  worker:      # runs analyses (incl. URL capture): TROP_WORKER_DOCKERFILE=deploy/Dockerfile.worker (api image + Chromium/Playwright, WS5)
+    build: {context: ., dockerfile: "${TROP_WORKER_DOCKERFILE:-deploy/Dockerfile.api}"}
+    shm_size: 256m
     command: ["trop", "worker"]
     healthcheck: {disable: true}
     environment:
-      DATABASE_URL: postgresql://trop:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/trop
-      REDIS_URL: redis://redis:6379/0
-      TROP_MODE: ${TROP_MODE:-mock}
-      DATA_DIR: /data
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
-      URLSCAN_API_KEY: ${URLSCAN_API_KEY}
-      META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
+      <<: *backend-env
+      TROP_SCHEDULER: ${TROP_SCHEDULER:-0}
     volumes: [trop-data:/data]
-    depends_on: {postgres: {condition: service_healthy}, redis: {condition: service_healthy}}
+    depends_on: {api: {condition: service_healthy}}
     mem_limit: 1536m
 
   web:

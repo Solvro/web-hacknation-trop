@@ -1,0 +1,242 @@
+{
+ "p1": {
+  "screenshot_kind": "feed",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA, Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "donald tusk"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że w nadchodzącym programie na żywo z Warszawy zostanie ujawnione sensacyjne wydarzenie polityczne z udziałem Donalda Tuska.",
+  "_parsed": true
+ },
+ "p10": {
+  "screenshot_kind": "feed",
+  "advertiser": "James Brandt Mosese Mena Jnr",
+  "library_id": null,
+  "text": "Ciśnienie spada od razu",
+  "overlay": "udarem, na pewno",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznany lekarz"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że produkt skutecznie i natychmiast obniża ciśnienie krwi, zapobiegając udarom.",
+  "_parsed": true
+ },
+ "p11": {
+  "screenshot_kind": "feed",
+  "advertiser": "Nguyen Bảo",
+  "library_id": null,
+  "text": "Sponsorowane",
+  "overlay": "SKANDAL DYPLOMATYCZNY: SIKORSKI PUBLICZNIE PONIŻYŁ ZELEŃSKIEGO PRZECZYTAJ ARTYKUŁ",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "radosław sikorski",
+   "wołodymyr zełenski"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Belsat"
+  ],
+  "narrative": "Reklama sugeruje, że doszło do skandalu dyplomatycznego, w którym Radosław Sikorski publicznie poniżył Wołodymyra Zełenskiego, zachęcając do kliknięcia w celu przeczytania artykułu.",
+  "_parsed": true
+ },
+ "p12": {
+  "screenshot_kind": "feed",
+  "advertiser": "Vital Leaf",
+  "library_id": null,
+  "text": "Sponsorowane",
+  "overlay": "WYŚCIGOWYCH",
+  "cta": "Wyświetl szczegóły",
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna w garniturze (imitacja prezentera wiadomości)"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama suplementu diety Vital Leaf wykorzystuje fałszywy format wiadomości telewizyjnych, aby nadać produktowi pozory wiarygodności i autorytetu medycznego.",
+  "_parsed": true
+ },
+ "p13": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Giang Mỳ",
+  "library_id": "4181234142166922",
+  "text": "Sponsorowane",
+  "overlay": "Od 19 maja ten preparat jest dostępny BEZPŁATNIE dla wszystkich obywateli Polski! -100% Dla osób cierpiących na grzybicę paznokci lub stóp! Produkt ma zacząć zmniejszać obszar zakażenia grzybiczego już po 30 minutach, a po 3 dniach owicie grzybicy ma zniknąć",
+  "cta": null,
+  "display_link": null,
+  "persons": [],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [
+   "Dr. Merritz"
+  ],
+  "narrative": "Reklama sugeruje, że preparat Dr. Merritz na grzybicę jest od 19 maja całkowicie bezpłatny dla wszystkich obywateli Polski i działa błyskawicznie.",
+  "_parsed": true
+ },
+ "p14": {
+  "screenshot_kind": "feed",
+  "advertiser": "portalpisofoficial",
+  "library_id": null,
+  "text": "portalpisofoficial 🙏 I am so grateful now, that wealth flows to me effortlessly and abundantly, on a daily basis.",
+  "overlay": "PAIN YOUR WORRIES",
+  "cta": "Wyświetl szczegóły",
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna w przebraniu za jezusa chrystusa"
+  ],
+  "is_decoy": false,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje wizerunek Jezusa i religijną symbolikę, aby promować pseudonaukowe praktyki pisma i afirmacje mające rzekomo przyciągnąć bogactwo.",
+  "_parsed": true
+ },
+ "p15": {
+  "screenshot_kind": "feed",
+  "advertiser": "Formal Favorable",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "jacek saryusz-wolski"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że w nadchodzącym wydarzeniu na żywo z Warszawy, z udziałem Jacka Saryusz-Wolskiego, zostanie ujawnione sensacyjne wydarzenie, które wstrząsnęło całą Polską.",
+  "_parsed": true
+ },
+ "p2": {
+  "screenshot_kind": "feed",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA, Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "donald tusk"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że w nadchodzącym programie na żywo z Warszawy zostanie ujawnione sensacyjne wydarzenie polityczne z udziałem Donalda Tuska.",
+  "_parsed": true
+ },
+ "p3": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "2180909792525319",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": null,
+  "cta": "Learn More",
+  "display_link": "AMAZON.COM",
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "investment",
+  "brands": [
+   "Amazon"
+  ],
+  "narrative": "Reklama sugeruje, że firma Exclusive Silver Group jest tematem szeroko omawianym w Polsce, wykorzystując klikbaitowy nagłówek i niezwiązaną z tematem grafikę z gry.",
+  "_parsed": true
+ },
+ "p4": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "4100374890267408",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": null,
+  "cta": null,
+  "display_link": null,
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "investment",
+  "brands": [],
+  "narrative": "Reklama inwestycyjna grupy Exclusive Silver Group wykorzystuje niezwiązaną z tematem grafikę z gry oraz sensacyjny nagłówek, aby przyciągnąć uwagę odbiorców.",
+  "_parsed": true
+ },
+ "p5": {
+  "screenshot_kind": "feed",
+  "advertiser": "StarFlow",
+  "library_id": null,
+  "text": "Miliony Polaków tracą na lokatach, ratach i inflacji. Glapiński przez lata milczał. W \"Kropce nad i\" już nie mógł... więcej",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "adam glapiński",
+   "magdalena ogórek"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Kropka nad i"
+  ],
+  "narrative": "Reklama sugeruje, że Adam Glapiński w programie 'Kropka nad i' ujawnił wreszcie prawdę o tym, jak Polacy tracą na inflacji i lokatach.",
+  "_parsed": true
+ },
+ "p7": {
+  "screenshot_kind": "feed",
+  "advertiser": "Letty Zaswer",
+  "library_id": null,
+  "text": "Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA, Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "donald tusk"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama podszywająca się pod transmisję na żywo z udziałem Donalda Tuska, sugerująca nagłośnienie sensacyjnego incydentu w Warszawie.",
+  "_parsed": true
+ },
+ "p8": {
+  "screenshot_kind": "feed",
+  "advertiser": "Khương Miền",
+  "library_id": null,
+  "text": "🚨 PILNE! Ta wiadomość wywołała burzliwą dyskusję wśród obywateli. Zobaczcie, co się dzieje 👇",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "politics_news",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje niezwiązaną z treścią grafikę egzotycznego ptaka oraz nagłówek 'PILNE' i 'burzliwa dyskusja', aby wywołać ciekawość i skłonić użytkownika do kliknięcia w link.",
+  "_parsed": true
+ },
+ "p9": {
+  "screenshot_kind": "feed",
+  "advertiser": "Boss Stream",
+  "library_id": null,
+  "text": "🎁💡 Lekarze powiedzieli mi, że słuchu nie da się już odzyskać. „Proszę się przyzwyczaić, to już część pani życia”. Po 12... więcej",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznana kobieta (prawdopodobnie pacjentka)"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że produkt lub usługa reklamodawcy może przywrócić słuch osobom, które zostały im przez lekarzy odmówione.",
+  "_parsed": true
+ }
+}

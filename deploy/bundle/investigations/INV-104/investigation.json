@@ -1,0 +1,2898 @@
+{
+ "id": "INV-104",
+ "seed": "mintforge-capital-apps.com",
+ "campaign_id": null,
+ "status": "done",
+ "budget": {
+  "steps": 20.0,
+  "used": 9.0,
+  "usd": 1.0,
+  "usd_used": 0.075778
+ },
+ "model": "gemini-pro-latest",
+ "tools": [
+  "db_search",
+  "incident_neighborhood",
+  "crtsh",
+  "rdap",
+  "dns_ns",
+  "urlscan_search",
+  "certpl_check",
+  "wayback",
+  "adlib_search",
+  "capture",
+  "oracle_lookup"
+ ],
+ "started_at": "2026-11-21T21:32:22+00:00",
+ "nodes": [
+  {
+   "id": "d-mintforge-capital-apps.com",
+   "kind": "domain",
+   "label": "mintforge-capital-apps.com",
+   "meta": {
+    "seed": true,
+    "known_in_db": true,
+    "incidents": [
+     "INC-1705"
+    ],
+    "campaigns": [],
+    "ns": [
+     "barbara.ns.cloudflare.com",
+     "dale.ns.cloudflare.com"
+    ],
+    "nxdomain": false,
+    "registrar": "NameCheap, Inc.",
+    "created": "2026-10-20T14:24:18Z",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-23 08:51:48",
+     "source": "urlscan",
+     "status": "captured"
+    }
+   },
+   "status": "new",
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-ns_set-9160d4c9",
+   "kind": "query_result",
+   "label": "ns_set: barbara.ns.cloudflare.co… → 15 domen",
+   "meta": {
+    "type": "ns_set",
+    "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+    "level": "operator",
+    "df": 16,
+    "domains": 15
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-argentum-placeza-platform.com",
+   "kind": "domain",
+   "label": "argentum-placeza-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "cert_batch",
+      "value": "ye2|2026-10-20T13",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "namecheap|2026-10-20T14",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-22 08:10:12",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-avkast-rden-apps.com",
+   "kind": "domain",
+   "label": "avkast-rden-apps.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 05:35:12",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-bursovia-nextron-app.com",
+   "kind": "domain",
+   "label": "bursovia-nextron-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-10 01:57:43",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-ciel-patrimoire-apps.com",
+   "kind": "domain",
+   "label": "ciel-patrimoire-apps.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "cert_batch",
+      "value": "ye2|2026-10-20T13",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "namecheap|2026-10-20T14",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-23 06:47:37",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-druveyci-akmuino-ai-app.com",
+   "kind": "domain",
+   "label": "druveyci-akmuino-ai-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-15 02:52:28",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-lattisoratom-ai-platform.com",
+   "kind": "domain",
+   "label": "lattisoratom-ai-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-16 05:30:17",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-perle-kapithort-platform-ai.com",
+   "kind": "domain",
+   "label": "perle-kapithort-platform-ai.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-23 06:40:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-rentaison-ai-platform.com",
+   "kind": "domain",
+   "label": "rentaison-ai-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-14 07:28:15",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-sabirnistvo-ai-platform.com",
+   "kind": "domain",
+   "label": "sabirnistvo-ai-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 06:32:23",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-serra-fondecto-platform.com",
+   "kind": "domain",
+   "label": "serra-fondecto-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "namecheap|2026-10-20T14",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-22 06:29:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-sinal-capitivo-ai-app.com",
+   "kind": "domain",
+   "label": "sinal-capitivo-ai-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "registration_batch",
+      "value": "namecheap|2026-10-20T14",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-20 18:56:42",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-syntex-ai-apps.com",
+   "kind": "domain",
+   "label": "syntex-ai-apps.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-18 05:31:52",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-valoirine-france.com",
+   "kind": "domain",
+   "label": "valoirine-france.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-15 05:29:12",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-xarvelok-imbrethu-official-app.com",
+   "kind": "domain",
+   "label": "xarvelok-imbrethu-official-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-15 05:25:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-zhalikerdurtrx-official.com",
+   "kind": "domain",
+   "label": "zhalikerdurtrx-official.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "ns_set",
+      "value": "barbara.ns.cloudflare.com+dale.ns.cloudflare.com",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 05:39:17",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-kit_tenant-60af5175",
+   "kind": "query_result",
+   "label": "kit_tenant: 3e0a04ad-2d6f-4460-9ee0-… → 27 domen",
+   "meta": {
+    "type": "kit_tenant",
+    "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+    "level": "operator",
+    "df": 28,
+    "domains": 27
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "d-narodny-program-financneho-pristupu-app.com",
+   "kind": "domain",
+   "label": "narodny-program-financneho-pristupu-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-10 02:48:45",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-amplia-valorinde-app.com",
+   "kind": "domain",
+   "label": "amplia-valorinde-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-06 23:57:15",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-rente-lucavie-platform.com",
+   "kind": "domain",
+   "label": "rente-lucavie-platform.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 05:53:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-chapada-creditovor-app.com",
+   "kind": "domain",
+   "label": "chapada-creditovor-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-18 05:10:31",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-hrinvest-app.com",
+   "kind": "domain",
+   "label": "hrinvest-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-05 12:27:58",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-trade-vector-ai-arg.com",
+   "kind": "domain",
+   "label": "trade-vector-ai-arg.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-18 02:35:52",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-sillage-valesonde-app.com",
+   "kind": "domain",
+   "label": "sillage-valesonde-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 10:08:04",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-teljingsnad-app.com",
+   "kind": "domain",
+   "label": "teljingsnad-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-08 05:35:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-stolt-dataheim-app.com",
+   "kind": "domain",
+   "label": "stolt-dataheim-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-09 16:13:08",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-valerisoire-app.com",
+   "kind": "domain",
+   "label": "valerisoire-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-08 10:07:19",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-fideplata-app.com",
+   "kind": "domain",
+   "label": "fideplata-app.com",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-04 05:45:10",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "d-norexa-diro.cz",
+   "kind": "domain",
+   "label": "norexa-diro.cz",
+   "meta": {
+    "known_in_db": true,
+    "campaigns": [],
+    "evidence": [
+     {
+      "type": "kit_tenant",
+      "value": "3e0a04ad-2d6f-4460-9ee0-3328e12fce21",
+      "level": "operator",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+      "level": "campaign",
+      "source": "db"
+     },
+     {
+      "type": "asset_sha256",
+      "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+      "level": "campaign",
+      "source": "db"
+     }
+    ],
+    "level": "operator",
+    "certpl": false,
+    "on_certpl": false,
+    "oracle": {
+     "score": 0.95,
+     "seen_at": "2026-10-11 08:31:51",
+     "source": "urlscan",
+     "status": "captured"
+    },
+    "proposed": true,
+    "confidence": "high",
+    "rationale": "",
+    "proposed_evidence": []
+   },
+   "status": "new",
+   "is_new": false,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-cert_batch-e0fcf19d",
+   "kind": "query_result",
+   "label": "cert_batch: ye2|2026-10-20T13 → 2 domen",
+   "meta": {
+    "type": "cert_batch",
+    "value": "ye2|2026-10-20T13",
+    "level": "campaign",
+    "df": 3,
+    "domains": 2
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-registration_batch-5fa98acb",
+   "kind": "query_result",
+   "label": "registration_batch: namecheap|2026-10-20T14 → 4 domen",
+   "meta": {
+    "type": "registration_batch",
+    "value": "namecheap|2026-10-20T14",
+    "level": "campaign",
+    "df": 5,
+    "domains": 4
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-76ceb2e5",
+   "kind": "query_result",
+   "label": "asset_sha256: 54060a34922c44d9d057235d… → 26 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "54060a34922c44d9d057235d9432f7e9901deaf860802a678861ce24b69e8872",
+    "level": "campaign",
+    "df": 27,
+    "domains": 26
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-bfcfb1ee",
+   "kind": "query_result",
+   "label": "asset_sha256: 3c4baf5b884e46a2489f3789… → 26 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "3c4baf5b884e46a2489f37893d2b03720285fe956dfaad1ec4fb69068a4cac6a",
+    "level": "campaign",
+    "df": 27,
+    "domains": 26
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-db-asset_sha256-be965e59",
+   "kind": "query_result",
+   "label": "asset_sha256: 98694e2cc2b1aa58f675a520… → 26 domen",
+   "meta": {
+    "type": "asset_sha256",
+    "value": "98694e2cc2b1aa58f675a520f90cbb056328c6cd89eeea2ef1fc8295f5bfa9eb",
+    "level": "campaign",
+    "df": 27,
+    "domains": 26
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-ip-188.114.96.0",
+   "kind": "ip",
+   "label": "188.114.96.0 · AS13335 CLOUDFLARENET - Cloudflare, In",
+   "meta": {
+    "asn": "13335",
+    "org": "CLOUDFLARENET - Cloudflare, In",
+    "cdn": true,
+    "weight_zero": true
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "crtsh"
+  },
+  {
+   "id": "n-ip-188.114.97.0",
+   "kind": "ip",
+   "label": "188.114.97.0 · AS13335 CLOUDFLARENET - Cloudflare, In",
+   "meta": {
+    "asn": "13335",
+    "org": "CLOUDFLARENET - Cloudflare, In",
+    "cdn": true,
+    "weight_zero": true
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "crtsh"
+  },
+  {
+   "id": "n-ads-9eaf5fa8",
+   "kind": "ad",
+   "label": "Ad Library: 0 reklam, 0 stron",
+   "meta": {
+    "terms": "\"Mintforge Capital\"",
+    "ads": 0,
+    "pages": 0,
+    "advertisers": [],
+    "library_ids": []
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "adlib"
+  },
+  {
+   "id": "n-certpl",
+   "kind": "list_status",
+   "label": "CERT PL: 28 z 28 poza listą",
+   "meta": {
+    "not_listed": 28,
+    "listed": 0,
+    "unknown": 0,
+    "total": 28
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "certpl"
+  },
+  {
+   "id": "n-oracle",
+   "kind": "oracle_flag",
+   "label": "Oracle: wcześniej oznaczył 28 z 28",
+   "meta": {
+    "flagged": 28,
+    "domains": [
+     "amplia-valorinde-app.com",
+     "argentum-placeza-platform.com",
+     "avkast-rden-apps.com",
+     "bursovia-nextron-app.com",
+     "chapada-creditovor-app.com",
+     "ciel-patrimoire-apps.com",
+     "druveyci-akmuino-ai-app.com",
+     "fideplata-app.com",
+     "hrinvest-app.com",
+     "lattisoratom-ai-platform.com",
+     "mintforge-capital-apps.com",
+     "narodny-program-financneho-pristupu-app.com",
+     "norexa-diro.cz",
+     "perle-kapithort-platform-ai.com",
+     "rentaison-ai-platform.com",
+     "rente-lucavie-platform.com",
+     "sabirnistvo-ai-platform.com",
+     "serra-fondecto-platform.com",
+     "sillage-valesonde-app.com",
+     "sinal-capitivo-ai-app.com",
+     "stolt-dataheim-app.com",
+     "syntex-ai-apps.com",
+     "teljingsnad-app.com",
+     "trade-vector-ai-arg.com",
+     "valerisoire-app.com",
+     "valoirine-france.com",
+     "xarvelok-imbrethu-official-app.com",
+     "zhalikerdurtrx-official.com"
+    ]
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "db"
+  },
+  {
+   "id": "n-us-3e819119",
+   "kind": "query_result",
+   "label": "urlscan: domain:mintforge-capital-apps.com → 1 domen",
+   "meta": {
+    "query": "domain:mintforge-capital-apps.com",
+    "total": 2,
+    "domains": 1,
+    "level": "infra",
+    "verdict": "campaign",
+    "old_share": 0.0,
+    "title_diversity": 1.0
+   },
+   "status": null,
+   "is_new": null,
+   "branch": "urlscan"
+  }
+ ],
+ "edges": [
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-ns_set-9160d4c9",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-avkast-rden-apps.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-syntex-ai-apps.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-valoirine-france.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "n-db-ns_set-9160d4c9",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "ns_set"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-kit_tenant-60af5175",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-avkast-rden-apps.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-narodny-program-financneho-pristupu-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-amplia-valorinde-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-rente-lucavie-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-chapada-creditovor-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-hrinvest-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-trade-vector-ai-arg.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-sillage-valesonde-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-syntex-ai-apps.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-teljingsnad-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-valoirine-france.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-stolt-dataheim-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-valerisoire-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-fideplata-app.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "n-db-kit_tenant-60af5175",
+   "b": "d-norexa-diro.cz",
+   "label": "kit_tenant"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-cert_batch-e0fcf19d",
+   "label": "cert_batch"
+  },
+  {
+   "a": "n-db-cert_batch-e0fcf19d",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "cert_batch"
+  },
+  {
+   "a": "n-db-cert_batch-e0fcf19d",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "cert_batch"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-registration_batch-5fa98acb",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-5fa98acb",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-5fa98acb",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-5fa98acb",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "registration_batch"
+  },
+  {
+   "a": "n-db-registration_batch-5fa98acb",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "registration_batch"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-asset_sha256-76ceb2e5",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-avkast-rden-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-narodny-program-financneho-pristupu-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-amplia-valorinde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-rente-lucavie-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-chapada-creditovor-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-hrinvest-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-sillage-valesonde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-syntex-ai-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-fideplata-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-teljingsnad-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-valoirine-france.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-stolt-dataheim-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-valerisoire-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-76ceb2e5",
+   "b": "d-norexa-diro.cz",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-asset_sha256-bfcfb1ee",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-avkast-rden-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-narodny-program-financneho-pristupu-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-amplia-valorinde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-rente-lucavie-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-chapada-creditovor-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-hrinvest-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-sillage-valesonde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-syntex-ai-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-fideplata-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-teljingsnad-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-valoirine-france.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-stolt-dataheim-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-valerisoire-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-bfcfb1ee",
+   "b": "d-norexa-diro.cz",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-db-asset_sha256-be965e59",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-avkast-rden-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-narodny-program-financneho-pristupu-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-amplia-valorinde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-rente-lucavie-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-chapada-creditovor-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-hrinvest-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-sillage-valesonde-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-syntex-ai-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-fideplata-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-teljingsnad-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-valoirine-france.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-stolt-dataheim-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-valerisoire-app.com",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "n-db-asset_sha256-be965e59",
+   "b": "d-norexa-diro.cz",
+   "label": "asset_sha256"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-ip-188.114.96.0",
+   "label": "DNS"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-ip-188.114.97.0",
+   "label": "DNS"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-ads-9eaf5fa8",
+   "label": "reklamy"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-certpl",
+   "label": "lista CERT PL"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-oracle",
+   "label": "Oracle"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-amplia-valorinde-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-argentum-placeza-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-avkast-rden-apps.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-bursovia-nextron-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-chapada-creditovor-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-ciel-patrimoire-apps.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-druveyci-akmuino-ai-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-fideplata-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-hrinvest-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-lattisoratom-ai-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-mintforge-capital-apps.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-narodny-program-financneho-pristupu-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-norexa-diro.cz",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-perle-kapithort-platform-ai.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-rentaison-ai-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-rente-lucavie-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-sabirnistvo-ai-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-serra-fondecto-platform.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-sillage-valesonde-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-sinal-capitivo-ai-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-stolt-dataheim-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-syntex-ai-apps.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-teljingsnad-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-trade-vector-ai-arg.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-valerisoire-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-valoirine-france.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-xarvelok-imbrethu-official-app.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "n-oracle",
+   "b": "d-zhalikerdurtrx-official.com",
+   "label": "przewidziana"
+  },
+  {
+   "a": "d-mintforge-capital-apps.com",
+   "b": "n-us-3e819119",
+   "label": "urlscan"
+  }
+ ],
+ "steps": [
+  {
+   "n": 1,
+   "tool": "db_search",
+   "query": "mintforge-capital-apps.com",
+   "result_summary": "mintforge-capital-apps.com: 1 incydentów w bazie, 14 śladów; 27 powiązanych domen.",
+   "why": "Szukam informacji o domenie początkowej w naszej bazie incydentów.",
+   "produced": [
+    "n-db-ns_set-9160d4c9",
+    "d-argentum-placeza-platform.com",
+    "d-avkast-rden-apps.com",
+    "d-bursovia-nextron-app.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-perle-kapithort-platform-ai.com",
+    "d-rentaison-ai-platform.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-serra-fondecto-platform.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-syntex-ai-apps.com",
+    "d-valoirine-france.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-zhalikerdurtrx-official.com",
+    "n-db-kit_tenant-60af5175",
+    "d-avkast-rden-apps.com",
+    "d-rentaison-ai-platform.com",
+    "d-perle-kapithort-platform-ai.com",
+    "d-narodny-program-financneho-pristupu-app.com",
+    "d-amplia-valorinde-app.com",
+    "d-rente-lucavie-platform.com",
+    "d-argentum-placeza-platform.com",
+    "d-zhalikerdurtrx-official.com",
+    "d-chapada-creditovor-app.com",
+    "d-hrinvest-app.com",
+    "d-trade-vector-ai-arg.com",
+    "d-sillage-valesonde-app.com",
+    "d-syntex-ai-apps.com",
+    "d-teljingsnad-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-valoirine-france.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-stolt-dataheim-app.com",
+    "d-serra-fondecto-platform.com",
+    "d-valerisoire-app.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-bursovia-nextron-app.com",
+    "d-fideplata-app.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-norexa-diro.cz",
+    "n-db-cert_batch-e0fcf19d",
+    "d-argentum-placeza-platform.com",
+    "d-ciel-patrimoire-apps.com",
+    "n-db-registration_batch-5fa98acb",
+    "d-argentum-placeza-platform.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-serra-fondecto-platform.com",
+    "d-sinal-capitivo-ai-app.com",
+    "n-db-asset_sha256-76ceb2e5",
+    "d-avkast-rden-apps.com",
+    "d-rentaison-ai-platform.com",
+    "d-perle-kapithort-platform-ai.com",
+    "d-narodny-program-financneho-pristupu-app.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-amplia-valorinde-app.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-rente-lucavie-platform.com",
+    "d-argentum-placeza-platform.com",
+    "d-zhalikerdurtrx-official.com",
+    "d-chapada-creditovor-app.com",
+    "d-hrinvest-app.com",
+    "d-sillage-valesonde-app.com",
+    "d-bursovia-nextron-app.com",
+    "d-syntex-ai-apps.com",
+    "d-fideplata-app.com",
+    "d-teljingsnad-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-valoirine-france.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-stolt-dataheim-app.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-serra-fondecto-platform.com",
+    "d-valerisoire-app.com",
+    "d-norexa-diro.cz",
+    "n-db-asset_sha256-bfcfb1ee",
+    "d-avkast-rden-apps.com",
+    "d-rentaison-ai-platform.com",
+    "d-perle-kapithort-platform-ai.com",
+    "d-narodny-program-financneho-pristupu-app.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-amplia-valorinde-app.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-rente-lucavie-platform.com",
+    "d-argentum-placeza-platform.com",
+    "d-zhalikerdurtrx-official.com",
+    "d-chapada-creditovor-app.com",
+    "d-hrinvest-app.com",
+    "d-sillage-valesonde-app.com",
+    "d-bursovia-nextron-app.com",
+    "d-syntex-ai-apps.com",
+    "d-fideplata-app.com",
+    "d-teljingsnad-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-valoirine-france.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-stolt-dataheim-app.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-serra-fondecto-platform.com",
+    "d-valerisoire-app.com",
+    "d-norexa-diro.cz",
+    "n-db-asset_sha256-be965e59",
+    "d-avkast-rden-apps.com",
+    "d-rentaison-ai-platform.com",
+    "d-perle-kapithort-platform-ai.com",
+    "d-narodny-program-financneho-pristupu-app.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-amplia-valorinde-app.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-rente-lucavie-platform.com",
+    "d-argentum-placeza-platform.com",
+    "d-zhalikerdurtrx-official.com",
+    "d-chapada-creditovor-app.com",
+    "d-hrinvest-app.com",
+    "d-sillage-valesonde-app.com",
+    "d-bursovia-nextron-app.com",
+    "d-syntex-ai-apps.com",
+    "d-fideplata-app.com",
+    "d-teljingsnad-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-valoirine-france.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-stolt-dataheim-app.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-serra-fondecto-platform.com",
+    "d-valerisoire-app.com",
+    "d-norexa-diro.cz"
+   ],
+   "at": "2026-11-21T21:32:28.774+00:00",
+   "bot": "archiwista",
+   "cost_usd": 0.00636
+  },
+  {
+   "n": 2,
+   "tool": "dns_ns",
+   "query": "mintforge-capital-apps.com",
+   "result_summary": "DNS mintforge-capital-apps.com: NS barbara.ns.cloudflare.com, dale.ns.cloudflare.com; A 188.114.96.0, 188.114.97.0.",
+   "why": "Sprawdzam rekordy DNS i parę NS dla domeny początkowej.",
+   "produced": [
+    "d-mintforge-capital-apps.com",
+    "n-ip-188.114.96.0",
+    "n-ip-188.114.97.0"
+   ],
+   "at": "2026-11-21T21:32:28.776+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 3,
+   "tool": "rdap",
+   "query": "mintforge-capital-apps.com",
+   "result_summary": "RDAP mintforge-capital-apps.com: rejestrator NameCheap, Inc., utworzona 2026-10-20T14:24.",
+   "why": "Sprawdzam dane rejestracyjne domeny początkowej.",
+   "produced": [
+    "d-mintforge-capital-apps.com"
+   ],
+   "at": "2026-11-21T21:32:28.777+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 4,
+   "tool": "adlib_search",
+   "query": "\"Mintforge Capital\"",
+   "result_summary": "Ad Library „\"Mintforge Capital\"”: 0 reklam na 0 stronach.",
+   "why": "Szukam reklam promujących markę Mintforge Capital.",
+   "produced": [
+    "n-ads-9eaf5fa8"
+   ],
+   "at": "2026-11-21T21:32:32.958+00:00",
+   "bot": "zwiadowca",
+   "cost_usd": 0.012002
+  },
+  {
+   "n": 5,
+   "tool": "certpl_check",
+   "query": "wszyscy kandydaci",
+   "result_summary": "CERT PL: 28 z 28 domen nie ma na liście ostrzeżeń.",
+   "why": "Sprawdzam, które z 27 domen są już na liście ostrzeżeń CERT Polska.",
+   "produced": [
+    "n-certpl"
+   ],
+   "at": "2026-11-21T21:32:33.047+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 6,
+   "tool": "oracle_lookup",
+   "query": "",
+   "result_summary": "Oracle oznaczył wcześniej 28 z 28 domen (amplia-valorinde-app 06.10, argentum-placeza-platform 22.10, avkast-rden-apps 11.10, bursovia-nextron-app 10.10, chapada-creditovor-app 18.10, ciel-patrimoire-apps 23.10, druveyci-akmuino-ai-app 15.10, fideplata-app 04.10, hrinvest-app 05.10, lattisoratom-ai-platform 16.10, mintforge-capital-apps 23.10, narodny-program-financneho-pristupu-app 10.10, norexa-diro 11.10, perle-kapithort-platform-ai 23.10, rentaison-ai-platform 14.10, rente-lucavie-platform 11.10, sabirnistvo-ai-platform 11.10, serra-fondecto-platform 22.10, sillage-valesonde-app 11.10, sinal-capitivo-ai-app 20.10, stolt-dataheim-app 09.10, syntex-ai-apps 18.10, teljingsnad-app 08.10, trade-vector-ai-arg 18.10, valerisoire-app 08.10, valoirine-france 15.10, xarvelok-imbrethu-official-app 15.10, zhalikerdurtrx-official 11.10).",
+   "why": "Sprawdzam, które z domen zostały przewidziane przez nasz system Oracle.",
+   "produced": [
+    "n-oracle"
+   ],
+   "at": "2026-11-21T21:32:33.052+00:00",
+   "bot": "notariusz",
+   "cost_usd": 0.0
+  },
+  {
+   "n": 7,
+   "tool": "urlscan_search",
+   "query": "domain:mintforge-capital-apps.com",
+   "result_summary": "urlscan „domain:mintforge-capital-apps.com”: 1 domen (infra).",
+   "why": "Sprawdzam tytuł strony, aby znaleźć słowa kluczowe do wyszukiwania reklam.",
+   "produced": [
+    "n-us-3e819119"
+   ],
+   "at": "2026-11-21T21:32:38.902+00:00",
+   "bot": "tropiciel",
+   "cost_usd": 0.013248
+  },
+  {
+   "n": 8,
+   "tool": "propose_link",
+   "query": "amplia-valorinde-app.com, argentum-placeza-platform.com, avkast-rden-apps.com, bursovia-nextron-app.com (+23)",
+   "result_summary": "Sędzia: 27 domen → kandydat.",
+   "why": "Wszystkie domeny są powiązane na poziomie operatora z domeną początkową.",
+   "produced": [
+    "d-amplia-valorinde-app.com",
+    "d-argentum-placeza-platform.com",
+    "d-avkast-rden-apps.com",
+    "d-bursovia-nextron-app.com",
+    "d-chapada-creditovor-app.com",
+    "d-ciel-patrimoire-apps.com",
+    "d-druveyci-akmuino-ai-app.com",
+    "d-fideplata-app.com",
+    "d-hrinvest-app.com",
+    "d-lattisoratom-ai-platform.com",
+    "d-narodny-program-financneho-pristupu-app.com",
+    "d-norexa-diro.cz",
+    "d-perle-kapithort-platform-ai.com",
+    "d-rentaison-ai-platform.com",
+    "d-rente-lucavie-platform.com",
+    "d-sabirnistvo-ai-platform.com",
+    "d-serra-fondecto-platform.com",
+    "d-sillage-valesonde-app.com",
+    "d-sinal-capitivo-ai-app.com",
+    "d-stolt-dataheim-app.com",
+    "d-syntex-ai-apps.com",
+    "d-teljingsnad-app.com",
+    "d-trade-vector-ai-arg.com",
+    "d-valerisoire-app.com",
+    "d-valoirine-france.com",
+    "d-xarvelok-imbrethu-official-app.com",
+    "d-zhalikerdurtrx-official.com"
+   ],
+   "at": "2026-11-21T21:32:46.938+00:00",
+   "bot": "sedzia",
+   "cost_usd": 0.023572
+  },
+  {
+   "n": 9,
+   "tool": "finish",
+   "query": "",
+   "result_summary": "Sędzia zamyka śledztwo.",
+   "why": "Zakończenie śledztwa i podsumowanie wyników.",
+   "produced": [],
+   "at": "2026-11-21T21:32:55.890+00:00",
+   "bot": "sedzia",
+   "cost_usd": 0.020596
+  }
+ ],
+ "conclusions": [
+  {
+   "text": "Domena mintforge-capital-apps.com to oszustwo inwestycyjne promujące fałszywą platformę \"Mintforge Capital\". W bazie zidentyfikowano 27 powiązanych domen na poziomie operatora.",
+   "evidence_refs": []
+  },
+  {
+   "text": "System Oracle trafnie oflagował wszystkie 28 domen jako podejrzane na wczesnym etapie, zanim pojawiły się jakiekolwiek reklamy.",
+   "evidence_refs": []
+  },
+  {
+   "text": "Żadna z 28 zidentyfikowanych domen nie znajduje się obecnie na liście ostrzeżeń CERT Polska, co wymaga ich zgłoszenia.",
+   "evidence_refs": []
+  },
+  {
+   "text": "Wyszukiwanie w Meta Ad Library nie wykazało obecnie aktywnych reklam dla słowa kluczowego \"Mintforge Capital\".",
+   "evidence_refs": []
+  }
+ ],
+ "pending_decision": null
+}

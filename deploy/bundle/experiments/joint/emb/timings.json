@@ -1,0 +1,8 @@
+{
+ "device": "cpu",
+ "n": 25,
+ "mmlw": 7.1,
+ "bgem3": 16.2,
+ "qwen3emb": 31.5,
+ "siglip": 8.97
+}

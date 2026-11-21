@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:falmurek.live", "status": "ok", "fetched_at": 1795295466.5926356, "error": null, "http_status": null, "seeded": true}, "data": {"name": "falmurek.live", "A": ["104.21.8.235", "172.67.188.210"], "AAAA": ["2606:4700:3031::ac43:bcd2", "2606:4700:3033::6815:8eb"], "NS": ["cartman.ns.cloudflare.com", "fish.ns.cloudflare.com"], "MX": [], "TXT": []}}

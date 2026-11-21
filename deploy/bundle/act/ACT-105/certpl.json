@@ -1,0 +1,63 @@
+[
+ {
+  "fqdn": "dorquesio.click",
+  "registered_at": "2026-10-07 18:22:47",
+  "cert_issued_at": "2026-10-07 18:53:02",
+  "source": "campaign",
+  "urls": [
+   "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722",
+   "https://dorquesio.click/?utm_id=ShBlVaJkaGdLPYMEdfU9&utm_medium=hQO3zYU5Fn&utm_campaign=GYTSmCe2pd&utm_content=KHlNGqruBa&utm_visit=01a11abb-bef9-713c-ada4-006f5f89a722"
+  ],
+  "evidence": [
+   "konto (tenant) kitu f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "piksel FB 4567646436826205",
+   "lander a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "szablon nagłówka «Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl"
+  ]
+ },
+ {
+  "fqdn": "falmurek.live",
+  "registered_at": "2026-10-05 18:20:32",
+  "cert_issued_at": "2026-10-05 00:00:00",
+  "source": "campaign",
+  "urls": [
+   "https://falmurek.live/?utm_id=7FZnufgpApA7thZalVzF&utm_medium=rydlXhtMDP&utm_campaign=b3lXSkwBuz&utm_content=0JUoIXRj85&utm_visit=01a11b11-242a-7010-90aa-1cd2eb82ef83"
+  ],
+  "evidence": [
+   "konto (tenant) kitu f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "piksel FB 4567646436826205",
+   "lander a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "szablon nagłówka «Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl"
+  ]
+ },
+ {
+  "fqdn": "grentavo.click",
+  "registered_at": "2026-10-05 18:20:38",
+  "cert_issued_at": "2026-10-05 18:10:05",
+  "source": "campaign",
+  "urls": [
+   "https://grentavo.click/?utm_id=ntLeEY6TPwPOxktkr5uP&utm_medium=1nKj1PUogz&utm_campaign=X7G6ePpqwP&utm_content=VtGj7WNiBA&utm_visit=01a11b13-c3dd-70b9-bfdb-2ba95fcbf755"
+  ],
+  "evidence": [
+   "konto (tenant) kitu f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "piksel FB 4567646436826205",
+   "lander a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "szablon nagłówka «Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl"
+  ]
+ },
+ {
+  "fqdn": "wernulio.live",
+  "registered_at": "2026-10-07 18:22:29",
+  "cert_issued_at": "2026-10-07 18:51:34",
+  "source": "campaign",
+  "urls": [
+   "https://wernulio.live/?utm_id=vYucNEqDkS5la2nh0kZZ&utm_medium=dMlggV9b3A&utm_campaign=O8UIp7q5YR&utm_content=vJtqCf4DVv&utm_visit=01a11ad6-58b9-7355-a99b-dc39fb8eeaf9"
+  ],
+  "evidence": [
+   "konto (tenant) kitu f141c307-7ca2-41d9-b311-5ed107964c8b",
+   "piksel FB 4567646436826205",
+   "lander a7b9f833-7f9b-4bd4-ac5a-5d6d5743fbba",
+   "szablon nagłówka «Wiem, kto strzelał»: zamach na {PER}, założyciela InPostu — Gazeta.pl"
+  ]
+ }
+]

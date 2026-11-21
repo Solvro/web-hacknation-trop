@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:stiffasset-ventures.com", "status": "ok", "fetched_at": 1795296107.4706304, "error": null, "http_status": null}, "data": {"name": "stiffasset-ventures.com", "A": ["23.153.104.2"], "AAAA": [], "NS": ["ns1.my-control-panel.com", "ns2.my-control-panel.com"], "MX": ["0 stiffasset-ventures.com."], "TXT": ["\"v=spf1 +a +mx +ip4:192.168.168.2 ~all\""]}}

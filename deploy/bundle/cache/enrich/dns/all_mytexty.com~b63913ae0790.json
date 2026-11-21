@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:mytexty.com", "status": "ok", "fetched_at": 1795295466.6181731, "error": null, "http_status": null, "seeded": true}, "data": {"name": "mytexty.com", "A": ["46.101.234.122"], "AAAA": [], "NS": ["ns1.linode.com", "ns2.linode.com", "ns3.linode.com", "ns4.linode.com", "ns5.linode.com"], "MX": [], "TXT": []}}

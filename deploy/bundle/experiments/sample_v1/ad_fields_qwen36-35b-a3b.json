@@ -1,0 +1,247 @@
+{
+ "p1": {
+  "screenshot_kind": "feed",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO\nWTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "andrzej duda"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Range Rover"
+  ],
+  "narrative": "Reklama sugeruje, że wtorkowa transmisja na żywo z Warszawy dotyczy wydarzenia związanego z prezydentem Dudą i samochodem Range Roverem, co może wywoływać skojarzenia z incydentem bezpieczeństwa lub zamachem.",
+  "_parsed": true
+ },
+ "p10": {
+  "screenshot_kind": "feed",
+  "advertiser": "James Brandt Mosese Mena Jnr",
+  "library_id": null,
+  "text": "Ciśnienie spada od razu",
+  "overlay": "udarem, na pewno",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że produkt lub metoda stosowana przez osobę na obrazku powoduje natychmiastowe obniżenie ciśnienia krwi.",
+  "_parsed": true
+ },
+ "p11": {
+  "screenshot_kind": "feed",
+  "advertiser": "Nguyễn Bảo",
+  "library_id": null,
+  "text": "Dowiedz się więcej",
+  "overlay": "SKANDAL DYPLomatyczny: SIKORSKI PUBLICZNIE PONIŻYŁ ZELENSKIEGO PRZECZYTAJ ARTYKUŁ",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "radosław sikorski",
+   "wołodymyr zełenski"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "BŁ SAT"
+  ],
+  "narrative": "Reklama sugeruje, że Radosław Sikorski publicznie upokorzył Wołodymyra Zełenskiego, co ma być powodem do przeczytania artykułu.",
+  "_parsed": true
+ },
+ "p12": {
+  "screenshot_kind": "feed",
+  "advertiser": "Vital Leaf",
+  "library_id": null,
+  "text": "Sponsorowane",
+  "overlay": "WYŚCIGOWYCH",
+  "cta": "Wyświetl szczegóły",
+  "display_link": null,
+  "persons": [
+   "nieznany mężczyzna w garniturze"
+  ],
+  "is_decoy": true,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje format przypominający wiadomości, aby podważyć zaufanie do koni wyścigowych, sugerując, że są one przedmiotem nieetycznych praktyk lub oszustw.",
+  "_parsed": true
+ },
+ "p13": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Giang Mỹ",
+  "library_id": "4181234142166922",
+  "text": "Sponsorowane",
+  "overlay": "Od 19 maja ten preparat jest dostępny BEZPŁATNIE dla wszystkich obywateli Polski! -100% Dla osób cierpiących na grzybicę paznokci lub stóp! Produkt ma zacząć zmniejszać obszar zakażenia grzybiczego już po 30 minutach, a",
+  "cta": null,
+  "display_link": null,
+  "persons": [],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [
+   "Dr. Merritz"
+  ],
+  "narrative": "Reklama sugeruje, że od 19 maja preparat Dr. Merritz na grzybicę paznokci i stóp jest dostępny za darmo dla wszystkich obywateli Polski i działa błyskawicznie.",
+  "_parsed": true
+ },
+ "p14": {
+  "screenshot_kind": "feed",
+  "advertiser": "portalpisosoficial",
+  "library_id": null,
+  "text": "🙏 I am so grateful now, that wealth flows to me effortlessly and abundantly, on a daily basis.",
+  "overlay": "PAIN YOUR WORRIES",
+  "cta": "Wyświetl szczegóły",
+  "display_link": null,
+  "persons": [
+   "jezus chrystus (reprezentacja religijna)"
+  ],
+  "is_decoy": false,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że poprzez modlitwę lub duchowe praktyki można pozbyć się trosk i przyciągnąć bogactwo, używając wizerunku Jezusa jako symbolu nadziei i uzdrowienia.",
+  "_parsed": true
+ },
+ "p15": {
+  "screenshot_kind": "feed",
+  "advertiser": "Formal Favorable",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "mateusz morawiecki"
+  ],
+  "is_decoy": true,
+  "vertical": "politics_news",
+  "brands": [
+   "Formal Favorable"
+  ],
+  "narrative": "Reklama sugeruje, że Mateusz Morawiecki jest powiązany z dramatycznym wydarzeniem w Warszawie, używając sensacyjnej grafiki z samochodem i motocyklistą, aby przyciągnąć uwagę.",
+  "_parsed": true
+ },
+ "p2": {
+  "screenshot_kind": "feed",
+  "advertiser": "UniverseFlux Studio",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO, WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "andrzej duda"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Range Rover"
+  ],
+  "narrative": "Reklama sugeruje, że w Warszawie odbędzie się na żywo dramatyczne wydarzenie z udziałem prezydenta Andrzeja Dudy, przedstawione w kontekście ataku lub zamachu.",
+  "_parsed": true
+ },
+ "p3": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "2180909792525319",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": null,
+  "cta": "Learn More",
+  "display_link": "AMAZON.COM",
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje losową grafikę z gry komputerowej jako przynętę do promowania treści o tematyce ogólnopolskiej.",
+  "_parsed": true
+ },
+ "p4": {
+  "screenshot_kind": "adlibrary",
+  "advertiser": "Exclusive Silver Group",
+  "library_id": "4100374890267408",
+  "text": "Temat, o którym mówi cała Polska",
+  "overlay": "",
+  "cta": null,
+  "display_link": null,
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje dekoracyjny obrazek z gry jako przynętę, aby przyciągnąć uwagę do nieokreślonego 'tematu, o którym mówi cała Polska', co jest typową strategią oszustw typu clickbait.",
+  "_parsed": true
+ },
+ "p5": {
+  "screenshot_kind": "feed",
+  "advertiser": "StarFlow",
+  "library_id": null,
+  "text": "Miliony Polaków tracą na lokatach, ratach i inflacji. Glapiński przez lata milczał. W \"Kropce nad i\" już nie mógł... więcej",
+  "overlay": "",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "adam glapiński"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Kropka nad i"
+  ],
+  "narrative": "Reklama sugeruje, że prezes NBP Adam Glapiński przez lata milczał w obliczu strat Polaków na inflacji i lokatach, a program \"Kropka nad i\" ujawnia prawdę.",
+  "_parsed": true
+ },
+ "p7": {
+  "screenshot_kind": "feed",
+  "advertiser": "Letty Zaswer",
+  "library_id": null,
+  "text": "PL Wydarzenie, które wstrząsnęło całą Polską",
+  "overlay": "NA ŻYWO WTOREK, 20:10 – WARSZAWA",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "donald tusk"
+  ],
+  "is_decoy": false,
+  "vertical": "politics_news",
+  "brands": [
+   "Range Rover"
+  ],
+  "narrative": "Reklama sugeruje, że Donald Tusk brał udział w niebezpiecznym incydencie drogowym w Warszawie, wykorzystując do tego celu sensacyjne i prawdopodobnie fałszywe wizualizacje.",
+  "_parsed": true
+ },
+ "p8": {
+  "screenshot_kind": "feed",
+  "advertiser": "Khương Miên",
+  "library_id": null,
+  "text": "Dowiedz się więcej",
+  "overlay": "PILNE! Ta wiadomość wywołała burzliwą dyskusję wśród obywateli. Zobaczcie, co się dzieje 👍",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [],
+  "is_decoy": true,
+  "vertical": "other",
+  "brands": [],
+  "narrative": "Reklama wykorzystuje sensacyjne hasło o 'pilnej' i 'burzliwej dyskusji' w celu wywołania ciekawości i kliknięcia w post z obrazkiem ptaka, który nie ma związku z treścią nagłówka.",
+  "_parsed": true
+ },
+ "p9": {
+  "screenshot_kind": "feed",
+  "advertiser": "Boss Stream",
+  "library_id": null,
+  "text": "Lekarze powiedzieli mi, że słuchu nie da się już odzyskać. „Proszę się przyzwyczaić, to już część pani życia”. Po 12... więcej",
+  "overlay": "Dowiedz się więcej",
+  "cta": "Dowiedz się więcej",
+  "display_link": null,
+  "persons": [
+   "nieznana kobieta"
+  ],
+  "is_decoy": false,
+  "vertical": "health",
+  "brands": [],
+  "narrative": "Reklama sugeruje, że utrata słuchu jest nieodwracalna i stanowi trwały problem życiowy, co ma skłonić widza do zainteresowania się oferowanym rozwiązaniem.",
+  "_parsed": true
+ }
+}

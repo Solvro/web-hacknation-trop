@@ -1,0 +1,7 @@
+deploy/bundle/** binary
+deploy/bundle/**/*.json -diff -merge linguist-generated
+deploy/bundle/**/*.jsonl -diff -merge linguist-generated
+*.dump binary
+*.onnx binary
+*.npz binary
+*.pkl binary

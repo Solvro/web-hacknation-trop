@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:golatest.click", "status": "ok", "fetched_at": 1795295466.6155503, "error": null, "http_status": null, "seeded": true}, "data": {"name": "golatest.click", "A": ["104.21.61.163", "172.67.212.40"], "AAAA": ["2606:4700:3031::6815:3da3", "2606:4700:3032::ac43:d428"], "NS": ["ryleigh.ns.cloudflare.com", "salvador.ns.cloudflare.com"], "MX": [], "TXT": []}}

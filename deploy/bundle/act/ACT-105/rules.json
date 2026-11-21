@@ -1,0 +1,48 @@
+{
+ "rules": [
+  {
+   "id": "RUL-KMP-001-urlscan",
+   "campaign_id": "KMP-001",
+   "kind": "urlscan",
+   "body": "hash:7395269ab9869b17835f8ebc81c95954d2068d3f5701e02ae4e2d56cb7f96abf"
+  },
+  {
+   "id": "RUL-KMP-001-url",
+   "campaign_id": "KMP-001",
+   "kind": "url_regex",
+   "body": "^https?://[a-z0-9-]{7,10}\\.(?:click|live)/\\?utm_id=[A-Za-z0-9]{20}&utm_medium=[A-Za-z0-9]{10}&utm_campaign=[A-Za-z0-9]{10}&utm_content=[A-Za-z0-9]{10}&utm_visit=[0-9a-f-]{36}"
+  },
+  {
+   "id": "RUL-KMP-001-html",
+   "campaign_id": "KMP-001",
+   "kind": "html_signature",
+   "body": "(?i)«Wiem,\\ kto\\ strzelał»:\\ zamach\\ na.{2,60}?,\\ założyciela\\ InPostu\\ —\\ Gazeta\\.pl"
+  }
+ ],
+ "tests": {
+  "RUL-KMP-001-urlscan": {
+   "hits": 8,
+   "tp": 5,
+   "needs_review": 3,
+   "benign_hits": 0,
+   "benign_total": 42,
+   "precision": 1.0
+  },
+  "RUL-KMP-001-url": {
+   "hits": 5,
+   "tp": 5,
+   "needs_review": 0,
+   "benign_hits": 0,
+   "benign_total": 42,
+   "precision": 1.0
+  },
+  "RUL-KMP-001-html": {
+   "hits": 15,
+   "tp": 3,
+   "needs_review": 12,
+   "benign_hits": 0,
+   "benign_total": 42,
+   "precision": 1.0
+  }
+ }
+}

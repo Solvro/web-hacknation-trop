@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:resader.com", "status": "ok", "fetched_at": 1795295466.5931451, "error": null, "http_status": null, "seeded": true}, "data": {"name": "resader.com", "A": ["104.21.72.23", "172.67.174.30"], "AAAA": ["2606:4700:3030::ac43:ae1e", "2606:4700:3034::6815:4817"], "NS": ["leland.ns.cloudflare.com", "princess.ns.cloudflare.com"], "MX": [], "TXT": []}}

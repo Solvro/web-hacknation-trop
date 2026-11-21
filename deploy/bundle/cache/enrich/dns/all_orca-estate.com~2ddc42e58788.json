@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:orca-estate.com", "status": "ok", "fetched_at": 1795296631.3446712, "error": null, "http_status": null}, "data": {"name": "orca-estate.com", "A": ["157.120.209.111"], "AAAA": [], "NS": ["ns-a1.conoha.io", "ns-a2.conoha.io", "ns-a3.conoha.io"], "MX": ["10 mail1061.conoha.ne.jp."], "TXT": ["\"v=spf1 include:_spf.conoha.ne.jp ~all\""]}}

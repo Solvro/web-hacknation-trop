@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:apexhospitalitysolutions.com", "status": "ok", "fetched_at": 1795296700.366428, "error": null, "http_status": null}, "data": {"name": "apexhospitalitysolutions.com", "A": ["145.223.77.44"], "AAAA": [], "NS": ["ns1.dns-parking.com", "ns2.dns-parking.com"], "MX": ["10 smtp.google.com."], "TXT": ["\"v=spf1 include:_spf.google.com ~all\""]}}

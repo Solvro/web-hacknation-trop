@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:update-secure-guard-upgrade.autos", "status": "ok", "fetched_at": 1795296247.1412754, "error": null, "http_status": null}, "data": {"name": "update-secure-guard-upgrade.autos", "A": ["162.4.84.247"], "AAAA": [], "NS": ["ns1.ns306.parklogic.com", "ns2.ns306.parklogic.com"], "MX": ["10 mail.eye-mail.net."], "TXT": ["\"v=spf1 ip6:fdec:ae16:fda7::/48 -all\""]}}

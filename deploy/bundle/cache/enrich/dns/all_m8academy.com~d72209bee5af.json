@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:m8academy.com", "status": "ok", "fetched_at": 1795296688.3274848, "error": null, "http_status": null}, "data": {"name": "m8academy.com", "A": ["118.139.181.99"], "AAAA": [], "NS": ["ns77.domaincontrol.com", "ns78.domaincontrol.com"], "MX": ["0 mail.m8academy.com."], "TXT": ["\"v=spf1 a mx ptr include:secureserver.net ~all\""]}}

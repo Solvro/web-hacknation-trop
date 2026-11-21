@@ -1,0 +1,1 @@
+{"_meta": {"key": "all:fastriskfreeeffectiveprotect.autos", "status": "ok", "fetched_at": 1795296767.100569, "error": null, "http_status": null}, "data": {"name": "fastriskfreeeffectiveprotect.autos", "A": ["103.224.182.212"], "AAAA": [], "NS": ["ns15.abovedomains.com", "ns16.abovedomains.com"], "MX": ["10 park-mx.above.com."], "TXT": ["\"v=spf1 ip6:fdcf:abda:4154::/48 -all\""]}}
