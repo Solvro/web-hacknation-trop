@@ -2484,6 +2484,18 @@
    "decision": "assign",
    "p": 0.97,
    "coverage": 0.79
+  },
+  {
+   "id": "INC-24920",
+   "captured_at": "2026-11-21T08:47:00Z",
+   "source": "upload",
+   "domain": "selqueno.live",
+   "title": "selqueno.live — strona niedostępna (502)",
+   "person": null,
+   "campaign_id": null,
+   "decision": "insufficient",
+   "p": 0.0,
+   "coverage": 0.12
   }
  ]
 }

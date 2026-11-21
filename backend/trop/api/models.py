@@ -256,7 +256,7 @@ class AnalyzeOptions(_C):
     kind: str = "url"
 
 
-class AnalyzeResponse(_C):
-    """POST /analyze. Differs from schema.AnalyzeAccepted only in `job_id` being nullable (trace input, CONTRACTS §5)."""
-    job_id: str | None = None
-    incident_id: str | None = None
+
+
+class NoticeUpdate(_C):
+    text: str

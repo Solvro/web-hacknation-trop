@@ -99,7 +99,7 @@ services:
       API_INTERNAL_URL: http://api:8000
       PORT: "3000"
       NEXT_PUBLIC_API_BASE: /api/v1
-    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_WEB_PORT:-13000}:3000"]
+    ports: ["${TROP_BIND:-127.0.0.1}:${TROP_WEB_PORT:-13000}:13000"]
     depends_on: [api]
     mem_limit: 512m
     restart: unless-stopped

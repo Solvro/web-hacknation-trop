@@ -1,5 +1,5 @@
 # Coolify (devops.solvro.pl, server solvro-stacja-web, project "Hackatony") — docker-compose build pack.
-# Domain: trop.b.solvro.pl → web:3000; Next.js proxies /api/* to api:8000 (single host, no CORS).
+# Domain: trop.b.solvro.pl → web:13000; Next.js proxies /api/* to api:8000 (single host, no CORS).
 # No published ports (Traefik routes). Memory budget ≤ 5 GiB total. No local ML models in the images.
 # Owner: WS2 (keep in sync with compose.yml).
 services:
@@ -56,7 +56,7 @@ services:
   web:
     build: {context: ./web, dockerfile: Dockerfile}
     environment:
-      SERVICE_FQDN_WEB_3000: trop.b.solvro.pl
+      SERVICE_FQDN_WEB_13000: trop.b.solvro.pl
       API_INTERNAL_URL: http://api:8000
       PORT: "3000"
       NEXT_PUBLIC_API_BASE: /api/v1

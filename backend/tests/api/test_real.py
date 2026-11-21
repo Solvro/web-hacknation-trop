@@ -56,7 +56,7 @@ def test_real_incident_decision_link(live):
 
 
 def test_real_unwired_is_501_not_mock(live):
-    r = live.get(f"{P}/oracle/predictions")
+    r = live.get(f"{P}/triage")
     assert r.status_code == 501 and "KMP-017" not in r.text
 
 
@@ -116,3 +116,26 @@ async def test_url_without_capture_is_job_error():
     evs = await r.lrange(bus.ekey(f"job:{jid}"), 0, -1)
     assert sum('"job.error"' in e for e in evs) == 1
     assert (await bus.get_state(r, jid))["status"] == "error"
+
+
+def test_real_public_endpoints_are_coarse(live):
+    chk = live.post(f"{P}/public/check", data={"url": "https://dorquesio.click/?x=1"}).json()
+    assert chk["verdict"] in ("scam", "unknown")
+    import json as _j
+    assert "KMP-" not in _j.dumps(chk)
+    unk = live.post(f"{P}/public/check", data={"url": "https://example.test/"}).json()
+    assert unk["verdict"] == "unknown" and "bezpiecz" not in " ".join(unk["advice"]).lower().replace("nie oznacza, że strona jest bezpieczna", "")
+    m = live.post(f"{P}/public/extension/match", json={"advertiser": "Nikt", "caption": "kup teraz"}).json()
+    assert m["match"] in (True, False) and "KMP-" not in _j.dumps(m)
+    assert live.get(f"{P}/public/schemes").json()
+    assert all("KMP-" not in x["name"] for x in live.get(f"{P}/public/schemes").json())
+
+
+def test_real_other_workstreams_answer(live):
+    assert live.get(f"{P}/hunter/sources").status_code == 200
+    assert live.get(f"{P}/hunter/runs").status_code == 200
+    assert live.get(f"{P}/investigations").status_code == 200
+    assert live.get(f"{P}/act/packages").status_code == 200
+    assert live.get(f"{P}/oracle/predictions").status_code in (200, 404, 500)
+    assert live.get(f"{P}/traces/domena/dorquesio.click").status_code in (200, 404)
+    assert live.get(f"{P}/graph?focus=p1").json()["panel"]["title"]

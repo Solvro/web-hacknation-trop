@@ -88,19 +88,45 @@ def _placeholder(name: str, module: str, func: str):
     return task
 
 
-capture = _placeholder("capture", "trop.capture.service", "capture")
+capture = _placeholder("capture", "trop.capture.capture", "capture_url")
 enrich = _placeholder("enrich", "trop.enrich.service", "enrich")
-hunt = _placeholder("hunt", "trop.hunter.service", "run_source")
-oracle = _placeholder("oracle", "trop.oracle.service", "run")
-_agent_impl = _placeholder("agent", "trop.agent.service", "run_investigation")
 
-
-async def agent(ctx: dict, inv_id: str, seed: str, campaign_id: str | None = None, budget_steps: int = 20) -> dict:
-    """White Rabbit run: WS6 `run_investigation(inv_id, seed, publish=...)` publishes agent.step/graph.* to Redis `inv:<id>`.
-    Without WS6 the stream is closed with investigation.done so the UI never hangs."""
-    r = ctx.get("redis_bus") or bus.client()
-    out = await _agent_impl(ctx, inv_id, seed, campaign_id=campaign_id, budget_steps=budget_steps)
-    if out.get("status") == "unavailable":
-        await bus.publish(r, f"inv:{inv_id}", _ev("investigation.done", {"investigation_id": inv_id, "summary": {"error": "agent module not installed"}}))
-    return out
 act = _placeholder("act", "trop.act.service", "build_package")
+
+
+async def agent(ctx: dict, inv_id: str, body: dict) -> dict:
+    """White Rabbit run (blocking trop.agent.service.run_investigation in a thread). Events are published on `inv:<id>`."""
+    from trop.agent import service as svc
+
+    def emit(typ: str, data: dict) -> None:
+        bus.publish_sync(f"inv:{inv_id}", typ, {"investigation_id": inv_id, **data})
+
+    loop = asyncio.get_running_loop()
+    try:
+        res = await loop.run_in_executor(None, lambda: svc.run_investigation(body, emit, investigation_id=inv_id))
+        return {"investigation_id": inv_id, "status": res.get("status")}
+    except Exception as e:  # noqa: BLE001
+        log.exception("agent failed")
+        bus.publish_sync(f"inv:{inv_id}", "investigation.done", {"investigation_id": inv_id, "summary": {"error": str(e)[:300]}})
+        return {"investigation_id": inv_id, "error": str(e)}
+
+
+HUNT_RUNNERS = {"meta_adlibrary": "run_meta", "certpl": "run_certpl", "urlscan": "run_urlscan", "google_ads_transparency": "run_google"}
+
+
+async def hunt(ctx: dict, source_id: str) -> dict:
+    """Run one Hunter source (trop.hunter.runner); drafts are attributed through the sink publisher (worker hooks)."""
+    from trop.hunter import runner
+    fn = getattr(runner, HUNT_RUNNERS.get(source_id, ""), None)
+    if fn is None:
+        return {"source_id": source_id, "status": "unknown source"}
+    loop = asyncio.get_running_loop()
+    run = await loop.run_in_executor(None, lambda: fn(progress=lambda m: log.info("hunter %s: %s", source_id, m)))
+    return {"source_id": source_id, "run_id": run.id, "status": run.status, "found": run.found, "attributed": run.attributed}
+
+
+async def oracle(ctx: dict, certstream_s: float = 20.0) -> dict:
+    """One Oracle poll (CT stream + urlscan); new predictions are published as oracle.match by the worker notifier."""
+    from trop.oracle import service
+    loop = asyncio.get_running_loop()
+    return await loop.run_in_executor(None, lambda: service.poll_once(certstream_s=certstream_s))
