@@ -192,13 +192,26 @@ def file_for(artifact_id: str) -> Path | None:
     return None
 
 
+_LOCAL = ("file:", "/home/", "/data/", "/tmp/", "c:\\")
+
+
+def _clean_boxes(boxes: list | None) -> list:
+    """Boxes go to the public API: drop any value that points at a local file (render hrefs, saved-page paths)."""
+    out = []
+    for b in boxes or []:
+        if not isinstance(b, dict):
+            continue
+        out.append({k: v for k, v in b.items() if not (isinstance(v, str) and v.lower().startswith(_LOCAL))})
+    return out
+
+
 def artifact_refs(iid: str) -> list[dict]:
     out = []
     for m in listing(iid):
         a = f"{iid}--{m['role']}--{m['n']}"
         r = {"id": a, "role": m["role"], "url": f"/api/v1/artifacts/{a}", "w": m["w"], "h": m["h"], "mime": "image/webp", "size": m.get("bytes", 0)}
         if m.get("boxes"):
-            r["boxes"] = m["boxes"]
+            r["boxes"] = _clean_boxes(m["boxes"])
         out.append(r)
     rd = _rendered(iid)
     if rd:                                       # rendered landing page first: it is the faithful one
@@ -211,7 +224,7 @@ def artifact_refs(iid: str) -> list[dict]:
         a = f"{iid}--landing_screenshot--{RENDERED_N}"
         r = {"id": a, "role": "landing_screenshot", "url": f"/api/v1/artifacts/{a}", "w": w, "h": h, "mime": "image/webp", "size": rd[0].stat().st_size}
         if rd[1]:
-            r["boxes"] = rd[1]
+            r["boxes"] = _clean_boxes(rd[1])
         li = next((k for k, x in enumerate(out) if x["role"] == "landing_screenshot"), len(out))
         out.insert(li, r)
     return out
