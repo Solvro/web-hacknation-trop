@@ -44,6 +44,17 @@ TROP's whole job is turning scattered ads into a case file whose links you can d
 
 Fallback: **zgrai**. It is the safest choice because the product screens are already zgrai-like, so the demo slides need no translation.
 
+## Illustration vs production
+
+The walkthrough slides use the **fictional** KMP-017 universe for illustration. Say so if asked. Production (https://trop.b.solvro.pl) runs on the real organizer data, so the deck deliberately contains **no production screenshots**: the deck may be shown publicly, and real captures would show organizer identifiers. Show production live in the demo instead.
+
+Product changes since the screens were drawn, to mention in the live demo:
+- Raport shows real screenshots of the captured page with evidence outlines.
+- The Graf unfolds in place.
+- Sędzia (the adjudicator) explains in Polish and can only veto a link.
+- DANE: items 1 and 2 → KMP-001, item 3 → KMP-003, all others are new campaigns, with 0 wrong links.
+- White Rabbit on production: 8 steps, 26 nodes, 3 new domains, including the domains of DANE 1 and 2, found independently.
+
 ## Fill in before the final
 
 - `[Imię Nazwisko]` / `[skład zespołu]`: team members (slides 1 and 13 of every variant).
