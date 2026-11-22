@@ -95,9 +95,10 @@ const A: Cut = {
         shot: 'graf', from: 'graf-0.3', to: 'end', dur: 11,
         cam: [{ at: 0, x: 960, y: 420, z: 1.15 }, { at: 0.6, x: 960, y: 420, z: 1.15 }, { at: 1.5, x: 950, y: 560, z: 1.36 }, { at: 11, x: 950, y: 560, z: 1.36 }],
         caps: [
-          { at: 0.3, until: 3.4, text: 'Graf: materiał, ślady, osoby, kampania, operator', pos: 'br' },
-          { at: 3.7, until: 6.6, text: 'Klik w osobę: Rafał Brzoska w 5 materiałach', sub: 'wizerunek albo nazwisko, wspólne dla całej serii', pos: 'br' },
-          { at: 6.9, until: 10.8, text: 'Kampania KMP-001 i operator OP-01', sub: 'każdy węzeł rozwija swoje powiązania', pos: 'br' },
+          // clicks land at 3.3 s (person), 6.2 s (campaign), 9.1 s (operator) of this scene
+          { at: 0.3, until: 3.0, text: 'Graf: materiał, ślady, osoby, kampania, operator', pos: 'br' },
+          { at: 3.4, until: 5.9, text: 'Klik w osobę: Rafał Brzoska w 5 materiałach', sub: 'wizerunek albo nazwisko, wspólne dla całej serii', pos: 'br' },
+          { at: 6.3, until: 10.8, text: 'Kampania KMP-001 i operator OP-01', sub: 'każdy węzeł rozwija swoje powiązania', pos: 'br' },
         ],
       }),
     },
@@ -108,7 +109,7 @@ const A: Cut = {
         cam: [{ at: 0, ...FULL }, { at: 5.8, ...FULL }, { at: 6.5, x: 760, y: 560, z: 1.3 }, { at: 7.3, x: 760, y: 560, z: 1.3 }, { at: 8.1, x: 960, y: 640, z: 1.2 }],
         caps: [
           { at: 0.3, until: 4.6, text: 'Materiał, którego żadna kampania nie tłumaczy', sub: '„Poland Invest Summit 2026”', pos: 'bl' },
-          { at: 5.0, until: 9.8, bot: 'sedzia', text: 'Nowa kampania (kandydat), bez wymuszania', sub: 'żeby dołączyć, potrzeba co najmniej 0.80; najbliższa ma 0.01', pos: 'bl' },
+          { at: 6.0, until: 9.8, bot: 'sedzia', text: 'Nowa kampania (kandydat), bez wymuszania', sub: 'żeby dołączyć, potrzeba co najmniej 0.80; najbliższa ma 0.01', pos: 'bl' },
         ],
       }),
     },
@@ -119,7 +120,7 @@ const A: Cut = {
         cam: [{ at: 0, x: 960, y: 440, z: 1.5 }, { at: 2.2, x: 960, y: 440, z: 1.5 }, { at: 3.0, ...FULL }, { at: 7.3, ...FULL }, { at: 8.1, x: 450, y: 620, z: 1.6 }, { at: 9, x: 450, y: 620, z: 1.6 }],
         caps: [
           { at: 0.3, until: 4.4, bot: 'zwiadowca', text: 'Dowolny link: strona przechwycona w piaskownicy', sub: 'formularzy nie wysyłamy', pos: 'br' },
-          { at: 4.7, until: 8.8, text: 'example.com nie pasuje do żadnej kampanii, i słusznie', sub: 'zrzut strony, HTML i ruch sieciowy z piaskownicy', pos: 'br' },
+          { at: 4.7, until: 8.8, text: 'Boty czytają to, co przechwycił Zwiadowca', sub: 'zrzut strony, HTML i ruch sieciowy z piaskownicy', pos: 'br' },
         ],
       }),
     },
