@@ -96,6 +96,73 @@ export const SHOTS: Shot[] = [
     },
   },
   {
+    // Sprawdź by dropping a real DANE folder (not a prepared sample): the field's drag ring,
+    // the folder handed to its folder input, then the bots wake one by one.
+    id: process.env.DROP_ID ?? 'drop',
+    warm: false,
+    async run(c) {
+      const DANE1 = '/home/dawid-home-pc/hacknation/trop/data/raw/dane/unpacked/do_udostępnienia/1';
+      const form = c.page.locator('form').first();
+      const drag = (type: string) =>
+        form.evaluate((f, t) => f.dispatchEvent(new DragEvent(t, { bubbles: true, cancelable: true, dataTransfer: new DataTransfer() })), type);
+      await c.goto('/');
+      await c.mark();
+      await c.wait(3200);
+      await c.page.evaluate(`window.__chipText = '📁 1  ·  zrzut, HTML, HAR'`);
+      await c.moveTo(form, 1600, { x: 0.45, y: 0.35 });
+      await drag('dragover');
+      await c.wait(700);
+      c.label('drop');
+      await c.page.locator('input[webkitdirectory]').setInputFiles(DANE1);
+      await drag('dragleave');
+      await c.page.evaluate(`window.__chipText = ''; document.getElementById('__chip')?.remove()`);
+      await c.wait(1800);
+      await c.click(c.page.getByRole('button', { name: /^Sprawdź/ }).last(), 800);
+      c.label('analysis');
+      await c.untilVisible(/Dołącza do kampanii/, 60_000);
+      c.label('verdict');
+      await c.wait(2600);
+      await c.scrollTo(c.page.locator('figcaption', { hasText: 'Strona docelowa' }).first(), 1300, 0.1);
+      c.label('outlines');
+      await c.wait(3400);
+      c.label('end');
+    },
+  },
+  {
+    // Trace checks: an existing domain, then a person
+    id: 'slad',
+    warm: false,
+    async run(c) {
+      const field = c.page.locator('#rp-in');
+      await c.goto('/');
+      await c.mark();
+      await c.wait(800);
+      await c.click('Domena lub osoba', 900);
+      await c.click(field, 500);
+      await c.press('Control+a');
+      await c.type('dorquesio.click', 60);
+      await c.wait(400);
+      await c.press('Enter');
+      c.label('domain');
+      await c.untilVisible('W kampaniach', 20_000);
+      await c.wait(2400);
+      await c.scrollBy(430, 1200);
+      await c.wait(2600);
+      await c.scrollBy(-430, 900);
+      await c.click(field, 700);
+      await c.press('Control+a');
+      await c.type('Rafał Brzoska', 60);
+      await c.wait(400);
+      await c.press('Enter');
+      c.label('person');
+      await c.untilVisible('Materiały z tą osobą', 20_000);
+      await c.wait(2400);
+      await c.scrollBy(430, 1200);
+      await c.wait(3000);
+      c.label('end');
+    },
+  },
+  {
     // New-campaign case: the sample no campaign explains
     id: 'nowa',
     async run(c) {

@@ -73,7 +73,13 @@ export interface EndScene {
   dur: number;
 }
 
-export type Scene = ClipScene | TitleScene | StatementScene | StatsScene | BotsScene | EndScene;
+/** zgrai deck scenes: problem (red), insight, title wordmark, closing (red). */
+export interface ZScene {
+  kind: 'zproblem' | 'zinsight' | 'ztitle' | 'zend';
+  dur: number;
+}
+
+export type Scene = ClipScene | TitleScene | StatementScene | StatsScene | BotsScene | EndScene | ZScene;
 
 export type TransitionId = 'cut' | 'fade' | 'slide' | 'wipe';
 
@@ -81,6 +87,6 @@ export interface Cut {
   id: string;
   purpose: string;
   /** Caption look: white cards or black cards. */
-  look: 'card' | 'ink';
+  look: 'card' | 'ink' | 'bubble';
   scenes: { scene: Scene; into?: TransitionId }[];
 }

@@ -8,8 +8,9 @@ import { createContext, useContext } from 'react';
 import { Easing, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { BOT, BOTS, INK, MUTED, PAPER, SANS } from '../brand.ts';
 import type { Cap } from '../types.ts';
+import { Bubble } from '../scenes/Zgrai.tsx';
 
-export type Look = 'card' | 'ink';
+export type Look = 'card' | 'ink' | 'bubble';
 export const CaptionLook = createContext<Look>('card');
 
 const EASE = Easing.bezier(0.16, 1, 0.3, 1);
@@ -18,6 +19,7 @@ export function Caption({ cap }: { cap: Cap }) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const look = useContext(CaptionLook);
+  if (look === 'bubble') return <Bubble cap={cap} />;
   const t = frame / fps;
   if (t < cap.at - 0.01 || t > cap.until + 0.4) return null;
   const pIn = interpolate(t, [cap.at, cap.at + 0.45], [0, 1], { easing: EASE, extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });

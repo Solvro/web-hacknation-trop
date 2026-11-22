@@ -14,12 +14,14 @@ import { loadFonts, PAPER } from './brand.ts';
 import { CaptionLook, type Look } from './components/Caption.tsx';
 import { BotsCard, EndCard, Stats, Statement, TitleCard } from './scenes/Cards.tsx';
 import { ClipScene } from './scenes/ClipScene.tsx';
+import { loadZgraiFonts, ZEnd, ZInsight, ZProblem, ZTitle } from './scenes/Zgrai.tsx';
 import type { Cut, Scene, TransitionId } from './types.ts';
 
 export const FPS = 60;
 const HANDOVER_S = 0.5;
 
 loadFonts();
+loadZgraiFonts();
 
 export const overlapFrames = (id: TransitionId | undefined): number => (!id || id === 'cut' ? 0 : Math.round(HANDOVER_S * FPS));
 
@@ -48,6 +50,14 @@ function SceneView({ scene }: { scene: Scene }) {
       return <BotsCard />;
     case 'end':
       return <EndCard />;
+    case 'zproblem':
+      return <ZProblem />;
+    case 'zinsight':
+      return <ZInsight />;
+    case 'ztitle':
+      return <ZTitle />;
+    case 'zend':
+      return <ZEnd />;
   }
 }
 

@@ -358,4 +358,119 @@ const C: Cut = {
   ],
 };
 
-export const CUTS: Cut[] = [A, B, C];
+// ---- D: zgrai deck style, problem opener, then the walkthrough at full frame (≈ 1:55) ----
+// No camera moves: every capture shows the whole screen. The first check drops a real DANE
+// folder instead of a prepared sample and plays the bots at their own pace.
+
+const DROP = 'drop2';
+
+const D: Cut = {
+  id: 'D-Zgrai',
+  purpose: 'zgrai deck look: problem opener, full-frame walkthrough with bot-bubble captions, no Lab',
+  look: 'bubble',
+  scenes: [
+    { scene: { kind: 'zproblem', dur: 6 } },
+    { into: 'fade', scene: { kind: 'zinsight', dur: 5.5 } },
+    { into: 'fade', scene: { kind: 'ztitle', dur: 3.6 } },
+    {
+      into: 'fade',
+      scene: clip({
+        shot: DROP, from: 'start', to: 'analysis', dur: 8.4,
+        caps: [
+          { at: 0.4, until: 4.0, text: 'Sześciu detektywów śpi, dopóki nie dostaną materiału', pos: 'bl' },
+          { at: 4.4, until: 8.2, text: 'Wrzucamy cały folder z danych: zrzut, HTML, HAR', sub: 'materiał DANE 1, nie gotowy przykład', pos: 'bl' },
+        ],
+      }),
+    },
+    {
+      scene: clip({
+        shot: DROP, from: 'analysis', to: 'verdict', dur: 13,
+        caps: [
+          { at: 0.3, until: 2.9, bot: 'zwiadowca', text: 'Otwieram stronę w piaskownicy', sub: 'formularzy nie wysyłam', pos: 'bl' },
+          { at: 3.2, until: 6.2, bot: 'tropiciel', text: 'Piksel FB, konto w zestawie strony, landing', sub: 'przy każdym śladzie: ile materiałów w bazie go ma', pos: 'bl' },
+          { at: 6.5, until: 9.3, bot: 'czytelnik', text: 'Czytam treść: osoby, nagłówki, komentujących', pos: 'bl' },
+          { at: 9.6, until: 12.8, bot: 'archiwista', text: 'Porównuję z bazą: najbliżej KMP-001', pos: 'bl' },
+        ],
+      }),
+    },
+    {
+      scene: clip({
+        shot: DROP, from: 'verdict-0.2', to: 'outlines-0.4', dur: 4.2,
+        caps: [{ at: 0.2, until: 4.0, bot: 'sedzia', text: 'Dołącza do kampanii KMP-001 · pewność 0.99', sub: 'operator OP-01, następna kampania tylko 0.01', pos: 'br' }],
+      }),
+    },
+    {
+      scene: clip({
+        shot: DROP, from: 'outlines-0.4', to: 'end', dur: 3.8,
+        caps: [{ at: 0.2, until: 3.6, bot: 'zwiadowca', text: 'Obrysy: tu znaleźliśmy dowody', pos: 'bl' }],
+      }),
+    },
+    {
+      into: 'fade',
+      scene: clip({
+        shot: 'graf', from: 'graf-0.3', to: 'end', dur: 12.5,
+        caps: [
+          // clicks land at 3.6 s (person), 6.9 s (campaign), 10.2 s (operator)
+          { at: 0.3, until: 3.3, text: 'Graf: materiał, ślady, osoby, kampania, operator', pos: 'bl' },
+          { at: 3.7, until: 6.6, text: 'Osoba: Rafał Brzoska w 5 materiałach', pos: 'bl' },
+          { at: 7.0, until: 12.3, text: 'Kampania KMP-001 i operator OP-01', sub: 'każdy węzeł rozwija swoje powiązania', pos: 'bl' },
+        ],
+      }),
+    },
+    {
+      into: 'slide',
+      scene: clip({
+        shot: 'slad', from: 'domain-3.4', to: 'end', dur: 15,
+        caps: [
+          { at: 0.3, until: 2.6, text: 'Ślad zamiast materiału: domena', sub: 'dorquesio.click', pos: 'br' },
+          { at: 3.0, until: 7.6, bot: 'archiwista', text: 'dorquesio.click: 2 materiały w KMP-001', sub: 'często razem z tym samym zestawem strony i bramką CAPI', pos: 'br' },
+          { at: 9.2, until: 14.8, bot: 'czytelnik', text: 'Osoba: Rafał Brzoska w 4 materiałach', sub: 'ta sama kampania, te same nagłówki i ten sam kit', pos: 'br' },
+        ],
+      }),
+    },
+    {
+      into: 'slide',
+      scene: clip({
+        shot: 'nowa', from: 'verdict-0.5', to: 'end', dur: 7.2,
+        caps: [{ at: 0.3, until: 7.0, bot: 'sedzia', text: 'Nic nie pasuje? Nowa kampania (kandydat)', sub: 'próg dołączenia 0.80, najbliższa kampania ma 0.01', pos: 'br' }],
+      }),
+    },
+    {
+      into: 'slide',
+      scene: clip({
+        shot: 'kampanie', from: 'start', to: 'end', dur: 15.5,
+        caps: [
+          { at: 0.3, until: 3.4, text: 'Kampanie według operatorów, a Oracle łapie nowe domeny', sub: 'zanim pojawi się pierwsza reklama', pos: 'br' },
+          { at: 3.8, until: 8.8, text: 'KMP-001: 6 materiałów, 5 domen, 4 reklamodawców', sub: '0 z 5 domen na liście CERT PL', pos: 'br' },
+          { at: 9.3, until: 15.3, bot: 'sedzia', text: 'Jedno zgłoszenie na całą kampanię', sub: 'Meta DSA art. 16, CERT PL, STIX 2.1, PDF. Nic nie wychodzi samo.', pos: 'bl' },
+        ],
+      }),
+    },
+    {
+      into: 'slide',
+      scene: clip({
+        shot: 'sledztwo', from: 'start', to: 'done-0.5', dur: 9.5,
+        caps: [
+          { at: 0.3, until: 4.4, bot: 'notariusz', text: 'White Rabbit: od jednej domeny do reszty sieci', sub: 'certyfikaty, rejestracje, urlscan, lista CERT PL', pos: 'br' },
+          { at: 4.7, until: 9.4, bot: 'tropiciel', text: 'Graf rośnie z każdym krokiem agenta', sub: 'zapis prawdziwego przebiegu (replay), przyspieszony', pos: 'br' },
+        ],
+      }),
+    },
+    {
+      scene: clip({
+        shot: 'sledztwo', from: 'done-0.3', to: 'end', dur: 4.5,
+        caps: [{ at: 0.3, until: 4.3, bot: 'sedzia', text: '50 nowych domen, żadnej na liście CERT PL', pos: 'br' }],
+      }),
+    },
+    {
+      into: 'slide',
+      scene: clip({
+        shot: 'extension', from: 'start', to: 'end', dur: 7.2,
+        caps: [{ at: 0.3, until: 7.0, text: 'Wtyczka: ostrzeżenie na reklamie ze znanej kampanii', sub: 'strona demo wzorowana na reklamie z korpusu', pos: 'bl' }],
+      }),
+    },
+    { into: 'fade', scene: { kind: 'zend', dur: 5 } },
+  ],
+};
+
+export const CUTS: Cut[] = [A, B, C, D];

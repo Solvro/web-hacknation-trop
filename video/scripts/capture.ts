@@ -100,6 +100,18 @@ const CURSOR = `
     const c = document.getElementById('__cur');
     c.style.transform = 'translate(' + (x - 5) + 'px,' + (y - 3) + 'px)';
     c.style.display = show === false ? 'none' : 'block';
+    let chip = document.getElementById('__chip');
+    if (window.__chipText && !chip) {
+      chip = document.createElement('div');
+      chip.id = '__chip';
+      chip.style.cssText = 'position:fixed;left:0;top:0;z-index:2147483645;pointer-events:none;background:#fff;border:1px solid #ddd;border-radius:12px;padding:8px 14px;font:500 14px system-ui,sans-serif;color:#0a0a0a;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap;';
+      document.documentElement.appendChild(chip);
+    }
+    if (chip) {
+      chip.textContent = window.__chipText || '';
+      chip.style.display = window.__chipText ? 'block' : 'none';
+      chip.style.transform = 'translate(' + (x + 18) + 'px,' + (y + 14) + 'px) rotate(-3deg)';
+    }
   };
   window.__ring = (x, y, p) => {
     install();

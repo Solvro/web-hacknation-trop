@@ -84,5 +84,39 @@
     },
     "capturedAt": "2026-11-22T00:02:05.096Z",
     "origin": "https://trop.b.solvro.pl"
+  },
+  "slad": {
+    "seconds": 20.783333333333335,
+    "marks": {
+      "domain": 4.466666666666667,
+      "person": 14.083333333333334,
+      "end": 20.783333333333335
+    },
+    "capturedAt": "2026-11-22T08:23:08.831Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "drop": {
+    "seconds": 29.416666666666668,
+    "marks": {
+      "drop": 5.5,
+      "analysis": 8.516666666666667,
+      "verdict": 22.116666666666667,
+      "outlines": 26.016666666666666,
+      "end": 29.416666666666668
+    },
+    "capturedAt": "2026-11-22T08:24:54.184Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "drop2": {
+    "seconds": 29.416666666666668,
+    "marks": {
+      "drop": 5.5,
+      "analysis": 8.516666666666667,
+      "verdict": 22.116666666666667,
+      "outlines": 26.016666666666666,
+      "end": 29.416666666666668
+    },
+    "capturedAt": "2026-11-22T08:28:22.372Z",
+    "origin": "https://trop.b.solvro.pl"
   }
 }

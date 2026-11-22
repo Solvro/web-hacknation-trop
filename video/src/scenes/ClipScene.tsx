@@ -8,7 +8,8 @@
 import { AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { INK, LINE, MONO, MUTED, PAPER, SANS, STAGE } from '../brand.ts';
 import captures from '../captures.json' with { type: 'json' };
-import { Caption } from '../components/Caption.tsx';
+import { Caption, CaptionLook } from '../components/Caption.tsx';
+import { useContext } from 'react';
 import type { Cam, ClipScene as Spec, Point } from '../types.ts';
 
 const W = 1920;
@@ -61,6 +62,7 @@ export function ClipScene({ spec }: { spec: Spec }) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
+  const zgrai = useContext(CaptionLook) === 'bubble';
   const have = !!CAPTURES[spec.shot];
   const from = have ? resolvePoint(spec.shot, spec.from) : 0;
   const to = have ? resolvePoint(spec.shot, spec.to) : spec.dur;
@@ -74,7 +76,7 @@ export function ClipScene({ spec }: { spec: Spec }) {
   const winW = W * S;
   const winH = H * S + BAR;
   return (
-    <AbsoluteFill style={{ background: STAGE }}>
+    <AbsoluteFill style={{ background: zgrai ? '#FFFFFF' : STAGE }}>
       <div
         style={{
           position: 'absolute',
