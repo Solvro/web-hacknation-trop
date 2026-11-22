@@ -194,7 +194,11 @@ def _samples() -> list[dict]:
 
 @router.get("/samples", response_model=list[M.Sample], tags=["jobs"], summary="Jury samples (DANE folders + sample_v1 items) to analyse in one click")
 async def samples():
-    return [{k: s[k] for k in ("id", "title", "description", "expected", "size")} for s in _samples()]
+    def label(e: str) -> str:
+        if e.startswith("assign:"):
+            return "kampania " + e.split(":", 1)[1]
+        return {"new": "nowa kampania (kandydat)", "confirm": "do potwierdzenia", "insufficient": "za mało materiału"}.get(e, e)
+    return [{**{k: s[k] for k in ("id", "title", "description", "expected", "size")}, "expected_label": label(s["expected"])} for s in _samples()]
 
 
 @router.post("/samples/{sample_id}/analyze", response_model=AnalyzeAccepted, tags=["jobs"])
@@ -651,7 +655,24 @@ async def hunter_policy():
 
 # ============================================================================================== public (coarse, no internal ids)
 @router.post("/public/check", response_model=CheckResult, tags=["public"])
-async def public_check(url: str | None = Form(None), text: str | None = Form(None)):
+async def public_check(url: str | None = Form(None), text: str | None = Form(None), image: UploadFile | None = File(None)):
+    """A link, a text, or an ad screenshot (`image`: ad-fields model -> advertiser / caption / display link -> corpus lookup + text match)."""
+    if image is not None and image.filename:
+        import tempfile
+        d = Path(tempfile.mkdtemp(prefix="trop-check-"))
+        f = d / ("ad" + (Path(image.filename).suffix.lower() if Path(image.filename).suffix.lower() in (".png", ".jpg", ".jpeg", ".webp") else ".png"))
+        with open(f, "wb") as out:
+            await asyncio.to_thread(__import__("shutil").copyfileobj, image.file, out, 1 << 20)
+        try:
+            from PIL import Image
+            with Image.open(f) as im:
+                im.verify()
+        except Exception:  # noqa: BLE001
+            raise HTTPException(422, "to nie jest poprawny obraz (PNG / JPG / WebP)")
+        s = get_store()
+        if hasattr(s, "public_check_image"):
+            return await _a(s.public_check_image(str(f), url, text))
+        return await _a(s.public_check(url, text or "reklama ze zrzutu"))
     return await _a(get_store().public_check(url, text))
 
 

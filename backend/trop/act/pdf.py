@@ -9,6 +9,7 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 
 from .notice import GOOD_FAITH, LEGAL_BASIS, REPORTER
+from .pl import n_ads, n_advertisers, n_domains, n_traces
 
 FONTS = Path(__file__).parent / "fonts"
 INK, MUTED, LINE = (20, 28, 24), (90, 100, 95), (200, 208, 204)
@@ -74,7 +75,7 @@ def render_dsa_pdf(pkg: dict[str, Any], d: dict[str, Any], notice_text: str) -> 
                    new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     c = d["counts"]
     _p(pdf, f"Pakiet {pkg['id']} · przygotowano {pkg['created_at'][:16].replace('T', ' ')} UTC · "
-            f"{c['ads']} reklam · {c['advertisers']} reklamodawców · {c['domains']} domen · {c['evidence_items']} śladów wspólnych"
+            f"{n_ads(c['ads'])} · {n_advertisers(c['advertisers'])} · {n_domains(c['domains'])} · {n_traces(c['evidence_items'])} wspólnych"
             + fict, 8.5, MUTED)
     if d.get("fictional"):
         _p(pdf, "Uwaga: wszystkie dane w tym dokumencie są fikcyjne (materiał demonstracyjny).", 8.5, (150, 60, 30))

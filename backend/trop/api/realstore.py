@@ -246,6 +246,11 @@ class RealStore:
 
     async def jobs_list(self, limit: int) -> list[Job]:
         r = bus.client()
+        from trop.worker import persist
+        known = set(await r.zrange("trop:jobs", 0, -1))
+        for jid, _ in await asyncio.to_thread(persist.job_ids, 300):         # jobs that survived only on the data volume
+            if jid not in known:
+                await persist.hydrate_job(r, jid)
         ids = await r.zrevrange("trop:jobs", 0, limit - 1)
         out = []
         for i in ids:
@@ -273,8 +278,18 @@ class RealStore:
 
     # ------------------------------------------------------------------------------------------ incidents
     async def _stored(self, iid: str) -> dict | None:
-        raw = await bus.client().get(f"trop:incident:{iid}")
-        return json.loads(raw) if raw else None
+        r = bus.client()
+        try:
+            raw = await r.get(f"trop:incident:{iid}")
+            if raw:
+                return json.loads(raw)
+            from trop.worker import persist
+            doc = await asyncio.to_thread(persist.load_incident, iid)        # Redis wiped by a redeploy: the data volume has it
+            if doc:
+                await r.set(f"trop:incident:{iid}", json.dumps(doc, default=str), ex=7 * 86400)
+            return doc
+        finally:
+            await r.aclose()
 
     def _loo_decision(self, iid: str) -> Decision:
         """Decision for a known incident, leave-one-out (otherwise it trivially duplicates itself)."""
@@ -767,10 +782,12 @@ class RealStore:
     # ------------------------------------------------------------------------------------------ investigations (WS6 agent)
     def investigations(self, status=None):
         from trop.agent import service as svc
+        svc.reap_stale()                                # zombies of a restarted worker become `error` (never "w toku" forever)
         return [i for i in svc.list_investigations(status) if not i.campaign_id or i.campaign_id in self.corpus.campaigns]
 
     def investigation(self, iid: str):
         from trop.agent import service as svc
+        svc.reap_stale()
         try:
             return svc.get_investigation(iid)
         except (FileNotFoundError, KeyError):
@@ -865,6 +882,9 @@ class RealStore:
 
     async def act_create(self, body):
         from trop.act import service as act
+        for pkg in reversed(await asyncio.to_thread(act.list_packages, body.campaign_id)):    # idempotent: one open draft per campaign + kind
+            if pkg.kind == body.kind and pkg.status != "sent":
+                return pkg
         use_llm = bool(settings.gemini_api_key or settings.openrouter_api_key) and __import__("os").environ.get("TROP_NO_LIVE") != "1"
         return await asyncio.to_thread(lambda: act.create_package(body, use_llm=use_llm))
 
@@ -1010,6 +1030,30 @@ class RealStore:
             reasons.append("domena jest na liście ostrzeżeń CERT Polska")
         return PublicCampaign(name=self.PUBLIC_NAME.get(vert, "Znana kampania oszustwa reklamowego"), seen_count=len(mem),
                                       since=seen[0] if seen else "2026", reasons=reasons)
+
+    async def public_check_image(self, path: str, url, text):
+        """Ad screenshot: full ingest of the image (ad-fields model, creative pHash, faces) + the same engine decision as an upload; capped at 25 s."""
+        from trop.schema import CheckResult
+        unknown = CheckResult(verdict="unknown", advice=["Brak dopasowania nie oznacza, że reklama jest bezpieczna.", "Zachowaj ostrożność; możesz ją zgłosić."])
+        scam_advice = ["Nie klikaj w link i nie podawaj danych.", "Zgłoś reklamę platformie i na incydent.cert.pl."]
+
+        def work():
+            from trop.engine import service
+            d, inc, _ = service.analyze_path(Path(path).parent, self.corpus, inc_id="PUB-IMG")
+            ad = inc.get("ad") or {}
+            link = ad.get("display_link") or ad.get("link") or (inc.get("landing") or {}).get("entry_url")
+            pc = self._public_campaign(d) if d.decision in ("assign", "confirm") else None
+            if not pc and link:
+                pc = self._known_domain(link)
+            if not pc and (ad.get("advertiser") or ad.get("text")):                    # advertiser / caption against the corpus
+                d2 = self._quick_decision({"ad": {"advertiser": ad.get("advertiser"), "text": ad.get("text")}, "landing": {"text": ad.get("text")}})
+                pc = self._public_campaign(d2) if d2.decision in ("assign", "confirm") else None
+            return pc
+        try:
+            pc = await asyncio.wait_for(asyncio.to_thread(work), 25)
+        except Exception:  # noqa: BLE001 - timeout, model down, unreadable: never a 5xx for a valid image
+            return unknown
+        return CheckResult(verdict="scam", public_campaign=pc, advice=scam_advice) if pc else unknown
 
     async def public_check(self, url, text):
         try:

@@ -295,6 +295,7 @@ class Decision(_Closed):
     evidence: list[EvidenceItem] = []
     why_not: list[WhyNot] = []
     adjudicator: Adjudication | None = None
+    signals: Literal["none"] | None = None  # `none`: no overlap with the corpus AND no typical scam traces (UI: "nie pasuje do żadnej znanej kampanii…")
     # lab-only conformal fields (never shown in the main UI)
     alpha: float | None = None
     conformal_tau: float | None = None

@@ -14,6 +14,7 @@ import redis.asyncio as aioredis
 
 from trop.config import settings
 from trop.schema import Event
+from trop.worker import persist
 
 TTL = 24 * 3600
 TERMINAL = {"job.done", "job.error", "investigation.done"}
@@ -32,6 +33,7 @@ async def publish(r: aioredis.Redis, name: str, ev: Event) -> None:
     n = await r.rpush(ekey(name), payload)
     await r.expire(ekey(name), TTL)
     await r.publish(f"trop:{name}", json.dumps({"i": n - 1, "e": payload}))
+    persist.append_event(name, payload)
 
 
 async def subscribe(r: aioredis.Redis, name: str, history: bool = True, stop_on_terminal: bool = True) -> AsyncIterator[Event]:
@@ -73,6 +75,8 @@ async def follow(r: aioredis.Redis, name: str, *, stop_on_terminal: bool = True,
     before/while the client connects can be lost). Ends after a terminal event; `idle_check()` (async -> bool) may end it when nothing
     new arrives for `idle_s` (e.g. the job state says it finished); gives up after `max_idle_s` without events."""
     idx, last = 0, time.monotonic()
+    if name.startswith("job:") and not await r.llen(ekey(name)):
+        await persist.hydrate_job(r, name[4:])
     while True:
         items = await r.lrange(ekey(name), idx, idx + 199)
         if items:
@@ -98,10 +102,13 @@ async def follow(r: aioredis.Redis, name: str, *, stop_on_terminal: bool = True,
 async def set_state(r: aioredis.Redis, job_id: str, state: dict) -> None:
     await r.set(f"trop:job:{job_id}:state", json.dumps(state, ensure_ascii=False), ex=TTL)
     await r.zadd("trop:jobs", {job_id: time.time()})
+    persist.save_state(job_id, state)
 
 
 async def get_state(r: aioredis.Redis, job_id: str) -> dict | None:
     raw = await r.get(f"trop:job:{job_id}:state")
+    if not raw and await persist.hydrate_job(r, job_id):       # Redis was wiped (redeploy): restore from the data volume
+        raw = await r.get(f"trop:job:{job_id}:state")
     return json.loads(raw) if raw else None
 
 
@@ -116,5 +123,6 @@ def publish_sync(name: str, typ: str, data: dict) -> None:
         n = r.rpush(ekey(name), payload)
         r.expire(ekey(name), TTL)
         r.publish(f"trop:{name}", json.dumps({"i": n - 1, "e": payload}))
+        persist.append_event(name, payload)
     finally:
         r.close()

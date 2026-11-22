@@ -527,6 +527,9 @@ class MockStore:
 
     def act_create(self, body: ActPackageCreate) -> ActPackage:
         camp = self.campaign(body.campaign_id)
+        for ex in reversed(list(self.packages.values())):          # idempotent: one open draft per campaign + kind
+            if ex.campaign_id == camp.id and ex.kind == body.kind and ex.status == "draft" and ex.id != "ACT-7":
+                return ex
         base = self.packages["ACT-7"]
         p = base.model_copy(deep=True, update={"id": f"ACT-{self.pkg_seq}", "kind": body.kind, "campaign_id": camp.id, "status": "draft", "created_at": _now(),
                                                "contents": {"ads": camp.n_incidents, "advertisers": camp.counts.advertisers, "domains": camp.n_domains, "evidence_items": camp.n_incidents + 18},

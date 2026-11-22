@@ -182,6 +182,45 @@ def list_investigations(status: str | None = None) -> list[Investigation]:
     return out
 
 
+STALE_MSG = "Śledztwo przerwane: restart serwera"
+
+
+def reap_stale(max_age_s: float = 600.0, publish: bool = True) -> list[str]:
+    """Investigations left `running` by a dead worker (restart / redeploy): last write older than `max_age_s` -> status error,
+    investigation.done (error, Polish message) recorded in events.jsonl and published. Returns the ids reaped."""
+    import time
+    out = []
+    for p in root().glob("INV-*/investigation.json"):
+        iid = p.parent.name
+        t = _RUNNING.get(iid)
+        if t and t[0].is_alive():
+            continue
+        try:
+            inv = Investigation.model_validate_json(p.read_text(encoding="utf-8"))
+            if inv.status != "running":
+                continue
+            last = max((f.stat().st_mtime for f in (p, p.parent / "events.jsonl") if f.exists()), default=0)
+            if time.time() - last < max_age_s:
+                continue
+            inv.status = "error"
+            _save(inv)
+            from trop.schema import Event
+            ev = Event(type="investigation.done", at=datetime.now(UTC).isoformat(timespec="milliseconds"),
+                       data={"investigation_id": iid, "status": "error", "summary": {"error": STALE_MSG, "steps": len(inv.steps)}})
+            with (p.parent / "events.jsonl").open("a", encoding="utf-8") as f:
+                f.write(json.dumps({"t": 0, "type": ev.type, "event": ev.model_dump()}, ensure_ascii=False) + "\n")
+            if publish:
+                try:
+                    from trop.worker import bus
+                    bus.publish_sync(f"inv:{iid}", ev.type, ev.data)
+                except Exception:  # noqa: BLE001
+                    pass
+            out.append(iid)
+        except Exception:  # noqa: BLE001
+            continue
+    return out
+
+
 def events(iid: str) -> list[dict]:
     p = _dir(iid) / "events.jsonl"
     if not p.is_file():

@@ -41,6 +41,8 @@ def load_campaign(campaign_id: str) -> dict[str, Any]:
     else:
         d = _from_db(cid)
     _merge_promotions(d)
+    from .pl import polish_dossier
+    polish_dossier(d)
     d["counts"] = {"ads": len(d["ads"]), "advertisers": len(d["advertisers"]), "domains": len(d["domains"]),
                    "evidence_items": len(d["evidence"]), "incidents": len(d["incidents"]),
                    "certpl_listed": sum(1 for x in d["domains"] if x.get("on_certpl"))}

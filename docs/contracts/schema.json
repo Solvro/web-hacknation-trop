@@ -1456,6 +1456,19 @@
      ],
      "default": null
     },
+    "signals": {
+     "anyOf": [
+      {
+       "const": "none",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Signals"
+    },
     "alpha": {
      "anyOf": [
       {
