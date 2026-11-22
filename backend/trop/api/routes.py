@@ -171,11 +171,30 @@ def _decide(root: Path, parts: list[list[str]]) -> dict:
         except zipfile.BadZipFile:
             raise HTTPException(400, "not a valid zip file")
         return {"mode": mode, "kind": "zip", "name": parts[0][0], "path": zp, "names": [parts[0][0]]}
+    if len(parts) > 1 and all(len(p) == 1 and p[0].lower().endswith(".zip") for p in parts):
+        # several zips at the top level (e.g. one zip per case): unpack each into its own item folder
+        for p in parts:
+            zp = root / p[0]
+            dest = root / Path(p[0]).stem
+            try:
+                with zipfile.ZipFile(zp) as z:
+                    for m in z.infolist():
+                        rel = UP.clean_rel(m.filename)
+                        if not rel or m.is_dir():
+                            continue
+                        out = dest.joinpath(*rel)
+                        out.parent.mkdir(parents=True, exist_ok=True)
+                        with z.open(m) as src, open(out, "wb") as dst:
+                            dst.write(src.read())
+            except (zipfile.BadZipFile, UP.BadPath):
+                raise HTTPException(400, f"not a valid zip file: {p[0]}")
+            zp.unlink()
+        return {"mode": "batch", "kind": "folder", "name": f"{len(parts)} archiwów", "path": root, "names": names, "root": root}
     mode, at = UP.plan(parts)
     if mode == "batch":
-        return {"mode": "batch", "kind": "folder", "name": f"{len(parts)} plików", "path": root.joinpath(*at), "names": names}
+        return {"mode": "batch", "kind": "folder", "name": f"{len(parts)} plików", "path": root.joinpath(*at), "names": names, "root": root}
     if len(parts) == 1 and len(parts[0]) == 1:
-        return {"mode": "single", "kind": "file", "name": parts[0][0], "path": root / parts[0][0], "names": names}
+        return {"mode": "single", "kind": "file", "name": parts[0][0], "path": root / parts[0][0], "names": names, "root": root}
     target = root.joinpath(*at)
     return {"mode": "single", "kind": "folder", "name": (at[-1] if at else f"{len(parts)} plików"), "path": target, "names": names, "root": root, "at": at}
 
@@ -704,11 +723,28 @@ async def batch_create(files: list[UploadFile] = File(default=[])):
 
 
 async def _run_batch(up: dict):
+    import shutil
     path = up["path"]
+    root = up.get("root")
     if up["mode"] == "single" and up["kind"] == "folder":
-        path = up["path"].parent                       # run_batch treats every sub-folder of `path` as one item
+        if root is not None and Path(path).resolve() == Path(root).resolve():
+            # loose files at the top of this upload = one item: move them into an item folder first
+            item = Path(root) / "material"
+            item.mkdir(exist_ok=True)
+            for c in list(Path(root).iterdir()):
+                if c != item:
+                    shutil.move(str(c), str(item / c.name))
+            path = Path(root)
+        else:
+            path = up["path"].parent                   # run_batch treats every sub-folder of `path` as one item
     elif up["mode"] == "single" and up["kind"] == "file":
-        path = up["path"] if str(up["path"]).lower().endswith(".zip") else up["path"].parent
+        if not str(up["path"]).lower().endswith(".zip"):
+            item = Path(up["path"]).parent / "material"
+            item.mkdir(exist_ok=True)
+            shutil.move(str(up["path"]), str(item / Path(up["path"]).name))
+            path = item.parent
+    if root is not None and not str(Path(path).resolve()).startswith(str(Path(root).resolve())):
+        raise HTTPException(400, "upload outside its own folder")   # never batch other people's uploads
     return await _a(get_store().batch(up["names"], str(path)))
 
 
