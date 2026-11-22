@@ -68,7 +68,7 @@ body { -webkit-font-smoothing: antialiased; text-wrap: pretty; }
 .ev > * { display: inline-flex; align-items: center; padding: 0 8px; }
 .ev > .t { color: var(--c); font-weight: 500; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; background: color-mix(in oklab, var(--c) 7%, #fff); border-right: 1px solid rgb(var(--line1)); }
 .ev > .v { display: block; line-height: 26px; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 56ch; }
-.ev > .sb { align-items: flex-end; gap: 2px; padding: 8px 7px 7px; border-left: 1px solid rgb(var(--line1)); }
+.ev > .sb { height: auto; align-self: stretch; align-items: flex-end; gap: 2px; padding: 0 7px 7px; border-left: 1px solid rgb(var(--line1)); }  /* bars bottom-aligned, block vertically centred in the 26 px chip */
 .ev > .w { font-weight: 600; border-left: 1px solid rgb(var(--line1)); }
 .ev > .r { color: rgb(var(--tx3)); border-left: 1px solid rgb(var(--line1)); }
 .ev.conf { border-style: dashed; border-color: #fecaca; } .ev.conf > .w { color: rgb(var(--st-red)); }
