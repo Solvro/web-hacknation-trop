@@ -364,6 +364,20 @@ async def evidence_value(type: str, value: str):
 
 @router.get("/traces/{type}/{value:path}", response_model=M.TraceView, tags=["links"])
 async def trace(type: str, value: str):
+    # tolerate raw graph node ids pasted as the value: trace:<field>:<value>, person:<name>, d:<host>
+    if value.startswith(("trace:", "person:", "d:")):
+        kind, _, rest = value.partition(":")
+        if kind == "trace":
+            field, _, rest = rest.partition(":")
+            try:
+                from trop.engine.items import ui_layer
+                f = field[:-2] if field.endswith("hes") else field[:-1] if field.endswith("s") else field
+                type = ui_layer(f) or type
+            except Exception:  # noqa: BLE001
+                pass
+        else:
+            type = "osoba" if kind == "person" else "domena"
+        value = rest
     return await _a(get_store().trace(type, value))
 
 

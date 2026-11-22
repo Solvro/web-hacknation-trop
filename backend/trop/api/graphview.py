@@ -104,6 +104,32 @@ def focus_view(g: GraphPayload, focus: str, origin: str | None = None, max_neigh
     return g2
 
 
+def _trace_href(n: GraphNode) -> str | None:
+    """Ślad page for a node: node ids are `trace:<field>:<value>`, `person:<name>`, `d:<host>` — never put the raw id in the URL."""
+    from urllib.parse import quote
+    nid = n.id
+    if nid.startswith("person:"):
+        return "/slad/osoba/" + quote(nid.split(":", 1)[1])
+    if nid.startswith("d:"):
+        return "/slad/domena/" + quote(nid.split(":", 1)[1])
+    if nid.startswith("trace:"):
+        parts = nid.split(":", 2)
+        if len(parts) < 3 or parts[1] in ("text_minhash", "dom_minhash", "cert_batch"):
+            return None                          # similarity groups / cert batches have no trace page
+        try:
+            from trop.engine.items import ui_layer
+            f = parts[1]
+            sing = f[:-2] if f.endswith("hes") else f[:-1] if f.endswith("s") else f   # fb_pixels -> fb_pixel, asset_hashes -> asset_hash
+            layer = ui_layer(sing)
+            if layer in (None, "", "content") and ui_layer(f) not in (None, ""):
+                layer = ui_layer(f) if ui_layer(sing) in (None, "") else layer
+        except Exception:  # noqa: BLE001
+            layer = "kit"
+        value = (n.meta or {}).get("value") or parts[2]
+        return f"/slad/{layer}/" + quote(str(value), safe="")
+    return f"/slad/{n.kind}/" + quote(n.label or nid, safe="")
+
+
 def make_panel(n: GraphNode, deg: int, neighbours: list[GraphNode], origin_node: GraphNode | None = None) -> dict:
     kinds = {x.kind for x in neighbours}
     tone = {"campaign": "g", "operator": "violet", "trace": "cyan", "incident": "g", "domain": "amber", "person": "cyan"}.get(n.kind, "g")
@@ -112,7 +138,9 @@ def make_panel(n: GraphNode, deg: int, neighbours: list[GraphNode], origin_node:
     if n.first_seen:
         facts.append({"k": "Pierwszy raz", "v": n.first_seen})
     tags = sorted(k for k in kinds)[:4]
-    action: dict = {"label": "Otwórz szczegóły", "href": f"/slad/{n.kind}/{n.id}", "kind": topic}
+    action: dict = {"label": "Otwórz szczegóły", "href": _trace_href(n), "kind": topic}
+    if action["href"] is None:
+        action = {}
     if n.kind == "domain":
         action = {"label": "Śledź z agentem", "kind": "investigate", "seed": n.label}
     elif n.kind == "campaign":
