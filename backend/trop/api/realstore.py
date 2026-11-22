@@ -420,8 +420,31 @@ class RealStore:
         return EvidenceValue(type=type_, field=trip[0][1], value=value, df=len(ids), N=self.N, idf=it.idf, first_seen=seen[0] or None, last_seen=seen[-1] or None,
                              campaigns=[{"id": c, "n": n} for c, n in camps.most_common() if c], incidents=[self._summary(self._by_id[i]) for i in ids[:20]])
 
+    def _closest_value(self, type_: str, value: str) -> str | None:
+        """Typo / case / diacritics tolerant lookup ("Rafał Brzozka" -> "rafał brzoska", "Morawiecki" -> "mateusz morawiecki")."""
+        from rapidfuzz import fuzz, process
+        from unidecode import unidecode
+        try:
+            layer = norm_type(type_)[1]
+        except KeyError:
+            return None
+        cands = sorted({t[2] for t in self.holders if t[0] == layer and isinstance(t[2], str)})
+        if not cands:
+            return None
+        q = unidecode(value).lower().strip()
+        keyed = {unidecode(c).lower(): c for c in cands}
+        hit = process.extractOne(q, list(keyed), scorer=fuzz.WRatio, score_cutoff=82)
+        return keyed[hit[0]] if hit else None
+
     def trace(self, type_: str, value: str) -> M.TraceView:
-        ev = self.evidence_value(type_, value)
+        try:
+            ev = self.evidence_value(type_, value)
+        except Exception:  # noqa: BLE001 - not found as typed: try the closest known value
+            alt = self._closest_value(type_, value)
+            if not alt:
+                raise
+            value = alt
+            ev = self.evidence_value(type_, value)
         type_ = norm_type(type_)[0]
         facts = self._person_facts(value) if type_ == "person" else {}
         ids = [s.id for s in ev.incidents]
