@@ -1,6 +1,6 @@
 # TROP: morning report
 
-> Kept current by the lead session. Times are Europe/Warsaw. Last update: 22.11 ~10:45 (after submission).
+> Kept current by the lead session. Times are Europe/Warsaw. Last update: 22.11 ~11:05 (final push).
 
 ## TL;DR
 - **Live:** https://trop.b.solvro.pl runs the **real product on real data**, with no mock data. It does live URL capture (sandboxed Chromium worker) and live LLM features (Gemini, capped at $10). Coolify: project "Hackatony" → environment `hacknation-2026-trop` → application `trop`.
@@ -53,6 +53,12 @@
 ## Final checks (22.11 ~10:45, production)
 - Samples: DANE 1 → KMP-001 · DANE 3 → KMP-003 · DANE 36 → new · DANE 5 (video only) → new. Upload of DANE 2 as ZIP → KMP-001. Batch of a ZIP with several folders → results.csv.
 - Fixed overnight after the production QA: results survive restarts (stored on disk), investigations work in live mode (root cause: file permissions between the API and the uid-1000 Chromium worker; found with `/api/v1/debug/worker`), uploads > 8 MB go in 2 MiB chunks (Coolify proxy ~60 s limit), real page renders with evidence outlines, Graf unfolds in place, Polish exports and plurals, Sędzia only vetoes and explains in Polish.
+
+## Last fixes before the deadline (22.11 ~10:45–11:05)
+- Batch import never reads outside its own upload; several ZIPs = one case each (verified on prod: 3 → KMP-003, 36 → new; 1 → KMP-001).
+- Trace search tolerates typos and missing diacritics („Rafał Brzozka” → rafał brzoska); „Otwórz szczegóły” in the Graf opens the real trace page.
+- Video-only ads (DANE 5) are never labelled „no scam signals”.
+- Hunter Meta run on prod: 108 real PL ads, 2 landings captured, 0 linked to known campaigns (ad layer only).
 
 ## Known limitations
 - Live investigations depend on what the live sources return (one run 50 sibling domains / 23 new, another 3 new).
