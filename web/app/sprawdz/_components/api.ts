@@ -5,8 +5,19 @@ export type PublicCampaign = { name: string; seen_count: number; since: string; 
 export type CheckResult = { verdict: 'scam' | 'unknown'; public_campaign?: PublicCampaign | null; advice: string[] };
 export type ReportAck = { ok: boolean; report_id: string };
 
+export class CheckError extends Error {
+  constructor(public status: number, msg: string) { super(msg); }
+}
 async function j<T>(res: Response): Promise<T> {
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (!res.ok) {
+    let msg = '';
+    try {
+      const b = await res.json();
+      const d = b?.detail;
+      msg = typeof d === 'string' ? d : Array.isArray(d) ? d.map((x: { msg?: string }) => x?.msg).filter(Boolean).join('; ') : '';
+    } catch { /* not json */ }
+    throw new CheckError(res.status, msg);
+  }
   return res.json() as Promise<T>;
 }
 
@@ -14,7 +25,7 @@ export async function check(input: { url?: string; text?: string; image?: File |
   const fd = new FormData();
   if (input.url) fd.set('url', input.url);
   if (input.text) fd.set('text', input.text);
-  if (input.image) fd.set('image', input.image); // ignored by the server until /public/check accepts uploads
+  if (input.image) fd.set('image', input.image);
   return j(await fetch(`${API_BASE}/public/check`, { method: 'POST', body: fd }));
 }
 

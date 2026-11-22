@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { CampaignSummary, Decision, EvidenceItem, JobStep, LinkExplanation } from '@/lib/contracts';
 import { restoreTemplateCase, useArtifacts, type Material } from '@/lib/artifacts';
-import { botColor, botName, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from "@/lib/copy";
+import { botColor, botName, LAYER_LABEL, n, p2, plOnly, plural, prettyDisplay } from "@/lib/copy";
 import { apiPost, useApi } from '@/lib/api';
 import { campaignTitle } from '@/lib/graph';
 import { Bot } from '../jelly';
@@ -35,10 +35,10 @@ function Row({ e, badge, tone = 'cyan', dashed }: { e: { bot?: string | null; ti
     <div className={'min-h-16 flex items-center gap-3 pl-3.5 pr-4 py-2.5 border rounded-[18px] ' + (dashed ? 'border-dashed border-line1 bg-bg2' : 'border-line1 bg-bg1 shadow-soft')}>
       <Bot color={botColor(e.bot)} size={34} state={dashed ? 'asleep' : 'awake'} />
       <span className="flex-1 min-w-0 flex flex-col gap-0.5">
-        <span className={'text-[15px] font-semibold tracking-[-0.01em] ' + (dashed ? 'text-tx2' : '')}>{e.title}</span>
+        <span className={'text-[15px] font-semibold tracking-[-0.01em] break-words line-clamp-2 ' + (dashed ? 'text-tx2' : '')} title={e.title}>{e.title}</span>
         <span className="text-[12.5px] text-tx3">{e.meta}</span>
       </span>
-      {badge && <span className={'pill ' + T}>{badge}</span>}
+      {badge && <span className={'pill flex-none whitespace-nowrap ' + T}>{badge}</span>}
     </div>
   );
 }
@@ -51,7 +51,9 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Mat
   const cand = d.candidate_campaign_id ?? '';
   const c = useApi<CampaignSummary>(cand ? `/campaigns/${encodeURIComponent(cand)}` : null).data;
   const [name, setName] = useState('');
-  const shown = name || (c ? `${cand} ${campaignTitle(c)}` : cand || 'Nowa kampania');
+  // the verdict is "new": the nearest campaign is NOT this material's campaign, so neither its name nor its headline is used
+  const shown = name.trim() || incident?.title || 'Nowa kampania';
+  const noSignals = (d as Decision & { signals?: string | null }).signals === 'none';
   const total = useApi<CampaignSummary[]>('/campaigns').data;
   const [busy, setBusy] = useState(false);
   async function create() {
@@ -60,30 +62,31 @@ export function OutcomeNew({ d, incident, names }: { d: Decision; incident?: Mat
     // (if the API refuses, we still go to the candidate campaign page; nothing fictional is shown)
     router.push(r.id || cand ? `/kampanie/${encodeURIComponent(r.id || cand)}` : '/kampanie');
   }
-  const badge = (e: EvidenceItem) => (e.state === 'missing' ? undefined : (e.df ?? 0) <= 1 ? (e.type === 'infra' ? 'nowa' : 'nowy') : `${e.df} podobne`);
+  const badge = (e: EvidenceItem) => (e.state === 'missing' ? undefined : (e.df ?? 0) <= 1 ? (e.type === 'infra' ? 'nowa' : 'nowy') : plural(e.df ?? 0, 'podobny', 'podobne', 'podobnych'));
   return (
     <main className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-[30px] pb-8 flex flex-col gap-6">
       <ReportHeader
-        title={c ? (plOnly(c.narrative)?.replace(/^Nowa:\s*/, '') || c.name) : 'Nowa kampania'}
-        primary={<button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button>}
-        secondary={<Link className="lnk" href="/kampanie">albo przypisz do istniejącej</Link>}
+        title={incident?.title || (noSignals ? 'Nie pasuje do żadnej znanej kampanii' : 'Nowa kampania')}
+        lead={noSignals ? 'Nie pasuje do żadnej znanej kampanii i nie ma typowych śladów oszustwa.' : undefined}
+        primary={noSignals ? undefined : <button type="button" className="btn-pri" onClick={create} disabled={busy}>Załóż nową kampanię<IArrow /></button>}
+        secondary={noSignals ? undefined : <Link className="lnk" href="/kampanie">albo przypisz do istniejącej</Link>}
       />
       <MaterialBlock incident={incident} incidentId={d.incident_id} />
-      <section className="rounded-[22px] border border-[#BFDBFE] bg-state-cdim px-5 py-5 flex flex-wrap gap-5 items-center justify-between">
+      {!noSignals && <section className="rounded-[22px] border border-[#BFDBFE] bg-state-cdim px-5 py-5 flex flex-wrap gap-5 items-center justify-between">
         <div className="flex-[1_1_480px]">
           <h2 className="text-[17px] font-semibold">{total?.length ? `Nie pasuje do żadnej z ${n(total.length)} kampanii` : 'Nie pasuje do żadnej znanej kampanii'}</h2>
           <p className="text-[14px] text-state-cyan pt-1">Ślady są nowe: żadna znana kampania nie ma ich w tym zestawie. To najpewniej początek nowej kampanii.{d.same_operator_as ? ` Ten sam operator co ${d.same_operator_as}.` : ''}</p>
         </div>
         <label className="flex flex-col gap-1.5 flex-[0_1_340px]">
           <span className="text-[13px] font-medium text-state-cyan">Nazwa nowej kampanii</span>
-          <input value={shown} onChange={(e) => setName(e.target.value)} className="h-12 px-3.5 rounded-xl border border-[#BFDBFE] bg-white text-[15px]" />
+          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="np. Fałszywy wywiad o leku na stawy" className="h-12 px-3.5 rounded-xl border border-[#BFDBFE] bg-white text-[15px] placeholder:text-tx4" />
         </label>
-      </section>
+      </section>}
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-10 items-start">
         <section className="flex flex-col gap-3" aria-labelledby="nw-found">
           <h2 id="nw-found" className="text-[13px] font-medium text-tx3">Co znalazły boty</h2>
           {(d.evidence ?? []).map((e) => restoreTemplateCase(e, incident)).map((e, i) => (
-            <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: meta(e, e.state === 'missing' ? 'osoby i marki' : (e.df ?? 0) <= 1 ? 'nie ma go w bazie' : `${e.df} podobne materiały`) }} badge={badge(e)} dashed={e.state === 'missing'} />
+            <Row key={i} e={{ bot: e.bot, title: prettyDisplay(e.display), meta: meta(e, e.state === 'missing' ? 'osoby i marki' : (e.df ?? 0) <= 1 ? 'nie ma go w bazie' : plural(e.df ?? 0, 'podobny materiał', 'podobne materiały', 'podobnych materiałów')) }} badge={badge(e)} dashed={e.state === 'missing'} />
           ))}
         </section>
         <section className="card !rounded-[22px] p-5" aria-labelledby="nw-near">

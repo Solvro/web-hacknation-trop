@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { BatchResult, LabMetrics } from '@/lib/contracts';
 import { API, apiGet, apiPost, isOffline, useApi } from '@/lib/api';
-import { DECISION_LABEL, p2 } from '@/lib/copy';
+import { DECISION_LABEL, p2, plural } from '@/lib/copy';
 import { needsChunks, uploadChunked } from '@/lib/upload';
 import { Card, Empty, Page } from '@/components/ui';
 import { IDownload, IUpload } from '@/components/icons';
@@ -82,14 +82,14 @@ function Batch() {
             <tbody>
               {(res.rows ?? []).map((r) => (
                 <tr key={r.item + r.incident_id} className="border-b border-bg4">
-                  <td className="py-2 px-2 font-mono">{r.item}</td><td className="px-2">{DECISION_LABEL[r.decision] ?? r.decision}</td><td className="px-2 font-mono">{r.campaign}</td>
-                  <td className="px-2 font-mono">{p2(r.campaign_p)}</td><td className="px-2 font-mono">{r.operation}</td><td className="px-2 font-mono">{p2(r.coverage)}</td>
+                  <td className="py-2 px-2 font-mono">{r.item}</td><td className="px-2">{DECISION_LABEL[r.decision] ?? r.decision}</td><td className="px-2 font-mono">{newId(r.campaign, 'nowa kampania')}</td>
+                  <td className="px-2 font-mono">{p2(r.campaign_p)}</td><td className="px-2 font-mono">{newId(r.operation, 'nowa operacja')}</td><td className="px-2 font-mono">{p2(r.coverage)}</td>
                   <td className="px-2 text-tx2 max-w-[320px] truncate" title={r.top_evidence}>{r.top_evidence}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p className="text-[12.5px] text-tx3 pt-2">{res.rows?.length ?? 0} z {res.n_items ?? "…"} materiałów</p>
+          <p className="text-[12.5px] text-tx3 pt-2">{res.rows?.length ?? 0} z {res.n_items != null ? plural(res.n_items, 'materiału', 'materiałów', 'materiałów') : '…'}</p>
         </div>
       )}
     </Card>
@@ -97,6 +97,8 @@ function Batch() {
 }
 
 type R = Record<string, unknown>;
+/** engine placeholders for not-yet-named groups: NEW-01 / OPNNEW-01 → "nowa kampania 1" */
+const newId = (v: unknown, word: string) => { const s = String(v ?? ''); const m = /^(?:OPN?)?NEW-0*(\d+)$/.exec(s); return m ? `${word} ${m[1]}` : s || '—'; };
 const num = (v: unknown) => (typeof v === 'number' ? v : undefined);
 const PERT: Record<string, string> = {
   duplicate: 'duplikaty', drop_screenshot: 'bez zrzutu', drop_har: 'bez HAR', drop_html: 'bez HTML', swap_domain: 'zmiana domeny',
@@ -126,6 +128,17 @@ export default function LabPage() {
         Model {m?.model_version ?? '…'}{num(d.n) ? ` · ocena na ${d.n} materiałach z etykietami` : ''}{d.sample ? ' · przykładowe wartości' : d.source ? ' · liczby z trop eval' : ''}
       </p>
       {!m && <Empty>Ładuję wyniki oceny…</Empty>}
+      {(() => {
+        const ds = d.dane_open_set as { correct?: number; n?: number; wrong_links?: number } | undefined;
+        const wrong = num(d.wrong_links) ?? ds?.wrong_links;
+        if (!ds && wrong == null) return null;
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {ds && <div className="rounded-[22px] bg-tx1 text-white p-5"><b className="block text-[40px] font-semibold tracking-[-0.04em] leading-none">DANE {ds.correct}/{ds.n}</b><span className="text-[13.5px] text-line2">zbiór testowy organizatora: poprawnie rozpoznane materiały</span></div>}
+            {wrong != null && <div className="rounded-[22px] bg-state-gdim p-5"><b className="block text-[40px] font-semibold tracking-[-0.04em] leading-none text-state-g">{plural(wrong, 'błędne przypisanie', 'błędne przypisania', 'błędnych przypisań')}</b><span className="text-[13.5px] text-tx2">żaden materiał nie trafił do cudzej kampanii</span></div>}
+          </div>
+        );
+      })()}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {cards.map(([v, l]) => <div key={l} className="rounded-[18px] border border-line1 p-4"><b className="block text-[28px] font-semibold tracking-[-0.03em]">{v}</b><span className="text-[12.5px] text-tx3">{l}</span></div>)}
       </div>

@@ -3,7 +3,7 @@
 // /analiza/<incident id> opens the report of an existing incident; ?replay=<name> plays a recorded stream.
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import type { Campaign, CampaignSummary, Decision, GraphPayload } from '@/lib/contracts';
+import type { Campaign, CampaignSummary, Decision } from '@/lib/contracts';
 import { isOffline, useApi } from '@/lib/api';
 import { plOnly } from '@/lib/copy';
 import { toMaterial, useArtifacts } from '@/lib/artifacts';
@@ -13,7 +13,7 @@ import { BotStrip, CapturedPage, FoundList, MaterialBar, Ranking, StatusPill, us
 import { Report } from '@/components/analysis/report';
 import { OutcomeError, OutcomeNew, OutcomeUnsure } from '@/components/analysis/outcomes';
 import { SCENARIO_INCIDENT, scenarioFromJobId } from '@/lib/mock/jobs';
-import { campaignTitle, resolveNodeId } from '@/lib/graph';
+import { campaignTitle, chipNodeId } from '@/lib/graph';
 
 function useNames() {
   const list = useApi<CampaignSummary[]>('/campaigns').data;
@@ -65,11 +65,9 @@ function Analysis() {
     for (const [k, v] of Object.entries(patch)) { if (v == null) q.delete(k); else q.set(k, v); }
     router.replace(`/analiza/${encodeURIComponent(jobId)}?${q}`, { scroll: false });
   };
-  // chip / card ids (`ev:<field>:<value>`) are resolved against the real graph, then unfolded in the Graf explorer
-  const needResolve = !!focus && focus.startsWith('ev:') && !isOffline();
-  const full = useApi<GraphPayload>(needResolve ? '/graph' : null);
-  const resolved = !focus ? null : !needResolve ? focus : full.data ? resolveNodeId(full.data, focus, incident?.domain) : null;
-  const focusMissing = needResolve && (!!full.error || (!!full.data && !resolved));
+  // chip ids (`ev:<field>:<value>`) map onto graph ids the API resolves itself; the Graf unfolds them in place
+  const resolved = focus ? chipNodeId(focus, incident?.domain) : null;
+  const focusMissing = false;
 
   const reportReady = shown && decision;
   const outcome = !decision ? null : job.error || decision.decision === 'insufficient' ? 'error' : decision.decision === 'new' ? 'new' : decision.decision === 'ambiguous' ? 'unsure' : 'report';
@@ -131,7 +129,7 @@ function Analysis() {
       <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)_280px] xl:grid-cols-[340px_minmax(0,1fr)_300px] gap-5 items-start">
         <section aria-labelledby="an-page">
           <div className="colh"><h2 id="an-page">Strona po przechwyceniu</h2></div>
-          <CapturedPage shot={shot} url={input} headline={headline} evidence={job.evidence} captureNote={capture?.detail ?? null} capturing={!capture || capture.status === 'pending' || capture.status === 'run'} failed={capture?.status === 'error'} />
+          <CapturedPage shot={shot} done={job.done} url={input} headline={headline} evidence={job.evidence} captureNote={capture?.detail ?? null} capturing={!capture || capture.status === 'pending' || capture.status === 'run'} failed={capture?.status === 'error'} />
         </section>
         <FoundList state={job} />
         <Ranking scores={job.scores} names={names} evidence={job.evidence} joined={joined} />

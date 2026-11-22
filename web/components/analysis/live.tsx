@@ -2,7 +2,7 @@
 // Board 2 · Analiza: material bar, six bots, three live columns.
 import { useEffect, useState } from 'react';
 import type { CampaignScore, EvidenceItem, JobStep, Layer } from '@/lib/contracts';
-import { BOTS, BOT_BY_KEY, LAYER_HINT, LAYER_LABEL, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
+import { BOTS, BOT_BY_KEY, LAYER_HINT, LAYER_LABEL, plural, botColor, botName, n, p2, secs, strengthLabel, strengthPct } from '@/lib/copy';
 import { Bot } from '../jelly';
 import type { JobState } from '@/lib/use-job';
 import type { Shot } from '@/lib/artifacts';
@@ -109,60 +109,33 @@ export function RealShot({ url, shot, height = 560 }: { url: string; shot: Shot;
   );
 }
 
-export function CapturedPage({ url, headline, evidence, capturing, failed, captureNote, shot }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean; captureNote?: string | null; shot?: Shot }) {
-  if (shot) return <RealShot url={url} shot={shot} />;
-  const has = (t: Layer) => evidence.some((e) => e.type === t && e.state !== 'missing' && e.state !== 'zero');
-  const box = (t: Layer) => ({ boxShadow: `0 0 0 2px ${has(t) ? HL_COLOR[t] : 'transparent'}` });
-  const tag = (t: Layer, label: string, extra = '') => (
-    <span className={'tagc ' + extra} style={{ background: HL_COLOR[t], opacity: has(t) ? 1 : 0 }}>{label}</span>
-  );
-  const trk = evidence.find((e) => e.type === 'tracking');
-  const cert = evidence.find((e) => e.type === 'infra' && e.state !== 'zero');
-  const isUrl = /^https?:\/\//i.test(url) || /^[\w.-]+\.[a-z]{2,}(\/|$)/i.test(url);
-  const host = isUrl ? url.replace(/^https?:\/\//, '') : '';
-  const brand = evidence.find((e) => e.field === 'brands' || e.field === 'brand')?.value;
-  const masthead = (brand || host.split('/')[0] || 'przechwycona strona').toUpperCase();
-  const kit = evidence.find((e) => e.type === 'kit');
+/** Left column of the analysis: the real render of the page once the API has it (faded in); until then a neutral
+ *  status (no fake page). `done` = the analysis finished but the render is still being made. */
+export function CapturedPage({ url, headline, evidence, capturing, failed, captureNote, shot, done }: { url: string; headline?: string | null; evidence: EvidenceItem[]; capturing: boolean; failed?: boolean; captureNote?: string | null; shot?: Shot; done?: boolean }) {
+  if (shot) return <div className="animate-[fadein_.5s_ease]"><RealShot url={url} shot={shot} /></div>;
+  const host = /^https?:\/\//i.test(url) ? url.replace(/^https?:\/\//, '').split('/')[0] : url;
+  const found = evidence.filter((e) => e.state !== 'missing').length;
   return (
-    <div className="relative h-[560px] border border-line1 rounded-[18px] overflow-hidden bg-bg1">
-      <div className="h-[30px] flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
+    <div className="relative h-[560px] border border-line1 rounded-[18px] overflow-hidden bg-bg2 flex flex-col">
+      <div className="h-[30px] flex-none flex items-center gap-1.5 px-2.5 bg-bg2 border-b border-bg4">
         {[0, 1, 2].map((i) => <i key={i} className="w-[7px] h-[7px] rounded-full bg-line2" />)}
-        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host || url}</span><span className="ml-auto flex-none text-[10.5px] text-tx3">brak zrzutu strony · schemat</span>
+        <span className="ml-1.5 font-mono text-[10.5px] text-tx4 truncate">{host}</span>
       </div>
-      <div className="pt-4 px-3.5 flex flex-col gap-3">
-        <div className="flex justify-between items-center border-b-2 border-tx1 pb-1.5">
-          <b className="text-[15px] font-extrabold tracking-[.12em] truncate">{masthead}</b>
-        </div>
-        <p className="hl m-0 px-1.5 py-1 text-[16px] font-bold leading-tight tracking-[-0.01em]" style={box('content')}>
-          {headline || <span className="text-tx4 font-medium">{capturing ? 'Czytam stronę…' : 'brak zrzutu strony'}</span>}{tag('content', 'Treść')}
-        </p>
-        <div className="flex gap-2.5">
-          <span className="flex-1 flex flex-col gap-[7px] pt-1">
-            {[100, 92, 96, 70, 86, 60].map((w, i) => <span key={i} className="gb" style={{ width: `${w}%` }} />)}
-          </span>
-        </div>
-        <span className="flex flex-col gap-[7px]">{[100, 94, 80].map((w, i) => <span key={i} className="gb" style={{ width: `${w}%` }} />)}</span>
-        <div className="hl p-2.5 border border-line1 flex flex-col gap-[7px]" style={box('kit')}>
-          <span className="text-[11.5px] font-semibold truncate">{kit ? kit.display : 'Formularz na stronie'}</span>
-          <span className="h-[22px] rounded-md border border-line1" /><span className="h-[22px] rounded-md border border-line1" />
-          <span className="h-[26px] rounded-md bg-tx1 text-white text-[11px] font-semibold grid place-items-center">wyślij</span>
-          {tag('kit', 'Zestaw strony')}
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center gap-3 px-6 text-center" role="status">
+        {failed ? (
+          <><b className="text-[15px]">Strona nie odpowiada</b><span className="text-[13px] text-tx3">Boty ustalą tyle, ile się da bez niej.</span></>
+        ) : (
+          <>
+            <span className="spin" />
+            <b className="text-[15px] font-semibold">{capturing ? 'Zwiadowca otwiera stronę…' : done ? 'Przygotowuję zrzut strony…' : 'Zwiadowca zapisał stronę'}</b>
+            <span className="text-[13px] text-tx3 max-w-[260px]">
+              {capturing ? 'W piaskownicy, bez wysyłania formularzy.' : `${captureNote ? captureNote.split('\n')[0] + '. ' : ''}Zrzut z zaznaczonymi dowodami pojawi się tutaj, gdy będzie gotowy.`}
+            </span>
+            {headline && !capturing && <span className="text-[13px] text-tx2 max-w-[280px] line-clamp-3">„{headline}”</span>}
+            {!capturing && found > 0 && <span className="text-[12px] text-tx4">{plural(found, 'ślad', 'ślady', 'śladów')} ze strony i ruchu sieciowego</span>}
+          </>
+        )}
       </div>
-      <div className="absolute inset-x-0 bottom-0 px-3 py-2.5 bg-bg2 border-t border-bg4 flex flex-col gap-1.5 font-mono text-[10.5px] leading-tight text-tx2">
-        <span className="font-sans font-semibold text-[11px] text-tx1 truncate">Sieć{captureNote ? ` · ${captureNote.split('\n')[0]}` : capturing ? ' · zbieram…' : ''}</span>
-        {host && <span className="truncate">GET {host.split('/')[0]}/{failed ? ' · brak odpowiedzi' : ''}</span>}
-        <span className="hl px-1 py-0.5" style={box('tracking')}><span className="block truncate">{trk ? trk.display : 'piksele i bramki konwersji'}</span>{tag('tracking', 'Tracking', '!-top-[9px]')}</span>
-        <span className="hl px-1 py-0.5" style={box('infra')}><span className="block truncate">{cert ? cert.display : 'domena i certyfikat'}</span>{tag('infra', 'Infra', '!-top-[9px]')}</span>
-      </div>
-      <div className="fadeN absolute inset-x-0 bottom-0 top-[30px] bg-white/90 flex flex-col items-center justify-center gap-3 pointer-events-none" style={{ opacity: capturing ? 1 : 0 }}>
-        <span className="spin" /><span className="text-[14px] text-tx2">Otwieram stronę w piaskownicy…</span>
-      </div>
-      {failed && (
-        <div className="absolute inset-x-0 bottom-0 top-[30px] bg-white/92 flex flex-col items-center justify-center gap-2 text-center px-6">
-          <b className="text-[15px]">Strona nie odpowiada</b><span className="text-[13px] text-tx3">Boty ustalą tyle, ile się da bez niej.</span>
-        </div>
-      )}
     </div>
   );
 }
@@ -181,7 +154,7 @@ export function FoundCard({ e }: { e: EvidenceItem }) {
         </span>
         <span className={'font-mono text-[14px] font-medium truncate ' + (zero || miss ? 'text-tx4' : 'text-tx1') + ''}>{e.display}</span>
         <span className="text-[12.5px] text-tx3">
-          {zero ? 'ślad operatora albo wspólnej platformy' : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${n(e.N)} materiałów ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
+          {zero ? 'ślad operatora albo wspólnej platformy' : miss ? 'brak w materiale' : e.N && e.df ? `${n(e.df)} z ${plural(e.N, 'materiału', 'materiałów', 'materiałów')} ma ten ślad` : e.N ? 'nie widzieliśmy go wcześniej' : ''}
         </span>
       </span>
       <span className="flex-none w-[92px] flex flex-col items-end gap-1.5">

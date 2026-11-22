@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo } from 'react';
 import type { CampaignSummary, Operator, OraclePrediction } from '@/lib/contracts';
 import { useApi } from '@/lib/api';
-import { n, p2, plOnly } from '@/lib/copy';
+import { n, p2, plOnly, plural, pluralWord } from '@/lib/copy';
 import { campaignTitle, personName } from '@/lib/graph';
 import { Initials, Loading, Page, Sparkline } from '@/components/ui';
 import { IChevR } from '@/components/icons';
@@ -49,7 +49,7 @@ function Kampanie() {
   const all = list ?? [];
   const opIds = useMemo(() => [...new Set(all.map((c) => c.operator_id).filter(Boolean))] as string[], [all]);
   const ops = useApi<Operator[]>(opIds.length ? '/operators' : null).data;
-  const opName = (id: string) => { const o = (ops ?? []).find?.((x) => x.id === id); return o ? `${id} «${o.codename}»` : id; };
+  const opName = (id: string) => { const o = (ops ?? []).find?.((x) => x.id === id); return o && o.codename && o.codename !== id ? `${id} «${o.codename}»` : `operator ${id}`; };
 
   const set = (k: string, v: string | null) => {
     const q = new URLSearchParams(sp.toString());
@@ -77,7 +77,7 @@ function Kampanie() {
         <section aria-label="Oracle" className="rounded-[22px] border border-[#E9E3FF] bg-[#FAF8FF] p-5 flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill bg-white border border-[#DDD3FF] text-state-violet">Oracle · dziś w nocy</span>
-            <b className="text-[16px] font-semibold">{predicted.length} nowe domeny pasują do znanych kampanii lub ich zestawów, zanim pojawiła się reklama</b>
+            <b className="text-[16px] font-semibold">{plural(predicted.length, 'nowa domena pasuje', 'nowe domeny pasują', 'nowych domen pasuje')} do znanych kampanii, zanim pojawiła się reklama</b>
           </div>
           <div className="flex flex-wrap gap-2">
             {predicted.map((o) => (
@@ -90,7 +90,7 @@ function Kampanie() {
       )}
       {merge && (
         <section className="rounded-[22px] bg-bg3 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div><b className="block text-[15px]">{merge[1]} i {merge[0].id} wyglądają na jedną kampanię</b><span className="text-[13px] text-tx2">Te same ślady techniczne i wspólne domeny, różni je tylko format reklam.</span></div>
+          <div><b className="block text-[15px]">{merge[1]} i {merge[0].id} wyglądają na jedną kampanię</b><span className="text-[13px] text-tx2">Mają wspólne ślady techniczne. Porównaj je i zdecyduj, czy to jedna kampania.</span></div>
           <Link href={`/kampanie/scal?a=${merge[1]}&b=${merge[0].id}`} className="text-[14px] font-semibold underline decoration-line2 underline-offset-4">Porównaj i scal</Link>
         </section>
       )}
@@ -114,7 +114,26 @@ function Kampanie() {
         )}
       </div>
       {loading && <Loading />}
-      <div className="overflow-x-auto -mx-4 px-4">
+      {/* phone: stacked cards */}
+      <div className="sm:hidden flex flex-col gap-5">
+        {groups.map(([op, cs]) => (
+          <section key={op || 'none'} className="flex flex-col gap-2">
+            <h2 className="text-[14px] font-semibold px-1">{op ? opName(op) : 'Bez operatora'}</h2>
+            {cs.map((c) => (
+              <div key={c.id} className="rounded-[18px] border border-line1 bg-bg1 p-4 flex flex-col gap-2">
+                <Link href={`/kampanie/${c.id}`} className="block"><b className="block text-[16px] font-semibold tracking-[-0.01em]">{c.id} {campaignTitle(c)}</b><span className="block text-[13px] text-tx3">{plOnly(c.narrative)}</span></Link>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px]">
+                  <span><b>{plural(c.n_incidents ?? 0, 'materiał', 'materiały', 'materiałów')}</b></span>
+                  <span><b>{plural(c.n_domains ?? 0, 'domena', 'domeny', 'domen')}</b> <span className="text-tx3">{domainNote(c)}</span></span>
+                  <Sparkline data={c.heat?.series_14d ?? []} dashedEmpty label={`Materiały w 14 dni: ${(c.heat?.series_14d ?? []).join(', ')}`} />
+                </div>
+                <div><Report c={c} hint={mergeHint(c, all)} /></div>
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
+      <div className="hidden sm:block overflow-x-auto -mx-4 px-4">
         <table className="w-full min-w-[860px] border-collapse text-left">
           <thead>
             <tr className="text-[12.5px] text-tx3 border-b border-line1">
@@ -126,7 +145,7 @@ function Kampanie() {
             <tbody key={op || 'none'}>
               <tr className="border-b border-line1"><th colSpan={6} className="text-left py-3 px-2 text-[14px] font-semibold">
                 {op ? opName(op) : 'Bez operatora'}
-                <span className="font-normal text-[12.5px] text-tx3 ml-2">{op ? (cs.length === 1 ? 'operator · 1 kampania' : '') : 'za mało śladów, żeby powiązać'}</span>
+                <span className="font-normal text-[12.5px] text-tx3 ml-2">{op ? plural(cs.length, 'kampania', 'kampanie', 'kampanii') : 'za mało śladów, żeby powiązać'}</span>
               </th></tr>
               {cs.map((c) => {
                 const t = c.heat?.trend_pct ?? 0;
@@ -137,7 +156,7 @@ function Kampanie() {
                     <td className="px-2"><Sparkline data={c.heat?.series_14d ?? []} dashedEmpty label={`Materiały w 14 dni: ${(c.heat?.series_14d ?? []).join(', ')}`} /></td>
                     <td className="px-2"><b className="block text-[18px] font-semibold">{n(c.n_incidents)}</b>
                       <span className={'text-[12.5px] ' + (c.status === 'candidate' && !c.operator_id ? 'text-state-cyan' : t > 5 ? 'text-state-red' : 'text-tx3')}>{c.status === 'candidate' ? (c.operator_id ? 'od wczoraj' : 'nowa dziś') : t > 0 ? `+${Math.round(t)}% w 48 h` : t < 0 ? `${Math.round(t)}% w tygodniu` : 'bez zmian'}</span></td>
-                    <td className="px-2"><b className="block text-[14px] font-semibold">{n(c.n_domains)} domen</b><span className="text-[12.5px] text-tx3">{[c.new_domains_24h ? `${c.new_domains_24h} nowe dziś` : '', c.predicted_domains ? `${c.predicted_domains} przewidziana` : ''].filter(Boolean).join(' · ') || 'bez zmian'}</span></td>
+                    <td className="px-2"><b className="block text-[14px] font-semibold">{plural(c.n_domains ?? 0, 'domena', 'domeny', 'domen')}</b><span className="text-[12.5px] text-tx3">{domainNote(c)}</span></td>
                     <td className="px-2" onClick={(e) => e.stopPropagation()}><Report c={c} hint={hint} /></td>
                     <td className="px-2 text-tx4"><IChevR /></td>
                   </tr>
@@ -150,6 +169,11 @@ function Kampanie() {
       {!loading && !shown.length && <p className="text-tx3 text-[14px]">Żadna kampania nie pasuje do filtra.</p>}
     </Page>
   );
+}
+
+function domainNote(c: CampaignSummary): string {
+  const x = c as CampaignSummary & { new_domains_24h?: number; predicted_domains?: number };
+  return [x.new_domains_24h ? plural(x.new_domains_24h, 'nowa dziś', 'nowe dziś', 'nowych dziś') : '', x.predicted_domains ? plural(x.predicted_domains, 'przewidziana', 'przewidziane', 'przewidzianych') : ''].filter(Boolean).join(' · ') || 'bez zmian';
 }
 
 export default function Page_() {
