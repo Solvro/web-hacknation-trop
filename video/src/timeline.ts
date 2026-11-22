@@ -420,11 +420,11 @@ const D: Cut = {
     {
       into: 'slide',
       scene: clip({
-        shot: 'slad', from: 'domain-3.4', to: 'end', dur: 15,
+        shot: 'slad', from: 'domain-3.4', to: 'end', dur: 14.4,
         caps: [
           { at: 0.3, until: 2.6, text: 'Ślad zamiast materiału: domena', sub: 'dorquesio.click', pos: 'br' },
           { at: 3.0, until: 7.6, bot: 'archiwista', text: 'dorquesio.click: 2 materiały w KMP-001', sub: 'często razem z tym samym zestawem strony i bramką CAPI', pos: 'br' },
-          { at: 9.2, until: 14.8, bot: 'czytelnik', text: 'Osoba: Rafał Brzoska w 4 materiałach', sub: 'ta sama kampania, te same nagłówki i ten sam kit', pos: 'br' },
+          { at: 9.0, until: 14.2, bot: 'czytelnik', text: 'Osoba: Rafał Brzoska w 4 materiałach', sub: 'ta sama kampania, te same nagłówki i ten sam kit', pos: 'br' },
         ],
       }),
     },
@@ -438,11 +438,11 @@ const D: Cut = {
     {
       into: 'slide',
       scene: clip({
-        shot: 'kampanie', from: 'start', to: 'end', dur: 15.5,
+        shot: 'kampanie', from: 'start', to: 'end', dur: 14.4,
         caps: [
           { at: 0.3, until: 3.4, text: 'Kampanie według operatorów, a Oracle łapie nowe domeny', sub: 'zanim pojawi się pierwsza reklama', pos: 'br' },
-          { at: 3.8, until: 8.8, text: 'KMP-001: 6 materiałów, 5 domen, 4 reklamodawców', sub: '0 z 5 domen na liście CERT PL', pos: 'br' },
-          { at: 9.3, until: 15.3, bot: 'sedzia', text: 'Jedno zgłoszenie na całą kampanię', sub: 'Meta DSA art. 16, CERT PL, STIX 2.1, PDF. Nic nie wychodzi samo.', pos: 'bl' },
+          { at: 3.5, until: 8.3, text: 'KMP-001: 6 materiałów, 5 domen, 4 reklamodawców', sub: '0 z 5 domen na liście CERT PL', pos: 'br' },
+          { at: 8.7, until: 14.2, bot: 'sedzia', text: 'Jedno zgłoszenie na całą kampanię', sub: 'Meta DSA art. 16, CERT PL, STIX 2.1, PDF. Nic nie wychodzi samo.', pos: 'bl' },
         ],
       }),
     },
@@ -452,7 +452,7 @@ const D: Cut = {
         shot: 'sledztwo', from: 'start', to: 'done-0.5', dur: 9.5,
         caps: [
           { at: 0.3, until: 4.4, bot: 'notariusz', text: 'White Rabbit: od jednej domeny do reszty sieci', sub: 'certyfikaty, rejestracje, urlscan, lista CERT PL', pos: 'br' },
-          { at: 4.7, until: 9.4, bot: 'tropiciel', text: 'Graf rośnie z każdym krokiem agenta', sub: 'zapis prawdziwego przebiegu (replay), przyspieszony', pos: 'br' },
+          { at: 4.7, until: 9.4, bot: 'tropiciel', text: 'Graf rośnie z każdym krokiem (zapis, przyspieszony)', pos: 'br' },
         ],
       }),
     },
@@ -469,7 +469,8 @@ const D: Cut = {
         caps: [{ at: 0.3, until: 7.0, text: 'Wtyczka: ostrzeżenie na reklamie ze znanej kampanii', sub: 'strona demo wzorowana na reklamie z korpusu', pos: 'bl' }],
       }),
     },
-    { into: 'fade', scene: { kind: 'zend', dur: 5 } },
+    { into: 'fade', scene: RESULTS },
+    { into: 'fade', scene: { kind: 'end', dur: 4.5 } },
   ],
 };
 

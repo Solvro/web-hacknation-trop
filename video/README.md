@@ -10,7 +10,7 @@ Nothing here is part of the product build.
 | `A-Przeglad` | 1:53 | Straight jury walkthrough: Sprawdź → bots → verdict → outlines → Graf → new-campaign case → live link → Kampanie → Zgłoszenie → Śledztwa → extension → Lab → results |
 | `B-Pitch` | 1:01 | Fast pitch cut, black captions, the strongest beats only |
 | `C-Problem` | 1:19 | Problem → solution: ads are reported one by one, scammers run campaigns; then TROP |
-| `D-Zgrai` | 1:56 | The pitch deck's zgrai look (red problem slide, outlined TROP wordmark, bot-bubble captions, red closing). Full-frame walkthrough with no zoom: dropped DANE 1 folder, bots at their own pace, Graf, domain and person traces, new campaign, Kampanie and Zgłoszenie, White Rabbit, extension. No Lab. |
+| `D-Zgrai` | 1:59 | The pitch deck's zgrai look (red problem slide with four points, outlined TROP wordmark, captions as bubbles with the jelly bots from `public/bots`, A's results and end card). Full-frame walkthrough with no zoom: dropped DANE 1 folder, bots at their own pace, Graf, domain and person traces, new campaign, Kampanie and Zgłoszenie, White Rabbit, extension. No Lab. |
 
 ## Workflow
 

@@ -7,7 +7,7 @@
  * Idempotency: loadZgraiFonts() is safe to call more than once.
  */
 import { loadFont } from '@remotion/fonts';
-import { AbsoluteFill, Easing, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Easing, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { BOT, BOTS } from '../brand.ts';
 import type { Cap } from '../types.ts';
 
@@ -57,27 +57,29 @@ function Strip({ on }: { on: 'red' | 'white' }) {
 
 export function ZProblem() {
   const t = useT();
-  const big = rise(t, 1.6, 1.1);
+  const big = rise(t, 2.2, 1.1);
   return (
     <AbsoluteFill style={{ background: RED, fontFamily: ZSANS, color: '#fff', overflow: 'hidden' }}>
       <Strip on="red" />
-      <div style={{ position: 'absolute', left: 64, top: 130, fontSize: 84, fontWeight: 700, letterSpacing: -2.5, lineHeight: 1.05 }}>
+      <div style={{ position: 'absolute', left: 64, top: 105, fontSize: 80, fontWeight: 700, letterSpacing: -2.5, lineHeight: 1.05 }}>
         <div style={{ opacity: rise(t, 0.1), transform: `translateY(${(1 - rise(t, 0.1)) * 30}px)` }}>Reklamy zgłasza się pojedynczo.</div>
         <div style={{ opacity: rise(t, 0.7), transform: `translateY(${(1 - rise(t, 0.7)) * 30}px)` }}>Oszuści działają kampaniami.</div>
       </div>
-      <div style={{ position: 'absolute', left: 64, top: 390, display: 'grid', gridTemplateColumns: 'repeat(2, 640px)', gap: '28px 60px', fontSize: 30 }}>
+      <div style={{ position: 'absolute', left: 64, top: 310, display: 'grid', gridTemplateColumns: 'repeat(2, 760px)', gap: '22px 60px', fontSize: 30 }}>
         {[
           ['01', 'Fałszywe portale', 'twarze znanych osób prowadzą do „inwestycji”'],
           ['02', 'Zdejmowane po jednej', 'reklama znika, kampania wraca pod nową domeną'],
+          ['03', 'Zmieniają się domeny i twarze', 'nowe adresy, nowe osoby, nowe konta reklamowe'],
+          ['04', 'Zaplecze zostaje', 'ten sam zestaw strony, piksel i bramka CAPI'],
         ].map(([n, h, d], i) => (
-          <div key={n} style={{ borderTop: '2px solid rgba(255,255,255,.5)', paddingTop: 14, opacity: rise(t, 1.0 + i * 0.2) }}>
+          <div key={n} style={{ borderTop: '2px solid rgba(255,255,255,.5)', paddingTop: 12, opacity: rise(t, 1.0 + i * 0.25), transform: `translateY(${(1 - rise(t, 1.0 + i * 0.25)) * 18}px)` }}>
             <div style={{ fontFamily: ZMONO, fontSize: 20, opacity: 0.8 }}>{n}</div>
             <div style={{ fontWeight: 700, marginTop: 4 }}>{h}</div>
             <div style={{ fontSize: 24, opacity: 0.85, marginTop: 4 }}>{d}</div>
           </div>
         ))}
       </div>
-      <div style={{ position: 'absolute', left: 40, bottom: -150, fontSize: 470, fontWeight: 700, letterSpacing: -22, lineHeight: 1, transform: `translateY(${(1 - big) * 260}px)` }}>Problem</div>
+      <div style={{ position: 'absolute', left: 40, bottom: -140, fontSize: 400, fontWeight: 700, letterSpacing: -18, lineHeight: 1, transform: `translateY(${(1 - big) * 240}px)` }}>Problem</div>
     </AbsoluteFill>
   );
 }
@@ -95,9 +97,9 @@ export function ZInsight() {
       <Strip on="white" />
       <div style={{ position: 'absolute', left: 64, top: 120, fontFamily: ZMONO, fontSize: 24, color: RED, opacity: rise(t, 0) }}>WGLĄD · JEDNA KAMPANIA W TROP (KMP-001)</div>
       <div style={{ position: 'absolute', left: 64, top: 165, fontSize: 80, fontWeight: 700, letterSpacing: -2.5, lineHeight: 1.05, opacity: rise(t, 0.15), transform: `translateY(${(1 - rise(t, 0.15)) * 24}px)` }}>
-        Zmieniają domeny i twarze.
+        Tak wygląda jedna kampania
         <br />
-        Zaplecze zostaje.
+        po połączeniu śladów.
       </div>
       <div style={{ position: 'absolute', left: 64, right: 64, top: 470, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 36 }}>
         {items.map(([v, l, red], i) => {
@@ -186,7 +188,13 @@ export function Bubble({ cap }: { cap: Cap }) {
   const red = cap.bot === undefined;
   return (
     <div style={{ position: 'absolute', [right ? 'right' : 'left']: 90, [top ? 'top' : 'bottom']: 80, display: 'flex', alignItems: 'flex-end', gap: 16, flexDirection: right ? 'row-reverse' : 'row', opacity: pIn * pOut, transform: `translateY(${(1 - pIn) * 26}px) scale(${0.96 + 0.04 * pIn})`, transformOrigin: right ? 'bottom right' : 'bottom left' }}>
-      <span style={{ width: 58, height: 58, borderRadius: 29, background: bot.key === 'sedzia' ? ZINK : BOT[bot.key], border: '4px solid #fff', boxShadow: '0 6px 18px rgba(0,0,0,.25)', flex: 'none' }} />
+      {cap.bot ? (
+        <Img src={staticFile(`bots/${bot.key}.png`)} style={{ width: 96, height: 96, borderRadius: 48, background: '#fff', boxShadow: '0 6px 18px rgba(0,0,0,.22)', flex: 'none', objectFit: 'cover' }} />
+      ) : (
+        <div style={{ width: 96, height: 96, borderRadius: 48, background: '#fff', boxShadow: '0 6px 18px rgba(0,0,0,.22)', flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ background: ZINK, color: '#fff', fontFamily: ZSANS, fontWeight: 700, fontSize: 24, letterSpacing: -1, borderRadius: 8, padding: '2px 8px 5px' }}>trop</span>
+        </div>
+      )}
       <div
         style={{
           maxWidth: 1000,
@@ -201,7 +209,6 @@ export function Bubble({ cap }: { cap: Cap }) {
       >
         <div style={{ fontFamily: ZMONO, fontSize: 18, letterSpacing: 1.5, opacity: 0.75, marginBottom: 6 }}>{(cap.bot ? bot.name : 'TROP').toUpperCase()}</div>
         <div style={{ fontSize: 38, fontWeight: 600, lineHeight: 1.18, letterSpacing: -0.5 }}>{cap.text}</div>
-        {cap.sub ? <div style={{ fontSize: 25, lineHeight: 1.3, marginTop: 6, opacity: 0.8 }}>{cap.sub}</div> : null}
       </div>
     </div>
   );
