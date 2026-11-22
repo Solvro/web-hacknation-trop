@@ -29,6 +29,26 @@ Each variant has the same 13 slides:
 12. What we rejected and why: embeddings, GBM, one score, VLM for identity, mean-of-top-3
 13. Impact for NASK / CERT PL, the ask, the team
 
+## Decision (22.11): zgrai
+
+The team picked the **zgrai** row. Its 13 slides are now:
+
+1. Title (team Solvro Dawid, Dawid Linek)
+2. Problem
+3. Insight
+4. TROP and modules
+5. Demo: Sprawdź and the bots
+6. Demo: Raport and Graf
+7. Demo: new campaign
+8. Demo: White Rabbit and Oracle
+9. Demo: Act
+10. Demo: browser extension and Hunter
+11. How it works
+12. Functionality: what the NASK task asks for, and what we added on top
+13. Closing slide with a QR code to https://trop.b.solvro.pl
+
+The zgrai slides and the product screens use no middle dots. The other three rows stay on the canvas for reference.
+
 ## How the styles differ
 
 - **Akta sprawy:** a dark desk with manila sheets, typewriter type (Special Elite, Courier Prime), red thread between pinned evidence, yellow evidence tags, rubber stamps for verdicts and marker notes. Screens appear as clipped photos.
