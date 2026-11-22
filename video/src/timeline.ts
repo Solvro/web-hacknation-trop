@@ -370,7 +370,6 @@ const D: Cut = {
   look: 'bubble',
   scenes: [
     { scene: { kind: 'zproblem', dur: 6 } },
-    { into: 'fade', scene: { kind: 'zinsight', dur: 5.5 } },
     { into: 'fade', scene: { kind: 'ztitle', dur: 3.6 } },
     {
       into: 'fade',
@@ -469,7 +468,6 @@ const D: Cut = {
         caps: [{ at: 0.3, until: 7.0, text: 'Wtyczka: ostrzeżenie na reklamie ze znanej kampanii', sub: 'strona demo wzorowana na reklamie z korpusu', pos: 'bl' }],
       }),
     },
-    { into: 'fade', scene: RESULTS },
     { into: 'fade', scene: { kind: 'end', dur: 4.5 } },
   ],
 };
