@@ -49,7 +49,7 @@ function Kampanie() {
   const all = list ?? [];
   const opIds = useMemo(() => [...new Set(all.map((c) => c.operator_id).filter(Boolean))] as string[], [all]);
   const ops = useApi<Operator[]>(opIds.length ? '/operators' : null).data;
-  const opName = (id: string) => { const o = (ops ?? []).find?.((x) => x.id === id); return o ? `${id} «${o.codename}»` : id; };
+  const opName = (id: string) => { const o = (ops ?? []).find?.((x) => x.id === id); return o && o.codename && o.codename !== id ? `${id} «${o.codename}»` : `operator ${id}`; };
 
   const set = (k: string, v: string | null) => {
     const q = new URLSearchParams(sp.toString());
@@ -145,7 +145,7 @@ function Kampanie() {
             <tbody key={op || 'none'}>
               <tr className="border-b border-line1"><th colSpan={6} className="text-left py-3 px-2 text-[14px] font-semibold">
                 {op ? opName(op) : 'Bez operatora'}
-                <span className="font-normal text-[12.5px] text-tx3 ml-2">{op ? (cs.length === 1 ? 'operator · 1 kampania' : '') : 'za mało śladów, żeby powiązać'}</span>
+                <span className="font-normal text-[12.5px] text-tx3 ml-2">{op ? plural(cs.length, 'kampania', 'kampanie', 'kampanii') : 'za mało śladów, żeby powiązać'}</span>
               </th></tr>
               {cs.map((c) => {
                 const t = c.heat?.trend_pct ?? 0;

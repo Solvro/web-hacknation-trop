@@ -387,7 +387,8 @@ export function GraphExplorer({ originId, decision, names, originTitle, originTh
     const p: FocusPanel = { ...raw, facts: raw.facts?.filter((f) => f.v && f.v !== '—') };
     if (nd.kind === 'trace') {
       p.kind_label = `Ślad · ${LAYER_LABEL[(l.layer ?? 'kit') as Layer] ?? ''}`;
-      p.title = `${l.title}: ${m.value ?? ''}`;
+      const value = m.value ?? nd.id.split(':').slice(2).join(':');
+      p.title = value ? `${l.title}: ${prettyDisplay(value)}` : l.title;
       p.description = [l.layer ? LAYER_HINT[l.layer as Layer] : '', m.count != null ? `Ten ślad ma ${plural(m.count, 'materiał', 'materiały', 'materiałów')} w bazie.` : ''].filter(Boolean).join(' ');
     } else if (nd.kind === 'incident') {
       p.title = (nd.id === originId ? originTitle : titles.get(nd.id)) || nd.id;
