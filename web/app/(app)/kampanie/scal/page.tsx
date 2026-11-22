@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import type { CampaignSummary, MergePreview } from '@/lib/contracts';
 import { apiPost, useApi } from '@/lib/api';
-import { BOT_FOR_LAYER, botColor, botName, LAYER_LABEL, n, plural, prettyDisplay } from '@/lib/copy';
+import { BOT_FOR_LAYER, botColor, botName, LAYER_LABEL, n, plural, pluralWord, prettyDisplay } from '@/lib/copy';
 import { campaignTitle } from '@/lib/graph';
 import { Bot, JellyRoot } from '@/components/jelly';
 import { ReportHeader } from '@/components/analysis/report';
@@ -18,7 +18,7 @@ function Side({ c, keep, onKeep }: { c: CampaignSummary; keep: boolean; onKeep: 
       <span className="flex items-center gap-2 text-[13px]"><input type="radio" name="keep" checked={keep} onChange={onKeep} className="w-4 h-4 accent-black" />Zostaw tę nazwę</span>
       <b className="text-[19px] font-semibold tracking-[-0.02em]">{c.id} {campaignTitle(c)}</b>
       <span className="text-[13px] text-tx3">{c.narrative}</span>
-      <span className="text-[13.5px] pt-1"><b>{n(c.n_incidents)}</b> materiałów &nbsp; <b>{n(c.n_domains)}</b> domen</span>
+      <span className="text-[13.5px] pt-1"><b>{n(c.n_incidents)}</b> {pluralWord(c.n_incidents ?? 0, 'materiał', 'materiały', 'materiałów')} &nbsp; <b>{n(c.n_domains)}</b> {pluralWord(c.n_domains ?? 0, 'domena', 'domeny', 'domen')}</span>
     </label>
   );
 }

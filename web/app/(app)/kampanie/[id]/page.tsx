@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import type { ActPackage, DomainIndicator, Campaign, CampaignDNA, CampaignSummary, IncidentSummary, Indicators, Operator, OraclePrediction, Timeline } from '@/lib/contracts';
 import { apiPost, useApi } from '@/lib/api';
-import { BOT_FOR_LAYER, plural, botColor, botName, fmtDate, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from '@/lib/copy';
+import { BOT_FOR_LAYER, plural, pluralWord, botColor, botName, fmtDate, LAYER_LABEL, n, p2, plOnly, prettyDisplay } from '@/lib/copy';
 import { campaignTitle, personName } from '@/lib/graph';
 import { JellyRoot, Bot } from '@/components/jelly';
 import { ReportHeader, storyOf } from '@/components/analysis/report';
@@ -73,10 +73,10 @@ export default function KampaniaPage() {
         />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            [n(cnt.incidents ?? c.n_incidents), `materiałów${c.heat?.trend_pct ? ` · ${c.heat.trend_pct > 0 ? '+' : ''}${Math.round(c.heat.trend_pct)}% w 48 h` : ''}`, (c.heat?.trend_pct ?? 0) > 5],
-            [n(cnt.domains ?? c.n_domains), `domen${c.new_domains_24h ? ` · ${c.new_domains_24h} nowe dziś` : ''}`, false],
+            [n(cnt.incidents ?? c.n_incidents), `${pluralWord(cnt.incidents ?? c.n_incidents ?? 0, 'materiał', 'materiały', 'materiałów')}${c.heat?.trend_pct ? ` · ${c.heat.trend_pct > 0 ? '+' : ''}${Math.round(c.heat.trend_pct)}% w 48 h` : ''}`, (c.heat?.trend_pct ?? 0) > 5],
+            [n(cnt.domains ?? c.n_domains), `${pluralWord(cnt.domains ?? c.n_domains ?? 0, 'domena', 'domeny', 'domen')}${c.new_domains_24h ? ` · ${plural(c.new_domains_24h, 'nowa dziś', 'nowe dziś', 'nowych dziś')}` : ''}`, false],
             [n(cnt.advertisers ?? 0), `reklamodawców${cnt.advertisers_removed ? ` · ${cnt.advertisers_removed} usuniętych` : ''}`, false],
-            [`${n(cnt.certpl_listed ?? 0)} z ${n(cnt.domains ?? c.n_domains)}`, 'domen na liście CERT PL', false],
+            [`${n(cnt.certpl_listed ?? 0)} z ${n(cnt.domains ?? c.n_domains)}`, `${pluralWord(cnt.domains ?? c.n_domains ?? 0, 'domeny', 'domen', 'domen')} na liście CERT PL`, false],
           ].map(([v, l, hot], i) => (
             <div key={i} className="rounded-[18px] border border-line1 p-4"><b className="block text-[28px] font-semibold tracking-[-0.03em]">{v as string}</b><span className={'text-[12.5px] ' + (hot ? 'text-state-red' : 'text-tx3')}>{l as string}</span></div>
           ))}
@@ -168,8 +168,8 @@ export default function KampaniaPage() {
                 <h2 className="text-[17px] font-semibold">{opLabel(op, op.id)}</h2>
                 {op.narratives?.[0] && <p className="text-[13.5px] text-tx2 pt-1.5">{op.narratives[0]}</p>}
                 <div className="grid grid-cols-2 gap-2 pt-3">
-                  <div className="rounded-xl border border-line1 p-2.5"><b className="block text-[18px]">{n(((op.campaigns ?? []) as { incidents?: number }[]).reduce((s, x) => s + (x.incidents ?? 0), 0))}</b><span className="text-[12px] text-tx3">materiałów</span></div>
-                  <div className="rounded-xl border border-line1 p-2.5"><b className="block text-[18px]">{op.campaigns?.length ?? 0}</b><span className="text-[12px] text-tx3">kampanie</span></div>
+                  <div className="rounded-xl border border-line1 p-2.5"><b className="block text-[18px]">{n(((op.campaigns ?? []) as { incidents?: number }[]).reduce((s, x) => s + (x.incidents ?? 0), 0))}</b><span className="text-[12px] text-tx3">{pluralWord(((op.campaigns ?? []) as { incidents?: number }[]).reduce((s, x) => s + (x.incidents ?? 0), 0), 'materiał', 'materiały', 'materiałów')}</span></div>
+                  <div className="rounded-xl border border-line1 p-2.5"><b className="block text-[18px]">{op.campaigns?.length ?? 0}</b><span className="text-[12px] text-tx3">{pluralWord(op.campaigns?.length ?? 0, 'kampania', 'kampanie', 'kampanii')}</span></div>
                 </div>
                 {(op.shared?.length ?? 0) > 0 && <>
                   <h3 className="text-[12.5px] text-tx3 pt-3 pb-1.5">Rozpoznajemy go po</h3>
