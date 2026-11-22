@@ -710,11 +710,57 @@ class RealStore:
                     edges.append(GraphEdge(a=cid, b=d.operator_id, type="operator", weight=3, level="L3"))
                 edges.append(GraphEdge(a=iid, b=d.operator_id, type="operator", weight=4, level="L3", label="ten sam operator"))
         for e in d.evidence:
-            if e.field in ("text_minhash", "text_group") and e.state == "match" and e.value:
-                tid = f"trace:text_minhash:{e.value}"
-                nodes.setdefault(tid, GraphNode(id=tid, kind="trace", label="Tekst strony: grupa " + str(e.value)[:10], size=2,
-                                                meta={"field": "text_minhash", "value": e.value, "layer": "content", "materials": max(e.df, 1) + (1 if campaign else 0)}))
-                edges.append(GraphEdge(a=tid, b=iid, type="content", weight=max(e.weight, 0.1), level="L2"))
+            if e.state != "match" or not e.value or e.field not in ("text_minhash", "dom_minhash", "cert_batch"):
+                continue
+            try:
+                grp = self._sim_group(inc, iid, e.field)
+            except Exception:  # noqa: BLE001
+                continue
+            if not grp:
+                continue
+            gid, members, label, layer = grp
+            tid = f"trace:{e.field}:{gid}"                    # never the score (jaccard=1.00 collides across fields)
+            nodes.setdefault(tid, GraphNode(id=tid, kind="trace", label=label, size=2,
+                                            meta={"field": e.field, "value": e.value, "group": gid, "layer": layer, "materials": len(members) + (0 if iid in members else 1)}))
+            for m in {iid, *members}:
+                if m in nodes and nodes[m].kind == "incident":
+                    edges.append(GraphEdge(a=tid, b=m, type=layer, weight=max(e.weight, 0.1), level="L2"))
+                    for dom in [x for x in nodes if x.startswith("d:") and any(ed.a == x and ed.b == m for ed in edges)]:
+                        if e.field == "cert_batch":              # the batch links the domains whose certificates were issued together
+                            edges.append(GraphEdge(a=tid, b=dom, type=layer, weight=max(e.weight, 0.1), level="L2"))
+
+    def _sim_group(self, inc: dict, iid: str, field: str):
+        """-> (group id, member incident ids, label, layer) of a similarity / batch trace, from the incident pair or template group, not the score."""
+        import copy
+        from trop.engine import evidence as EV
+        if not getattr(self, "_ev_ready", None) is self.corpus:
+            EV.prepare(self.corpus.incidents)
+            self._ev_ready = self.corpus
+        q = copy.deepcopy(inc)
+        q.setdefault("id", iid)
+        for k in ("tracking", "landing", "content", "infra"):
+            q.setdefault(k, {})
+        EV.prepare([q])
+        v = q["_v"]
+        mem: list[str] = []
+        if field in ("text_minhash", "dom_minhash"):
+            key = "text_mh" if field == "text_minhash" else "dom_mh"
+            if v.get(key) is None:
+                return None
+            mem = [o["id"] for o in self.corpus.incidents if o["id"] != iid and (o.get("_v") or {}).get(key) is not None
+                   and v[key].jaccard(o["_v"][key]) >= 0.5]
+            gid = min(mem + [iid]) if mem else iid
+            label = ("Tekst strony" if field == "text_minhash" else "Struktura DOM") + f": grupa {gid}"
+            return gid, mem, label, "content" if field == "text_minhash" else "kit"
+        certs = [c for c in v.get("cert") or [] if c.get("issuer")]
+        if not certs:
+            return None
+        iss, t0 = certs[0]["issuer"], str(certs[0].get("not_before") or "")[:13]
+        for o in self.corpus.incidents:
+            if o["id"] != iid and any(c.get("issuer") == iss and EV._hours_apart(c.get("not_before"), certs[0].get("not_before")) <= 2
+                                      for c in (o.get("_v") or {}).get("cert") or []):
+                mem.append(o["id"])
+        return f"{iss}|{t0}", mem, f"Partia certyfikatów: {str(iss)[:30]}", "infra"
 
     KIT_FIELDS = {"kit_tenants", "lander_ids", "landing_type_ids", "kit_endpoints", "path_shapes", "chain_param_schemas"}
 
@@ -739,7 +785,7 @@ class RealStore:
                 key, val = parts[1], parts[2]
                 field = {"pixel": "fb_pixels", "content": "headline_template"}.get(key, key)
                 hit = best([n for n in trace_nodes if n.meta.get("value") == val and n.meta.get("field") in (field, key, None)]
-                           or [n for n in trace_nodes if n.meta.get("value") == val])
+                           or ([] if key in ("text_minhash", "dom_minhash", "cert_batch") else [n for n in trace_nodes if n.meta.get("value") == val]))
             if hit:
                 return hit
         elif "." in focus and ":" not in focus and f"d:{focus}" in ids:         # bare domain
