@@ -280,6 +280,7 @@
      "Partia certyfikatów LE R11 z tej samej nocy"
     ]
    },
+   "signals": null,
    "alpha": 0.05,
    "conformal_tau": 0.55,
    "set": [
@@ -412,6 +413,7 @@
     }
    ],
    "adjudicator": null,
+   "signals": null,
    "alpha": 0.05,
    "conformal_tau": 0.55,
    "set": [],
@@ -581,6 +583,7 @@
      "Partia certyfikatów LE R11 z tej samej nocy"
     ]
    },
+   "signals": null,
    "alpha": 0.05,
    "conformal_tau": 0.55,
    "set": [
@@ -674,6 +677,7 @@
    ],
    "why_not": [],
    "adjudicator": null,
+   "signals": null,
    "alpha": null,
    "conformal_tau": null,
    "set": [],

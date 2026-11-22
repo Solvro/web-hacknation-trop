@@ -26,6 +26,7 @@ from . import rules as _rules
 from .campaign import load_campaign
 from .notice import GOOD_FAITH, LEGAL_BASIS, REPORTER, certpl_text, draft_notice
 from .pdf import render_dsa_pdf
+from .pl import n_accounts, n_ads, n_domains
 from .stix import dumps, indicators_csv, misp_event, stix_bundle
 
 DISCLAIMER = "Nic nie zostało wysłane — pakiet przygotowany i wyeksportowany."
@@ -98,10 +99,10 @@ def create_package(body: ActPackageCreate | dict, *, use_llm: bool = True,
     recips = [{"id": r, "label": RECIPIENTS[r], "enabled": r in b.recipients, "progress": {"done": 0, "total": totals[r]},
                "status": "ready" if r in b.recipients else "off"} for r in RECIPIENTS]
     parts = [
-        {"key": "ads", "label": f"{c['ads']} reklam z linkami do Ad Library", "bot": "zwiadowca", "ready": True, "count": c["ads"]},
-        {"key": "advertisers", "label": f"{c['advertisers']} kont reklamodawców", "bot": "archiwista", "ready": True,
+        {"key": "ads", "label": f"{n_ads(c['ads'])} z linkami do Ad Library", "bot": "zwiadowca", "ready": True, "count": c["ads"]},
+        {"key": "advertisers", "label": n_accounts(c['advertisers']), "bot": "archiwista", "ready": True,
          "count": c["advertisers"]},
-        {"key": "domains", "label": f"{c['domains']} domen z certyfikatami i datami"
+        {"key": "domains", "label": f"{n_domains(c['domains'])} z certyfikatami i datami"
          + (f", w tym {sum(1 for x in d['domains'] if x.get('source') == 'investigation')} ze śledztwa"
             if any(x.get("source") == "investigation" for x in d["domains"]) else ""), "bot": "notariusz", "ready": True,
          "count": c["domains"]},
