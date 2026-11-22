@@ -7,9 +7,9 @@ Nothing here is part of the product build.
 
 | Cut | Length | Story |
 |---|---|---|
-| `A-Przeglad` | ≈ 1:55 | Straight jury walkthrough: Sprawdź → bots → verdict → outlines → Graf → new-campaign case → live link → Kampanie → Zgłoszenie → Śledztwa → extension → Lab → results |
-| `B-Pitch` | ≈ 1:10 | Fast pitch cut, black captions, the strongest beats only |
-| `C-Problem` | ≈ 1:20 | Problem → solution: ads are reported one by one, scammers run campaigns; then TROP |
+| `A-Przeglad` | 1:53 | Straight jury walkthrough: Sprawdź → bots → verdict → outlines → Graf → new-campaign case → live link → Kampanie → Zgłoszenie → Śledztwa → extension → Lab → results |
+| `B-Pitch` | 1:01 | Fast pitch cut, black captions, the strongest beats only |
+| `C-Problem` | 1:19 | Problem → solution: ads are reported one by one, scammers run campaigns; then TROP |
 
 ## Workflow
 
@@ -43,8 +43,15 @@ the loading pauses a real visitor sees**: the footage shows the app a little fas
 it is. CSS animations run on the compositor clock; their playback rate is matched to the
 measured capture speed.
 
+While a take records, every wait advances frames (the page clock only moves when a
+frame is taken), so timer-driven fetches such as the report's screenshot still arrive.
+
 Shot notes:
 
+- `graf` makes a fresh check of the same sample off camera, then records its report page
+  (`/analiza/INC-…`): a finished job's stream expires on the server while a slow take is
+  still recording, so the Graf switch cannot stay on `/analiza/JOB-…`. Checks made by
+  visitors are wiped by redeploys, which is why the shot never reuses an old incident id.
 - `sledztwo` plays the recorded White Rabbit run (`/sledztwa/INV-103?replay=live`, a real
   agent run on `mintforge-capital-apps.com`). Its SSE events are recorded in a warm-up pass
   and replayed on the page clock in the take, so the graph grows smoothly.

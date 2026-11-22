@@ -79,7 +79,7 @@ const A: Cut = {
     {
       scene: clip({
         shot: 'sprawdz', from: 'verdict-0.3', to: 'outlines-0.6', dur: 4,
-        cam: [{ at: 0, x: 760, y: 420, z: 1.6 }, { at: 2.4, x: 760, y: 420, z: 1.6 }, { at: 3.6, x: 1400, y: 420, z: 1.7 }, { at: 4, x: 1400, y: 420, z: 1.7 }],
+        cam: [{ at: 0, x: 820, y: 420, z: 1.4 }, { at: 2.4, x: 820, y: 420, z: 1.4 }, { at: 3.6, x: 1400, y: 420, z: 1.7 }, { at: 4, x: 1400, y: 420, z: 1.7 }],
         caps: [{ at: 0.2, until: 3.8, text: 'Werdykt: dołącza do kampanii KMP-001 · pewność 0.99', sub: 'operator OP-01, następna kampania tylko 0.01', pos: 'br' }],
       }),
     },
@@ -92,11 +92,12 @@ const A: Cut = {
     },
     {
       scene: clip({
-        shot: 'graf', from: 'graf-0.3', to: 'end', dur: 8,
-        cam: [{ at: 0, ...FULL }],
+        shot: 'graf', from: 'graf-0.3', to: 'end', dur: 11,
+        cam: [{ at: 0, x: 960, y: 420, z: 1.15 }, { at: 0.6, x: 960, y: 420, z: 1.15 }, { at: 1.5, x: 950, y: 560, z: 1.36 }, { at: 11, x: 950, y: 560, z: 1.36 }],
         caps: [
-          { at: 0.3, until: 3.9, text: 'Graf: od materiału przez dowody do kampanii', pos: 'tr' },
-          { at: 4.2, until: 7.8, text: 'Klik w węzeł: z czym jeszcze łączy się ten ślad', sub: 'Lander z zestawu strony wspólny dla 5 materiałów', pos: 'tr' },
+          { at: 0.3, until: 3.4, text: 'Graf: materiał, ślady, osoby, kampania, operator', pos: 'br' },
+          { at: 3.7, until: 6.6, text: 'Klik w osobę: Rafał Brzoska w 5 materiałach', sub: 'wizerunek albo nazwisko, wspólne dla całej serii', pos: 'br' },
+          { at: 6.9, until: 10.8, text: 'Kampania KMP-001 i operator OP-01', sub: 'każdy węzeł rozwija swoje powiązania', pos: 'br' },
         ],
       }),
     },
@@ -129,7 +130,7 @@ const A: Cut = {
         shot: 'kampanie', from: 'start', to: 'package', dur: 11,
         cam: [{ at: 0, x: 960, y: 420, z: 1.3 }, { at: 2.6, x: 960, y: 420, z: 1.3 }, { at: 3.7, x: 960, y: 480, z: 1.12 }, { at: 11, x: 960, y: 480, z: 1.12 }],
         caps: [
-          { at: 0.3, until: 3.4, text: 'Kampanie pogrupowane według operatorów', sub: 'i Oracle: nowe domeny pasujące do znanych zestawów, zanim pojawi się reklama', pos: 'bl' },
+          { at: 0.3, until: 3.4, text: 'Kampanie pogrupowane według operatorów', sub: 'i Oracle: nowe domeny pasujące do znanych zestawów, zanim pojawi się reklama', pos: 'br' },
           { at: 3.8, until: 10.8, text: 'KMP-001: 6 materiałów · 5 domen · 4 reklamodawców', sub: '0 z 5 domen na liście CERT PL', pos: 'bl' },
         ],
       }),
@@ -201,15 +202,15 @@ const B: Cut = {
     {
       scene: clip({
         shot: 'sprawdz', from: 'verdict-0.3', to: 'end', dur: 6,
-        cam: [{ at: 0, x: 760, y: 420, z: 1.6 }, { at: 2.1, x: 760, y: 420, z: 1.6 }, { at: 3.2, x: 1400, y: 420, z: 1.7 }, { at: 6, x: 1400, y: 400, z: 1.75 }],
+        cam: [{ at: 0, x: 820, y: 420, z: 1.4 }, { at: 2.1, x: 820, y: 420, z: 1.4 }, { at: 3.2, x: 1400, y: 420, z: 1.7 }, { at: 6, x: 1400, y: 400, z: 1.75 }],
         caps: [{ at: 0.2, until: 5.8, text: 'Dołącza do KMP-001 · pewność 0.99', sub: 'z dowodami na przechwyconej stronie', pos: 'br' }],
       }),
     },
     {
       scene: clip({
-        shot: 'graf', from: 'graf+0.5', to: 'end', dur: 5,
-        cam: [{ at: 0, ...FULL }],
-        caps: [{ at: 0.2, until: 4.8, text: 'Każde powiązanie da się kliknąć i sprawdzić', pos: 'tr' }],
+        shot: 'graf', from: 'person-0.9', to: 'campaign+2.4', dur: 5,
+        cam: [{ at: 0, x: 950, y: 560, z: 1.36 }],
+        caps: [{ at: 0.2, until: 4.8, text: 'Każde powiązanie da się kliknąć i sprawdzić', pos: 'br' }],
       }),
     },
     {
@@ -300,15 +301,15 @@ const C: Cut = {
     {
       scene: clip({
         shot: 'sprawdz', from: 'verdict-0.3', to: 'end', dur: 7,
-        cam: [{ at: 0, x: 760, y: 420, z: 1.6 }, { at: 2.4, x: 760, y: 420, z: 1.6 }, { at: 3.6, x: 1400, y: 420, z: 1.7 }, { at: 7, x: 1400, y: 400, z: 1.75 }],
+        cam: [{ at: 0, x: 820, y: 420, z: 1.4 }, { at: 2.4, x: 820, y: 420, z: 1.4 }, { at: 3.6, x: 1400, y: 420, z: 1.7 }, { at: 7, x: 1400, y: 400, z: 1.75 }],
         caps: [{ at: 0.3, until: 6.8, text: 'To nie pierwsza taka reklama: KMP-001 · pewność 0.99', sub: 'ten sam zestaw strony, piksel i bramka CAPI', pos: 'br' }],
       }),
     },
     {
       scene: clip({
-        shot: 'graf', from: 'graf+0.5', to: 'end', dur: 6,
-        cam: [{ at: 0, ...FULL }],
-        caps: [{ at: 0.3, until: 5.8, text: 'Dlaczego? Każdy dowód z wagą i rzadkością', pos: 'tr' }],
+        shot: 'graf', from: 'person-0.9', to: 'operator-0.3', dur: 6,
+        cam: [{ at: 0, x: 950, y: 560, z: 1.36 }],
+        caps: [{ at: 0.3, until: 5.8, text: 'Dlaczego? Wspólne osoby, ślady, operator', sub: 'każdy węzeł grafu da się rozwinąć', pos: 'br' }],
       }),
     },
     {

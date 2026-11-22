@@ -72,5 +72,17 @@
     },
     "capturedAt": "2026-11-21T23:57:29.465Z",
     "origin": "https://trop.b.solvro.pl"
+  },
+  "graf": {
+    "seconds": 17.766666666666666,
+    "marks": {
+      "graf": 2.4166666666666665,
+      "person": 6.733333333333333,
+      "campaign": 10.85,
+      "operator": 14.966666666666667,
+      "end": 17.766666666666666
+    },
+    "capturedAt": "2026-11-22T00:02:05.096Z",
+    "origin": "https://trop.b.solvro.pl"
   }
 }
