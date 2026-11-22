@@ -169,6 +169,31 @@ def test_graph_focus_on_fresh_upload_has_content_nodes_campaign_and_counts(live)
     r.delete("trop:incident:INC-UTEST1")
 
 
+def test_similarity_traces_have_group_ids_not_scores(live):  # noqa: F811
+    import copy
+    import json
+    import redis
+    from trop.engine import service
+    corpus = service.Corpus.load()
+    inc = copy.deepcopy(next(i for i in corpus.incidents if corpus.campaign_of.get(i["id"]) and len((i.get("landing") or {}).get("dom_paths") or []) >= 30))
+    inc["id"] = "INC-UTEST2"
+    dec, _ = service.analyze_incident(inc, corpus)
+    r = redis.Redis.from_url(settings.redis_url)
+    try:
+        r.set("trop:incident:INC-UTEST2", json.dumps({"incident": inc, "decision": dec.model_dump(mode="json")}, default=str), ex=300)
+    except Exception:
+        pytest.skip("redis down")
+    g = live.get(f"{P}/graph?focus=INC-UTEST2").json()
+    sim = {n["meta"]["field"]: n["id"] for n in g["nodes"] if n["kind"] == "trace" and n["meta"].get("field") in ("text_minhash", "dom_minhash", "cert_batch")}
+    assert sim, "similarity traces expected"
+    assert "jaccard" not in json_dump(sim)
+    assert len(set(sim.values())) == len(sim)
+    if "dom_minhash" in sim and "text_minhash" in sim:
+        alias = live.get(f"{P}/graph?focus=trace:dom_minhash:jaccard=1.00&origin=INC-UTEST2").json()
+        assert alias["focus"] == sim["dom_minhash"]
+    r.delete("trop:incident:INC-UTEST2")
+
+
 def test_person_trace_facts_mock(client):
     t = client.get(f"{P}/traces/person/Jan Kowalski").json()
     assert t["facts"]["campaigns"] and t["facts"]["text"] and t["facts"]["captions"]
