@@ -6,7 +6,7 @@ export function EvidenceChip({ e, big, onClick }: { e: EvidenceItem; big?: boole
   const cls = ['ev', `t-${e.type}`, big ? 'big' : '', e.state === 'conflict' ? 'conf' : '', e.state === 'missing' ? 'miss' : '', e.state === 'zero' ? 'zero' : ''].join(' ');
   const s = e.strength === 'H' ? 'h' : e.strength === 'M' ? 'm' : 'l';
   const lvl = (e as { level?: string | null }).level ?? '';
-  const title = `${LAYER_LABEL[e.type]} (${LAYER_HINT[e.type] ?? ''}) · ${e.display}${e.state === 'zero' ? ` · ${SIDE_LEVEL[lvl] ?? 'nie liczy się do kampanii'}` : ''}${e.N ? ` · widziane w ${n(e.df ?? 0)} z ${n(e.N)}` : ''}${e.idf ? ` · idf ${e.idf.toFixed(2)}` : ''}${e.bot ? ` · znalazł ${botName(e.bot)}` : ''}`;
+  const title = `${LAYER_LABEL[e.type]} (${LAYER_HINT[e.type] ?? ''}) · ${e.display}${e.value && !e.display.includes(e.value) ? ` · ${e.value}` : ''}${e.state === 'zero' ? ` · ${SIDE_LEVEL[lvl] ?? 'nie liczy się do kampanii'}` : ''}${e.N ? ` · widziane w ${n(e.df ?? 0)} z ${n(e.N)}` : ''}${e.idf ? ` · idf ${e.idf.toFixed(2)}` : ''}${e.bot ? ` · znalazł ${botName(e.bot)}` : ''}`;
   const body = (
     <>
       <span className="t" title={LAYER_HINT[e.type]}>{LAYER_LABEL[e.type]}</span>

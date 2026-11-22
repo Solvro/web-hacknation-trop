@@ -3,7 +3,7 @@
 // nothing is drawn in place of a missing image (no placeholder tiles).
 // Shape (WS2): [{role: ad_screenshot|landing_screenshot|video_keyframe, url, w, h, boxes?: [{kind, x, y, w, h, text?}]}];
 // the older {kind, name, url, width, height, mime} is read too.
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { IncidentSummary } from './contracts';
 import { API, useApi } from './api';
 
@@ -28,8 +28,17 @@ const toShot = (a?: Artifact): Shot | undefined =>
 export interface Artifacts { ad?: string; adShot?: Shot; landing?: Shot; frames: Shot[]; any?: string }
 
 /** `ad`: the ad screenshot / creative; `landing`: the rendered landing page (with finding boxes); `frames`: video keyframes. */
-export function useArtifacts(incidentId?: string | null): Artifacts {
-  const { data } = useApi<Artifact[] | { items: Artifact[] }>(incidentId ? `/incidents/${encodeURIComponent(incidentId)}/artifacts` : null);
+export function useArtifacts(incidentId?: string | null, opts: { poll?: boolean } = {}): Artifacts {
+  // fresh uploads are rendered after the verdict: poll until the landing render shows up (≤ 40 s)
+  const [tick, setTick] = useState(0);
+  const poll = opts.poll ?? /^INC-U/i.test(incidentId ?? '');
+  const { data } = useApi<Artifact[] | { items: Artifact[] }>(incidentId ? `/incidents/${encodeURIComponent(incidentId)}/artifacts` : null, [tick]);
+  const hasLanding = (Array.isArray(data) ? data : []).some((a) => a.url && /landing/.test(a.role ?? ''));
+  useEffect(() => {
+    if (!incidentId || !poll || hasLanding || tick >= 20) return;
+    const t = setTimeout(() => setTick((k) => k + 1), 2000);
+    return () => clearTimeout(t);
+  }, [incidentId, poll, hasLanding, tick, data]);
   return useMemo(() => {
     const list = Array.isArray(data) ? data : Array.isArray(data?.items) ? data!.items : [];
     const imgs = list.filter(isImage);

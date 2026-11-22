@@ -9,6 +9,21 @@ export function focusIdOf(e: EvidenceItem, _incidentDomain?: string | null): str
 
 const DOMAIN_FIELDS = /^(entry_url|final_url|domain|registration|cert|cert_batch|domain_dna|history|etld1|host)$/;
 
+/** Graph node id for a Raport chip (`ev:<field>:<value>`), resolved server-side by WS2's aliases: persons →
+ *  `person:<name>`, URLs / domain fields → `d:<host>`, everything else `trace:<field>:<value>` (the API answers with
+ *  the real node, or a synthetic one next to the origin, so every chip opens). */
+export function chipNodeId(id: string, incidentDomain?: string | null): string {
+  if (!id.startsWith('ev:')) return id;
+  const rest = id.slice(3);
+  const i = rest.indexOf(':');
+  const field = rest.slice(0, i);
+  const value = rest.slice(i + 1);
+  if (/person|face/.test(field)) return `person:${value.toLowerCase()}`;
+  if (/^https?:\/\//.test(value)) { try { return `d:${new URL(value).hostname}`; } catch { /* fall through */ } }
+  if (DOMAIN_FIELDS.test(field) && incidentDomain) return `d:${incidentDomain}`;
+  return `trace:${field}:${value}`;
+}
+
 /** Find the graph node a focus request means. Exact ids pass through; `ev:` ids match by value
  *  (`trace:<field>s:<value>`, `person:<name>`, `d:<domain>`), case-insensitive. */
 export function resolveNodeId(g: GraphPayload, id: string, incidentDomain?: string | null): string | null {

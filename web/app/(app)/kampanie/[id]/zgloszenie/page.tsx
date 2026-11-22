@@ -5,8 +5,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import type { ActPackage, Campaign } from '@/lib/contracts';
-import { API, apiPost, isOffline, useApi } from '@/lib/api';
-import { BOT_BY_KEY, n } from '@/lib/copy';
+import { API, apiGet, apiPost, isOffline, useApi } from '@/lib/api';
+import { BOT_BY_KEY, n, plural } from '@/lib/copy';
 import { campaignTitle } from '@/lib/graph';
 import { Bot, JellyRoot } from '@/components/jelly';
 import { ReportHeader } from '@/components/analysis/report';
@@ -27,13 +27,13 @@ function localDraft(c: Campaign): ActPackage {
     contents: { ads: c.n_incidents ?? 0, advertisers: cnt.advertisers ?? 0, domains: c.n_domains ?? 0, evidence_items: 64 },
     recipients: [], formats: ['pdf', 'stix'],
     parts: [
-      { key: 'ads', label: `${c.n_incidents} reklam z linkami do Ad Library i zrzutami`, bot: 'zwiadowca', count: c.n_incidents },
-      { key: 'advertisers', label: `${cnt.advertisers ?? 0} kont reklamodawców z historią reklam`, bot: 'archiwista', count: cnt.advertisers ?? 0 },
-      { key: 'domains', label: `${c.n_domains} domen z certyfikatami i datami`, bot: 'notariusz', count: c.n_domains },
+      { key: 'ads', label: `${plural(c.n_incidents ?? 0, 'reklama', 'reklamy', 'reklam')} z linkami do Ad Library i zrzutami`, bot: 'zwiadowca', count: c.n_incidents },
+      { key: 'advertisers', label: `${plural(cnt.advertisers ?? 0, 'konto', 'konta', 'kont')} reklamodawców z historią reklam`, bot: 'archiwista', count: cnt.advertisers ?? 0 },
+      { key: 'domains', label: `${plural(c.n_domains ?? 0, 'domena', 'domeny', 'domen')} z certyfikatami i datami`, bot: 'notariusz', count: c.n_domains },
       { key: 'traces', label: 'Ślady, które łączą reklamy: bramka CAPI i kit', bot: 'tropiciel', count: 2 },
       { key: 'stix', label: 'Uzasadnienie i plik STIX 2.1 dla CERT PL', bot: 'sedzia', count: 'STIX' },
     ],
-    notice_text: `Zgłoszenie na podstawie art. 16 DSA.\n\nZgłaszamy ${c.n_incidents} reklam z ${cnt.advertisers ?? 0} kont reklamodawców. Wszystkie należą do jednej kampanii oszustwa ${campaignTitle(c)} (${c.id}).\n\n${c.narrative ?? ''}\n\nWspólne ślady: ta sama bramka konwersji, ten sam zestaw stron i ten sam szablon tekstu. Lista reklam, adresów i dowodów jest w załączniku.`,
+    notice_text: `Zgłoszenie na podstawie art. 16 DSA.\n\nZgłaszamy ${plural(c.n_incidents ?? 0, 'reklamę', 'reklamy', 'reklam')} z ${plural(cnt.advertisers ?? 0, 'konta', 'kont', 'kont')} reklamodawców. Wszystkie należą do jednej kampanii oszustwa ${campaignTitle(c)} (${c.id}).\n\n${c.narrative ?? ''}\n\nWspólne ślady: ta sama bramka konwersji, ten sam zestaw stron i ten sam szablon tekstu. Lista reklam, adresów i dowodów jest w załączniku.`,
     disclaimer: 'Nic nie zostało wysłane — pakiet przygotowany i wyeksportowany.',
   };
 }
@@ -52,11 +52,18 @@ export default function ZgloszeniePage() {
   const [sendErr, setSendErr] = useState<string | null>(null);
   const dlg = useRef<HTMLDialogElement>(null);
 
+  const asked = useRef(false);
   useEffect(() => {
-    if (!c || pkg) return;
-    apiPost<ActPackage>('/act/packages', { campaign_id: c.id, kind: 'bundle', recipients: ['meta_dsa', 'certpl', 'google'] }, () => localDraft(c))
-      .then((p) => { setPkg(p); setText(p.notice_text ?? ''); })
-      .catch((e: Error) => setFail(e.message));
+    if (!c || pkg || asked.current) return;
+    asked.current = true;
+    (async () => {
+      // one draft per campaign: reuse the newest draft, create only when there is none
+      const drafts = isOffline() ? [] : await apiGet<ActPackage[]>(`/act/packages?campaign_id=${encodeURIComponent(c.id)}&status=draft`).catch(() => [] as ActPackage[]);
+      const mine = (Array.isArray(drafts) ? drafts : []).filter((p) => p.campaign_id === c.id && p.status === 'draft')
+        .sort((a, b) => String(b.created_at ?? '').localeCompare(String(a.created_at ?? '')));
+      const p = mine[0] ?? await apiPost<ActPackage>('/act/packages', { campaign_id: c.id, kind: 'bundle', recipients: ['meta_dsa', 'certpl', 'google'] }, () => localDraft(c));
+      setPkg(p); setText(p.notice_text ?? '');
+    })().catch((e: Error) => { asked.current = false; setFail(e.message); });
   }, [c, pkg]);
 
   if (fail) return (
@@ -72,7 +79,8 @@ export default function ZgloszeniePage() {
   if (!c || !pkg) return <Loading />;
   const nRec = Object.values(rec).filter(Boolean).length;
   const cnt = pkg.contents ?? {};
-  const countFor = (rid: string) => rid === 'meta_dsa' ? `${n(cnt.ads ?? 0)} reklam · ${n(cnt.advertisers ?? 0)} kont` : rid === 'certpl' ? `${n(cnt.certpl_new ?? cnt.domains ?? 0)} domen` : `${n(cnt.domains ?? 0)} domen`;
+  const dom = (k: number) => plural(k, 'domena', 'domeny', 'domen');
+  const countFor = (rid: string) => rid === 'meta_dsa' ? `${plural(cnt.ads ?? 0, 'reklama', 'reklamy', 'reklam')} · ${plural(cnt.advertisers ?? 0, 'konto', 'konta', 'kont')}` : rid === 'certpl' ? dom(cnt.certpl_new ?? cnt.domains ?? 0) : dom(cnt.domains ?? 0);
   const dl = (fmt: string) => (isOffline() || pkg.id === 'ACT-local' ? undefined : `${API}/act/packages/${pkg.id}/download?format=${fmt}`);
 
   async function send() {
@@ -89,8 +97,8 @@ export default function ZgloszeniePage() {
         <Crumbs items={[{ label: 'Kampanie', href: '/kampanie' }, { label: c.id, href: `/kampanie/${c.id}` }, { label: 'Nowe zgłoszenie' }]} />
         <ReportHeader
           title="Zgłoś całą kampanię naraz"
-          lead={`Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami i dowodami, zamiast ${n(cnt.ads ?? c.n_incidents)} osobnych.`}
-          meta={`${campaignTitle(c).length <= 28 ? `${c.id} ${campaignTitle(c)}` : c.id} · ${n(cnt.ads ?? 0)} reklam · ${n(cnt.domains ?? 0)} domen · ${n(cnt.advertisers ?? 0)} reklamodawców`}
+          lead={`Każdy odbiorca dostaje jedno zgłoszenie ze wszystkimi reklamami i dowodami, zamiast ${plural(cnt.ads ?? c.n_incidents ?? 0, 'osobnego', 'osobnych', 'osobnych')}.`}
+          meta={`${campaignTitle(c).length <= 28 ? `${c.id} ${campaignTitle(c)}` : c.id} · ${plural(cnt.ads ?? 0, 'reklama', 'reklamy', 'reklam')} · ${plural(cnt.domains ?? 0, 'domena', 'domeny', 'domen')} · ${plural(cnt.advertisers ?? 0, 'reklamodawca', 'reklamodawcy', 'reklamodawców')}`}
           primary={<button type="button" className="btn-pri" disabled={!nRec} onClick={() => { setConfirm(false); dlg.current?.showModal(); }}>Wyślij {nRec} {nRec === 1 ? 'zgłoszenie' : 'zgłoszenia'}<IArrow /></button>}
           secondary={<span className="text-[12.5px] text-tx3 max-w-[300px] sm:text-right">Demo: pakiet zostanie przygotowany i wyeksportowany, nic nie wyjdzie na zewnątrz.</span>}
         />

@@ -74,6 +74,7 @@ export function JellyRoot({ mode = 'plain', fieldState = 'asleep', wakeKey = 0, 
       <canvas
         ref={cv}
         aria-hidden="true"
+        className={mode === 'field' ? 'max-sm:!hidden' : undefined}
         style={mode === 'field'
           ? { position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 3 }
           : { position: 'fixed', inset: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 30 }}

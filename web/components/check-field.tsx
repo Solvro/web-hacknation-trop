@@ -146,7 +146,7 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
         </ul>
       )}
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-2 pt-1.5">
-        <div className="flex flex-wrap md:flex-nowrap gap-1.5 min-w-0">
+        <div className="flex flex-wrap gap-1.5 min-w-0 flex-1">
           {CHIPS.map((c) => (
             <span key={c.key}>
               <button type="button" className="chip whitespace-nowrap" onClick={() => inputs.current[c.key]?.click()}>
@@ -173,7 +173,7 @@ export function CheckField({ initial = DEMO_URL, onWake, compact }: { initial?: 
             <ISearch width={14} height={14} />Domena lub osoba
           </button>
         </div>
-        <button type="submit" className="btn-pri" disabled={busy}>
+        <button type="submit" className="btn-pri flex-none" disabled={busy}>
           {progress != null && progress < 1 ? `Wysyłanie ${Math.round(progress * 100)}%` : busy ? 'Budzę boty…' : 'Sprawdź'}<IArrow />
         </button>
       </div>

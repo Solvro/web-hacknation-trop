@@ -25,7 +25,9 @@ const FIELD: Record<string, string> = {
   url_param_schema: 'Gramatyka URL', chain_param_schema: 'Gramatyka URL', google_ad: 'Google Ads', ga4: 'GA4', gtm: 'GTM', tiktok_pixel: 'Piksel TikTok',
   headline_template: 'Szablon nagłówka', h1_template: 'Szablon H1', comment_name: 'Fałszywy komentujący', brand: 'Marka', cdn: 'CDN', ns_pair: 'Para NS',
   ns: 'Serwery DNS', registrar: 'Rejestrator', asn: 'ASN', path_shape: 'Kształt ścieżki', entry_path_template: 'Ścieżka wejścia', video_host: 'Hosting wideo',
-  kit: 'Zestaw strony', capi: 'Bramka CAPI', pixel: 'Piksel', content: 'Treść',
+  kit: 'Zestaw strony', capi: 'Bramka CAPI', pixel: 'Piksel', content: 'Treść', text_minhash: 'Tekst strony', dom_minhash: 'Struktura strony',
+  registrar_batch: 'Partia rejestracji', cert_batch: 'Partia certyfikatów', ad_text: 'Tekst reklamy', vertical: 'Branża', brand_asset: 'Plik marki',
+  advertiser: 'Reklamodawca', entry_url: 'Adres wejścia', domain_shape: 'Kształt domeny',
 };
 const meta = (n?: GraphNode) => (n?.meta ?? {}) as { field?: string; value?: string; layer?: string; count?: number; sub?: string; thumb?: unknown };
 const fieldKey = (f?: string) => (f ?? '').replace(/s$/, '');
@@ -132,7 +134,7 @@ export function GraphExplorer({ originId, decision, names, originTitle, originTh
       const field = fieldKey(m.field ?? nd.id.split(':')[1]);
       const value = m.value ?? nd.id.split(':').slice(2).join(':');
       const layer = m.layer ?? (nd.id.includes(':cdn:') ? 'infra' : undefined);
-      return { title: FIELD[field] ?? (layer ? LAYER_LABEL[layer as Layer] : 'Ślad'), sub: shortVal(value, 24), layer };
+      return { title: FIELD[field] ?? FIELD[m.field ?? ''] ?? (layer ? LAYER_LABEL[layer as Layer] : 'Ślad'), sub: shortVal(prettyDisplay(value), 26), layer };
     }
     if (nd.kind === 'person') return { title: personName(nd.label || nd.id.replace(/^person:/, '')), sub: 'osoba', layer: 'persons' };
     if (nd.kind === 'domain') return { title: shortVal(nd.label || nd.id.replace(/^d[:-]/, ''), 28), sub: 'domena' };
@@ -279,6 +281,13 @@ export function GraphExplorer({ originId, decision, names, originTitle, originTh
     const g = await fetchFocus(id).catch(() => null);
     setBusy(null);
     if (!g || !g.nodes?.length) { setNote('Ten węzeł nie ma więcej powiązań w bazie.'); return; }
+    // the API resolves aliases (trace:fb_pixel:… → trace:fb_pixels:…): continue with the real id
+    const realId = g.focus && g.nodes.some((x) => x.id === g.focus) ? g.focus : id;
+    if (realId !== id) {
+      if (expRef.current.includes(realId)) { setSelected(realId); return; }
+      id = realId;
+      setSelected(realId);
+    }
     const ns = { ...nodesRef.current };
     let center = ns[id];
     if (!center) {
@@ -378,7 +387,8 @@ export function GraphExplorer({ originId, decision, names, originTitle, originTh
     const p: FocusPanel = { ...raw, facts: raw.facts?.filter((f) => f.v && f.v !== '—') };
     if (nd.kind === 'trace') {
       p.kind_label = `Ślad · ${LAYER_LABEL[(l.layer ?? 'kit') as Layer] ?? ''}`;
-      p.title = `${l.title}: ${m.value ?? ''}`;
+      const value = m.value ?? nd.id.split(':').slice(2).join(':');
+      p.title = value ? `${l.title}: ${prettyDisplay(value)}` : l.title;
       p.description = [l.layer ? LAYER_HINT[l.layer as Layer] : '', m.count != null ? `Ten ślad ma ${plural(m.count, 'materiał', 'materiały', 'materiałów')} w bazie.` : ''].filter(Boolean).join(' ');
     } else if (nd.kind === 'incident') {
       p.title = (nd.id === originId ? originTitle : titles.get(nd.id)) || nd.id;

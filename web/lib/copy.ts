@@ -123,6 +123,17 @@ export function prettyDisplay(s: string | null | undefined): string {
   out = out.replace(/^Tenant kitu:/, 'Konto operatora w zestawie strony:').replace(/^Endpointy kitu:/, 'Adresy API zestawu strony:').replace(/^Endpoint kitu:/, 'Adres API zestawu strony:');
   out = out.replace(/\bshared \(e\.g\. /g, 'wspólne (np. ').replace(/\(e\.g\. /g, '(np. ');
   out = out.replace(/\b(investment|health|gov|crypto|loans|spiritual)\b/g, (v: string) => VERTICAL[v] ?? v).replace(/ != /g, ' ≠ ');
+  // engine tokens → Polish
+  out = out.replace(/jaccard=([\d.]+)/g, (_m, v: string) => `podobieństwo ${Math.round(parseFloat(v) * 100)}%`);
+  out = out.replace(/\('([a-z0-9-]+)', \('(no)?dash', '(no)?digit', (\d+)\)\)/g, (_m, tld: string, nd: string, ng: string, k: string) => {
+    const parts = [`.${tld}`, nd && ng ? 'bez myślników i cyfr' : nd ? 'bez myślników' : ng ? 'bez cyfr' : 'z myślnikami i cyframi', `${+k * 3}–${+k * 3 + 2} znaków`];
+    return parts.join(', ');
+  });
+  out = out.replace(/\b([0-9a-f]{8})-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi, 'UUID $1…');
+  out = out.replace(/\b([0-9a-f]{8})[0-9a-f]{24,}\b/gi, '$1…');
+  out = out.replace(/(\.[a-z]{2,})\|/g, '$1 + ');
+  out = out.replace(/ created (\d+) min apart/g, ', rejestracje w odstępie $1 min').replace(/ issued (\d+) min apart/g, ', wystawione w odstępie $1 min');
+  out = out.replace(/(\d+) wspólne\b/g, (_m, k: string) => `${k} ${+k === 1 ? 'wspólny' : +k % 10 >= 2 && +k % 10 <= 4 && (+k % 100 < 10 || +k % 100 >= 20) ? 'wspólne' : 'wspólnych'}`);
   // masked template slots stay visible as slots: {per} → {PER} (never filled in)
   out = out.replace(/\{([a-z]{2,8})\}/g, (_m, k: string) => `{${k.toUpperCase()}}`);
   return out;
@@ -150,5 +161,8 @@ const EN = /\b(the|via|and|of|for|with|investment|cure|fake|interview|pain|loss|
 export const isPolish = (t?: string | null) => !!t && !EN.test(t) && /[ąćęłńóśźż]|\b(i|w|z|na|do|się|nie|przez|oraz|dla)\b/i.test(t);
 export const plOnly = (t?: string | null) => (isPolish(t) ? t! : '');
 export const BOT_FOR_LAYER: Record<string, BotName> = { tracking: 'tropiciel', kit: 'tropiciel', content: 'czytelnik', persons: 'czytelnik', infra: 'notariusz', visual: 'zwiadowca', ad: 'zwiadowca', media: 'czytelnik' };
-export const plural = (k: number, one: string, few: string, many: string) => `${n(k)} ${k === 1 ? one : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? few : many}`;
+/** Polish plural form only: pluralWord(5, 'materiał', 'materiały', 'materiałów') → 'materiałów'. */
+export const pluralWord = (k: number, one: string, few: string, many: string) => (k === 1 ? one : k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? few : many);
+/** Number + Polish plural: plural(2, 'materiał', 'materiały', 'materiałów') → '2 materiały'. */
+export const plural = (k: number, one: string, few: string, many: string) => `${n(k)} ${pluralWord(k, one, few, many)}`;
 export const verticalPl = (v?: string | null) => (v ? VERTICAL[v] ?? v : '');

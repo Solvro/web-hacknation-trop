@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import s from '../sprawdz.module.css';
-import { check, type CheckResult } from './api';
+import { check, CheckError, type CheckResult } from './api';
 import { ResultCard } from './ResultCard';
 
 export function CheckForm() {
@@ -21,8 +21,13 @@ export function CheckForm() {
       const looksUrl = /^https?:\/\//i.test(v) || /^[\w-]+(\.[\w-]+)+(\/|$)/.test(v);
       const r = await check({ url: looksUrl ? v : undefined, text: !looksUrl && v ? v : undefined, image: file });
       setOut({ r, src: v });
-    } catch {
-      setError('Nie udało się połączyć z serwerem. Spróbuj za chwilę.');
+    } catch (err) {
+      // say what really happened: no connection vs. the server refusing this input
+      if (err instanceof CheckError) {
+        setError(err.status === 413 ? 'Plik jest za duży. Wgraj mniejszy zrzut ekranu.'
+          : err.status >= 500 ? `Serwer ma chwilowy problem (błąd ${err.status}). Spróbuj za chwilę.`
+          : `Serwer nie przyjął zgłoszenia (błąd ${err.status})${err.message ? `: ${err.message}` : ''}.`);
+      } else setError('Nie udało się połączyć z serwerem. Sprawdź połączenie i spróbuj za chwilę.');
     } finally {
       setBusy(false);
     }

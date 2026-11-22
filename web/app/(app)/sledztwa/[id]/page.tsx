@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useMemo, useState } from 'react';
 import type { Campaign, Event, Investigation, InvestigationNode, InvestigationStep } from '@/lib/contracts';
 import { apiPost, isOffline, useApi } from '@/lib/api';
-import { BOT_BY_KEY, botName, n } from '@/lib/copy';
+import { BOT_BY_KEY, botName, n, plural } from '@/lib/copy';
 import { useEventStream } from '@/lib/stream';
 import { investigationEvents } from '@/lib/mock/kampanie';
 import { Bot, JellyRoot } from '@/components/jelly';
@@ -147,7 +147,7 @@ function Sledztwo() {
       <Page>
         {crumbs}
         <ReportHeader
-          title={`Znaleźliśmy ${uniqNew.length} nowych domen${adsN ? ` i ${adsN} reklam` : ''}`}
+          title={`Znaleźliśmy ${plural(uniqNew.length, 'nową domenę', 'nowe domeny', 'nowych domen')}${adsN ? ` i ${plural(adsN, 'reklamę', 'reklamy', 'reklam')}` : ''}`}
           lead={`${certNight ? `${certNight === 1 ? 'Jedna domena dostała' : `${['', '', 'Dwie', 'Trzy', 'Cztery'][certNight] ?? certNight} domeny dostały`} certyfikat tej nocy. ` : ''}Żadnej z nowych nie ma jeszcze na liście CERT PL.`}
           meta={`${id} · start ${seed} · ${stepN} kroków`}
           primary={cid ? <button type="button" className="btn-pri" onClick={promote} disabled={busy}>{busy ? 'Dodaję…' : 'Dodaj do kampanii'}<IArrow /></button> : <Link className="btn-pri" href="/kampanie">Wybierz kampanię<IArrow /></Link>}
