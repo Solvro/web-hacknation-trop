@@ -48,6 +48,7 @@ function camAt(cams: Cam[] | undefined, t: number): Cam {
 
 const PAGES: Record<string, string> = {
   sprawdz: 'trop.b.solvro.pl',
+  graf: 'trop.b.solvro.pl/analiza',
   nowa: 'trop.b.solvro.pl',
   live: 'trop.b.solvro.pl',
   kampanie: 'trop.b.solvro.pl/kampanie',

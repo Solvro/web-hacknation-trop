@@ -14,7 +14,7 @@
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { homedir, tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { type BrowserContext, type CDPSession, chromium, type Locator, type Page } from 'playwright';
@@ -283,6 +283,21 @@ class Driver implements Ctl {
     process.stdout.write(`    (until: cap ${capMs} ms reached)\n`);
   }
 
+  /**
+   * Waits for an element. While recording, the page clock only moves when frames are
+   * taken, so a plain waitFor would starve timer-driven fetches: advance frames instead.
+   */
+  private async ensure(l: Locator, state: 'visible' | 'attached'): Promise<void> {
+    const ok = () => (state === 'visible' ? l.isVisible() : l.count().then((n) => n > 0));
+    if (!this.recording) {
+      await l.waitFor({ state, timeout: 60_000 });
+      return;
+    }
+    if (await ok().catch(() => false)) return;
+    await this.until(ok, 25_000);
+    if (!(await ok().catch(() => false))) throw new Error(`never ${state}: ${l}`);
+  }
+
   async untilVisible(t: Target, capMs = 30_000): Promise<void> {
     const l = this.loc(t);
     await this.until(() => l.isVisible(), capMs);
@@ -305,16 +320,16 @@ class Driver implements Ctl {
     this.my = y;
   }
 
-  async moveTo(t: Target, ms = 700, at: { x?: number; y?: number } = {}): Promise<void> {
+  async moveTo(t: Target, ms = 700, at: { x?: number; y?: number } = {}, retried = false): Promise<void> {
     const l = this.loc(t);
-    await l.waitFor({ state: 'visible', timeout: 30_000 });
+    await this.ensure(l, 'visible');
     const box = await l.boundingBox();
     if (!box) throw new Error(`no box for ${String(t)}`);
-    // keep the target on screen first
-    if (box.y < 60 || box.y + box.height > VIEW.height - 20) {
-      const y = (await this.page.evaluate('window.scrollY')) as number;
-      await this.scrollBy(box.y - VIEW.height * 0.4, 700);
-      return this.moveTo(t, ms, at);
+    // keep the target on screen first (once: a target near the page end may never centre)
+    const cy = box.y + box.height * (at.y ?? 0.5);
+    if (!retried && (cy < 70 || cy > VIEW.height - 40)) {
+      await this.scrollBy(cy - VIEW.height * 0.45, 700);
+      return this.moveTo(t, ms, at, true);
     }
     await this.cursorTo(box.x + box.width * (at.x ?? 0.5), box.y + box.height * (at.y ?? 0.5), ms);
   }
@@ -362,7 +377,7 @@ class Driver implements Ctl {
   /** Scrolls so the target's top sits at `frac` of the viewport. */
   async scrollTo(t: Target, ms = 900, frac = 0.12): Promise<void> {
     const l = this.loc(t);
-    await l.waitFor({ state: 'attached', timeout: 30_000 });
+    await this.ensure(l, 'attached');
     const top = (await l.evaluate((e) => e.getBoundingClientRect().top)) as number;
     await this.scrollBy(top - VIEW.height * frac, ms);
   }
@@ -388,8 +403,11 @@ async function newContext(shot: Shot): Promise<BrowserContext> {
   if (shot.extension) {
     const ud = join(tmpdir(), `trop-ext-${process.pid}`);
     rmSync(ud, { recursive: true, force: true });
+    // extensions need the full Chromium build, not the headless shell
+    const full = [1255, 1243, 1234].map((v) => join(homedir(), `.cache/ms-playwright/chromium-${v}/chrome-linux64/chrome`)).find((p) => existsSync(p));
     return chromium.launchPersistentContext(ud, {
       ...common,
+      executablePath: process.env.CHROME ?? full,
       headless: false,
       args: ['--headless=new', `--disable-extensions-except=${EXT_DIR}`, `--load-extension=${EXT_DIR}`],
     });

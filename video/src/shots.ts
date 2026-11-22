@@ -58,17 +58,40 @@ export const SHOTS: Shot[] = [
       await c.wait(2600);
       await c.scrollTo(c.page.locator('figcaption', { hasText: 'Strona docelowa' }).first(), 1300, 0.1);
       c.label('outlines');
-      await c.wait(3200);
-      await c.scrollBy(-3000, 1000);
-      await c.wait(300);
+      await c.wait(3400);
+      c.label('end');
+    },
+  },
+  {
+    // Raport → Graf on the incident page of a fresh check of the same sample. (A finished
+    // job's stream expires on the server while a slow take is still recording, so the
+    // Graf switch cannot stay on the /analiza/JOB-… page.)
+    id: 'graf',
+    warm: false,
+    async run(c) {
+      await c.goto('/');
+      await c.click(/Wiem, kto strzelał/, 1);
+      await c.untilVisible(/Dołącza do kampanii/, 60_000);
+      const inc = /INC-U[0-9A-F]+/.exec(await c.page.locator('main').innerText())?.[0];
+      if (!inc) throw new Error('no incident id on the report');
+      await c.goto(`/analiza/${inc}`);
+      await c.mark();
+      await c.wait(1200);
       await c.click(c.page.getByRole('button', { name: 'Graf', exact: true }), 800);
       c.label('graf');
       await c.wait(500);
-      await c.scrollTo(c.page.getByText('Kliknij węzeł, żeby go rozwinąć'), 1000, 0.08);
-      await c.wait(1600);
-      await c.click(c.page.getByRole('button', { name: /^Lander/ }).first(), 900);
-      c.label('node');
-      await c.wait(3400);
+      await c.scrollTo(c.page.getByText(/^Kliknij węzeł/).first(), 1000, 0.05);
+      await c.wait(1500);
+      // graph nodes are SVG buttons: "Osoba: …", "Kampania: …", "Operator: …"
+      await c.click(c.page.getByRole('button', { name: /^Osoba: Rafał Brzoska/ }), 900, { y: 0.3 });
+      c.label('person');
+      await c.wait(2800);
+      await c.click(c.page.getByRole('button', { name: /^Kampania: KMP-001/ }), 900, { y: 0.3 });
+      c.label('campaign');
+      await c.wait(2800);
+      await c.click(c.page.getByRole('button', { name: /^Operator: OP-01/ }), 900, { y: 0.3 });
+      c.label('operator');
+      await c.wait(2800);
       c.label('end');
     },
   },
