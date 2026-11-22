@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from .pl import n_accounts, n_ads, n_domains
+
 REPORTER = {"name": "Zespół analityczny TROP (HackNation 2026, projekt demonstracyjny)", "email": "trop@example.org"}
 GOOD_FAITH = ("Oświadczam w dobrej wierze, że informacje i zarzuty zawarte w niniejszym zgłoszeniu są prawidłowe "
               "i kompletne (art. 16 ust. 2 lit. d DSA).")
@@ -40,8 +42,8 @@ def template_notice(d: dict[str, Any]) -> str:
     who = ", ".join(f["podszywa_się_pod_media"] + f["podszywa_się_pod_osoby"][:3]) or "znane media i osoby publiczne"
     traces = "; ".join(f["wspólne_ślady"][:3]) or "wspólne elementy techniczne stron"
     return (f"Zgłoszenie na podstawie art. 16 DSA.\n\n"
-            f"Zgłaszamy {f['reklamy']} reklam z {f['reklamodawcy']} kont reklamodawców. Wszystkie należą do jednej kampanii "
-            f"oszustwa {f['kampania']}. Reklamy podszywają się pod: {who}, a prowadzą na {f['domeny']} domen z fałszywymi "
+            f"Zgłaszamy {n_ads(f['reklamy'])} z {n_accounts(f['reklamodawcy'])}. Wszystkie należą do jednej kampanii "
+            f"oszustwa {f['kampania']}. Reklamy podszywają się pod: {who}, a prowadzą na {n_domains(f['domeny'])} z fałszywymi "
             f"stronami, które wyłudzają dane i pieniądze.\n\n"
             f"Wspólne ślady: {traces}. Lista reklam, adresów i dowodów jest w załączniku.\n\n"
             f"Prosimy o usunięcie wszystkich wymienionych reklam i zablokowanie kont reklamodawców.")
@@ -70,9 +72,9 @@ def certpl_text(d: dict[str, Any], domains: list[dict]) -> str:
     lines = "\n".join(f"- {x['fqdn']}" + (f" (certyfikat {x['cert_issued_at'][:16].replace('T', ' ')})" if x.get("cert_issued_at") else "")
                       for x in domains)
     traces = "; ".join(e["display"] for e in d["evidence"][:3])
-    return (f"Do: CERT Polska — lista ostrzeżeń (incydent@cert.pl)\nTemat: {len(domains)} domen kampanii oszustwa "
+    return (f"Do: CERT Polska — lista ostrzeżeń (incydent@cert.pl)\nTemat: {n_domains(len(domains))} kampanii oszustwa "
             f"{d['id']} «{d['name']}» do wpisania na listę ostrzeżeń\n\n"
-            f"Dzień dobry,\n\nprzekazujemy {len(domains)} domen, których jeszcze nie ma na liście ostrzeżeń, a które należą do "
-            f"jednej kampanii oszustwa ({d['counts']['ads']} reklam, {d['counts']['domains']} domen łącznie). "
+            f"Dzień dobry,\n\nprzekazujemy {n_domains(len(domains))}, których jeszcze nie ma na liście ostrzeżeń, a które należą do "
+            f"jednej kampanii oszustwa ({n_ads(d['counts']['ads'])}, {n_domains(d['counts']['domains'])} łącznie). "
             f"Łączą je wspólne ślady techniczne: {traces}.\n\n{lines}\n\n"
             f"Szczegóły i dowody dla każdej domeny są w załączonym pliku JSON/STIX 2.1.\n\nZ poważaniem\n{REPORTER['name']}")

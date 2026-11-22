@@ -18,6 +18,11 @@ async def startup(ctx: dict) -> None:
     except Exception:  # noqa: BLE001 - stub mode without engine
         pass
     try:
+        from trop.agent import service as svc
+        await asyncio.get_running_loop().run_in_executor(None, svc.reap_stale)     # B8: investigations orphaned by the previous worker
+    except Exception:  # noqa: BLE001
+        pass
+    try:
         from trop.worker import hooks
         ctx["scheduler"] = hooks.install()
     except Exception:  # noqa: BLE001

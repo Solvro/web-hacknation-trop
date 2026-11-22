@@ -279,6 +279,7 @@ class Sample(_C):
     description: str
     expected: str
     size: int
+    expected_label: str = ""       # Polish outcome for the UI: "kampania KMP-001" | "nowa kampania (kandydat)"
 
 
 class NoticeUpdate(_C):

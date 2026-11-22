@@ -183,6 +183,11 @@ class ServiceAdapter:
             for _, d in held:
                 if d.get("decision"):
                     d["decision"]["duplicate_of"] = dup
+        if no_signals(inc, dec):
+            dec.signals = "none"
+            for _, d in held:
+                if d.get("decision"):
+                    d["decision"]["signals"] = "none"
         for f in findings:
             emit("job.finding", {"job_id": jid, "finding": f.model_dump(mode="json")})
         _remember(inc, dec)
@@ -234,16 +239,36 @@ def _common_dir(paths: list[str]):
     return Path(paths[0]).parent
 
 
+SCAM_TRACE_FIELDS = ("fb_pixels", "capi_gateways", "google_ads", "kit_tenants", "lander_ids", "kit_endpoints", "tiktok_pixels", "landing_type_ids")
+
+
+def no_signals(inc: dict, dec: Decision) -> bool:
+    """True when nothing links the material to the corpus and it carries none of the typical scam traces (kit, pixels, persons, CERT PL)."""
+    if dec.decision not in ("new", "insufficient") or any(e.state == "match" and e.weight > 0 for e in dec.evidence):
+        return False
+    trk, con, inf = inc.get("tracking") or {}, inc.get("content") or {}, inc.get("infra") or {}
+    if any(trk.get(k) for k in SCAM_TRACE_FIELDS) or con.get("persons") or inf.get("on_certpl_list"):
+        return False
+    return not (dec.same_operator_as or dec.candidate_campaign_id)
+
+
 def _remember(inc: dict, dec: Decision) -> None:
     """Keep the analysed incident + decision for GET /incidents/{id} (Redis 7 days; DB best effort)."""
     import json
+    import logging
+    doc = {"incident": inc, "decision": dec.model_dump(mode="json")}
+    try:
+        from trop.worker import persist
+        persist.save_incident(dec.incident_id, doc)                 # the data volume is the source of truth, Redis a cache
+    except Exception:  # noqa: BLE001
+        logging.getLogger("trop.worker").exception("incident %s not persisted", dec.incident_id)
     try:
         import redis
         from trop.config import settings
         r = redis.Redis.from_url(settings.redis_url)
-        r.set(f"trop:incident:{dec.incident_id}", json.dumps({"incident": inc, "decision": dec.model_dump(mode="json")}, default=str), ex=7 * 86400)
+        r.set(f"trop:incident:{dec.incident_id}", json.dumps(doc, default=str), ex=7 * 86400)
     except Exception:  # noqa: BLE001
-        pass
+        logging.getLogger("trop.worker").exception("incident %s not cached in redis", dec.incident_id)
     try:
         from trop.store.corpus import save_decision
         save_decision(dec, inc)
