@@ -1,0 +1,122 @@
+{
+  "lab": {
+    "seconds": 10.6,
+    "marks": {
+      "scroll": 2.6,
+      "end": 10.6
+    },
+    "capturedAt": "2026-11-21T23:29:40.745Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "kampanie": {
+    "seconds": 18.65,
+    "marks": {
+      "list": 2.4,
+      "campaign": 3.9166666666666665,
+      "package": 11.333333333333334,
+      "pdf": 16.25,
+      "end": 18.65
+    },
+    "capturedAt": "2026-11-21T23:38:33.875Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "sledztwo": {
+    "seconds": 35,
+    "marks": {
+      "start": 0,
+      "done": 27.8,
+      "end": 35
+    },
+    "capturedAt": "2026-11-21T23:47:41.635Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "nowa": {
+    "seconds": 19.516666666666666,
+    "marks": {
+      "analysis": 1.9166666666666667,
+      "verdict": 11.416666666666666,
+      "why": 15.016666666666667,
+      "end": 19.516666666666666
+    },
+    "capturedAt": "2026-11-21T23:49:06.130Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "live": {
+    "seconds": 18.383333333333333,
+    "marks": {
+      "analysis": 4.083333333333333,
+      "verdict": 12.683333333333334,
+      "end": 18.383333333333333
+    },
+    "capturedAt": "2026-11-21T23:52:29.181Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "extension": {
+    "seconds": 8.516666666666667,
+    "marks": {
+      "badge": 2,
+      "why": 4.916666666666667,
+      "end": 8.516666666666667
+    },
+    "capturedAt": "2026-11-21T23:53:44.875Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "sprawdz": {
+    "seconds": 23.216666666666665,
+    "marks": {
+      "click": 2.8,
+      "analysis": 3.216666666666667,
+      "verdict": 15.916666666666666,
+      "outlines": 19.816666666666666,
+      "end": 23.216666666666665
+    },
+    "capturedAt": "2026-11-21T23:57:29.465Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "graf": {
+    "seconds": 17.766666666666666,
+    "marks": {
+      "graf": 2.4166666666666665,
+      "person": 6.733333333333333,
+      "campaign": 10.85,
+      "operator": 14.966666666666667,
+      "end": 17.766666666666666
+    },
+    "capturedAt": "2026-11-22T00:02:05.096Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "slad": {
+    "seconds": 20.783333333333335,
+    "marks": {
+      "domain": 4.466666666666667,
+      "person": 14.083333333333334,
+      "end": 20.783333333333335
+    },
+    "capturedAt": "2026-11-22T08:23:08.831Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "drop": {
+    "seconds": 29.416666666666668,
+    "marks": {
+      "drop": 5.5,
+      "analysis": 8.516666666666667,
+      "verdict": 22.116666666666667,
+      "outlines": 26.016666666666666,
+      "end": 29.416666666666668
+    },
+    "capturedAt": "2026-11-22T08:24:54.184Z",
+    "origin": "https://trop.b.solvro.pl"
+  },
+  "drop2": {
+    "seconds": 29.416666666666668,
+    "marks": {
+      "drop": 5.5,
+      "analysis": 8.516666666666667,
+      "verdict": 22.116666666666667,
+      "outlines": 26.016666666666666,
+      "end": 29.416666666666668
+    },
+    "capturedAt": "2026-11-22T08:28:22.372Z",
+    "origin": "https://trop.b.solvro.pl"
+  }
+}

@@ -1,6 +1,6 @@
 # TROP: morning report
 
-> Kept current by the lead session. Times are Europe/Warsaw. Last update: 22.11 00:10.
+> Kept current by the lead session. Times are Europe/Warsaw. Last update: 22.11 ~10:45 (after submission).
 
 ## TL;DR
 - **Live:** https://trop.b.solvro.pl runs the **real product on real data**, with no mock data. It does live URL capture (sandboxed Chromium worker) and live LLM features (Gemini, capped at $10). Coolify: project "Hackatony" → environment `hacknation-2026-trop` → application `trop`.
@@ -50,11 +50,17 @@
 - SpeechBrain voice: replaced by a WeSpeaker ONNX model on CPU. Deepfake score: skipped.
 - Google Ads Transparency: advertiser rows only; each query scans 6–35 GB.
 
-## Known bugs / in progress
-- **Production investigations hang at 0 steps in live mode**; they work locally. A diagnostics endpoint and a fix are in progress.
-- Production QA click-through in progress (results below when done).
+## Final checks (22.11 ~10:45, production)
+- Samples: DANE 1 → KMP-001 · DANE 3 → KMP-003 · DANE 36 → new · DANE 5 (video only) → new. Upload of DANE 2 as ZIP → KMP-001. Batch of a ZIP with several folders → results.csv.
+- Fixed overnight after the production QA: results survive restarts (stored on disk), investigations work in live mode (root cause: file permissions between the API and the uid-1000 Chromium worker; found with `/api/v1/debug/worker`), uploads > 8 MB go in 2 MiB chunks (Coolify proxy ~60 s limit), real page renders with evidence outlines, Graf unfolds in place, Polish exports and plurals, Sędzia only vetoes and explains in Polish.
+
+## Known limitations
+- Live investigations depend on what the live sources return (one run 50 sibling domains / 23 new, another 3 new).
+- Graf: "Partia certyfikatów" has no node yet (few certificate records in the bundled data).
+- The extension is demonstrated on the fixture feed; real facebook.com untested.
+- The pitch slides were drawn on the fictional design universe; a consistency pass to the real campaign ids was requested at the end.
 
 ## Needs Dawid
-- **Final video:** a demo video session is rendering 2–4 versions (≤ 2 min) to choose from.
-- **Pitch deck:** canvas with 4 style variants (publishes after 01:00).
-- **Hunter scheduler:** turn it on on the server? Meta every 2 h, CERT PL hourly, urlscan/Oracle every 6 h.
+- **Repo access for the jury:** the repository is private — add the organizers as collaborators, or make it public only after removing organizer-derived files (`deploy/bundle/`, RESULTS, DATA_NOTES, ATLAS, labels, `campaigns_pl.json`).
+- **Video:** versions A/B/C/D in `data/video/` (D with your voice-over: `TROP-demo-D-zgrai-lektor.mp4`); upload the chosen one to YouTube (Listed).
+- **Hunter scheduler:** still off on the server (manual runs only).

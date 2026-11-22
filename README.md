@@ -21,6 +21,12 @@ Every verdict comes with the evidence behind it, how rare that evidence is, and 
 | **Hunter** | Live sources: Meta Ad Library, Google Ads Transparency, the CERT PL list and urlscan pivots. |
 | **Act** | One takedown package per campaign: a DSA Art. 16 notice, a CERT PL draft and a STIX 2.1 bundle. It only prepares and exports; nothing is sent automatically. |
 
+## Live demo
+
+- **https://trop.b.solvro.pl**, the real product on the task data, no login. Click a sample on Sprawdź, or drop your own folder or ZIP (one case per folder). Lab → „Importuj zbiór” takes a ZIP of many folders and returns `results.csv`.
+- Browser extension: `extension/dist/trop-extension.zip` (Load unpacked), demo feed: https://trop.b.solvro.pl/demo/feed-real.html
+- Pitch deck: [docs/pitch/TROP-pitch-zgrai.pdf](docs/pitch/TROP-pitch-zgrai.pdf) · demo video project: [video/](video/) · submission texts: [docs/submission/SUBMISSION.md](docs/submission/SUBMISSION.md) · status: [docs/STATUS.md](docs/STATUS.md)
+
 ## Quickstart (offline, no keys)
 
 ```bash
