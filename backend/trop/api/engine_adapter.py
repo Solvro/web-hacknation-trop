@@ -249,6 +249,11 @@ def no_signals(inc: dict, dec: Decision) -> bool:
     trk, con, inf = inc.get("tracking") or {}, inc.get("content") or {}, inc.get("infra") or {}
     if any(trk.get(k) for k in SCAM_TRACE_FIELDS) or con.get("persons") or inf.get("on_certpl_list"):
         return False
+    ad, med = inc.get("ad") or {}, inc.get("media") or {}
+    if ad.get("advertiser") or ad.get("text") or ad.get("library_id") or med.get("asr_text") or med.get("video"):
+        return False                       # an ad (screenshot / Ad Library / video with a transcript) is never "no signals"
+    if con.get("vertical") in ("investment", "health", "gambling", "crypto"):
+        return False
     return not (dec.same_operator_as or dec.candidate_campaign_id)
 
 
