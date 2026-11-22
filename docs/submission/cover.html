@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1600px;height:1200px;background:#fff;font-family:Geist,system-ui,sans-serif;color:#0a0a0a;overflow:hidden;position:relative}
+  .grid{position:absolute;inset:0;background-image:radial-gradient(#e7e7e7 1.4px,transparent 1.4px);background-size:34px 34px;opacity:.9}
+  .left{position:absolute;left:96px;top:110px;width:640px}
+  .logo{display:inline-block;background:#0a0a0a;color:#fff;font-weight:800;font-size:96px;letter-spacing:-3px;padding:6px 34px 16px;border-radius:30px;line-height:1}
+  .tag{margin-top:34px;font-size:64px;font-weight:700;letter-spacing:-2px;line-height:1.02}
+  .tag span{color:#9a9a9a}
+  .lead{margin-top:30px;font-size:29px;line-height:1.42;color:#404040;width:500px}
+  .task{position:absolute;left:96px;bottom:92px;font:500 24px/1.4 'Geist Mono',monospace;color:#6b6b6b}
+  .task b{color:#0a0a0a;font-weight:500}
+  .bots{position:absolute;left:96px;bottom:168px;display:flex;gap:16px}
+  .bot{width:58px;height:66px;border-radius:30px 30px 22px 22px;position:relative;box-shadow:inset -6px -8px 0 rgba(0,0,0,.12)}
+  .bot:before,.bot:after{content:"";position:absolute;top:22px;width:12px;height:15px;background:#0a0a0a;border-radius:7px}
+  .bot:before{left:14px}.bot:after{right:14px}
+  .hat{position:absolute;top:-12px;left:6px;width:46px;height:14px;background:#1d1d1d;border-radius:8px 8px 3px 3px}
+  .hat:after{content:"";position:absolute;left:10px;top:-12px;width:26px;height:14px;background:#1d1d1d;border-radius:8px 8px 0 0}
+  svg{position:absolute;left:0;top:0}
+  .card{position:absolute;width:300px;background:#fff;border:2px solid #e3e3e3;border-radius:22px;padding:18px 20px;box-shadow:0 10px 30px rgba(0,0,0,.07)}
+  .card .k{font:500 15px/1 'Geist Mono',monospace;color:#8a8a8a;letter-spacing:.5px}
+  .card .t{margin-top:10px;font-size:20px;font-weight:600;line-height:1.25}
+  .card .d{margin-top:10px;font:500 15px/1 'Geist Mono',monospace;color:#6b6b6b}
+  .chip{display:inline-block;margin-top:12px;padding:5px 11px;border-radius:999px;font:600 14px/1.2 Geist;color:#fff}
+  .camp{position:absolute;left:1030px;top:500px;width:460px;background:#0a0a0a;color:#fff;border-radius:30px;padding:30px 34px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+  .camp .k{font:500 17px/1 'Geist Mono',monospace;color:#a3a3a3}
+  .camp .n{margin-top:12px;font-size:58px;font-weight:800;letter-spacing:-2px;line-height:1}
+  .camp .t{margin-top:12px;font-size:24px;font-weight:600;line-height:1.25}
+  .camp .ok{display:inline-flex;align-items:center;gap:10px;margin-top:20px;background:#22c55e;color:#03140a;font-weight:700;font-size:20px;padding:9px 18px;border-radius:999px}
+  .op{position:absolute;left:1180px;top:900px;background:#fff;border:2px dashed #8b5cf6;color:#5b21b6;border-radius:20px;padding:14px 22px;font-weight:600;font-size:21px}
+</style></head>
+<body>
+<div class="grid"></div>
+<svg width="1600" height="1200">
+  <g stroke="#0a0a0a" stroke-width="3" fill="none" opacity=".85">
+    <path d="M1000 180 C 1080 260, 1120 380, 1180 500"/>
+    <path d="M940 400 C 980 440, 1000 520, 1030 590"/>
+    <path d="M940 700 C 980 690, 1000 665, 1030 650"/>
+    <path d="M1130 960 C 1120 900, 1110 850, 1100 812"/>
+  </g>
+  <g stroke="#8b5cf6" stroke-width="3" stroke-dasharray="9 9" fill="none"><path d="M1290 812 L 1300 900"/></g>
+  <g fill="#0a0a0a"><circle cx="1180" cy="500" r="9"/><circle cx="1030" cy="590" r="9"/><circle cx="1030" cy="650" r="9"/><circle cx="1100" cy="812" r="9"/></g>
+</svg>
+
+<div class="left">
+  <div class="logo">trop</div>
+  <div class="tag">follow<br>the fake<span>.</span></div>
+  <p class="lead">Łączymy pojedyncze fałszywe reklamy w&nbsp;kampanie, operatorów i&nbsp;operacje — i&nbsp;pokazujemy, <b>dlaczego</b> są połączone.</p>
+</div>
+<div class="bots">
+  <div class="bot" style="background:#3b82f6"><i class="hat"></i></div>
+  <div class="bot" style="background:#f97316"><i class="hat"></i></div>
+  <div class="bot" style="background:#14b8a6"><i class="hat"></i></div>
+  <div class="bot" style="background:#8b5cf6"><i class="hat"></i></div>
+  <div class="bot" style="background:#ec4899"><i class="hat"></i></div>
+  <div class="bot" style="background:#facc15"><i class="hat"></i></div>
+</div>
+<div class="task"><b>NASK · Kolekcjoner fejków</b> · HackNation 2026</div>
+
+<div class="card" style="left:850px;top:70px">
+  <div class="k">REKLAMA · FACEBOOK</div>
+  <div class="t">„Wydarzenie, które wstrząsnęło całą Polską”</div>
+  <span class="chip" style="background:#3b82f6">Piksel FB +6.0</span>
+</div>
+<div class="card" style="left:640px;top:300px">
+  <div class="k">STRONA · civicdaybook.live</div>
+  <div class="t">«Wiem, kto strzelał» — fałszywa Gazeta.pl</div>
+  <span class="chip" style="background:#f97316">Zestaw strony +7.0</span>
+</div>
+<div class="card" style="left:640px;top:610px">
+  <div class="k">STRONA · acrosscommunities.live</div>
+  <div class="t">ten sam lander, nowa domena</div>
+  <span class="chip" style="background:#14b8a6">Tekst strony 98%</span>
+</div>
+<div class="card" style="left:990px;top:960px">
+  <div class="k">DOMENY · TA SAMA NOC</div>
+  <div class="t">rejestracje co kilka sekund</div>
+  <span class="chip" style="background:#d97706">Infra +3.0</span>
+</div>
+
+<div class="camp">
+  <div class="k">KAMPANIA</div>
+  <div class="n">KMP-001</div>
+  <div class="t">Fałszywy artykuł o zamachu prowadzi do „platform inwestycyjnych”</div>
+  <div class="ok">✓ Dołącza · pewność 0.99</div>
+</div>
+<div class="op">operator OP-01 · ta sama operacja</div>
+</body></html>
